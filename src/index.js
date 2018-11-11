@@ -11,8 +11,3 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // Learn more about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-
-const functions = require('firebase-functions');
-exports.helloWorld = functions.https.onRequest((req, res) => {
-    res.send('Hello, World!');
-   });
