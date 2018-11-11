@@ -27,7 +27,7 @@ class App extends Component {
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
     this.handleClose = this.handleClose.bind(this);
-    this.listenAuth = this.listenAuth.bind(this);
+    //this.listenAuth = this.listenAuth.bind(this);
     this.logout = this.logout.bind(this);
 
 
@@ -42,8 +42,8 @@ class App extends Component {
     this.setState({ open: false });
   };
 
-  componentDidMount() {
-    this.listenAuth()
+  /*componentDidMount() {
+    this.listenAuth();
   }
 
   listenAuth() {
@@ -54,7 +54,7 @@ class App extends Component {
         this.setState({ user: null });
       }
     });
-  }
+  }*/
 
   logout() {
     fire.auth().signOut();
