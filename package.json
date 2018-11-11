@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "ajv": "^6.5.5",
+>>>>>>> 18135c179ae56b36e87eb2f75478d095d2d62872
     "firebase": "^5.5.7",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
