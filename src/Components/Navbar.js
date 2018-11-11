@@ -15,6 +15,9 @@ class Navbar extends Component {
                 <Link to={routes.GUESTHOMEPAGE}>
                     <button id="Admin">Switch to guest</button>
                 </Link>
+                <Link to ={routes.LOGINPAGE}>
+                    <button id = "login"> login/register</button>
+                </Link>
             </div>
         );
     }
