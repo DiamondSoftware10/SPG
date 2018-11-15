@@ -8,6 +8,7 @@ import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 import Navbar from './Components/Navbar';
+import createBoard from './Constants/firebase';
 
 
 class App extends Component {
@@ -19,9 +20,10 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
+          <button onClick= "createBoard" > hola </button>
           <a
             className="App-link"
-            href="https://reactjs.org"
+            href="createBoard"
             target="_blank"
             rel="noopener noreferrer"
           >
