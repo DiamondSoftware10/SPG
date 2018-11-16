@@ -231,6 +231,14 @@ export const deleteAdmin = id => {
   });
 };
 
+//TESTED
+/*
+<button onClick={() =>createAdmin("Diego","Mendoza",98874898,"calvin@gmail.com" , "26/07/201")}>
+            Crear Usuario
+          </button>
+          <button onClick={() => listAdmin()}>Listar Usuarios</button>
+          <button onClick={() => deleteAdmin("kLPnQ3FE5JsNW6L0fB8n")}>Borrar </button>
+*/
 // Required for side-effects
 require("firebase/firestore");
 
