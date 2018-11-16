@@ -8,7 +8,7 @@ import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 import Navbar from './Components/Navbar';
-import createBoard from './Constants/firebase';
+import {createUser, listUsers} from './Constants/firebase';
 
 
 class App extends Component {
@@ -20,7 +20,8 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <button onClick= "createBoard" > hola </button>
+          <button onClick= {createUser("Calvin","E",98,"calvin@gmail.com","Honduras","19/09/98","",0,0,"",0,0)}> Crear </button>
+         <button onClick ={listUsers}>Listar Usuarios</button>
           <a
             className="App-link"
             href="createBoard"
