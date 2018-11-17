@@ -3,4 +3,10 @@ export const USERHOMEPAGE = '/UserHomepage';
 export const GUESTHOMEPAGE = '/GuestHomepage';
 export const LOGINPAGE = '/login';
 export const NEWPROJECT = '/newProject';
+export const HOME = '/';
+export const PROYECTOS = '/proyectos';
+export const ABOUT = '/about';
+
+
+
 

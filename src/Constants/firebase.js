@@ -55,8 +55,8 @@ export const listUsers = () => {
   return new Promise((resolve, reject) => {
     var listUsers = [];
 
-    usersRef.get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    usersRef.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         listUsers.push(doc.data());
@@ -154,8 +154,8 @@ export const listAdmin = () => {
   return new Promise((resolve, reject) => {
     var listAdmins = [];
 
-    adminRef.get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    adminRef.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         listAdmins.push(doc.data());
@@ -206,9 +206,26 @@ export const deleteAdmin = id => {
 };
 
 //CRUD PROJECT
-export const createProject = (title, timeProdxDay, raisedMoney, projectFinan, picProject, picFam, picCultures, locate, investor, investInitxBlock, infoZone, detailsProdxBlocks, desciption, creationDate, available, cultures) => {
+export const createProject = (
+  title,
+  timeProdxDay,
+  raisedMoney,
+  projectFinan,
+  picProject,
+  picFam,
+  picCultures,
+  locate,
+  investor,
+  investInitxBlock,
+  infoZone,
+  detailsProdxBlocks,
+  desciption,
+  creationDate,
+  available,
+  cultures
+) => {
   return new Promise((resolve, reject) => {
-    usersRef
+    projectRef
       .add({
         title: title,
         timeProdxDay: timeProdxDay,
@@ -226,65 +243,69 @@ export const createProject = (title, timeProdxDay, raisedMoney, projectFinan, pi
         creationDate: creationDate,
         available: available,
         cultures: cultures
-
       })
       .then(result => {
-        usersRef.resolve(true);
+        resolve(true);
       })
       .catch(err => {
         reject(false);
       });
   });
 };
-
 export const listProject = () => {
   return new Promise((resolve, reject) => {
-    var listUsers = [];
+    var listProject = [];
 
-    usersRef.get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
+    projectRef.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
-        listUsers.push(doc.data());
-        console.log("size:" + listUsers.length);
+        listProject.push(doc.data());
+        console.log("size:" + listProject.length);
       });
-      resolve(listUsers);
+      resolve(listProject);
     });
   });
 };
 export const updateProject = (
   id,
-  name,
-  last,
-  phone,
-  email,
-  nationality,
-  birth,
-  picture,
-  inversion,
+  title,
+  timeProdxDay,
+  raisedMoney,
+  projectFinan,
+  picProject,
+  picFam,
+  picCultures,
+  locate,
+  investor,
+  investInitxBlock,
+  infoZone,
+  detailsProdxBlocks,
+  desciption,
   creationDate,
-  notification,
-  investedMoney,
-  earnedMoney
+  available,
+  cultures
 ) => {
   return new Promise((resolve, reject) => {
-    usersRef
+    projectRef
       .doc(id)
       .update({
-        name: name,
-        last: last,
-        phone: phone,
-        email: email,
-        nationality: nationality,
-        picture: "",
-        inversion: [],
-        birth: birth,
+        title: title,
+        timeProdxDay: timeProdxDay,
+        raisedMoney: raisedMoney,
+        projectFinan: projectFinan,
+        picProject: picProject,
+        picFam: picFam,
+        picCultures: picCultures,
+        locate: locate,
+        investor: investor,
+        investInitxBlock: investInitxBlock,
+        infoZone: infoZone,
+        detailsProdxBlocks: detailsProdxBlocks,
+        desciption: desciption,
         creationDate: creationDate,
-        notification: [],
-        wallet: [],
-        shopping: [],
-        investedMoney: investedMoney,
-        earnedMoney: earnedMoney
+        available: available,
+        cultures: cultures
       })
       .then(result => {
         console.log("Borrado con exito");
@@ -300,7 +321,7 @@ export const updateProject = (
 
 export const deleteProject = id => {
   return new Promise((resolve, reject) => {
-    usersRef
+    projectRef
       .doc(id)
       .delete()
       .then(result => {
@@ -318,19 +339,42 @@ export const deleteProject = id => {
 export const queryIdProject = title => {
   return new Promise((resolve, reject) => {
     let query = projectRef.where("title", "==", title);
-    var temp;
-    console.log("Pijas")
-    query.get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        temp = Object.assign(doc.data());
-        console.log(temp.title);
 
-      })
-      resolve(temp);
-    })
-
-
+    console.log(query);
+    console.log("dadw");
+    resolve(query.get());
   });
 };
 // Required for side-effects
 require("firebase/firestore");
+/*
+  <button
+            onClick={() =>
+              createProject(
+                "Patuca",
+                200,
+                1200,
+                1000,
+                "https://static14.gestionaweb.cat/1324/img-1100-400/dsc00314.jpg",
+                ["https://www.gob.mx/cms/uploads/press/main_image/6141/post_La-Familia1_640.jpg" , "http://wrmx00.epimg.net/radio/imagenes/2009/09/14/nacional/1252967520_878571_1252971300_noticia_normal.jpg"],
+                ["https://www.ishs.org/sites/default/files/news-images/tomato.jpg" , "http://elestimulo.com/bienmesabe/wp-content/uploads/sites/7/2015/08/lim%C3%B3n.jpg"],
+                "San Lorenzo",
+                ["users/8HjFtAEwJv6lGV2wFOpj" , "users/1szPRsAsPXNVxuIkTap8"],  
+                100.25 , 
+                "El clima es templado y agradable para el cultivo de papas...",
+                "Cada manzana se divide...",
+                "Este proyecto busca promover el valor de ...",
+                "10/10/2018",
+                true  , 
+                ["Tomates" , "Zanahorias"]
+              )
+            }
+          >
+            Crear Usuario
+          </button>
+          <button onClick={() => listProject()}>Listar Usuarios</button>
+          <button onClick={() => deleteProject("UQXlpmkStGPSlD0tkUjt")}>
+            Borrar
+          </button>
+        
+*/

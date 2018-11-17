@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import './CustomNavbar.css'
+import * as routes from '../Constants/Routes';
+
 
 export default class CustomNavbar extends Component {
     render() {
@@ -11,15 +13,18 @@ export default class CustomNavbar extends Component {
                     <Navbar.Brand>
                         <Link to="#">Home</Link>
                     </Navbar.Brand>
-                    <Navbar.Toggle />
+                 {/* <Navbar.Toggle />*/}  
                 </Navbar.Header>
                 <Navbar.Collapse>
-                    <Nav pullRight>
+                    <Nav 
+                    >
                         <NavItem eventkey={1} componentClass={Link} to="/">
                             Home
                     </NavItem>
                         <NavItem eventkey={2} componentClass={Link} to="/about">
-                            About
+                        <Link to={routes.HOME}>
+                             <p id="User">HOME</p>
+                        </Link>
                     </NavItem>
                         <NavItem eventkey={3} componentClass={Link} to="/proyectos">
                             Proyectos
