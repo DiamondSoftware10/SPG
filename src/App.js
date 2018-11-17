@@ -9,9 +9,14 @@ import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 import Navbar from './Components/Navbar';
+<<<<<<< HEAD
 import Register from "./Components/Register";
 import LoginPage from "./Components/LoginPage";
 import fire from './Firebase/Fire';
+=======
+import {createUser, listUsers} from './Constants/firebase';
+import AddProject from './Components/NewProject';
+>>>>>>> 110c0ee7b77d9205015c88cc31a08b5fc719a580
 
 
 class App extends Component {
@@ -80,9 +85,14 @@ class App extends Component {
               component={() => <GuestHomepage />}
             />
             <Route
+<<<<<<< HEAD
               exact path={routes.LOGINPAGE}
               component={() => <LoginPage />}
 
+=======
+              exact path={routes.NEWPROJECT}
+              component={() => <AddProject />}
+>>>>>>> 110c0ee7b77d9205015c88cc31a08b5fc719a580
             />
           </div>
         </Router>
