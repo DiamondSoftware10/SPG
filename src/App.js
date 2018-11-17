@@ -8,20 +8,20 @@ import * as routes from './Constants/Routes';
 import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
-import Navbar from './Components/Navbar';
-<<<<<<< HEAD
-<<<<<<< HEAD
+//import Navbar from './Components/Navbar';
+import Home from './Components/Home'
+import About from './Components/About'
+import Proyectos from './Components/Proyectos'
+import CustomNavbar from "./Components/CustomeNavbar";
+import Navbar from "./Components/Navbar"
+
 import Infocard from './Components/Infocard'
 import {createUser, listUsers, deleteUser, updateUser, queryIdProject} from './Constants/firebase';
-=======
-=======
+
 import Register from "./Components/Register";
 import LoginPage from "./Components/LoginPage";
 import fire from './Firebase/Fire';
->>>>>>> c7c3fb493f1a20c79497e907aa0a8c08cfaf69da
-import {createUser, listUsers} from './Constants/firebase';
 import AddProject from './Components/NewProject';
->>>>>>> 110c0ee7b77d9205015c88cc31a08b5fc719a580
 
 
 class App extends Component {
@@ -74,32 +74,18 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-<<<<<<< HEAD
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <button onClick= {()=>createUser("Calvin","E",98,"calvin@gmail.com","Honduras","19/09/98","",0,0,"",0,0)}> Crear </button>
-          <button onClick= {()=>updateUser("3JKKc3Mo7Rfk4rUESNNd","Calvin","E",98,"calvin@gmail.com","HOn","19/09/98","",0,0,"",0,0)}> Update </button>
-          <button onClick ={()=>listUsers()}>Listar Usuarios</button>
-          <button onClick={()=>deleteUser("3MCGhpr72WI4IYgomC92")}>Borrar</button>
-          <button onClick = {()=>queryIdProject("Guanaja")}>Querys</button>
-          <a
-            className="App-link"
-            href="createBoard"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <Infocard />
-        </header>
-=======
->>>>>>> c7c3fb493f1a20c79497e907aa0a8c08cfaf69da
+                  
+
+        
+
         <Router>
+        
           <div>
-            <Navbar />
+          <Navbar />
+          <CustomNavbar />
+          <Route exact path="/" component={Home}/>
+          <Route path="/about" component={About}/>
+          <Route exact path="/proyectos" component={Proyectos}/>
             <Route
               exact path={routes.ADMINHOMEPAGE}
               component={() => <AdminHomepage />}
@@ -115,7 +101,8 @@ class App extends Component {
             <Route
               exact path={routes.LOGINPAGE}
               component={() => <LoginPage />}
-
+            />
+            <Route
               exact path={routes.NEWPROJECT}
               component={() => <AddProject />}
             />

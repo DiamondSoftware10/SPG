@@ -1,18 +1,9 @@
-import { database } from "./firebase";
-import * as firebase from "firebase";
 
-var config = {
-  apiKey: "AIzaSyAlyrXClxsPQr7xsi4g7YYReoN5gfiRDqk",
-  authDomain: "spg-project-1.firebaseapp.com",
-  databaseURL: "https://spg-project-1.firebaseio.com",
-  projectId: "spg-project-1",
-  storageBucket: "spg-project-1.appspot.com",
-  messagingSenderId: "897316863459"
-};
-firebase.initializeApp(config);
+import { database } from "./firebase";
+import fire from "../Firebase/Fire"
 
 //Constantes
-const db = firebase.firestore();
+const db = fire.firestore();
 const usersRef = db.collection("users");
 const adminRef = db.collection("admins");
 const projectRef = db.collection("projects");

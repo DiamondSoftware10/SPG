@@ -1,5 +1,5 @@
 nav.navbar, .navbar-default {
-    background-color: #2892D7 !important;
+    background-color: rgb(255, 255, 255) !important;
   }
   
   .navbar-default {
@@ -9,19 +9,19 @@ nav.navbar, .navbar-default {
   }
   
   .navbar-default .navbar-nav > li > a {
-    color: white;
+    color: rgb(7, 7, 7);
   }
   
   .navbar-default .navbar-brand {
-    color: white;
+    color: rgb(0, 0, 0);
   }
   
   .navbar-default .navbar-toggle {
-    border-color: white;
+    border-color: rgb(0, 0, 0);
   }
   
   .navbar-default .navbar-toggle .icon-bar {
-    background-color: white;
+    background-color: rgb(0, 0, 0);
   }
   
   .navbar-default .navbar-toggle:focus, .navbar-default .navbar-toggle:hover {
@@ -29,11 +29,11 @@ nav.navbar, .navbar-default {
   }
   
   .navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover {
-    color: white;
+    color: rgb(0, 0, 0);
     background-color: transparent;
   }
   
   .navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover {
-    color: white;
+    color: rgb(0, 0, 0);
     background-color: transparent;
   }

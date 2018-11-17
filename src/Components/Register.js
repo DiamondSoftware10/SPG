@@ -91,10 +91,10 @@ class Register extends Component {
         fire.auth().onAuthStateChanged(user => {
             if (user) {
                 const db = fire.firestore();
-
+/*
                 db.settings({
                     timestampsInSnapshots: true
-                });
+                });*/
 
                 db.collection("users").doc(user.uid).set({
                     nombre: this.state.nombre,
