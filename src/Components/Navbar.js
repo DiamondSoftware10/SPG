@@ -6,7 +6,8 @@ import * as routes from '../Constants/Routes';
 class Navbar extends Component {
     render() {
         return (
-            <div>
+            <div id="navbar2">
+                <div id="title">Modos de acceso</div>
                 <Link to={routes.USERHOMEPAGE}>
                     <button id="User">Switch to user</button>
                 </Link>
@@ -22,7 +23,7 @@ class Navbar extends Component {
 
                 
                 <Link to={routes.NEWPROJECT}>
-                    <button id="Admin">Switch to guest</button>
+                    <button id="Admin">Add project</button>
                 </Link>
                 
 

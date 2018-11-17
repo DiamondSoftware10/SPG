@@ -7,6 +7,8 @@ const db = fire.firestore();
 const usersRef = db.collection("users");
 const adminRef = db.collection("admins");
 const projectRef = db.collection("projects");
+const investmentRef = db.collection("investors");
+const cultureRef = db.collection("cultures");
 /////////////////////////////////////////
 //CRUD USERS
 export const createUser = (
@@ -336,6 +338,95 @@ export const deleteProject = id => {
   });
 };
 
+//CRUD INVESTMENT
+export const createInvestment = (
+  investor,
+  amountInvest,
+  project,
+  projection,
+  creationDate
+) => {
+  return new Promise((resolve, reject) => {
+    investmentRef
+      .add({
+        investor: investor,
+        amountInvest: amountInvest,
+        project: project,
+        projection: projection,
+        creationDate: creationDate
+      })
+      .then(result => {
+        console.log("Agrego a la base de datos");
+        resolve(true);
+      })
+      .catch(err => {
+        reject(false);
+      });
+  });
+};
+
+export const listInvestment = () => {
+  return new Promise((resolve, reject) => {
+    var listInvestment = [];
+
+    investmentRef.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        listInvestment.push(doc.data());
+        console.log("size:" + listInvestment.length);
+      });
+      resolve(listInvestment);
+    });
+  });
+};
+export const updateInvestment = (
+  id , 
+  investor,
+  amountInvest,
+  project,
+  projection,
+  creationDate
+
+) => {
+  return new Promise((resolve, reject) => {
+    investmentRef
+      .doc(id)
+      .update({
+        investor: investor,
+        amountInvest: amountInvest,
+        project: project,
+        projection: projection,
+        creationDate: creationDate
+   })
+      .then(result => {
+        console.log("Actualizado con exito");
+        resolve(true);
+      })
+      .catch(err => {
+        console.log("No se pudo actualizar");
+
+        reject(false);
+      });
+  });
+};
+
+export const deleteInvestment = id => {
+  return new Promise((resolve, reject) => {
+    investmentRef
+      .doc(id)
+      .delete()
+      .then(result => {
+        console.log("Borrado con exito");
+        resolve(true);
+      })
+      .catch(err => {
+        console.log("No se pudo borrar");
+
+        reject(false);
+      });
+  });
+};
 export const queryIdProject = title => {
   return new Promise((resolve, reject) => {
     let query = projectRef.where("title", "==", title);
@@ -345,36 +436,92 @@ export const queryIdProject = title => {
     resolve(query.get());
   });
 };
+
+//CRUD CULTURE
+export const createCulture = (
+  typeCultre , 
+  picCulture ,
+  infoCulture , 
+  hyperlinks
+) => {
+  return new Promise((resolve, reject) => {
+   cultureRef
+      .add({
+        typeCultre:typeCultre ,
+        picCulture:picCulture,
+        infoCulture:infoCulture, 
+        hyperlinks:hyperlinks
+      
+      })
+      .then(result => {
+        console.log("Agrego a la base de datos");
+        resolve(true);
+      })
+      .catch(err => {
+        reject(false);
+      });
+  });
+};
+
+export const listCultures = () => {
+  return new Promise((resolve, reject) => {
+    var listCulture = [];
+
+   cultureRef.get().then(function(querySnapshot) {
+      querySnapshot.forEach(function(doc) {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        listCulture.push(doc.data());
+        console.log("size:" + listCulture.length);
+      });
+      resolve(listCulture);
+    });
+  });
+};
+
+export const updateCulture = (
+  id , 
+  typeCultre , 
+  picCulture ,
+  infoCulture , 
+  hyperlinks
+) => {
+  return new Promise((resolve, reject) => {
+   cultureRef
+      .doc(id)
+      .update({
+        typeCultre:typeCultre ,
+        picCulture:picCulture,
+        infoCulture:infoCulture, 
+        hyperlinks:hyperlinks
+   })
+      .then(result => {
+        console.log("Actualizado con exito");
+        resolve(true);
+      })
+      .catch(err => {
+        console.log("No se pudo actualizar");
+
+        reject(false);
+      });
+  });
+};
+
+export const deleteCulture = id => {
+  return new Promise((resolve, reject) => {
+   cultureRef
+      .doc(id)
+      .delete()
+      .then(result => {
+        console.log("Borrado con exito");
+        resolve(true);
+      })
+      .catch(err => {
+        console.log("No se pudo borrar");
+
+        reject(false);
+      });
+  });
+};
 // Required for side-effects
 require("firebase/firestore");
-/*
-  <button
-            onClick={() =>
-              createProject(
-                "Patuca",
-                200,
-                1200,
-                1000,
-                "https://static14.gestionaweb.cat/1324/img-1100-400/dsc00314.jpg",
-                ["https://www.gob.mx/cms/uploads/press/main_image/6141/post_La-Familia1_640.jpg" , "http://wrmx00.epimg.net/radio/imagenes/2009/09/14/nacional/1252967520_878571_1252971300_noticia_normal.jpg"],
-                ["https://www.ishs.org/sites/default/files/news-images/tomato.jpg" , "http://elestimulo.com/bienmesabe/wp-content/uploads/sites/7/2015/08/lim%C3%B3n.jpg"],
-                "San Lorenzo",
-                ["users/8HjFtAEwJv6lGV2wFOpj" , "users/1szPRsAsPXNVxuIkTap8"],  
-                100.25 , 
-                "El clima es templado y agradable para el cultivo de papas...",
-                "Cada manzana se divide...",
-                "Este proyecto busca promover el valor de ...",
-                "10/10/2018",
-                true  , 
-                ["Tomates" , "Zanahorias"]
-              )
-            }
-          >
-            Crear Usuario
-          </button>
-          <button onClick={() => listProject()}>Listar Usuarios</button>
-          <button onClick={() => deleteProject("UQXlpmkStGPSlD0tkUjt")}>
-            Borrar
-          </button>
-        
-*/

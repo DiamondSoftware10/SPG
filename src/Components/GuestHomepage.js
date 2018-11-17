@@ -18,11 +18,11 @@ class GuestHomepage extends Component {
                 <div className="container">
                     <div className="box" id="seatchProject">
                         <h1 className="cardTitle">Buscar más proyectos</h1>
-                        <button className="btn btn-dark" id="porJoder">Botón por joder</button>
+                        <button className="btn btn-dark" id="porJoder">Botón</button>
                     </div>
                     <div className="box" id="profile">
                         <h1 className="cardTitle">Perfil</h1>
-                        <button className="btn btn-dark" id="porJoder">Botón por joder</button>
+                        <button className="btn btn-dark" id="porJoder">Botón</button>
                     </div>
                 </div>
             </div>

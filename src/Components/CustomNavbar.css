@@ -1,5 +1,9 @@
 nav.navbar, .navbar-default {
-    background-color: rgb(255, 255, 255) !important;
+    background-color: rgb(238, 238, 238) !important;
+  }
+
+  nav {
+    font-size: 15px;
   }
   
   .navbar-default {

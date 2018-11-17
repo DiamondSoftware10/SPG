@@ -81,8 +81,9 @@ class App extends Component {
         <Router>
         
           <div>
-          <Navbar />
+          
           <CustomNavbar />
+          <Navbar />
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={About}/>
           <Route exact path="/proyectos" component={Proyectos}/>
