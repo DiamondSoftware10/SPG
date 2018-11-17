@@ -9,6 +9,7 @@ import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 import Navbar from './Components/Navbar';
 import {createUser, listUsers} from './Constants/firebase';
+import AddProject from './Components/NewProject';
 
 
 class App extends Component {
@@ -45,6 +46,10 @@ class App extends Component {
             <Route
               exact path={routes.GUESTHOMEPAGE}
               component={() => <GuestHomepage />}
+            />
+            <Route
+              exact path={routes.NEWPROJECT}
+              component={() => <AddProject />}
             />
           </div>
         </Router>
