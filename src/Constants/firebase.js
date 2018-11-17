@@ -11,9 +11,11 @@ var config = {
 };
 firebase.initializeApp(config);
 
-//const firebase = require("firebase");
+//Constantes
 const db = firebase.firestore();
-const usersRef = db.collection("spg-project-1").doc("users");
+const usersRef = db.collection("users");
+const adminRef = db.collection("admins");
+
 //CRUD USERS
 export const createUser = (
   name,
@@ -30,7 +32,7 @@ export const createUser = (
   earnedMoney
 ) => {
   return new Promise((resolve, reject) => {
-    db.collection("users")
+    usersRef
       .add({
         name: name,
         last: last,
@@ -61,7 +63,7 @@ export const listUsers = () => {
   return new Promise((resolve, reject) => {
     var listUsers = [];
 
-    db.collection("users")
+    usersRef
       .get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
@@ -90,7 +92,7 @@ export const updateUser = (
   earnedMoney
 ) => {
   return new Promise((resolve, reject) => {
-    db.collection("users")
+    usersRef
       .doc(id)
       .update({
         name: name,
@@ -122,7 +124,7 @@ export const updateUser = (
 
 export const deleteUser = id => {
   return new Promise((resolve, reject) => {
-    db.collection("users")
+    usersRef
       .doc(id)
       .delete()
       .then(result => {
@@ -136,5 +138,107 @@ export const deleteUser = id => {
       });
   });
 };
+
+
+//CRUD DE ADMINISTRADORES
+export const createAdmin = (
+  name,
+  last,
+  phone,
+  email,
+  creationDate
+) => {
+  return new Promise((resolve, reject) => {
+    adminRef
+      .add({
+        name: name,
+        last:last,
+        phone: phone,
+        email: email,
+        creationDate: creationDate,
+      })
+      .then(result => {
+        console.log("Agrego a la base de datos")
+        resolve(true);
+      })
+      .catch(err => {
+        reject(false);
+      });
+  });
+};
+
+export const listAdmin = () => {
+  return new Promise((resolve, reject) => {
+    var listAdmins = [];
+
+    adminRef
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+          listAdmins.push(doc.data());
+          console.log("size:" + listAdmins.length);
+        });
+        resolve(listAdmins);
+      });
+  });
+};
+export const updateAdmin = (
+  id,
+  name,
+  last , 
+  phone,
+  email ,
+  creationDate ,
+) => {
+  return new Promise((resolve, reject) => {
+    adminRef
+      .doc(id)
+      .update({
+        name: name,
+        last: last,
+        phone: phone,
+        email: email,
+        creationDate:creationDate
+      })
+      .then(result => {
+        console.log("Borrado con exito");
+        resolve(true);
+      })
+      .catch(err => {
+        console.log("No se pudo borrar");
+
+        reject(false);
+      });
+  });
+};
+
+export const deleteAdmin = id => {
+  return new Promise((resolve, reject) => {
+    adminRef
+      .doc(id)
+      .delete()
+      .then(result => {
+        console.log("Borrado con exito");
+        resolve(true);
+      })
+      .catch(err => {
+        console.log("No se pudo borrar");
+
+        reject(false);
+      });
+  });
+};
+
+//TESTED
+/*
+<button onClick={() =>createAdmin("Diego","Mendoza",98874898,"calvin@gmail.com" , "26/07/201")}>
+            Crear Usuario
+          </button>
+          <button onClick={() => listAdmin()}>Listar Usuarios</button>
+          <button onClick={() => deleteAdmin("kLPnQ3FE5JsNW6L0fB8n")}>Borrar </button>
+*/
 // Required for side-effects
 require("firebase/firestore");
+
