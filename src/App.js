@@ -8,7 +8,8 @@ import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 import Navbar from './Components/Navbar';
-import {createUser, listUsers} from './Constants/firebase';
+import Infocard from './Components/Infocard'
+import {createUser, listUsers, deleteUser, updateUser, queryIdProject} from './Constants/firebase';
 
 
 class App extends Component {
@@ -20,8 +21,11 @@ class App extends Component {
           <p>
             Edit <code>src/App.js</code> and save to reload.
           </p>
-          <button onClick= {createUser("Calvin","E",98,"calvin@gmail.com","Honduras","19/09/98","",0,0,"",0,0)}> Crear </button>
-         <button onClick ={listUsers}>Listar Usuarios</button>
+          <button onClick= {()=>createUser("Calvin","E",98,"calvin@gmail.com","Honduras","19/09/98","",0,0,"",0,0)}> Crear </button>
+          <button onClick= {()=>updateUser("3JKKc3Mo7Rfk4rUESNNd","Calvin","E",98,"calvin@gmail.com","HOn","19/09/98","",0,0,"",0,0)}> Update </button>
+          <button onClick ={()=>listUsers()}>Listar Usuarios</button>
+          <button onClick={()=>deleteUser("3MCGhpr72WI4IYgomC92")}>Borrar</button>
+          <button onClick = {()=>queryIdProject("Guanaja")}>Querys</button>
           <a
             className="App-link"
             href="createBoard"
@@ -30,6 +34,7 @@ class App extends Component {
           >
             Learn React
           </a>
+          <Infocard />
         </header>
         <Router>
           <div>

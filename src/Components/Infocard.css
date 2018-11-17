@@ -1,0 +1,58 @@
+
+#bt-event {
+    background: rgb(130, 66, 143);
+    color: #4E7888;
+    border: #95989A;
+    box-shadow: 5px 7px 20px rgba(0, 0, 0, 0.11);
+    width: 400px;
+    height: 250px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin: 2em;
+    align-content: left;
+    position: relative;
+    transition: transform .25s;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+#event-div {
+    margin-top: 10%;
+}
+
+#box-event {
+    background-color: rgb(253, 253, 253);
+    width: 100%;
+    height: 75px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    text-align: left;
+    color: #95989A;
+    font-size: .65em;
+
+}
+
+#event-name {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 1.5em;
+}
+
+#event-location {
+    margin-top: .25em;
+    margin-left: 1.5em;
+    font-weight: 200;
+}
+
+#bt-event:hover {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.329);
+}
+
+.zoom:hover {
+    -ms-transform: scale(1.1);
+    /* IE 9 */
+    -webkit-transform: scale(1.1);
+    /* Safari 3-8 */
+    transform: scale(1.1);
+}
