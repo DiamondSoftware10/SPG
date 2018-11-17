@@ -64,8 +64,8 @@ export const listUsers = () => {
   return new Promise((resolve, reject) => {
     var listUsers = [];
 
-    usersRef.get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    usersRef.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         listUsers.push(doc.data());
@@ -163,8 +163,8 @@ export const listAdmin = () => {
   return new Promise((resolve, reject) => {
     var listAdmins = [];
 
-    adminRef.get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    adminRef.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         listAdmins.push(doc.data());
@@ -215,11 +215,27 @@ export const deleteAdmin = id => {
 };
 
 //CRUD PROJECT
-export const createProject = name => {
+export const createProject = (title, timeProdxDay, raisedMoney, projectFinan, picProject, picFam, picCultures, locate, investor, investInitxBlock, infoZone, detailsProdxBlocks, desciption, creationDate, available, cultures) => {
   return new Promise((resolve, reject) => {
     usersRef
       .add({
-        name: name
+        title: title,
+        timeProdxDay: timeProdxDay,
+        raisedMoney: raisedMoney,
+        projectFinan: projectFinan,
+        picProject: picProject,
+        picFam: picFam,
+        picCultures: picCultures,
+        locate: locate,
+        investor: investor,
+        investInitxBlock: investInitxBlock,
+        infoZone: infoZone,
+        detailsProdxBlocks: detailsProdxBlocks,
+        desciption: desciption,
+        creationDate: creationDate,
+        available: available,
+        cultures: cultures
+
       })
       .then(result => {
         usersRef.resolve(true);
@@ -234,8 +250,8 @@ export const listProject = () => {
   return new Promise((resolve, reject) => {
     var listUsers = [];
 
-    usersRef.get().then(function(querySnapshot) {
-      querySnapshot.forEach(function(doc) {
+    usersRef.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         // doc.data() is never undefined for query doc snapshots
         console.log(doc.id, " => ", doc.data());
         listUsers.push(doc.data());
@@ -311,18 +327,18 @@ export const deleteProject = id => {
 export const queryIdProject = title => {
   return new Promise((resolve, reject) => {
     let query = projectRef.where("title", "==", title);
-    var temp ;
+    var temp;
     console.log("Pijas")
-    query.get().then(function(querySnapshot){
-      querySnapshot.forEach(function(doc){
+    query.get().then(function (querySnapshot) {
+      querySnapshot.forEach(function (doc) {
         temp = Object.assign(doc.data());
         console.log(temp.title);
 
       })
       resolve(temp);
     })
-    
-    
+
+
   });
 };
 // Required for side-effects

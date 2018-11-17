@@ -19,8 +19,12 @@ class AdminHomepage extends Component {
                 <div className="container">
                     <div className="box" id="addTerrain">
                         <h1 className="cardTitle">Agregar terreno</h1>
-                        <button className="btn btn-dark" id="porJoder">Botón por joder</button>
 
+                        <Link to={routes.NEWPROJECT}>
+                            <button className="btn btn-dark" id="porJoder" >NewProject</button>
+                        </Link>
+
+                        
                     </div>
                     <div className="box" id="projectInfo">
                         <h1 className="cardTitle">Información sobre proyectos</h1>

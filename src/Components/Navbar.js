@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 
+
 class Navbar extends Component {
     render() {
         return (
@@ -15,6 +16,12 @@ class Navbar extends Component {
                 <Link to={routes.GUESTHOMEPAGE}>
                     <button id="Admin">Switch to guest</button>
                 </Link>
+                
+                <Link to={routes.NEWPROJECT}>
+                    <button id="Admin">Switch to guest</button>
+                </Link>
+                
+
             </div>
         );
     }

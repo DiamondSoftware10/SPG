@@ -8,8 +8,13 @@ import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 import Navbar from './Components/Navbar';
+<<<<<<< HEAD
 import Infocard from './Components/Infocard'
 import {createUser, listUsers, deleteUser, updateUser, queryIdProject} from './Constants/firebase';
+=======
+import {createUser, listUsers} from './Constants/firebase';
+import AddProject from './Components/NewProject';
+>>>>>>> 110c0ee7b77d9205015c88cc31a08b5fc719a580
 
 
 class App extends Component {
@@ -50,6 +55,10 @@ class App extends Component {
             <Route
               exact path={routes.GUESTHOMEPAGE}
               component={() => <GuestHomepage />}
+            />
+            <Route
+              exact path={routes.NEWPROJECT}
+              component={() => <AddProject />}
             />
           </div>
         </Router>
