@@ -10,9 +10,7 @@ import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 //import Navbar from './Components/Navbar';
 import Home from './Components/Home'
-import About from './Components/About'
 import Proyectos from './Components/Proyectos'
-import CustomNavbar from "./Components/CustomeNavbar";
 import Navbar from "./Components/Navbar"
 
 import Infocard from './Components/Infocard'
@@ -82,10 +80,8 @@ class App extends Component {
         
           <div>
           
-          <CustomNavbar />
           <Navbar />
           <Route exact path="/" component={Home}/>
-          <Route path="/about" component={About}/>
           <Route exact path="/proyectos" component={Proyectos}/>
             <Route
               exact path={routes.ADMINHOMEPAGE}
