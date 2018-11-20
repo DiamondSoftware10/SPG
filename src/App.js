@@ -8,7 +8,14 @@ import * as routes from './Constants/Routes';
 import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
+<<<<<<< HEAD
 import Navbar from './Components/Navbar';
+=======
+//import Navbar from './Components/Navbar';
+import Home from './Components/Home'
+import Proyectos from './Components/Proyectos'
+import Navbar from "./Components/Navbar"
+>>>>>>> Sprint1
 
 import Infocard from './Components/Infocard'
 import {createUser, listUsers, deleteUser, updateUser, queryIdProject} from './Constants/firebase';
@@ -16,7 +23,10 @@ import {createUser, listUsers, deleteUser, updateUser, queryIdProject} from './C
 import Register from "./Components/Register";
 import LoginPage from "./Components/LoginPage";
 import fire from './Firebase/Fire';
+<<<<<<< HEAD
 import {createUser, listUsers} from './Constants/firebase';
+=======
+>>>>>>> Sprint1
 import AddProject from './Components/NewProject';
 
 
@@ -70,32 +80,17 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-<<<<<<< HEAD
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <button onClick= {()=>createUser("Calvin","E",98,"calvin@gmail.com","Honduras","19/09/98","",0,0,"",0,0)}> Crear </button>
-          <button onClick= {()=>updateUser("3JKKc3Mo7Rfk4rUESNNd","Calvin","E",98,"calvin@gmail.com","HOn","19/09/98","",0,0,"",0,0)}> Update </button>
-          <button onClick ={()=>listUsers()}>Listar Usuarios</button>
-          <button onClick={()=>deleteUser("3MCGhpr72WI4IYgomC92")}>Borrar</button>
-          <button onClick = {()=>queryIdProject("Guanaja")}>Querys</button>
-          <a
-            className="App-link"
-            href="createBoard"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          <Infocard />
-        </header>
-=======
->>>>>>> c7c3fb493f1a20c79497e907aa0a8c08cfaf69da
+                  
+
+        
+
         <Router>
+        
           <div>
-            <Navbar />
+          
+          <Navbar />
+          <Route exact path="/" component={Home}/>
+          <Route exact path="/proyectos" component={Proyectos}/>
             <Route
               exact path={routes.ADMINHOMEPAGE}
               component={() => <AdminHomepage />}
@@ -111,7 +106,8 @@ class App extends Component {
             <Route
               exact path={routes.LOGINPAGE}
               component={() => <LoginPage />}
-
+            />
+            <Route
               exact path={routes.NEWPROJECT}
               component={() => <AddProject />}
             />

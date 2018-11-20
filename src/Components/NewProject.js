@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as routes from '../Constants/Routes';
 import './NewProject.css';
+import { createProject } from '../Constants/firebase';
 
 const AddProject = () =>
     <div id="project">
@@ -51,8 +52,10 @@ class NewProject extends Component {
             history,
         } = this.props;
 
+        createProject(this.state.titulo, 0, 0, 0, null, null, null,
+            this.state.ubicacion, "Calvin", 0, "descripcion", "detalles", this.state.descripcion, "17/11/2018", true, "tomates");
         /* { this.AddBaseD() }*/ /*usar esto para mandar atributos a funcion interna para añadir a BD, si se quiere hacer. */
-
+        document.getElementById("newProject-input").innerHTML = "";
         project.preventDefault();
     }
 

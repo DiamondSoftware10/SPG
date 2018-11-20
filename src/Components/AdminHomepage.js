@@ -28,7 +28,7 @@ class AdminHomepage extends Component {
                     </div>
                     <div className="box" id="projectInfo">
                         <h1 className="cardTitle">Información sobre proyectos</h1>
-                        <button className="btn btn-dark" id="porJoder">Botón por joder</button>
+                        <button className="btn btn-dark" id="porJoder">Botón</button>
 
                     </div>
                 </div>
