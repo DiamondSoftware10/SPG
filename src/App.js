@@ -8,25 +8,14 @@ import * as routes from './Constants/Routes';
 import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
-<<<<<<< HEAD
 import Navbar from './Components/Navbar';
-=======
-//import Navbar from './Components/Navbar';
-import Home from './Components/Home'
-import Proyectos from './Components/Proyectos'
-import Navbar from "./Components/Navbar"
->>>>>>> Sprint1
 
 import Infocard from './Components/Infocard'
-import {createUser, listUsers, deleteUser, updateUser, queryIdProject} from './Constants/firebase';
 
 import Register from "./Components/Register";
 import LoginPage from "./Components/LoginPage";
 import fire from './Firebase/Fire';
-<<<<<<< HEAD
-import {createUser, listUsers} from './Constants/firebase';
-=======
->>>>>>> Sprint1
+import { createUser, listUsers } from './Constants/firebase';
 import AddProject from './Components/NewProject';
 
 
@@ -80,17 +69,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-                  
-
-        
-
         <Router>
-        
           <div>
-          
-          <Navbar />
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/proyectos" component={Proyectos}/>
+            <Navbar />
             <Route
               exact path={routes.ADMINHOMEPAGE}
               component={() => <AdminHomepage />}
@@ -106,8 +87,8 @@ class App extends Component {
             <Route
               exact path={routes.LOGINPAGE}
               component={() => <LoginPage />}
-            />
-            <Route
+              />
+              <Route
               exact path={routes.NEWPROJECT}
               component={() => <AddProject />}
             />

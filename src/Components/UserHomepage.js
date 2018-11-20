@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
-//import './Homepages.css';
+import './Homepages.css';
 
 class UserHomepage extends Component {
     render() {

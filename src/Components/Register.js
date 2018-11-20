@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import fire from "../Firebase/Fire";
-import "./custom.css"
 
 //import "../bootstrap.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
