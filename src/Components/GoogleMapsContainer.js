@@ -1,6 +1,6 @@
 import React from 'react';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
-import { fire, db } from "../Firebase/Fire";
+import { fire /*db*/ } from "../Firebase/Fire";
 import firebase from 'firebase';
 
 class GoogleMapsContainer extends React.Component {
@@ -18,7 +18,7 @@ class GoogleMapsContainer extends React.Component {
 
         this.onMarkerClick = this.onMarkerClick.bind(this);
         this.onMapClick = this.onMapClick.bind(this);
-        this.handleClickMap = this.handleClickedMap.bind(this);
+        this.handleClickMap = this.handleClickMap.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.saveLocation = this.saveLocation.bind(this);
     }
@@ -60,7 +60,7 @@ class GoogleMapsContainer extends React.Component {
 
      componentWillMount() {
          //conseguir datos del documento, editar idDoc
-        var docRef = db.collection("projects").doc("idDoc");
+        var docRef = fire.firestore().collection("projects").doc("idDoc");
 
          docRef.get().then((doc) => {
             if (doc.exists) {
@@ -73,7 +73,7 @@ class GoogleMapsContainer extends React.Component {
                 })
 
             } else {
-
+                // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
         }).catch(function (error) {
@@ -167,6 +167,8 @@ class GoogleMapsContainer extends React.Component {
         );
     }
 }
+
+
 export default GoogleApiWrapper({
     api: (process.env.googleKey)
 })(GoogleMapsContainer)
