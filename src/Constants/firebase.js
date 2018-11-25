@@ -1,5 +1,3 @@
-
-import { database } from "./firebase";
 import fire from "../Firebase/Fire"
 
 //Constantes
