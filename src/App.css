@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  font-family: Montserrat;
+  background: rgb(248, 248, 248);
 }
 
 .App-logo {
@@ -30,3 +32,4 @@
     transform: rotate(360deg);
   }
 }
+
