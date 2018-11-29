@@ -1,22 +1,23 @@
 .navbar {
     font-family: Montserrat;
     padding-left: 5vw;
-    font-size: 2.5vmin;
+    font-size: 2.4vmin;
     background: white;
 }
 
 .navbar-brand {
     font-weight: 900;
     font-size: 1.5em;
-    --margin-right: 2.4vw;
+    margin-right: 2.4vw;
 }
 .nav-item {
     margin: 0vw 1vw 0vw 1vw;
+    font-size: 0.9em;
     font-weight: 600;
 }
 
 .navbar-nav {
-    padding: .75vw 2.5vw .75vw 2.5vw;
+    --padding: .75vw 2.5vw .75vw 2.5vw;
 }
 
 #main-search {
@@ -24,8 +25,8 @@
     background: #f4f4f4;
     border-radius: 15px;
     font-weight: 600;
-    width: 30vw;
-    height: 8vh;
+    width: 25vw;
+    height: 7vh;
     padding-left: 50px;
     
 }
@@ -42,15 +43,13 @@
 }
 
 #cart-icon {
-    height:5vh;
-    margin-left: auto;
-    top: 70%;
+    height:6vh;
+    padding-top: 1vh;
 }
 
 #btn-search {
     display: none;
 }
-
 
 #nav-profile {
     border-radius: 100px;

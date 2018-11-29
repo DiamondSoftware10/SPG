@@ -17,6 +17,7 @@ import LoginPage from "./Components/LoginPage";
 import fire from './Firebase/Fire';
 import { createUser, listUsers } from './Constants/firebase';
 import AddProject from './Components/NewProject';
+import Proyectos from './Components/Proyectos';
 
 
 class App extends Component {
@@ -39,6 +40,12 @@ class App extends Component {
 
   }
 
+  componentDidMount(){
+    fire.auth().onAuthStateChanged(user => {
+      user ? this.setState(()=>({user}))
+              : this.setState(() => ({user: null}));
+    });
+  }
   handleClickOpen = () => {
     this.setState({ open: true });
   };
@@ -71,7 +78,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Navbar />
+            <Navbar authUser={this.state.user}/>
             <Route
               exact path={routes.ADMINHOMEPAGE}
               component={() => <AdminHomepage />}
@@ -91,6 +98,11 @@ class App extends Component {
               <Route
               exact path={routes.NEWPROJECT}
               component={() => <AddProject />}
+            />
+
+            <Route
+              exact path={routes.PROYECTOS}
+              component={() => <Proyectos />}
             />
           </div>
         </Router>
