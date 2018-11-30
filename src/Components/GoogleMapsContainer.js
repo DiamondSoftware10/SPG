@@ -3,7 +3,9 @@ import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import { fire /*db*/ } from "../Firebase/Fire";
 import firebase from 'firebase';
 
-class GoogleMapsContainer extends React.Component {
+class MapContainer extends React.Component {
+
+
     constructor(props) {
         super(props);
         this.state = {
@@ -21,14 +23,18 @@ class GoogleMapsContainer extends React.Component {
         this.handleClickMap = this.handleClickMap.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.saveLocation = this.saveLocation.bind(this);
+        this.getProjectInfo = this.getProjectInfo.bind(this);
+
     }
 
     onMarkerClick = (props, marker, e) => {
+
         this.setState({
             selectedPlace: props,
             activeMarker: marker,
             showingInfoWindow: true
         });
+
     }
 
     onMapClick = (e) => {
@@ -43,9 +49,9 @@ class GoogleMapsContainer extends React.Component {
 
     saveLocation() {
         //guardar la direccion y coordenadas en la base de datos
+        const docId = this.props.docId;
 
-
-        fire.firestore().collection("projects").doc("idDoc").update({
+        fire.firestore().collection("projects").doc(/*'ZNHcpe5SzU3fonNJCd5d'*/docId).update({
             lugar: this.state.lugar,
             direccion: this.state.direccion,
             coordinates: new firebase.firestore.GeoPoint(this.state.latitude, this.state.longitude)
@@ -58,11 +64,13 @@ class GoogleMapsContainer extends React.Component {
         })
     }
 
-     componentWillMount() {
-         //conseguir datos del documento, editar idDoc
-        var docRef = fire.firestore().collection("projects").doc("idDoc");
 
-         docRef.get().then((doc) => {
+    componentWillMount() {
+        //conseguir datos del documento, editar idDoc
+        //var docRef = fire.firestore().collection("projects").doc('idDoc');
+        /*var docRef = fire.firestore().collection("projects").doc('ZNHcpe5SzU3fonNJCd5d');
+
+        docRef.get().then((doc) => {
             if (doc.exists) {
                 console.log("Document data:", doc.data().coordinates);
                 this.setState({
@@ -73,11 +81,36 @@ class GoogleMapsContainer extends React.Component {
                 })
 
             } else {
+                console.log("No existe");
+            }
+        }).catch(function(error) {
+            console.log("Error getting document:", error);
+        });*/
+        this.getProjectInfo();
+    }
+
+    getProjectInfo() {
+        const docId = this.props.docId;
+
+        //var docRef = fire.firestore().collection("projects").doc('ZNHcpe5SzU3fonNJCd5d');
+        var docRef = fire.firestore().collection("projects").doc(docId);
+
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log("Datos del documento:", doc.data().coordinates);
+                this.setState({
+                    latitude: doc.data().coordinates._lat,
+                    longitude: doc.data().coordinates._long,
+                    lugar: doc.data().lugar,
+                    direccion: doc.data().direccion
+                })
+
+            } else {
                 // doc.data() will be undefined in this case
-                console.log("No such document!");
+                console.log("No existe el documento");
             }
         }).catch(function (error) {
-            console.log("Error getting document:", error);
+            console.log("Error: ", error);
         });
     }
 
@@ -87,6 +120,7 @@ class GoogleMapsContainer extends React.Component {
         this.setState({ [name]: event.target.value });
         console.log(event.target.value);
     };
+
 
     handleClickMap(t, map, coord) {
         if (this.state.showingInfoWindow) {
@@ -109,59 +143,97 @@ class GoogleMapsContainer extends React.Component {
 
     render() {
         const style = {
-            width: '50vw',
-            height: '75vh',
+            /*width: '50vw',
+            height: '75vh',*/
+            width: '30vw',
+            height: '35vh',
             'marginLeft': 'auto',
             'marginRight': 'auto'
         }
         return (
             <div>
-                <div className="container">
-                    <div className="form-group col-sm">
-                        <label htmlFor="usr">Nombre lugar:</label>
-                        <input
-                            onChange={this.handleChange('lugar')}
-                            type="text" className="form-control" id="lugar" />
-                    </div>
-                    <div className="form-group col-sm">
-                        <label htmlFor="usr">Dirección:</label>
-                        <input
-                            onChange={this.handleChange('direccion')}
-                            type="text" className="form-control" id="direccion" />
-                    </div>
 
-                    <button onClick={this.saveLocation} type="button" className="btn btn-primary">
-                        Guardar
-                    </button>
-                </div>
+                <button type="button" className="btn btn-default" data-toggle="modal" data-target="#mapModal">
+                    <span className="glyphicon glyphicon-map-marker"></span> Open Map
+                </button>
 
-                <Map
-                    item
-                    xs={12}
-                    style={style}
-                    google={this.props.google}
-                    onClick={this.handleClickMap}
-                    zoom={14}
-                    initialCenter={{ lat: 14.0485586, lng: -87.1738152 }}
-                >
-                    <Marker
-                        onClick={this.onMarkerClick}
-                        title={'Changing Colors Garage'}
-                        position={{ lat: this.state.latitude, lng: this.state.longitude }}
-                        name={'Changing Colors Garage'}
-                    />
 
-                    <InfoWindow
-                        marker={this.state.activeMarker}
-                        visible={this.state.showingInfoWindow}
-                    >
+                <div className="modal" id="mapModal">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h4 className="modal-title">Ubicación del Proyecto</h4>
+                                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                            </div>
 
-                        <div className="container">
-                            <h2>{this.state.lugar} </h2>
-                            <div><h4>Direccion: {this.state.direccion}</h4></div>
+                            <div className="modal-body">
+
+                                <div className="container">
+
+
+
+                                    <div className="card" style={style}>
+                                        <Map
+                                            item
+                                            xs={12}
+                                            google={this.props.google}
+                                            onClick={this.handleClickMap}
+                                            zoom={14}
+                                            initialCenter={{ lat: 14.0485586, lng: -87.1738152 }}
+                                        >
+                                            <Marker
+                                                onClick={this.onMarkerClick}
+                                                title={'Changing Colors Garage'}
+                                                position={{ lat: this.state.latitude, lng: this.state.longitude }}
+                                                name={'Changing Colors Garage'}
+                                            />
+
+                                            <InfoWindow
+                                                marker={this.state.activeMarker}
+                                                visible={this.state.showingInfoWindow}
+                                            >
+
+                                                <div className="container">
+                                                    <h2>{this.state.lugar} </h2>
+                                                    <div><h4>Direccion: {this.state.direccion}</h4></div>
+                                                </div>
+                                            </InfoWindow>
+                                        </Map>
+
+
+                                    </div>
+
+                                    <div className="card" style={style}>
+                                        <div className="form-group col-sm">
+                                            <label htmlFor="usr">Nombre del lugar:</label>
+                                            <input
+                                                onChange={this.handleChange('lugar')}
+                                                type="text" className="form-control" id="lugar" />
+                                        </div>
+                                        <div className="form-group col-sm">
+                                            <label htmlFor="usr">Dirección:</label>
+                                            <input
+                                                onChange={this.handleChange('direccion')}
+                                                type="text" className="form-control" id="direccion" />
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                            <div className="modal-footer">
+                                <button onClick={this.saveLocation} type="button" className="btn btn-secondary" data-dismiss="modal">
+                                    OK
+                                </button>
+                                <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            </div>
                         </div>
-                    </InfoWindow>
-                </Map>
+
+                    </div>
+
+                </div>
             </div>
 
         );
@@ -169,6 +241,14 @@ class GoogleMapsContainer extends React.Component {
 }
 
 
+
 export default GoogleApiWrapper({
     api: (process.env.googleKey)
-})(GoogleMapsContainer)
+})(MapContainer)
+
+/*export default GoogleApiWrapper(
+    (props) => ({
+      apiKey: props.apiKey,
+      language: props.language,
+    }
+  ))(MapContainer)*/
