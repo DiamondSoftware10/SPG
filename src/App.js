@@ -15,7 +15,7 @@ import LoginPage from "./Components/LoginPage";
 import fire from './Firebase/Fire';
 import { createUser, listUsers } from './Constants/firebase';
 import AddProject from './Components/NewProject';
-import Maps from './Components/Maps';
+//import Maps from './Components/Maps';
 
 
 class App extends Component {
@@ -68,7 +68,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <Maps/>
+      
         <Router>
           <div>
             <Navbar />
