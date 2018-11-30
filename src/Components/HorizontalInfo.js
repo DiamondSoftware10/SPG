@@ -4,6 +4,9 @@ import './Infocard.css'
 
 import workers from '../Icons/workers.svg';
 import hand from '../Icons/hand.svg';
+import loc from '../Icons/placeholder.svg';
+import arrow from '../Icons/arrow.svg';
+
 
 class Infocard extends Component {
     constructor(props) {
@@ -34,20 +37,41 @@ class Infocard extends Component {
     render() {
         return (
             <div id="infocards">
-                <div className="icard-hor zoom">
+                <div className="icard-hor ">
                     <div id="bt-event" onClick={this.handleInfocard("Guanaja")}>
+                        <div id="bt-more"></div>
+
                         <img id="img-pro" src="https://bit.ly/2Dpx93w"></img>
                     </div>
                     <div id="box-event">
                         <div id="proj-type">Terreno</div>
                         <div id="proj-name">{this.state.nombre}</div>
-                        <div id="proj-location">{this.state.location}</div>
+                        <div id="proj-location">
+                            <img id="proj-icon" src={loc}></img>
+                            <div>{this.state.location}</div>
+                        </div>
+                        {/*
                         <div id="proj-gen">
-                        <img id="proj-icon" src={workers}></img>
+                            <img id="proj-icon" src={workers}></img>
                             <div id="num">{this.state.empleoGen}</div>
+
+                             
                             <img id="proj-icon" src={hand}></img>
                             <div id="num">{this.state.invMin}</div>
                         </div>
+                        */}
+
+                        <div id="proj-gen">
+                            <img id="proj-icon" src={workers}></img>
+                            <div id="num">{this.state.empleoGen} empleos</div>
+                            <img id="proj-icon" src={hand}></img>
+                            <div id="num">{this.state.invMin}  </div>
+                        </div>
+                        <div id="proj-footer">
+
+                        <button id="proj-cont"><img src={arrow}></img></button>
+                        </div>
+
                     </div>
                 </div>
             </div>
