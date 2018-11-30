@@ -1,6 +1,6 @@
 import React from 'react';
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
-import { fire /*db*/ } from "../Firebase/Fire";
+import  fire from "../Firebase/Fire";
 import firebase from 'firebase';
 
 class MapContainer extends React.Component {
