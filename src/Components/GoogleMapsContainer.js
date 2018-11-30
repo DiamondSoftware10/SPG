@@ -14,6 +14,8 @@ class MapContainer extends React.Component {
             selectedPlace: {},
             latitude: null,
             longitude: null,
+            markerLat: null, 
+            markerLong: null,
             lugar: "",
             direccion: ""
         }
@@ -49,9 +51,9 @@ class MapContainer extends React.Component {
 
     saveLocation() {
         //guardar la direccion y coordenadas en la base de datos
-        const docId = this.props.docId;
 
-        fire.firestore().collection("projects").doc(/*'ZNHcpe5SzU3fonNJCd5d'*/docId).update({
+
+        fire.firestore().collection("projects").doc('ZNHcpe5SzU3fonNJCd5d').update({
             lugar: this.state.lugar,
             direccion: this.state.direccion,
             coordinates: new firebase.firestore.GeoPoint(this.state.latitude, this.state.longitude)
@@ -81,7 +83,8 @@ class MapContainer extends React.Component {
                 })
 
             } else {
-                console.log("No existe");
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
             }
         }).catch(function(error) {
             console.log("Error getting document:", error);
@@ -89,7 +92,7 @@ class MapContainer extends React.Component {
         this.getProjectInfo();
     }
 
-    getProjectInfo() {
+    getProjectInfo(){
         const docId = this.props.docId;
 
         //var docRef = fire.firestore().collection("projects").doc('ZNHcpe5SzU3fonNJCd5d');
@@ -98,9 +101,15 @@ class MapContainer extends React.Component {
         docRef.get().then((doc) => {
             if (doc.exists) {
                 console.log("Datos del documento:", doc.data().coordinates);
+                const _lat = doc.data().coordinates._lat;
+                const _long = doc.data().coordinates._long;
+
+               // console.log("_lat: " + _lat)
                 this.setState({
-                    latitude: doc.data().coordinates._lat,
-                    longitude: doc.data().coordinates._long,
+                    latitude: _lat,
+                    longitude: _long,
+                    //markerLat: _lat,
+                   // markerLong: _long,
                     lugar: doc.data().lugar,
                     direccion: doc.data().direccion
                 })
@@ -109,7 +118,7 @@ class MapContainer extends React.Component {
                 // doc.data() will be undefined in this case
                 console.log("No existe el documento");
             }
-        }).catch(function (error) {
+        }).catch((error) => {
             console.log("Error: ", error);
         });
     }
@@ -122,7 +131,9 @@ class MapContainer extends React.Component {
     };
 
 
+    
     handleClickMap(t, map, coord) {
+        
         if (this.state.showingInfoWindow) {
             this.setState({
                 showingInfoWindow: false,
@@ -134,12 +145,15 @@ class MapContainer extends React.Component {
         const { latLng } = coord;
         const lat = coord.latLng.lat();
         const long = coord.latLng.lng();
+
         this.setState({
             latitude: lat,
             longitude: long
         })
+
         console.log("lat: " + lat + "\nlong: " + long);
     }
+
 
     render() {
         const style = {
@@ -150,10 +164,12 @@ class MapContainer extends React.Component {
             'marginLeft': 'auto',
             'marginRight': 'auto'
         }
+
         return (
             <div>
 
-                <button type="button" className="btn btn-default" data-toggle="modal" data-target="#mapModal">
+                <button type="button" className="btn btn-default" data-toggle="modal" data-target="#mapModal" data-backdrop="false">
+                
                     <span className="glyphicon glyphicon-map-marker"></span> Open Map
                 </button>
 
@@ -170,22 +186,23 @@ class MapContainer extends React.Component {
 
                                 <div className="container">
 
-
-
                                     <div className="card" style={style}>
                                         <Map
                                             item
                                             xs={12}
+                                            onReady={this.getProjectInfo}
                                             google={this.props.google}
                                             onClick={this.handleClickMap}
                                             zoom={14}
-                                            initialCenter={{ lat: 14.0485586, lng: -87.1738152 }}
+                                            center={{ lat: this.state.latitude, lng: this.state.longitude }}
+                                            //initialCenter = {{lat: this.state.latitude, lng:this.state.longitude}}
                                         >
+
                                             <Marker
                                                 onClick={this.onMarkerClick}
-                                                title={'Changing Colors Garage'}
+                                                title={'titulo'}
                                                 position={{ lat: this.state.latitude, lng: this.state.longitude }}
-                                                name={'Changing Colors Garage'}
+                                                name={'nombre'}
                                             />
 
                                             <InfoWindow
@@ -219,7 +236,9 @@ class MapContainer extends React.Component {
                                     </div>
 
 
+
                                 </div>
+
 
 
                             </div>
@@ -243,7 +262,9 @@ class MapContainer extends React.Component {
 
 
 export default GoogleApiWrapper({
-    api: (process.env.googleKey)
+
+    apiKey: 'AIzaSyDXRZ7SxW1SdyXxajHTnNb2pwPXz7WFqo8'
+    //apiKey: (process.env.AIzaSyDXRZ7SxW1SdyXxajHTnNb2pwPXz7WFqo8)
 })(MapContainer)
 
 /*export default GoogleApiWrapper(
