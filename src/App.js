@@ -18,6 +18,7 @@ import fire from './Firebase/Fire';
 import { createUser, listUsers } from './Constants/firebase';
 import AddProject from './Components/NewProject';
 import Proyectos from './Components/Proyectos';
+import MapContainer from "./Components/GoogleMapsContainer"
 
 
 class App extends Component {
@@ -76,6 +77,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+      <MapContainer docId = 'PYwokLiXtz6Qln4xTrlx'> </MapContainer>
         <Router>
           <div>
             <Navbar authUser={this.state.user}/>
