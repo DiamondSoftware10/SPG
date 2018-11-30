@@ -1,7 +1,7 @@
 * {
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1em;
-
+    background: rgb(160, 30, 30);
 }
 
 button {
@@ -16,9 +16,6 @@ font-weight: 700;
 border-color: rgb(73, 73, 73);
 }
 
-#navbar2 {
-    margin: 40px;
-}
 
 Link {
     color: white;

@@ -14,7 +14,20 @@ class UserHomepage extends Component {
                     <button className="btn btn-dark" id="User">Switch to guest</button>
                 </Link>
 
+
                 <div className="container">
+                
+                <div class="row">
+                    <div class="col-sm">
+                            One of three columns
+                    </div>
+                        <div class="col-sm">
+                            One of three columns
+                    </div>
+                        <div class="col-sm">
+                            One of three columns
+                    </div>
+                </div>
                     <div className="box" id="projectStatus">
                         <h1 className="cardTitle">Estado de mis proyectos</h1>
                         <button className="btn btn-dark" id="porJoder">Botón</button>
