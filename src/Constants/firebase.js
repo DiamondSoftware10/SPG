@@ -1,5 +1,4 @@
-
-import { database } from "./firebase";
+/*
 import fire from "../Firebase/Fire"
 
 //Constantes
@@ -524,4 +523,4 @@ export const deleteCulture = id => {
   });
 };
 // Required for side-effects
-require("firebase/firestore");
+require("firebase/firestore");*/

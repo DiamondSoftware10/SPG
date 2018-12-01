@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import fire from "../Firebase/Fire";
+import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImagenVal, puntoDecimalVal } from '../Constants/validations'
+
 
 //import "../bootstrap.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import './Register.css';
+import icon from '../Icons/iconbeta.png';
+
 
 class Register extends Component {
 
@@ -21,6 +25,8 @@ class Register extends Component {
             telefono: "",
             region: "",
             contrasena: "",
+            condicion: null, 
+
 
         };
 
@@ -64,13 +70,38 @@ class Register extends Component {
 
     signup(e) {
         e.preventDefault();
-        fire.auth().createUserWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => {
-            this.addUser(e);
-        }).catch((error) => {
-            console.log(error);
-        })
+
+        
+        if ((this.state.nombre === undefined || this.state.apellido === undefined || this.state.correo === undefined || this.state.telefono === undefined ||
+            this.state.region === undefined || this.state.contrasena === undefined )) {
+            window.alert("Error al registrarse, llene todos los campos")
+        } else if (nombresVal(this.state.nombre, 1, 50) == false || nombresVal(this.state.apellido, 1, 50) == false
+            || numeroVal(this.state.telefono, 1, 7) == false 
+            || rangoCaracteresVal(this.state.region, 2, 50) == false) {
+            
+                window.alert("Error al registrarse, verifique los datos de entrada")
+
+        } else {
+
+            fire.auth().createUserWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => {
+
+                this.setState({
+                    condicion: true
+                });
+                this.addUser(e);
+                   
+         
+            }).catch((error) => {
+                window.alert(error);
+            })
+    
+            
+            window.alert("Se ha registrado con exito");
+
+        }
 
     }
+
 
     addCollection() {
         const db = fire.firestore();
@@ -176,7 +207,12 @@ class Register extends Component {
     render() {
         return (
             <div className="container">
+                <div id="jumbo-reg"className="jumbotron">
+                <img id="logo-reg" src={icon} width="40" height="40"></img>
 
+                <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
+
+                </div>
 
 
                 <div className="jumbotron vertical-center">
@@ -184,7 +220,7 @@ class Register extends Component {
                 
                     <div className="container">
                         <div className="button-toolbar col-sm">
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#registerModal">
+                            <button data-backdrop="false" type="button" className="btn btn-primary" data-toggle="modal" data-target="#registerModal">
                                 Registrarse
                     </button>
 
@@ -212,52 +248,54 @@ class Register extends Component {
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
+                                <img src={icon} width="30" height="30"></img>
+
                                 <h4 className="modal-title">Registrarse</h4>
                                 <button type="button" className="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div className="modal-body">
                                 <div className="container">
-                                    <img id="regi-img" src="https://bit.ly/2Q6V7Iu"></img>
-                                    <div className="row">
-                                        <div className="form-group col-sm">
-                                            <label htmlFor="usr">Nombre:</label>
+                                    {/*<img id="regi-img" src="https://bit.ly/2U38JTw"></img>*/}
+                                    {/*<div className="row">*/}
+                                        <div className="form-group ">
+                                            <label htmlFor="usr">Nombre</label>
                                             <input
                                                 onChange={this.handleChange('nombre')}
                                                 type="text" className="form-control" id="nombre" />
                                         </div>
 
-                                        <div className="form-group col-sm">
-                                            <label htmlFor="usr">Apellido:</label>
+                                        <div className="form-group">
+                                            <label htmlFor="usr">Apellido</label>
                                             <input
                                                 onChange={this.handleChange('apellido')}
                                                 type="text" className="form-control" id="apellido" />
                                         </div>
 
-                                    </div>
+                                    {/*</div>*/}
 
                                     <div className="form-group">
-                                        <label htmlFor="usr">Región:</label>
+                                        <label htmlFor="usr">Región</label>
                                         <input
                                             onChange={this.handleChange('region')}
                                             type="text" className="form-control" id="region" />
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="usr">Telefono:</label>
+                                        <label htmlFor="usr">Telefono</label>
                                         <input
                                             onChange={this.handleChange('telefono')}
                                             type="text" className="form-control" id="telefono" />
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="usr">Correo:</label>
+                                        <label htmlFor="usr">Correo</label>
                                         <input
                                             onChange={this.handleChange('correo')}
                                             type="email" className="form-control" id="correo" />
                                     </div>
 
                                     <div className="form-group">
-                                        <label htmlFor="pwd">Contraseña:</label>
+                                        <label htmlFor="pwd">Contraseña</label>
                                         <input
                                             onChange={this.handleChange('contrasena')}
                                             type="password" className="form-control" id="password" />
@@ -266,8 +304,8 @@ class Register extends Component {
                                 </div>
 
 
-                                <button onClick={this.signup} type="button" className="btn btn-secondary" data-dismiss="modal">
-                                    OK
+                                <button data-backdrop="false" type="button" className="btn btn-secondary" onClick = {this.signup} {...this.state.condicion && {'data-dismiss': "modal"}}>
+                                    Crear Cuenta
                                 </button>
                             </div>
                             <div className="modal-footer">
@@ -289,7 +327,7 @@ class Register extends Component {
                             <div className="modal-body">
                                 <div className="container">
                                     <div className="form-group col-sm">
-                                        <label htmlFor="usr">Email:</label>
+                                        <label htmlFor="usr">Email</label>
                                         <input
                                             onChange={this.handleChange('correo')}
                                             type="email" className="form-control" id="correoLogin" />
@@ -297,7 +335,7 @@ class Register extends Component {
 
 
                                     <div className="form-group">
-                                        <label htmlFor="pwd">Contraseña:</label>
+                                        <label htmlFor="pwd">Contraseña</label>
                                         <input
                                             onChange={this.handleChange('contrasena')}
                                             type="password" className="form-control" id="passwordLogin" />
@@ -325,3 +363,4 @@ class Register extends Component {
 }
 
 export default Register;
+

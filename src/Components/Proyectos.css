@@ -2,3 +2,13 @@
 text-align: left;
 margin-top: 10vh;
 }
+
+#proj-nav {
+    text-align: center;
+}
+
+#new-proj {
+    font-weight: 700;
+    width: 40%;
+    border-radius: 10px;
+}

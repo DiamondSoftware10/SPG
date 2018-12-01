@@ -1,6 +1,6 @@
 #infocards {
     margin:auto;
-    width: 80vw;
+    width: 100vw;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -152,7 +152,7 @@
     cursor: pointer;
     justify-content: space-between;
     position: relative;
-    width: 45vw;
+    width: 40vw;
     
 }
 .icard-hor > div , button
