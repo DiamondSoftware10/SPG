@@ -18,6 +18,8 @@ import fire from './Firebase/Fire';
 import { createUser, listUsers } from './Constants/firebase';
 import AddProject from './Components/NewProject';
 import Proyectos from './Components/Proyectos';
+import Landing from './Components/Landing';
+
 import MapContainer from "./Components/GoogleMapsContainer"
 
 
@@ -106,6 +108,10 @@ class App extends Component {
               exact path={routes.PROYECTOS}
               component={() => <Proyectos />}
             />
+            <Route
+              exact path={routes.LANDING}
+              component={() => <Landing />}
+            />
           </div>
         </Router>
       </div>
@@ -114,3 +120,4 @@ class App extends Component {
 }
 
 export default App;
+

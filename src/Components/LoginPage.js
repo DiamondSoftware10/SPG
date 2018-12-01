@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Register from "./Register";
 
 import fire from '../Firebase/Fire';
+import icon from '../Icons/iconbeta.png';
+
 
 
 class LoginPage extends Component {
@@ -49,17 +51,23 @@ class LoginPage extends Component {
 
   logout() {
     fire.auth().signOut();
-}
+  }
 
 
   render() {
     return (
       <div className="App">
         {this.state.user ? (
-          <div>
+          <div id="log-out-div">
+            <div className="jumbotron" id="jumbo-out">
+              <img id="logo-reg" src={icon} width="40" height="40"></img>
+
+              <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
+              {/*<h2>¿Estas seguro que quieres cerrar sesion?</h2>*/}
+            </div>
             <button onClick={this.logout} type="button" className="btn btn-primary">
               Log Out
-                        </button>
+            </button>
 
           </div>
         ) : (<Register />)}
@@ -81,7 +89,6 @@ class LoginPage extends Component {
 
 
 */}
-        
       </div>
     );
   }

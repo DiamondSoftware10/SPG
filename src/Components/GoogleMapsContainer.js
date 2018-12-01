@@ -169,8 +169,7 @@ class MapContainer extends React.Component {
             <div>
 
                 <button type="button" className="btn btn-default" data-toggle="modal" data-target="#mapModal" data-backdrop="false">
-                
-                    <span className="glyphicon glyphicon-map-marker"></span> Open Map
+                    <span className="glyphicon glyphicon-map-marker"></span> Ver Mapa
                 </button>
 
 

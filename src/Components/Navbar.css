@@ -16,6 +16,17 @@
     font-weight: 600;
 }
 
+.nav-item #login-bt {
+    border: none;
+    background-color: rgb(24,162,78);
+    border-radius: 4px;
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    letter-spacing: .1em;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 .navbar-nav {
     --padding: .75vw 2.5vw .75vw 2.5vw;
 }
@@ -39,6 +50,7 @@
     height: 25px;
     position: absolute;
     margin-left: auto;
+    top: 10px;
     left: 15px;
 }
 

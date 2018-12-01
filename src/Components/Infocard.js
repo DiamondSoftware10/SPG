@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { listProjects, listUsers, queryIdProject } from '../Constants/firebase'
+import { listProjects, listUsers, queryIdProject } from '../Constants/project'
 import './Infocard.css'
 
 import workers from '../Icons/workers.svg';
@@ -23,11 +23,11 @@ class Infocard extends Component {
     }
 
     handleInfocard(title) {
-        var project = queryIdProject("Guanaja");
+    /*var project = queryIdProject("Guanaja");
         console.log("MMM")
         console.log(project.projectFinan);
         console.log(project.locate);
-
+*/
         //const listItems = listUsers().map((user) =>  <li>{user}</li>
         //);
     }

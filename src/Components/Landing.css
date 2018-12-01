@@ -1,0 +1,39 @@
+#jumbo-land {
+    width: 100%;
+    height: 100vh;
+}
+
+
+#landing > .jumbotron {
+    background-image: url("https://bit.ly/2FRPysv");
+    background-image: url("https://bit.ly/2P6sp57");
+   /* background-position: center;*/
+    
+    border-radius: 0;
+    text-align: left;
+    color: white;
+    padding: 5vw;
+}
+
+.lead {
+    padding: 10vmin;
+    padding-top: 5vmin;
+    width: 80%;
+    font-weight: 700;
+    line-height: 50px;
+}
+
+#SPG {
+    font-weight: 900;
+    font-size: 3.5em;
+    margin-left: 10vw;
+    width: 50%;
+    letter-spacing: 0.0035em;
+}
+
+#logo-land {
+    float: left;
+    width: 25vmin;
+    height: 25vmin;
+    padding: 2vmin;
+}
