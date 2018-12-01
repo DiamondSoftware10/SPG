@@ -22,6 +22,7 @@ const INITIAL_STATE = {
     fotoF: '',
     fotoC: '',
     fotoT: '',
+    inversion: '',
 }
 
 const byPropKey = (propertyName, value) => () => ({
@@ -103,6 +104,7 @@ class NewProject extends Component {
             fotoF,
             fotoC,
             fotoT,
+            inversion,
         } = this.state;
 
         const {
@@ -129,6 +131,7 @@ class NewProject extends Component {
             fotoF,
             fotoC,
             fotoT,
+            inversion,
         } = this.state;
 
         return (
