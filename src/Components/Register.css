@@ -1,0 +1,25 @@
+.modal-body > .container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.form-control {
+    width: 100%;
+}
+
+label {
+    font-weight: 700;
+}
+
+.modal-body {
+    max-width: 800px;
+}
+
+#regi-img {
+    float: left;
+    height: 80vh;
+    width: 50vw;
+    object-fit: cover;
+}
+

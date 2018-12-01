@@ -18,6 +18,8 @@ import fire from './Firebase/Fire';
 import { createUser, listUsers } from './Constants/firebase';
 import AddProject from './Components/NewProject';
 import Proyectos from './Components/Proyectos';
+import Landing from './Components/Landing';
+
 
 
 class App extends Component {
@@ -103,6 +105,10 @@ class App extends Component {
             <Route
               exact path={routes.PROYECTOS}
               component={() => <Proyectos />}
+            />
+            <Route
+              exact path={routes.LANDING}
+              component={() => <Landing />}
             />
           </div>
         </Router>

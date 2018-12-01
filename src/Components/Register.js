@@ -5,6 +5,7 @@ import fire from "../Firebase/Fire";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import './Register.css';
 
 class Register extends Component {
 
@@ -207,6 +208,7 @@ class Register extends Component {
 
 
                 <div className="modal" id="registerModal">
+                
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -215,6 +217,7 @@ class Register extends Component {
                             </div>
                             <div className="modal-body">
                                 <div className="container">
+                                    <img id="regi-img" src="https://bit.ly/2Q6V7Iu"></img>
                                     <div className="row">
                                         <div className="form-group col-sm">
                                             <label htmlFor="usr">Nombre:</label>

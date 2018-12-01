@@ -37,12 +37,16 @@ const NavNonAuth = () =>
                     <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
                 <ul className="navbar-nav mr-auto ">
-                    <li className="nav-item active">
-                        <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">Explore</a>
-                    </li>
+                    <Link to={routes.LANDING}>
+                        <li className="nav-item active">
+                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                        </li>
+                    </Link>
+                    <Link to={routes.PROYECTOS}>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Explore</a>
+                        </li>
+                    </Link>
                     <li className="nav-item">
                         <a className="nav-link" href="#">About</a>
                     </li>
@@ -56,13 +60,14 @@ const NavNonAuth = () =>
                 <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
                     <li className="nav-item">
                         <Link to={routes.LOGINPAGE}>
-                            <a className="nav-link" href="#">LOG IN</a>
+                            <button className="nav-link bt" id="login-bt" href="#">LOG IN</button>
                         </Link>
 
                     </li>
                 </ul>
             </div>
         </nav>
+        {/*
         <div id="title">Modos de acceso</div>
         <Link to={routes.USERHOMEPAGE}>
             <button id="User">Switch to user</button>
@@ -79,7 +84,7 @@ const NavNonAuth = () =>
         <Link to={routes.NEWPROJECT}>
             <button id="Admin">Add project</button>
         </Link>
-
+*/}
 
     </div>
 
@@ -104,6 +109,7 @@ const NavAuth = ({ authUser }) => (
                 </form>
                 <ul className="navbar-nav mr-auto ">
                     <li className="nav-item active">
+
                         <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
                     </li>
                     <li className="nav-item">
