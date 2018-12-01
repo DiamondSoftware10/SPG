@@ -8,7 +8,7 @@ import axios from 'axios'
 
 const AddProject = () =>
     <div id="project">
-        <div id="main-title">Add Project</div>
+        <div id="main-title">Agregar Proyecto</div>
         <NewProject />
     </div>
 

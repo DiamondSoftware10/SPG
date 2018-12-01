@@ -10,6 +10,10 @@
     font-size: 1.2em;
 }
 
+#idproject > #main-title {
+    padding-top: 10vmin;
+}
+
 ul {
     list-style-type: none;
   }
