@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { listProjects, listUsers, queryIdProject } from '../Constants/firebase'
 import './Infocard.css'
+//import * as firebase from 'firebase';
 
 import workers from '../Icons/workers.svg';
 import hand from '../Icons/hand.svg';
@@ -11,14 +12,16 @@ import a from '../Images/1.jpg';
 import b from '../Images/2.jpg';
 import c from '../Images/3.jpg';
 import d from '../Images/4.jpg';
+import fire from "../Firebase/Fire"
 
+var db = fire.firestore();
 
 class Infocard extends Component {
     constructor(props) {
         super(props);
         this.render = this.render.bind(this);
         this.handleInfocard = this.handleInfocard.bind(this);
-
+        this.readDB = this.readDB.bind(this);
         this.state = {
             foto: "",
             cultivos: [],
@@ -27,6 +30,18 @@ class Infocard extends Component {
             nombre: "Terreno San Lorenzo",
             location: "San Lorenzo"
         };
+    }
+
+    readDB(){
+        db.collection("projects").get().then(function(snap){
+            snap.forEach(element => {
+                console.log("leer: " + element.id, " => ", element.data());
+            });
+        });
+    }
+
+    componentDidMount(){
+        this.readDB();
     }
 
     handleInfocard(title) {
