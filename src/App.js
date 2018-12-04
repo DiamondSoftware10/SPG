@@ -79,7 +79,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <MapContainer docId = 'PYwokLiXtz6Qln4xTrlx'> </MapContainer>
         <Router>
           <div>
             <Navbar authUser={this.state.user}/>
@@ -97,7 +96,7 @@ class App extends Component {
             />
             <Route
               exact path={routes.LOGINPAGE}
-              component={() => <LoginPage />}
+              component={LoginPage}
               />
               <Route
               exact path={routes.NEWPROJECT}
@@ -106,7 +105,7 @@ class App extends Component {
 
             <Route
               exact path={routes.PROYECTOS}
-              component={() => <Proyectos />}
+              component={Proyectos}
             />
             <Route
               exact path={routes.LANDING}

@@ -12,12 +12,14 @@ class MapContainer extends React.Component {
             showingInfoWindow: false,
             activeMarker: {},
             selectedPlace: {},
-            latitude: null,
-            longitude: null,
+            latitude: 0,
+            longitude: 0,
             markerLat: null, 
             markerLong: null,
             lugar: "",
-            direccion: ""
+            direccion: "",
+            ready: false, 
+            initialMarkerShown: true//se muestra un icono en la posicion inicial
         }
 
         this.onMarkerClick = this.onMarkerClick.bind(this);
@@ -25,8 +27,9 @@ class MapContainer extends React.Component {
         this.handleClickMap = this.handleClickMap.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.saveLocation = this.saveLocation.bind(this);
-        this.getProjectInfo = this.getProjectInfo.bind(this);
-
+        this.handleMap = this.handleMap.bind(this);
+        //this.onReadyMap = this.onReadyMap.bind(this);
+        
     }
 
     onMarkerClick = (props, marker, e) => {
@@ -36,6 +39,7 @@ class MapContainer extends React.Component {
             activeMarker: marker,
             showingInfoWindow: true
         });
+
 
     }
 
@@ -49,11 +53,11 @@ class MapContainer extends React.Component {
         }
     }
 
-    saveLocation() {
+    saveLocation() {//aun no funciona
         //guardar la direccion y coordenadas en la base de datos
 
 
-        fire.firestore().collection("projects").doc('ZNHcpe5SzU3fonNJCd5d').update({
+        fire.firestore().collection("projects").doc(this.props.docID).update({
             lugar: this.state.lugar,
             direccion: this.state.direccion,
             coordinates: new firebase.firestore.GeoPoint(this.state.latitude, this.state.longitude)
@@ -67,61 +71,23 @@ class MapContainer extends React.Component {
     }
 
 
-    componentWillMount() {
-        //conseguir datos del documento, editar idDoc
-        //var docRef = fire.firestore().collection("projects").doc('idDoc');
-        /*var docRef = fire.firestore().collection("projects").doc('ZNHcpe5SzU3fonNJCd5d');
-
-        docRef.get().then((doc) => {
-            if (doc.exists) {
-                console.log("Document data:", doc.data().coordinates);
-                this.setState({
-                    latitude: doc.data().coordinates._lat,
-                    longitude: doc.data().coordinates._long,
-                    lugar: doc.data().lugar,
-                    direccion: doc.data().direccion
-                })
-
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No such document!");
-            }
-        }).catch(function(error) {
-            console.log("Error getting document:", error);
-        });*/
-        this.getProjectInfo();
+    componentDidMount(){
+        console.log("entro didmount")
+        this.setState({
+            latitude: this.props.center.lat,
+            longitude: this.props.center.lng,
+            ready: true
+        })
     }
 
-    getProjectInfo(){
-        const docId = this.props.docId;
+    /*onReadyMap(){
+        if(!this.initialMarkerShown){
+            this.setState({
+                initialMarkerShown: true
+            })
+        }
+    }*/
 
-        //var docRef = fire.firestore().collection("projects").doc('ZNHcpe5SzU3fonNJCd5d');
-        var docRef = fire.firestore().collection("projects").doc(docId);
-
-        docRef.get().then((doc) => {
-            if (doc.exists) {
-                console.log("Datos del documento:", doc.data().coordinates);
-                const _lat = doc.data().coordinates._lat;
-                const _long = doc.data().coordinates._long;
-
-               // console.log("_lat: " + _lat)
-                this.setState({
-                    latitude: _lat,
-                    longitude: _long,
-                    //markerLat: _lat,
-                   // markerLong: _long,
-                    lugar: doc.data().lugar,
-                    direccion: doc.data().direccion
-                })
-
-            } else {
-                // doc.data() will be undefined in this case
-                console.log("No existe el documento");
-            }
-        }).catch((error) => {
-            console.log("Error: ", error);
-        });
-    }
 
 
 
@@ -129,6 +95,10 @@ class MapContainer extends React.Component {
         this.setState({ [name]: event.target.value });
         console.log(event.target.value);
     };
+
+    handleMap(){
+        console.log(this.props.daCenter)
+    }
 
 
     
@@ -148,59 +118,47 @@ class MapContainer extends React.Component {
 
         this.setState({
             latitude: lat,
-            longitude: long
+            longitude: long,
+            initialMarkerShown: false
         })
 
         console.log("lat: " + lat + "\nlong: " + long);
     }
 
 
-    render() {
-        const style = {
-            /*width: '50vw',
-            height: '75vh',*/
-            width: '30vw',
-            height: '35vh',
-            'marginLeft': 'auto',
-            'marginRight': 'auto'
-        }
 
+    render() {
         return (
             <div>
-
-                <button type="button" className="btn btn-default" data-toggle="modal" data-target="#mapModal" data-backdrop="false">
-                    <span className="glyphicon glyphicon-map-marker"></span> Ver Mapa
-                </button>
-
-
-                <div className="modal" id="mapModal">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h4 className="modal-title">Ubicación del Proyecto</h4>
-                                <button type="button" className="close" data-dismiss="modal">&times;</button>
-                            </div>
-
-                            <div className="modal-body">
-
-                                <div className="container">
-
-                                    <div className="card" style={style}>
                                         <Map
-                                            item
+                                            //centerAroundCurrentLocation
                                             xs={12}
-                                            onReady={this.getProjectInfo}
+                                            //onReady={this.getProjectInfo}
                                             google={this.props.google}
-                                            onClick={this.handleClickMap}
+                                            onClick={ this.handleClickMap}
                                             zoom={14}
-                                            center={{ lat: this.state.latitude, lng: this.state.longitude }}
+                                            center = {this.props.center}
+                                            //onReady = {this.onReadyMap}
+                                            //currentLocation = {this.props.currentLocation}
+                                            //center={{ lat: this.props.lat, lng: this.props.long}}
                                             //initialCenter = {{lat: this.state.latitude, lng:this.state.longitude}}
                                         >
 
+                                            {//icono en posicion inicial
+                                            }
+                                            <Marker
+                                                visible = {this.state.initialMarkerShown}
+                                                onClick={this.onMarkerClick}
+                                                title={'titulo'}
+                                                position={{lat: this.props.center.lat, lng:this.props.center.lng}}
+                                                name={'nombre'}
+                                            />
+                                            {//icono secundario para seleccionar nueva posicion en el mapa
+                                            }
                                             <Marker
                                                 onClick={this.onMarkerClick}
                                                 title={'titulo'}
-                                                position={{ lat: this.state.latitude, lng: this.state.longitude }}
+                                                position={ {lat: this.state.latitude, lng:this.state.longitude}}
                                                 name={'nombre'}
                                             />
 
@@ -216,42 +174,6 @@ class MapContainer extends React.Component {
                                             </InfoWindow>
                                         </Map>
 
-
-                                    </div>
-
-                                    <div className="card" style={style}>
-                                        <div className="form-group col-sm">
-                                            <label htmlFor="usr">Nombre del lugar:</label>
-                                            <input
-                                                onChange={this.handleChange('lugar')}
-                                                type="text" className="form-control" id="lugar" />
-                                        </div>
-                                        <div className="form-group col-sm">
-                                            <label htmlFor="usr">Dirección:</label>
-                                            <input
-                                                onChange={this.handleChange('direccion')}
-                                                type="text" className="form-control" id="direccion" />
-                                        </div>
-                                    </div>
-
-
-
-                                </div>
-
-
-
-                            </div>
-                            <div className="modal-footer">
-                                <button onClick={this.saveLocation} type="button" className="btn btn-secondary" data-dismiss="modal">
-                                    OK
-                                </button>
-                                <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
             </div>
 
         );
