@@ -30,8 +30,8 @@ class App extends Component {
     this.classes = props.classes;
 
     this.state = {
-      user: null
-
+      user: null,
+      type: null
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -45,9 +45,21 @@ class App extends Component {
 
   componentDidMount(){
     fire.auth().onAuthStateChanged(user => {
-      user ? this.setState(()=>({user}))
-              : this.setState(() => ({user: null}));
+      user ? this.setState(()=>({user})) : this.setState(() => ({user: null}));
+      var id = user.uid;
+      console.log(id);
+      var ref = fire.firestore().collection('users');
+      ref.get().then((snap) =>{
+        snap.forEach((doc)=>{
+          if(doc.id == id){
+            var temType = doc.data().accType
+            this.setState(()=>({type: temType}))
+          }  
+        })
+      })
+      
     });
+    
   }
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -57,20 +69,7 @@ class App extends Component {
     this.setState({ open: false });
   };
 
-  /*componentDidMount() {
-    this.listenAuth();
-  }
-
-  listenAuth() {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
-      } else {
-        this.setState({ user: null });
-      }
-    });
-  }*/
-
+  
   logout() {
     fire.auth().signOut();
   }
@@ -82,7 +81,7 @@ class App extends Component {
       <MapContainer docId = 'PYwokLiXtz6Qln4xTrlx'> </MapContainer>
         <Router>
           <div>
-            <Navbar authUser={this.state.user}/>
+            <Navbar authUser={this.state.user} type={this.state.type}/>
             <Route
               exact path={routes.ADMINHOMEPAGE}
               component={() => <AdminHomepage />}

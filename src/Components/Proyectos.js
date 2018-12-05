@@ -32,8 +32,8 @@ export default class Proyectos extends Component {
 
           querySnapshot.forEach((doc) => {
 
-            console.log(doc.data().title);
-            proyectos.push(doc.data())
+            //console.log(doc.data().title);
+            //proyectos.push(doc.data())
 
 
           });
@@ -41,7 +41,7 @@ export default class Proyectos extends Component {
 
           //console.log(proyectos.length);
           for(var i = 0; i < proyectos.length/2; i++) {
-            console.log(proyectos[i]);
+            //console.log(proyectos[i]);
 
 
 
