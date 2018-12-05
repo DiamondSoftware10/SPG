@@ -19,7 +19,7 @@ import { createUser, listUsers } from './Constants/firebase';
 import AddProject from './Components/NewProject';
 import Proyectos from './Components/Proyectos';
 import Landing from './Components/Landing';
-
+import ProyectosAdmin from './Components/ProyectosAdmin';
 import MapContainer from "./Components/GoogleMapsContainer"
 
 
@@ -78,7 +78,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      <MapContainer docId = 'PYwokLiXtz6Qln4xTrlx'> </MapContainer>
         <Router>
           <div>
             <Navbar authUser={this.state.user} type={this.state.type}/>
@@ -106,6 +105,10 @@ class App extends Component {
             <Route
               exact path={routes.PROYECTOS}
               component={() => <Proyectos />}
+            />
+            <Route
+              exact path={routes.PROYECTOSADMIN}
+              component={()=><ProyectosAdmin/>}
             />
             <Route
               exact path={routes.LANDING}

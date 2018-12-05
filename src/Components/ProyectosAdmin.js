@@ -15,7 +15,7 @@ const projectRef = db.collection('projects');
 
 //var proyectos = [];
 
-export default class Proyectos extends Component {
+export default class ProyectosAdmin extends Component {
   constructor(props) {
     super(props);
 
@@ -113,7 +113,9 @@ export default class Proyectos extends Component {
           {cards}
         </div>
         <div id="proj-nav">
-         
+          <Link to={routes.NEWPROJECT}>
+            <button className="btn btn-dark" id="new-proj" >Agregar</button>
+          </Link>
         </div>
 
         <div className="modal" id="mapModal">
