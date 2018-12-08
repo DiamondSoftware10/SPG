@@ -10,7 +10,7 @@ class Infocard extends Component {
     constructor(props) {
         super(props);
         this.render = this.render.bind(this);
-        this.handleInfocard = this.handleInfocard.bind(this);
+
 
         this.state = {
             foto: "",
@@ -18,16 +18,17 @@ class Infocard extends Component {
             invMin: "$20",
             empleoGen: "23",
             nombre: "Terreno San Lorenzo",
-            location: "San Lorenzo, Valle"
+            location: "San Lorenzo, Valle",
+            showModal: false
         };
     }
 
     handleInfocard(title) {
-    /*var project = queryIdProject("Guanaja");
-        console.log("MMM")
-        console.log(project.projectFinan);
-        console.log(project.locate);
-*/
+        /*var project = queryIdProject("Guanaja");
+            console.log("MMM")
+            console.log(project.projectFinan);
+            console.log(project.locate);
+    */
         //const listItems = listUsers().map((user) =>  <li>{user}</li>
         //);
     }
@@ -37,7 +38,7 @@ class Infocard extends Component {
             <div id="infocards">
                 <div className="icard">
                     <div id="bt-event" onClick={this.handleInfocard("Guanaja")}>
-                        <div id="bt-more"></div>
+                        <div id="bt-more" ></div>
                         <img id="img-pro" src="https://bit.ly/2QkzpjB"></img>
                     </div>
                     <div id="box-event">
@@ -47,10 +48,10 @@ class Infocard extends Component {
                                 <div >{this.state.location}</div>
                                 <img id="proj-icon" src={loc}></img>
                             </div>
-                            
+
                         </div>
                         <div id="proj-name">{this.state.nombre}</div>
-                        
+
                         <div id="proj-gen">
                             <img id="proj-icon" src={workers}></img>
                             <div id="num">{this.state.empleoGen}</div>

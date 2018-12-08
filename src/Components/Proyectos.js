@@ -97,6 +97,7 @@ export default class Proyectos extends Component {
         <InfoCard
           changeLocation = {this.changeLocation}
           key={i}
+          id={doc.id}
           title={doc.title}
           location={doc.locate}
           lat={doc.coordinates._lat}

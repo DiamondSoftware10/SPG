@@ -12,3 +12,22 @@ margin-top: 10vh;
     width: 40%;
     border-radius: 10px;
 }
+
+.Modal {
+    position: absolute;
+    top: 5vmin;
+    left: 1vmin;
+    right: 1vmin;
+    bottom: -63vmin;
+    background-color: white;
+    margin: 5vmin 10vmin;
+    margin-top: 15vmin;
+    margin-bottom: 20vmin;
+    margin-left: 15vmin;
+    margin-right: 15vmin;
+    border: none;
+    border-radius: 20px;
+    padding: 5vmin;
+    z-index: 1000;
+    box-shadow: 2vmin 2vmin  10vmin rgba(75, 75, 75, 0.308);
+}

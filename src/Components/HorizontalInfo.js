@@ -33,8 +33,80 @@ class Infocard extends Component {
     }
 
     readDB(){
+        var parent = document.getElementById("infocards");
+
         db.collection("projects").get().then(function(snap){
             snap.forEach(element => {
+                var icard = document.createElement("div");
+                icard.className = "icard-hor zoom";
+
+                var cEvent = document.createElement("bt-event");
+                cEvent.id = "bt-event"; 
+                cEvent.onclick = () => {this.handleInfocard("TITLE")};
+
+                var more = document.createElement("div");
+                more.id = more;
+
+                var imagePro = document.createElement("img");
+                imagePro.id = "img-pro";
+                imagePro.src = b;
+
+                cEvent.appendChild(more);
+                cEvent.appendChild(imagePro);
+
+                icard.appendChild(cEvent);
+
+                var box = document.createElement("div");
+                box.id = "box-event";
+
+                var projType = document.createElement("div");
+                projType.id = "proj-type";
+                
+                var projName = document.createElement("div");
+                projName.id = "proj-name";
+                
+                var projLocation = document.createElement("div");
+                projLocation.id = "proj-location";
+                
+                var projGen = document.createElement("div");
+
+                var projIcon1 = document.createElement("img");
+                projIcon1.id = "proj-icon";
+                projIcon1.src = workers;
+                //projIcon1.setAttribute("src", workers);
+                
+                var projIcon2 = document.createElement("img");
+                projIcon2.id = "proj-icon";
+                projIcon2.src = hand;
+                //projIcon2.setAttribute("src", hand);
+
+                //Agregar los numeros
+                projGen.appendChild(projIcon1);
+                projGen.appendChild(projIcon2);
+
+                box.appendChild(projType);
+                box.appendChild(projName);
+                box.appendChild(projLocation);
+                box.appendChild(projGen);
+
+                var projFooter = document.createElement("div");
+                projFooter.id = "proj-footer";
+
+                var button = document.createElement("button");
+                button.id = "proj-cont";
+
+                var image = document.createElement("img");
+                image.setAttribute("src", arrow);
+                
+                button.appendChild(image);
+                projFooter.appendChild(button);
+
+                icard.appendChild(box);
+                icard.appendChild(projFooter);
+                
+                parent.appendChild(icard);
+
+
                 console.log("leer: " + element.id, " => ", element.data());
             });
         });
