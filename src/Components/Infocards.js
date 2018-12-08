@@ -116,7 +116,7 @@ class Infocard extends Component {
     }
 
     async readDB() {
-        
+
         await this.setState({
             id: this.props.id,
         })
@@ -137,12 +137,12 @@ class Infocard extends Component {
         await project.get().then(function (snap) {
             if (snap.exists) {
                 title = snap.data().title;
-                culture = snap.data().cultures; 
-                description = snap.data().description; 
-                infoZone = snap.data().infoZone; 
-                investor = snap.data().investor; 
-                projFinan = snap.data().projectFinan; 
-                raisedMoney = snap.data().raisedMoney; 
+                culture = snap.data().cultures;
+                description = snap.data().description;
+                infoZone = snap.data().infoZone;
+                investor = snap.data().investor;
+                projFinan = snap.data().projectFinan;
+                raisedMoney = snap.data().raisedMoney;
                 console.log("Doc exists");
                 console.log("Title " + title);
             } else {
@@ -156,9 +156,9 @@ class Infocard extends Component {
             title: title,
             culture: culture,
             description: description,
-            infoZone: infoZone, 
-            investor: investor, 
-            projFinan: projFinan, 
+            infoZone: infoZone,
+            investor: investor,
+            projFinan: projFinan,
             raisedMoney: raisedMoney,
         });
 
@@ -166,6 +166,14 @@ class Infocard extends Component {
     }
 
     render() {
+        const style = {
+            /*width: '50vw',
+            height: '75vh',*/
+            width: '30vw',
+            height: '85vh',
+            'marginLeft': 'auto',
+            'marginRight': 'auto'
+        }
 
         return (
             <div id="infocards">
@@ -179,25 +187,40 @@ class Infocard extends Component {
                     <div id="heading-modal">
                         <button className="hollow button" id="close-button" onClick={this.handleCloseModal}><span uk-icon="close"></span>Close</button>
                         <div id="modal-detail">
-                            <h1>{this.state.title}</h1>
-                            <h2>Cultivos: {this.state.culture}</h2>
-                            <br></br>
-                            <h2>Descripción: </h2>
-                            <p>{this.state.description}</p>
-                            <br></br>
-                            <h2>Información de zona:</h2>
-                            <p>{this.state.infoZone}</p>
-                            <br></br>
-                            <h2>Inversionista: </h2>
-                            <h3>{this.state.investor}</h3>
-                            <br></br>
-                            <h2>Financiamiento del proyecto</h2>
-                            <h3>{this.state.projFinan}</h3>
-                            <br></br>
-                            <h2>Dinero recaudado</h2>
-                            <h3>{this.state.raisedMoney}</h3>
+                            <div className="card">
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <div className="card-block">
+                                            <h1>{this.state.title}</h1>
+                                            <h2>Cultivos: {this.state.culture}</h2>
+                                            <br></br>
+                                            <h2>Descripción: </h2>
+                                            <p>{this.state.description}</p>
+                                            <br></br>
+                                            <h2>Información de zona:</h2>
+                                            <p>{this.state.infoZone}</p>
+                                            <br></br>
+                                            <h2>Inversionista: </h2>
+                                            <h3>{this.state.investor}</h3>
+                                            <br></br>
+                                            <h2>Financiamiento del proyecto</h2>
+                                            <h3>{this.state.projFinan}</h3>
+                                            <br></br>
+                                            <h2>Dinero recaudado</h2>
+                                            <h3>{this.state.raisedMoney}</h3>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <MapContainer style={style} center={{
+                                            lat: this.props.center.lat,
+                                            lng: this.props.center.lng
+                                        }} />
 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
 
                     </div>
                 </ReactModal>
