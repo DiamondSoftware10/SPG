@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 import MapContainer from "../Components/GoogleMapsContainer"
 import InfoCard from "./Infocards";
-import ReactDOM from 'react-dom';
 
 import './Proyectos.css'
 
@@ -16,7 +15,7 @@ const projectRef = db.collection('projects');
 
 //var proyectos = [];
 
-export default class Proyectos extends Component {
+export default class ProyectosAdmin extends Component {
   constructor(props) {
     super(props);
 
@@ -95,7 +94,6 @@ export default class Proyectos extends Component {
         <InfoCard
           changeLocation = {this.changeLocation}
           key={i}
-          id={doc.id}
           title={doc.title}
           location={doc.locate}
           lat={doc.coordinates._lat}
@@ -133,10 +131,7 @@ export default class Proyectos extends Component {
                 <div className="container">
 
                   <div className="card" style={style}>
-                    <MapContainer center={{
-                      lat: this.state.center.lat,
-                      lng: this.state.center.lng
-                    }} />
+                    
                   </div>
 
                   <div className="card" style={style}>
