@@ -18,7 +18,7 @@ margin-top: 10vh;
     top: 5vmin;
     left: 1vmin;
     right: 1vmin;
-    bottom: -63vmin;
+    
     background-color: white;
     margin: 5vmin 10vmin;
     margin-top: 15vmin;
@@ -80,13 +80,18 @@ margin-top: 10vh;
     flex-direction: row;
     flex-wrap: wrap;
     height: 120vh;
+    align-content: center;
 }
 
-#side-flex > #sidebar > h3 {
+#side-flex > #sidebar > div {
+    margin: .6em;
+}
+
+#side-flex > #sidebar > div > h3 {
     font-weight: 700;
 }
 
-#side-flex > #sidebar > h6 {
+#side-flex > #sidebar > div > h6 {
     font-weight: 400;
     letter-spacing: 1px;
 
@@ -118,11 +123,15 @@ margin-top: 10vh;
     margin: 0;
 }
 
-#modal-map {
-
-}
 
 #modal-img {
-    height:60%;
-    width: 70%;
+    height:100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+#img-div {
+    height:40%;
+    width: 110%;
+
 }

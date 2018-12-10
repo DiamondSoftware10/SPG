@@ -20,7 +20,7 @@ const Navbar = ({ authUser }) =>
 
 const NavNonAuth = () =>
     <div id="navbar2">
-        <nav className="navbar navbar-expand-lg navbar-light ">
+        <nav className="navbar sticky-top navbar-expand-lg navbar-light ">
             <a className="navbar-brand" href="#">
                 <img src={icon} width="30" height="30"></img>
                 SPG
@@ -91,7 +91,7 @@ const NavNonAuth = () =>
 
 const NavAuth = ({ authUser }) => (
     <div id="navbar2">
-        <nav className="navbar navbar-expand-lg navbar-light ">
+        <nav className="navbar sticky-top navbar-expand-lg navbar-light ">
             <a className="navbar-brand" href="#">
                 <img src={icon} width="30" height="30"></img>
                 SPG

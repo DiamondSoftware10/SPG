@@ -170,10 +170,11 @@ class Infocard extends Component {
         const style = {
             /*width: '50vw',
             height: '75vh',*/
-            width: '30vw',
-            height: '85vh',
-            'marginLeft': 'auto',
-            'marginRight': 'auto'
+            width: '45vw',
+            height: '40vh',
+            'marginLeft': '0',
+            'marginRight': '0',
+
         }
 
         return (
@@ -226,9 +227,12 @@ class Infocard extends Component {
 
                                     <div id="modal-flex">
                                         <div id="main-flex">
-                                            {/*<img id="modal-img" onClick={this.handleOpenModal} src="https://bit.ly/2Dpx93w"></img>*/}
-
-                                            <div id="terr-head">Terreno</div>
+                                            <div id="img-div">
+                                                <img id="modal-img" onClick={this.handleOpenModal} src="https://bit.ly/2Dpx93w"></img>
+                                            </div>
+                                            <div>
+                                                <div id="terr-head">Terreno</div>
+                                            </div>
                                             <h1>{this.state.title}</h1>
                                             <br></br>
 
@@ -245,7 +249,7 @@ class Infocard extends Component {
                                             <h5>Información de la Zona </h5>
                                             <p>{this.state.infoZone}</p>
                                             <h5>Ubicación</h5>
-                                            <div id="modal-map">
+                                            <div style={style} className="card" id="modal-map">
                                                 <MapContainer center={{
                                                     lat: this.props.center.lat,
                                                     lng: this.props.center.lng
