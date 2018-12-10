@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { listProjects, listUsers, queryIdProject } from '../Constants/firebase'
 import './Infocard.css'
+import './Proyectos.css'
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import ReactModal from 'react-modal';
 
@@ -176,7 +177,7 @@ class Infocard extends Component {
         }
 
         return (
-            <div id="infocards">
+            <div >
                 <ReactModal
                     isOpen={this.state.showModal}
                     contentLabel="onRequestClose Example"
@@ -185,10 +186,14 @@ class Infocard extends Component {
                     overlayClassName="Overlay"
                 >
                     <div id="heading-modal">
-                        <button className="hollow button" id="close-button" onClick={this.handleCloseModal}><span uk-icon="close"></span>Close</button>
+                        <button className="hollow button" id="close-button" onClick={this.handleCloseModal}><span uk-icon="close"></span><i class="material-icons">
+                            close
+                        </i></button>
                         <div id="modal-detail">
                             <div className="card">
+
                                 <div className="row">
+                                    {/*
                                     <div className="col-md-6">
                                         <div className="card-block">
                                             <h1>{this.state.title}</h1>
@@ -200,7 +205,7 @@ class Infocard extends Component {
                                             <h2>Información de zona:</h2>
                                             <p>{this.state.infoZone}</p>
                                             <br></br>
-                                            <h2>Inversionista: </h2>
+                                            <h2>Inversionista </h2>
                                             <h3>{this.state.investor}</h3>
                                             <br></br>
                                             <h2>Financiamiento del proyecto</h2>
@@ -217,43 +222,100 @@ class Infocard extends Component {
                                         }} />
 
                                     </div>
+                                    */}
+
+                                    <div id="modal-flex">
+                                        <div id="main-flex">
+                                            {/*<img id="modal-img" onClick={this.handleOpenModal} src="https://bit.ly/2Dpx93w"></img>*/}
+
+                                            <div id="terr-head">Terreno</div>
+                                            <h1>{this.state.title}</h1>
+                                            <br></br>
+
+                                            <div id="proj-location">
+                                                <img id="proj-icon" src={loc}></img>
+                                                <div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
+                                                    {this.props.location}
+                                                </div>
+                                            </div>
+                                            <br></br>
+
+                                            <h5>Descripción </h5>
+                                            <p>{this.state.description}</p>
+                                            <h5>Información de la Zona </h5>
+                                            <p>{this.state.infoZone}</p>
+                                            <h5>Ubicación</h5>
+                                            <div id="modal-map">
+                                                <MapContainer center={{
+                                                    lat: this.props.center.lat,
+                                                    lng: this.props.center.lng
+                                                }} />
+                                            </div>
+                                        </div>
+
+                                        <div id="side-flex">
+                                            <div id="sidebar">
+                                                <div>
+                                                    <h6>Inversionista </h6>
+                                                    <h3>{this.state.investor}</h3>
+                                                </div>
+                                                <div>
+
+                                                    <h6>Financiamiento del proyecto</h6>
+                                                    <h3>${this.state.projFinan}</h3>
+                                                </div>
+                                                <div>
+                                                    <h6>Dinero recaudado</h6>
+                                                    <h3>${this.state.raisedMoney}</h3>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
                                 </div>
+
+
+
+
                             </div>
                         </div>
 
 
                     </div>
                 </ReactModal>
-                <div className="icard-hor ">
-                    <div id="bt-event" onClick={() => this.handleInfocard("Guanaja")}>
-                        <div id="bt-more"></div>
+                <div id="infocards">
+                    <div className="icard-hor">
+                        <div id="bt-event" onClick={() => this.handleInfocard("Guanaja")}>
+                            <div id="bt-more"></div>
 
-                        <img id="img-pro" onClick={this.handleOpenModal} src="https://bit.ly/2Dpx93w"></img>
-                    </div>
-                    <div id="box-event">
-                        <div id="proj-type">Terreno</div>
-                        <div id="proj-name">{this.props.title}</div>
-                        <div id="proj-location">
-                            <img id="proj-icon" src={loc}></img>
-                            <div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
-                                {this.props.location}
+                            <img id="img-pro" onClick={this.handleOpenModal} src="https://bit.ly/2Dpx93w"></img>
+                        </div>
+                        <div id="box-event">
+                            <div id="proj-type">Terreno</div>
+                            <div id="proj-name">{this.props.title}</div>
+                            <div id="proj-location">
+                                <img id="proj-icon" src={loc}></img>
+                                <div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
+                                    {this.props.location}
+                                </div>
                             </div>
-                        </div>
 
-                        <div id="proj-gen">
-                            <img id="proj-icon" src={workers}></img>
-                            <div id="num">{this.props.jobs} empleos</div>
-                            <img id="proj-icon" src={hand}></img>
-                            <div id="num">{this.props.money}  </div>
-                        </div>
-                        <div id="proj-footer">
+                            <div id="proj-gen">
+                                <img id="proj-icon" src={workers}></img>
+                                <div id="num">{this.props.jobs} empleos</div>
+                                <img id="proj-icon" src={hand}></img>
+                                <div id="num">{this.props.money}  </div>
+                            </div>
+                            <div id="proj-footer">
 
-                            <button id="proj-cont"><img src={arrow}></img></button>
-                        </div>
+                                <button id="proj-cont"><img src={arrow}></img></button>
+                            </div>
 
+                        </div>
                     </div>
-                </div>
-            </div >
+                </div >
+            </div>
         );
     }
 }

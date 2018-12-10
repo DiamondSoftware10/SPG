@@ -31,24 +31,24 @@ const NavNonAuth = () =>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <form className="form-inline my-2 my-lg-0 input-search">
-                    <input id="main-search" className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                    <input id="main-search" className="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Busqueda" />
                     <img id="main-search-icon" src={magnifier}></img>
 
-                    <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit">Búsqueda</button>
                 </form>
                 <ul className="navbar-nav mr-auto ">
                     <Link to={routes.LANDING}>
                         <li className="nav-item active">
-                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                            <a className="nav-link" href="#">Inicio <span className="sr-only">(current)</span></a>
                         </li>
                     </Link>
                     <Link to={routes.PROYECTOS}>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Explore</a>
+                            <a className="nav-link" href="#">Explorar</a>
                         </li>
                     </Link>
                     <li className="nav-item">
-                        <a className="nav-link" href="#">About</a>
+                        <a className="nav-link" href="#">Acerca de</a>
                     </li>
                     {/*
                             <li className="nav-item">
@@ -102,27 +102,27 @@ const NavAuth = ({ authUser }) => (
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <form className="form-inline my-2 my-lg-0 input-search">
-                    <input id="main-search" className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                    <input id="main-search" className="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Busqueda" />
                     <Link to={routes.PROYECTOS}>
                     <img id="main-search-icon" src={magnifier}></img>
                     </Link>
-                    <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit">Búsqueda</button>
                 </form>
                 <ul className="navbar-nav mr-auto ">
                     <li className="nav-item active">
                     <Link to={routes.LANDING}>
 
-                        <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                        <a className="nav-link" href="#">Inicio <span className="sr-only">(current)</span></a>
                         </Link>
                     </li>
                     <li className="nav-item">
                         <Link to={routes.PROYECTOS}>
-                            <a className="nav-link" href="#">Explore</a>
+                            <a className="nav-link" href="#">Explorar</a>
                         </Link>
                     </li>
 
                     <li className="nav-item">
-                        <a className="nav-link" href="#">About</a>
+                        <a className="nav-link" href="#">Acerca de</a>
                     </li>
                     {/*
                             <li className="nav-item">

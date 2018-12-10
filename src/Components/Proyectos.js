@@ -113,6 +113,7 @@ export default class Proyectos extends Component {
     return (
       <div className="info-cont">
         <h1 id="main-title">Proyectos</h1>
+        
         <div id="cards-div" className="container-fluid">
           {cards}
         </div>
