@@ -4,7 +4,7 @@ import * as routes from '../Constants/Routes';
 import './Navbar.css';
 
 
-
+import Card from './Card';
 import magnifier from '../Icons/magnifier.svg';
 import icon from '../Icons/iconbeta.png';
 import cart from '../Icons/cart.svg';
@@ -52,11 +52,6 @@ const NavNonAuth = () =>
                     <li className="nav-item">
                         <a className="nav-link" href="#">About</a>
                     </li>
-                    {/*
-                            <li className="nav-item">
-                                <a className="nav-link disabled" href="#">Disabled</a>
-                            </li>
-                            */}
                 </ul>
 
                 <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
@@ -69,24 +64,7 @@ const NavNonAuth = () =>
                 </ul>
             </div>
         </nav>
-        {/*
-        <div id="title">Modos de acceso</div>
-        <Link to={routes.USERHOMEPAGE}>
-            <button id="User">Switch to user</button>
-        </Link>
-        <Link to={routes.ADMINHOMEPAGE}>
-            <button id="Admin">Switch to admin</button>
-        </Link>
-        <Link to={routes.GUESTHOMEPAGE}>
-            <button id="Admin">Switch to guest</button>
-        </Link>
-
-
-
-        <Link to={routes.NEWPROJECT}>
-            <button id="Admin">Add project</button>
-        </Link>
-*/}
+        
 
     </div>
 
@@ -127,11 +105,7 @@ const NavAdmin = () => (
                     <li className="nav-item">
                         <a className="nav-link" href="#">About</a>
                     </li>
-                    {/*
-                            <li className="nav-item">
-                                <a className="nav-link disabled" href="#">Disabled</a>
-                            </li>
-                            */}
+                    
                 </ul>
 
                 <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
@@ -139,15 +113,7 @@ const NavAdmin = () => (
                         <img id="cart-icon" src={cart}></img>
                     </li>
                     <li className="nav-item">
-                        <a class="nav-link dropdown-toggle" href="#" id="nav-profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
+                        <Card/>
                     </li>
                 </ul>
             </div>
@@ -170,10 +136,10 @@ const NavUser = () => (
     <div id="navbar2">
         <nav className="navbar navbar-expand-lg navbar-light ">
             <Link to={routes.LANDING}>
-                <a className="navbar-brand" href="#">
+                <p className="navbar-brand" >
                     <img src={icon} width="30" height="30"></img>
                     SPG
-            </a>
+            </p>
             </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
@@ -214,17 +180,8 @@ const NavUser = () => (
                     <li className="nav-item">
                         <img id="cart-icon" src={cart}></img>
                     </li>
-                    <li className="nav-item">
-                        <a class="nav-link dropdown-toggle" href="#" id="nav-profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                    </li>
+                        <Card/>
+                    
                 </ul>
             </div>
             <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
