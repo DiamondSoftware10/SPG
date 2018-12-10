@@ -1,11 +1,4 @@
-#infocards {
-    margin:auto;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    flex-direction: row;
-}
+
 
 .icard-hor {
     display: flex;
@@ -60,7 +53,7 @@
 .icard-hor #proj-location {
     display: flex;
     flex-direction: row;
-    flex-wrap: no wrap;
+    flex-wrap: nowrap;
     justify-content: right; 
     align-items: center;
     justify-self: right;

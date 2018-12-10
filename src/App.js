@@ -21,6 +21,7 @@ import Proyectos from './Components/Proyectos';
 import Landing from './Components/Landing';
 
 import MapContainer from "./Components/GoogleMapsContainer"
+import "circular-std"; 
 
 
 class App extends Component {

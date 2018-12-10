@@ -1,5 +1,4 @@
 .navbar {
-    font-family: Montserrat;
     padding-left: 5vw;
     font-size: 2.4vmin;
     background: white;
@@ -9,6 +8,7 @@
     font-weight: 900;
     font-size: 1.5em;
     margin-right: 2.4vw;
+    font-family: Montserrat;
 }
 .nav-item {
     margin: 0vw 1vw 0vw 1vw;

@@ -3,6 +3,15 @@ text-align: left;
 margin-top: 10vh;
 }
 
+#cards-div {
+    margin:auto;
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    flex-wrap: wrap;
+    
+}
+
 #proj-nav {
     text-align: center;
 }
@@ -21,7 +30,7 @@ margin-top: 10vh;
     
     background-color: white;
     margin: 5vmin 10vmin;
-    margin-top: 15vmin;
+    margin-top: 7.5vmin;
     margin-bottom: 20vmin;
     margin-left: 15vmin;
     margin-right: 15vmin;
@@ -29,7 +38,7 @@ margin-top: 10vh;
     border-radius: 20px;
     padding: 5vmin;
     z-index: 1000;
-    font-family: Montserrat;
+    font-family: CircularStd, Montserrat;
     box-shadow: 2vmin 2vmin  10vmin rgba(75, 75, 75, 0.308);
 }
 
@@ -54,7 +63,7 @@ margin-top: 10vh;
 #main-flex {
     background-color: rgb(255, 255, 255);
     padding: 2em;
-    padding-top: 4.2em;
+    /*padding-top: 4.2em;*/
     flex-grow: 2;
     position: relative;
     width: 66%;
@@ -79,7 +88,7 @@ margin-top: 10vh;
     border-radius: 5px;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 120vh;
+    height: 200vh;
     align-content: center;
 }
 
@@ -97,7 +106,7 @@ margin-top: 10vh;
 
 }
 
-#main-flex > h1 {
+#main-flex > div > h1 {
     font-weight: 900;
     z-index: 1000;
 }
@@ -108,7 +117,7 @@ margin-top: 10vh;
 
 #terr-head {
     position: absolute;
-    top: .25em;
+    top: 30.5%;
     left: .25em;
     font-size: 100;
     text-transform: uppercase;
@@ -123,15 +132,18 @@ margin-top: 10vh;
     margin: 0;
 }
 
+#main-flex > #proj-title {
+    padding-top: 6%;
+}
 
 #modal-img {
     height:100%;
     width: 100%;
     object-fit: cover;
+    border-radius: 10px;
 }
 
 #img-div {
-    height:40%;
-    width: 110%;
-
+    height: 30%;
+    width: 120%;
 }

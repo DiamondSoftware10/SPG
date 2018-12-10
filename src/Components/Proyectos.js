@@ -114,7 +114,7 @@ export default class Proyectos extends Component {
       <div className="info-cont">
         <h1 id="main-title">Proyectos</h1>
         
-        <div id="cards-div" className="container-fluid">
+        <div id="cards-div">
           {cards}
         </div>
         <div id="proj-nav">

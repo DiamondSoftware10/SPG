@@ -5,7 +5,7 @@ import './Proyectos.css'
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import ReactModal from 'react-modal';
 
-
+import "circular-std"; 
 import workers from '../Icons/workers.svg';
 import hand from '../Icons/hand.svg';
 import loc from '../Icons/placeholder.svg';
@@ -226,6 +226,7 @@ class Infocard extends Component {
                                     */}
 
                                     <div id="modal-flex">
+
                                         <div id="main-flex">
                                             <div id="img-div">
                                                 <img id="modal-img" onClick={this.handleOpenModal} src="https://bit.ly/2Dpx93w"></img>
@@ -233,7 +234,9 @@ class Infocard extends Component {
                                             <div>
                                                 <div id="terr-head">Terreno</div>
                                             </div>
-                                            <h1>{this.state.title}</h1>
+                                            <div id="proj-title">
+                                                <h1>{this.state.title}</h1>
+                                            </div>
                                             <br></br>
 
                                             <div id="proj-location">
@@ -244,10 +247,16 @@ class Infocard extends Component {
                                             </div>
                                             <br></br>
 
+                                            <br></br>
+
                                             <h5>Descripción </h5>
                                             <p>{this.state.description}</p>
+                                            <br></br>
+
                                             <h5>Información de la Zona </h5>
                                             <p>{this.state.infoZone}</p>
+                                            <br></br>
+
                                             <h5>Ubicación</h5>
                                             <div style={style} className="card" id="modal-map">
                                                 <MapContainer center={{
@@ -255,6 +264,8 @@ class Infocard extends Component {
                                                     lng: this.props.center.lng
                                                 }} />
                                             </div>
+                                            <br></br>
+
                                         </div>
 
                                         <div id="side-flex">
