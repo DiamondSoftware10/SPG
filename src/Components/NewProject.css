@@ -1,17 +1,7 @@
-#newProject-input {
-    height: 50px;
-    width: 60%;
-    margin: .5%;
-    border-radius: 10px;
-    border-style: solid;
-    border-color: rgb(248, 248, 248);
-    padding: 15px;
-    text-transform: capitalize;
-    font-size: 1.2em;
-}
 
-#idproject > #main-title {
-    padding-top: 10vmin;
+#new-proj-inputs > #main-title {
+    padding-top: 5vmin;
+    font-size: 3em;
 }
 
 ul {
@@ -20,8 +10,8 @@ ul {
 
   ul > li > input {
     height: 50px;
-    width: 60%;
-    margin: .5%;
+    width: 70%;
+    
     border-radius: 10px;
     border-style: solid;
     border-color: rgb(248, 248, 248);
@@ -31,7 +21,14 @@ ul {
   }
 
   #all-inputs > li {
+      margin-top: 1em;
+      margin-bottom: .5em;
+  }
+
+  #all-inputs {
       margin: 2vmin;
+      text-align: left;
+      margin-left: 15vmin;
   }
 
  #main-title{
@@ -42,3 +39,41 @@ ul {
     text-align: left;
     margin-left: 10vw;
   }
+
+  #new-proj-div {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-content: center;
+      justify-content: center;
+      width: 100%;
+  }
+
+  /*
+  #new-proj-graphic > #graphic{
+      height: 90vh;
+      width: 40vw;
+      background: linear-gradient(to right, yellow, green);
+  }
+  */
+
+  #new-proj-graphic {
+    height: 120vh;
+    width: 45vw;
+  }
+
+  #new-proj-graphic > #graphic {
+    height: 120vh;
+    width: 45vw;
+    object-fit: cover;
+  }
+
+  #new-proj-inputs {
+      width: 60vw;
+  }
+
+#all-inputs > div {
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 500;
+}

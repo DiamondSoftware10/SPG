@@ -283,7 +283,9 @@ class Infocard extends Component {
                                                     <h6>Dinero recaudado</h6>
                                                     <h3>${this.state.raisedMoney}</h3>
                                                 </div>
-
+                                                <div>
+                                                    <button className="spg-btn">Agregar a cartera</button>
+                                                </div>
                                             </div>
 
                                         </div>

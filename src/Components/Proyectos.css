@@ -130,6 +130,7 @@ margin-top: 10vh;
 #main-flex > #proj-location {
     font-size: 1.5em;
     margin: 0;
+    font-weight: 400;
 }
 
 #main-flex > #proj-title {
@@ -146,4 +147,17 @@ margin-top: 10vh;
 #img-div {
     height: 30%;
     width: 120%;
+}
+
+.spg-btn {
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    margin: auto;
+    height: 10vmin;
+    width: 40vmin;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: .25em;
+    display: none;
 }
