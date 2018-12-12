@@ -3,7 +3,7 @@ import * as routes from '../../Constants/Routes';
 import './NewProject.css';
 import { createProject } from '../../Constants/project';
 import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImagenVal, puntoDecimalVal } from '../../Constants/validations'
-import { firebase } from 'firebase'
+import fire from '../../Firebase/Fire'
 import axios from 'axios'
 
 const AddProject = () =>
@@ -35,7 +35,7 @@ class NewProject extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { INITIAL_STATE, saveImageRef: [] };
+        this.state = { INITIAL_STATE, saveImageRef: [], URL: "" };
         this.fotoT = React.createRef();
         this.fotoC = React.createRef();
         this.fileUploadTerrenoHandler = this.fileUploadTerrenoHandler.bind(this);
@@ -68,24 +68,37 @@ class NewProject extends Component {
      * 
      * 
      */
-    fileUploadTerrenoHandler = () => {
+    async fileUploadTerrenoHandler() {
         const fd = new FormData();
-        this.setState(state =>{ 
-            const saveImageRef = state.saveImageRef.concat(this.fotoT.current.files[0]);
-            return {
-                saveImageRef,
-            }
-         });
+        console.log(this.state.saveImageRef);
         fd.append('image', this.fotoT.current.files[0], this.fotoT.current.files[0].name);
-        axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
+        await axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
             .then(res => {
                 console.log(this.fotoT)
                 console.log(res);
             });
+        await this.setState(state => {
+            const saveImageRef = state.saveImageRef.concat(this.fotoT.current.files[0]);
+            return {
+                saveImageRef,
+            }
+        });
+
+        var storage = fire.storage();
+        var starsRef = storage.ref().child("Giger2.jpg");
+        let getURL;
+        await starsRef.getDownloadURL().then(function (url) {
+            console.log(url);
+            getURL = url;
+        })
+        await this.setState(state => {
+            const URL = getURL;
+            return { URL }
+        })
+        console.log(this.state.URL);
     }
 
     onClick = (project) => {
-
         const {
             titulo,
             descripcion,
@@ -109,7 +122,6 @@ class NewProject extends Component {
         createProject(this.state.titulo, 0, 0, 0, this.state.saveImageRef, null, null
             , "", "", "", "", "", "", "", "", "");
 
-        console.log(this.state.saveImageRef);
         this.setState({
             titulo: '',
             descripcion: '',
@@ -123,13 +135,10 @@ class NewProject extends Component {
             inversion: '',
 
         })
-
-
         window.alert(this.state.titulo);
-
-
         project.preventDefault();
     }
+
     render() {
         const {
             titulo,
@@ -170,7 +179,12 @@ class NewProject extends Component {
                         <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.fileUploadTerrenoHandler}>Upload Foto</button>
                     </li>
                 </ul>
-                 <img id="img-pro" src={this.state.saveImageRef[this.state.saveImageRef.length - 1]}></img> 
+                <div>
+                    <ul>
+                        {this.state.saveImageRef.map((img, index) => <li key={index}>{img.name}</li>)}
+                    </ul>
+                </div>
+                <img id="img-pro" src={this.state.URL}></img>
                 <button id="bt-addProject" className="w3-button w3-round-xxlarge" onClick={this.onClick}>Add Project</button>
 
             </div>
