@@ -46,7 +46,7 @@ const NavNonAuth = () =>
                     </Link>
                     <Link to={routes.PROYECTOS}>
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Explore</a>
+                            <a className="nav-link" >Explore</a>
                         </li>
                     </Link>
                     <li className="nav-item">
