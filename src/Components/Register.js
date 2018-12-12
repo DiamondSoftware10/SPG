@@ -25,7 +25,7 @@ class Register extends Component {
             telefono: "",
             region: "",
             contrasena: "",
-            condicion: null, 
+            condicion: null,
 
 
         };
@@ -71,15 +71,15 @@ class Register extends Component {
     signup(e) {
         e.preventDefault();
 
-        
+
         if ((this.state.nombre === undefined || this.state.apellido === undefined || this.state.correo === undefined || this.state.telefono === undefined ||
-            this.state.region === undefined || this.state.contrasena === undefined )) {
+            this.state.region === undefined || this.state.contrasena === undefined)) {
             window.alert("Error al registrarse, llene todos los campos")
         } else if (nombresVal(this.state.nombre, 1, 50) == false || nombresVal(this.state.apellido, 1, 50) == false
-            || numeroVal(this.state.telefono, 1, 7) == false 
+            || numeroVal(this.state.telefono, 1, 7) == false
             || rangoCaracteresVal(this.state.region, 2, 50) == false) {
-            
-                window.alert("Error al registrarse, verifique los datos de entrada")
+
+            window.alert("Error al registrarse, verifique los datos de entrada")
 
         } else {
 
@@ -89,13 +89,13 @@ class Register extends Component {
                     condicion: true
                 });
                 this.addUser(e);
-                   
-         
+
+
             }).catch((error) => {
                 window.alert(error);
             })
-    
-            
+
+
             window.alert("Se ha registrado con exito");
 
         }
@@ -122,10 +122,10 @@ class Register extends Component {
         fire.auth().onAuthStateChanged(user => {
             if (user) {
                 const db = fire.firestore();
-/*
-                db.settings({
-                    timestampsInSnapshots: true
-                });*/
+                /*
+                                db.settings({
+                                    timestampsInSnapshots: true
+                                });*/
 
                 db.collection("users").doc(user.uid).set({
                     nombre: this.state.nombre,
@@ -207,19 +207,34 @@ class Register extends Component {
     render() {
         return (
             <div id="register-div">
-                <div id="jumbo-reg"className="jumbotron">
-                <img id="logo-reg" src={icon} width="40" height="40"></img>
-
-                <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
+                <div id="jumbo-reg" className="jumbotron">
 
                 </div>
 
 
                 <div className="jumbotron vertical-center">
-
-                
                     <div className="container">
-                        <div className="button-toolbar col-sm">
+
+                        <div id="reg-toolbar"className="button-toolbar col-sm">
+                            <img id="logo-reg" src={icon} width="40" height="40"></img>
+
+                            <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
+                            
+                            <br></br><br></br><br></br>
+                            <h2>Inicia Sesión</h2>
+                            <label htmlFor="usr">Email</label>
+                            <input
+                                onChange={this.handleChange('correo')}
+                                type="email" className="form-control" id="correoLogin" />
+                            <label htmlFor="pwd">Contraseña</label>
+
+                            <input
+                                onChange={this.handleChange('contrasena')}
+                                type="password" className="form-control" id="passwordLogin" />
+
+                            <button onClick={this.login} type="button" className="btn btn-secondary" data-dismiss="modal">
+                                LOG IN
+                                </button>
                             <button data-backdrop="false" type="button" className="btn btn-primary" data-toggle="modal" data-target="#registerModal">
                                 Registrarse
                     </button>
@@ -240,11 +255,11 @@ class Register extends Component {
 
                 </div>
 */
-                }             
+                }
 
 
                 <div className="modal" id="registerModal">
-                
+
                     <div className="modal-dialog">
                         <div className="modal-content">
                             <div className="modal-header">
@@ -257,19 +272,19 @@ class Register extends Component {
                                 <div className="container">
                                     {/*<img id="regi-img" src="https://bit.ly/2U38JTw"></img>*/}
                                     {/*<div className="row">*/}
-                                        <div className="form-group ">
-                                            <label htmlFor="usr">Nombre</label>
-                                            <input
-                                                onChange={this.handleChange('nombre')}
-                                                type="text" className="form-control" id="nombre" />
-                                        </div>
+                                    <div className="form-group ">
+                                        <label htmlFor="usr">Nombre</label>
+                                        <input
+                                            onChange={this.handleChange('nombre')}
+                                            type="text" className="form-control" id="nombre" />
+                                    </div>
 
-                                        <div className="form-group">
-                                            <label htmlFor="usr">Apellido</label>
-                                            <input
-                                                onChange={this.handleChange('apellido')}
-                                                type="text" className="form-control" id="apellido" />
-                                        </div>
+                                    <div className="form-group">
+                                        <label htmlFor="usr">Apellido</label>
+                                        <input
+                                            onChange={this.handleChange('apellido')}
+                                            type="text" className="form-control" id="apellido" />
+                                    </div>
 
                                     {/*</div>*/}
 
@@ -304,7 +319,7 @@ class Register extends Component {
                                 </div>
 
 
-                                <button data-backdrop="false" type="button" className="btn btn-secondary" onClick = {this.signup} {...this.state.condicion && {'data-dismiss': "modal"}}>
+                                <button data-backdrop="false" type="button" className="btn btn-secondary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
                                     Crear Cuenta
                                 </button>
                             </div>
