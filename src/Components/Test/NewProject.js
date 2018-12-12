@@ -189,7 +189,7 @@ class NewProject extends Component {
                             value={fotoT}
                             ref={this.fotoT}
                             type="file"
-
+                            
                         />
                         <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImg}>Agregar Foto</button>
                     </li>
