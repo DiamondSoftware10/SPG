@@ -7,11 +7,11 @@ import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImag
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import './Register.css';
+//import './Register.css';
 import icon from '../Icons/iconbeta.png';
 
 
-class Register extends Component {
+class CreateAdmin extends Component {
 
     constructor(props) {
         super(props);
@@ -25,13 +25,13 @@ class Register extends Component {
             telefono: "",
             region: "",
             contrasena: "",
+            contrasena2: "",
             condicion: null,
 
 
         };
 
-        this.handleClickOpen = this.handleClickOpen.bind(this);
-        this.handleClose = this.handleClose.bind(this);
+
         this.handleChange = this.handleChange.bind(this);
         this.clickRegistrar = this.clickRegistrar.bind(this);
         this.login = this.login.bind(this);
@@ -42,13 +42,7 @@ class Register extends Component {
 
     }
 
-    handleClickOpen = () => {
-        this.setState({ open: true });
-    };
 
-    handleClose = () => {
-        this.setState({ open: false });
-    };
 
     handleChange = name => event => {
         this.setState({ [name]: event.target.value });
@@ -85,9 +79,7 @@ class Register extends Component {
 
             fire.auth().createUserWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => {
 
-                this.setState({
-                    condicion: true
-                });
+                
                 this.addUser(e);
 
 
@@ -127,7 +119,7 @@ class Register extends Component {
                     correo: this.state.correo,
                     telefono: this.state.telefono,
                     region: this.state.region,
-                    accType: 1
+                    accType: 0
                 });
 
 
@@ -151,153 +143,68 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="container">
-                <div id="jumbo-reg" className="jumbotron">
-                    <img id="logo-reg" src={icon} width="40" height="40"></img>
-
-                    <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
-
-                </div>
-
-
-                <div className="jumbotron vertical-center">
-
-
-                    <div className="container">
-                        <div className="button-toolbar col-sm">
-                            <button data-backdrop="false" type="button" className="btn btn-primary" data-toggle="modal" data-target="#registerModal">
-                                Registrarse
-                    </button>
-
-                            <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#loginModal">
-                                Iniciar Sesión
-                            {//login con facebook, google?
-                                }
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div className="modal" id="registerModal">
-
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <img src={icon} width="30" height="30"></img>
-
-                                <h4 className="modal-title">Registrarse</h4>
-                                <button type="button" className="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div className="modal-body">
-                                <div className="container">
-                                    {/*<img id="regi-img" src="https://bit.ly/2U38JTw"></img>*/}
-                                    {/*<div className="row">*/}
-                                    <div className="form-group ">
-                                        <label htmlFor="usr">Nombre</label>
-                                        <input
-                                            onChange={this.handleChange('nombre')}
-                                            type="text" className="form-control" id="nombre" />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="usr">Apellido</label>
-                                        <input
-                                            onChange={this.handleChange('apellido')}
-                                            type="text" className="form-control" id="apellido" />
-                                    </div>
-
-                                    {/*</div>*/}
-
-                                    <div className="form-group">
-                                        <label htmlFor="usr">Región</label>
-                                        <input
-                                            onChange={this.handleChange('region')}
-                                            type="text" className="form-control" id="region" />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="usr">Telefono</label>
-                                        <input
-                                            onChange={this.handleChange('telefono')}
-                                            type="text" className="form-control" id="telefono" />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="usr">Correo</label>
-                                        <input
-                                            onChange={this.handleChange('correo')}
-                                            type="email" className="form-control" id="correo" />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="pwd">Contraseña</label>
-                                        <input
-                                            onChange={this.handleChange('contrasena')}
-                                            type="password" className="form-control" id="password" />
-                                    </div>
-
-                                </div>
-
-
-                                <button data-backdrop="false" type="button" className="btn btn-secondary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
-                                    Crear Cuenta
-                                </button>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <div className="modal" id="loginModal">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h4 className="modal-title">Log in</h4>
-                                <button type="button" className="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div className="modal-body">
-                                <div className="container">
-                                    <div className="form-group col-sm">
-                                        <label htmlFor="usr">Email</label>
-                                        <input
-                                            onChange={this.handleChange('correo')}
-                                            type="email" className="form-control" id="correoLogin" />
-                                    </div>
-
-
-                                    <div className="form-group">
-                                        <label htmlFor="pwd">Contraseña</label>
-                                        <input
-                                            onChange={this.handleChange('contrasena')}
-                                            type="password" className="form-control" id="passwordLogin" />
-                                    </div>
-
-                                </div>
-
-                                <button onClick={this.login} type="button" className="btn btn-secondary" data-dismiss="modal">
-                                    LOG IN
-                                </button>
-                            </div>
-                            <div className="modal-footer">
-                                <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
+            <div>
+                <ul id="input-list">
+                    <li id="input-list-item">
+                        <input
+                            onChange={this.handleChange('nombre')}
+                            type="text" className="form-control" id="nombre"
+                            placeholder="Primer Nombre"
+                        />
+                    </li>
+                    <li id="input-list-item">
+                        <input
+                            onChange={this.handleChange('apellido')}
+                            type="text" className="form-control" id="apellido"
+                            placeholder="Apellido"
+                        />
+                    </li>
+                    <li id="input-list-item">
+                        <input
+                            onChange={this.handleChange('region')}
+                            type="text" className="form-control" id="region"
+                            placeholder="Región"
+                        />
+                    </li>
+                    <li id="input-list-item">
+                        <input
+                            onChange={this.handleChange('telefono')}
+                            type="text" className="form-control" id="telefono"
+                            placeholder="Teléfono"
+                        />
+                    </li>
+                    <li id="input-list-item">
+                        <input
+                            onChange={this.handleChange('correo')}
+                            type="email" className="form-control" id="correo"
+                            placeholder="Email Address"
+                        />
+                    </li>
+                    <li id="input-list-item">
+                        <input
+                            onChange={this.handleChange('contrasena')}
+                            type="password" className="form-control" id="password"
+                            placeholder="Contraseña"
+                        />
+                    </li>
+                    <li id="input-list-item">
+                        <input
+                            onChange={this.handleChange('contrasena2')}
+                            type="password" className="form-control" id="password2"
+                            placeholder="Confirmar Contraseña"
+                        />
+                    </li>
+                    <button data-backdrop="false" type="button" className="btn btn-secondary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
+                        Crear Cuenta
+                 </button>
+                </ul>
             </div>
+           
 
 
         );
     }
 }
 
-export default Register;
+export default CreateAdmin;
 

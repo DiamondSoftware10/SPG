@@ -98,10 +98,14 @@ const NavAdmin = () => (
                     </li>
                     <li className="nav-item">
                         <Link to={routes.PROYECTOSADMIN}>
-                            <a className="nav-link" href="#">Explore</a>
+                            <a className="nav-link">Explore</a>
                         </Link>
                     </li>
-
+                    <li className="nav-item">
+                        <Link to={routes.CREATEUSERADMIN}>
+                        <a className="nav-link">Create Admin </a>
+                        </Link>
+                    </li>
                     <li className="nav-item">
                         <a className="nav-link" href="#">About</a>
                     </li>

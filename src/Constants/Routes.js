@@ -5,6 +5,7 @@ export const LOGINPAGE = '/login';
 export const NEWPROJECT = '/newProject';
 export const PROYECTOS = '/proyectos';
 export const PROYECTOSADMIN = '/proyectosAdmin';
+export const CREATEUSERADMIN = '/cUserA'
 export const LANDING = '/';
 
 

@@ -9,7 +9,7 @@ import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 import Navbar from './Components/Navbar';
-
+import CreateAdmin from './Components/CreateAdminUser'
 import Infocard from './Components/Infocard'
 
 import Register from "./Components/Register";
@@ -113,6 +113,10 @@ class App extends Component {
             <Route
               exact path={routes.LANDING}
               component={() => <Landing />}
+            />
+            <Route
+              exact path={routes.CREATEUSERADMIN}
+              component={() => <CreateAdmin/>}
             />
           </div>
         </Router>
