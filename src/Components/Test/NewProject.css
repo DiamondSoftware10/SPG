@@ -10,6 +10,14 @@
     font-size: 1.2em;
 }
 
+#img-pro {
+    width: 20vw;
+    height: 12vw;
+    object-fit: cover;
+    border-radius: 10px;
+    filter: saturate(120%);
+}
+
 #idproject > #main-title {
     padding-top: 10vmin;
 }
