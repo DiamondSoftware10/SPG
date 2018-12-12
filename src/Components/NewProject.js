@@ -199,7 +199,6 @@ class NewProject extends Component {
                                 value={infoZona}
                                 onChange={project => this.setState(byPropKey('infoZona', project.target.value))}
                                 type="text"
-                                placeholder="Informacion de zona"
                             />
                         </li>
                         {/*
@@ -250,7 +249,7 @@ class NewProject extends Component {
 
 
 
-                    <button id="bt-addProject" className="w3-button w3-round-xxlarge" onClick={this.onClick}>Add Project</button>
+                    <button id="bt-addProject" className="w3-button w3-round-xxlarge" onClick={this.onClick}>Agregar</button>
                 </div>
                 <div id="new-proj-graphic">
                     {/*<div id="graphic"></div>*/}

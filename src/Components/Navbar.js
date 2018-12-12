@@ -135,11 +135,11 @@ const NavAuth = ({ authUser }) => (
                     <li className="nav-item">
                         <img id="cart-icon" src={cart}></img>
                     </li>
-                    <li className="nav-item">
-                        <a class="nav-link dropdown-toggle" href="#" id="nav-profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li className="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="nav-profile" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 
                         </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div id="#drop-div"class="dropdown-menu " aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Action</a>
                             <a class="dropdown-item" href="#">Another action</a>
                             <div class="dropdown-divider"></div>

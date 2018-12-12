@@ -28,7 +28,7 @@ ul {
   #all-inputs {
       margin: 2vmin;
       text-align: left;
-      margin-left: 15vmin;
+      margin-left: 20vmin;
   }
 
  #main-title{
@@ -58,12 +58,12 @@ ul {
   */
 
   #new-proj-graphic {
-    height: 120vh;
+    height: 150vh;
     width: 45vw;
   }
 
   #new-proj-graphic > #graphic {
-    height: 120vh;
+    height: 150vh;
     width: 45vw;
     object-fit: cover;
   }
@@ -76,4 +76,16 @@ ul {
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 500;
+}
+
+#bt-addProject {
+    width: 40%;
+    margin: 5vmin;
+    height: 7vmin;
+    background: black;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    border-radius: 10px;
 }

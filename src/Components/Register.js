@@ -206,7 +206,7 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="container">
+            <div id="register-div">
                 <div id="jumbo-reg"className="jumbotron">
                 <img id="logo-reg" src={icon} width="40" height="40"></img>
 
