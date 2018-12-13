@@ -31,6 +31,7 @@ const byPropKey = (propertyName, value) => () => ({
 });
 
 
+
 class NewProject extends Component {
 
     constructor(props) {
@@ -39,7 +40,9 @@ class NewProject extends Component {
         this.fotoT = React.createRef();
         this.fotoC = React.createRef();
         this.addListImg = this.addListImg.bind(this);
-        this.onClick=this.onClick.bind(this);
+        this.onClick = this.onClick.bind(this);
+        this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
+        this.handleDeleteImageProject = this.handleDeleteImageProject.bind(this);
         //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
         //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
 
@@ -51,8 +54,8 @@ class NewProject extends Component {
             fd.append('image', this.fotoC.current.files[0], this.fotoC.current.files[0].name);
             axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
                 .then(res => {
-                    console.log(this.fotoC)
                     console.log(res);
+                    console.log(this.fotoC)
                 });
         }
         fileUploadFamiliaHandler = () => {
@@ -70,27 +73,35 @@ class NewProject extends Component {
      * 
      */
     // TODO: Falta validacion donde no se repita una imagen con el mismo nombre 
-    async addListImg (){
 
-        await this.setState(state => {
-            if (this.fotoT.current.files[0] != undefined) {
-                const listImgProject = state.listImgProject.concat(this.fotoT.current.files[0]);
+    async addListImg() {
+        console.log(this.fotoT.current.files[0]);
+        let listTemp = [];
+        await this.state.listImgProject.map(img => listTemp.push(img.name));
+        if (!listTemp.includes(this.fotoT.current.files[0].name)) {
+            await this.setState(state => {
+                if (this.fotoT.current.files[0] != undefined) {
+                    const listImgProject = state.listImgProject.concat(this.fotoT.current.files[0]);
 
-                return {
-                    listImgProject,
+                    return {
+                        listImgProject,
+                    }
+                } else {
+                    window.alert("No se ha seleccionado ninguna imagen");
+
                 }
-            } else {
-                window.alert("Debe agregar una imagen");
+            });
 
-            }
-        });
+        } else {
+            window.alert("La imagen ya existe en la coleccion");
+
+        }
+
         //Resetea el valor del archivo
-        document.getElementById("newProject-input9").value ="";        
-   
+        document.getElementById("newProject-input9").value = "";
     }
 
-    uploadImgToStorage() {
-        //console.log(this.state.listImgProject);
+    uploadImageToStorage = () => {
         this.state.listImgProject.forEach(fileImg => {
             let fd = new FormData();
             fd.append('image', fileImg, fileImg.name);
@@ -105,7 +116,20 @@ class NewProject extends Component {
         }));
     }
 
+    handleDeleteImageProject = (index, event) => {
+        console.log(`Click on list ${index}`)
+        event.preventDefault();
 
+        this.setState(state => {
+            const listImgProject = this.state.listImgProject;
+            listImgProject.splice(index, 1);
+            return (
+                listImgProject
+            )
+        })
+    }
+
+    //Codigo para subir a la Storage///////////////////
     /**
          *
          * var storage = fire.storage();
@@ -122,21 +146,21 @@ class NewProject extends Component {
         console.log(this.state.URL); 
          * 
          */
-
+    ///////////////////////////////////////////////////////
     async onClick(project) {
         //Validacion para que no quiebre al dar click con todo en blanco y que no haga nada en la base de datos
         //Validar, quiebra
         let nameImgRef = [];
         await this.state.listImgProject.forEach(img => {
-            console.log(img.name);                
+            console.log(img.name);
             nameImgRef.push(img.name);
         })
         await createProject(this.state.titulo, 0, 0, 0, nameImgRef, null, null
             , "", "", "", "", "", "", "", "", "");
 
-        await this.uploadImgToStorage();
+        await this.uploadImageToStorage();
         window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
-        
+
         this.setState({
             titulo: '',
             descripcion: '',
@@ -150,7 +174,7 @@ class NewProject extends Component {
             inversion: '',
 
         })
-        
+
         project.preventDefault();
     }
 
@@ -189,14 +213,21 @@ class NewProject extends Component {
                             value={fotoT}
                             ref={this.fotoT}
                             type="file"
-                            
+
                         />
                         <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImg}>Agregar Foto</button>
                     </li>
                 </ul>
+
                 <div>
+                    {
+                        /**Muestra las imagenes que se han agregado en una lista
+                        //Permite que se borren por medio del boton
+                        */
+                    }
                     <ul>
-                        {this.state.listImgProject.map((img, index) => <li key={index}>{img.name}</li>)}
+
+                        {this.state.listImgProject.map((img, index) => <li key={index} >{img.name} <button onClick={(e) => this.handleDeleteImageProject(index, e)}>X</button></li>)}
                     </ul>
                 </div>
                 <button id="bt-addProject" className="w3-button w3-round-xxlarge" onClick={this.onClick}>Add Project</button>
