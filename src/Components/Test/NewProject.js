@@ -5,6 +5,7 @@ import { createProject } from '../../Constants/project';
 import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImagenVal, puntoDecimalVal } from '../../Constants/validations'
 import fire from '../../Firebase/Fire'
 import axios from 'axios'
+import { storage } from 'firebase';
 
 const AddProject = () =>
     <div id="project">
@@ -36,10 +37,9 @@ class NewProject extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { INITIAL_STATE, listImgProject: [], URL: "" };
+        this.state = { INITIAL_STATE, listImgLand: [], URL: "" };
         this.fotoT = React.createRef();
-        this.fotoC = React.createRef();
-        this.addListImg = this.addListImg.bind(this);
+        this.addListImgLand = this.addListImgLand.bind(this);
         this.onClick = this.onClick.bind(this);
         this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
         this.handleDeleteImageProject = this.handleDeleteImageProject.bind(this);
@@ -72,28 +72,27 @@ class NewProject extends Component {
      * 
      * 
      */
-    // TODO: Falta validacion donde no se repita una imagen con el mismo nombre 
-
-    async addListImg() {
-        console.log(this.fotoT.current.files[0]);
+    //En esta funcion se agregan las fotos del terreno    
+    async addListImgLand() {
+        //Se crea un arreglo temporal para evaluar si la imagen ya esta agregada
         let listTemp = [];
-        await this.state.listImgProject.map(img => listTemp.push(img.name));
-        if (!listTemp.includes(this.fotoT.current.files[0].name)) {
-            await this.setState(state => {
-                if (this.fotoT.current.files[0] != undefined) {
-                    const listImgProject = state.listImgProject.concat(this.fotoT.current.files[0]);
-
+        await this.state.listImgLand.map(img => listTemp.push(img.name));
+        //Si es undefined debe tirar una alerta
+        console.log(this.fotoT.current.files    [0])
+        if (this.fotoT.current.files[0] != undefined ) {
+            if (!listTemp.includes(this.fotoT.current.files[0].name)) {
+                await this.setState(state => {
+                    const listImgLand = state.listImgLand.concat(this.fotoT.current.files[0]);
                     return {
-                        listImgProject,
+                        listImgLand,
                     }
-                } else {
-                    window.alert("No se ha seleccionado ninguna imagen");
+                });
+            } else {
+                window.alert("La imagen ya existe en la coleccion");
 
-                }
-            });
-
+            }
         } else {
-            window.alert("La imagen ya existe en la coleccion");
+            window.alert("No se ha seleccionado ninguna imagen");
 
         }
 
@@ -102,7 +101,7 @@ class NewProject extends Component {
     }
 
     uploadImageToStorage = () => {
-        this.state.listImgProject.forEach(fileImg => {
+        this.state.listImgLand.forEach(fileImg => {
             let fd = new FormData();
             fd.append('image', fileImg, fileImg.name);
             axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
@@ -112,7 +111,7 @@ class NewProject extends Component {
         });
 
         this.setState(({
-            listImgProject: []
+            listImgLand: []
         }));
     }
 
@@ -121,10 +120,10 @@ class NewProject extends Component {
         event.preventDefault();
 
         this.setState(state => {
-            const listImgProject = this.state.listImgProject;
-            listImgProject.splice(index, 1);
+            const listImgLand = this.state.listImgLand;
+            listImgLand.splice(index, 1);
             return (
-                listImgProject
+                listImgLand
             )
         })
     }
@@ -148,13 +147,14 @@ class NewProject extends Component {
          */
     ///////////////////////////////////////////////////////
     async onClick(project) {
-        //Validacion para que no quiebre al dar click con todo en blanco y que no haga nada en la base de datos
-        //Validar, quiebra
+
+        //Agrega en la base de datos los nombres de las imagenes//
         let nameImgRef = [];
-        await this.state.listImgProject.forEach(img => {
+        await this.state.listImgLand.forEach(img => {
             console.log(img.name);
             nameImgRef.push(img.name);
-        })
+        });
+        /////////////////////////////////////////////////
         await createProject(this.state.titulo, 0, 0, 0, nameImgRef, null, null
             , "", "", "", "", "", "", "", "", "");
 
@@ -174,7 +174,7 @@ class NewProject extends Component {
             inversion: '',
 
         })
-
+        
         project.preventDefault();
     }
 
@@ -208,28 +208,28 @@ class NewProject extends Component {
                     </li>
 
                     <li id="all-inputs-item">
-                        <p>Foto Terreno</p>
+                        <p>Fotos del terreno</p>
                         <input id="newProject-input9"
                             value={fotoT}
                             ref={this.fotoT}
                             type="file"
 
                         />
-                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImg}>Agregar Foto</button>
+                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImgLand}>Agregar Foto</button>
+                        <div>
+                            { /**Muestra las imagenes que se han agregado en una lista
+                            //Permite que se borren por medio del boton*/}
+                            <ul>
+                                {this.state.listImgLand.map((img, index) =>
+                                    <li key={index} >{img.name}
+                                        <button onClick={(e) => this.handleDeleteImageProject(index, e)}>X</button>
+                                    </li>)}
+                            </ul>
+                            <img sr={storage.ref("campo")}></img>
+                        </div>
                     </li>
                 </ul>
 
-                <div>
-                    {
-                        /**Muestra las imagenes que se han agregado en una lista
-                        //Permite que se borren por medio del boton
-                        */
-                    }
-                    <ul>
-
-                        {this.state.listImgProject.map((img, index) => <li key={index} >{img.name} <button onClick={(e) => this.handleDeleteImageProject(index, e)}>X</button></li>)}
-                    </ul>
-                </div>
                 <button id="bt-addProject" className="w3-button w3-round-xxlarge" onClick={this.onClick}>Add Project</button>
 
             </div>

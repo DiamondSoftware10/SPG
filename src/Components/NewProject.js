@@ -29,56 +29,90 @@ const byPropKey = (propertyName, value) => () => ({
     [propertyName]: value,
 });
 
-var temp;
 class NewProject extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { INITIAL_STATE };
+        this.state = { INITIAL_STATE, listImgLand: [] };
         this.fotoT = React.createRef();
-        this.fotoC = React.createRef();
-        this.fileUploadTerrenoHandler = this.fileUploadTerrenoHandler.bind(this);
-//        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
-//        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
+
+        this.addListImgLand = this.addListImgLand.bind(this);
+        this.onClick = this.onClick.bind(this);
+        this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
+        this.handleDeleteImageLand = this.handleDeleteImageLand.bind(this);
+        //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
+        //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
 
     }
-/**
- *    fileUploadCultivoHandler = () => {
-        const fd = new FormData();
-        console.log(this.fotoC.current.files[0]);
-        fd.append('image', this.fotoC.current.files[0], this.fotoC.current.files[0].name);
-        axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
-            .then(res => {
-                console.log(this.fotoC)
-                console.log(res);
-            });
-    }
-    fileUploadFamiliaHandler = () => {
-        const fd = new FormData();
-        console.log(this.fotoF.current.files[0]);
-        fd.append('image', this.fotoF.current.files[0], this.fotoF.current.files[0].name);
-        axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
-            .then(res => {
-                console.log(this.fotoF)
-                console.log(res);
-            });
-    }
- 
- * 
- * 
- */
-    fileUploadTerrenoHandler = () => {
-        const fd = new FormData();
-        console.log(this.fotoT.current.files[0]);
-        fd.append('image', this.fotoT.current.files[0], this.fotoT.current.files[0].name);
-        axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
-            .then(res => {
-                console.log(this.fotoT)
-                console.log(res);
-            });
+    /**
+     * @description Agrega la imagen al state listImgLand
+     * @author Diego Mendoza
+     */
+    async addListImgLand() {
+        //Se crea un arreglo temporal para evaluar si la imagen ya esta agregada
+        let listTemp = [];
+        await this.state.listImgLand.map(img => listTemp.push(img.name));
+        //Si es undefined no deja agregar y tira una alerta
+        console.log(this.fotoT.current.files[0])
+        if (this.fotoT.current.files[0] != undefined) {
+            //Verifica si la imagen ya esta en el arreglo listImgLand
+            if (!listTemp.includes(this.fotoT.current.files[0].name)) {
+                await this.setState(state => {
+                    const listImgLand = state.listImgLand.concat(this.fotoT.current.files[0]);
+                    return {
+                        listImgLand,
+                    }
+                });
+            } else {
+                window.alert("La imagen ya existe en la coleccion");
+
+            }
+        } else {
+            window.alert("No se ha seleccionado ninguna imagen");
+
+        }
+
+        //Resetea el valor del archivo
+        document.getElementById("newProject-input9").value = "";
     }
 
-    onClick = (project) => {
+    /**
+     * @description Sube todas las imagenes al Storage
+     * @author Diego Mendoza
+     */
+    uploadImageToStorage = () => {
+        this.state.listImgLand.forEach(fileImg => {
+            let fd = new FormData();
+            fd.append('image', fileImg, fileImg.name);
+            axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
+                .then(res => {
+                    console.log(fileImg)
+                });
+        });
+
+        this.setState(({
+            listImgLand: []
+        }));
+    }
+
+    /**
+    //  @description borra la imagen del array
+    // @author Diego Mendoza
+    */
+    handleDeleteImageLand = (index, event) => {
+        event.preventDefault();
+
+        this.setState(state => {
+            const listImgLand = this.state.listImgLand;
+            listImgLand.splice(index, 1);
+            return (
+                listImgLand
+            )
+        })
+    }
+
+    async onClick(project) {
+
         let tituloBool = document.getElementById("newProject-input1").value;
         let descripcionBool = document.getElementById("newProject-input2").value;
         let familias = document.getElementById("newProject-input4").value;
@@ -90,9 +124,9 @@ class NewProject extends Component {
         let inversionInicial = document.getElementById("newProject-input10").value;
 
 
-        console.log("NO esta ubicacion aun");
-        urlImagenVal(urlTerreno);
-        puntoDecimalVal(inversionInicial, 1, 12);
+        //console.log("NO esta ubicacion aun");
+        //urlImagenVal(urlTerreno);
+        //puntoDecimalVal(inversionInicial, 1, 12);
 
         const {
             titulo,
@@ -111,10 +145,50 @@ class NewProject extends Component {
             history,
         } = this.props;
 
-        createProject(this.state.titulo, 0, 0, 0, null, null, null,
-            this.state.ubicacion, "Calvin", 0, "descripcion", "detalles", this.state.descripcion, "17/11/2018", true, "tomates");
-        /* { this.AddBaseD() }*/ /*usar esto para mandar atributos a funcion interna para añadir a BD, si se quiere hacer. */
-        document.getElementById("newProject-input").innerHTML = "";
+
+        //Validacion para que no quiebre al dar click con todo en blanco y que no haga nada en la base de datos
+        //Validar, quiebra
+        if ((titulo === undefined || descripcion === undefined || ubicacion === undefined || familiasB === undefined ||
+            tiposCultivo === undefined || infoZona === undefined || fotoC === undefined || fotoF === undefined
+            || fotoT === undefined || inversion === undefined)) {
+            window.alert("Error al ingresar proyecto, llene todos los campos")
+        } else if (nombresVal(tituloBool, 1, 50) == false || cantidadPalabrasVal(descripcionBool, 1, 100) == false
+            || ubicacion == false || numeroVal(familias, 1, 7) == false || rangoCaracteresVal(tiposCultivos, 2, 50) == false
+            || cantidadPalabrasVal(infoZonas, 1, 100) == false || urlImagenVal(urlCultivos) == false || urlImagenVal(urlFam) == false
+            || urlImagenVal(fotoT) == false || puntoDecimalVal(inversionInicial, 1, 12) == false) {
+            window.alert("Error al ingresar proyecto, verifique los datos de entrada")
+
+        } else {
+            //Agrega en la base de datos los nombres de las imagenes//
+            let nameImgRef = [];
+            await this.state.listImgLand.forEach(img => {
+                console.log(img.name);
+                nameImgRef.push(img.name);
+            });
+            /////////////////////////////////////////////////
+
+            createProject(this.state.titulo, 0, 0, 0, nameImgRef, null, null,
+                this.state.ubicacion, "Calvin", 0, "descripcion", "detalles", this.state.descripcion, "17/11/2018", true, this.state.tiposCultivo);
+            await this.uploadImageToStorage();
+
+            this.setState({
+                titulo: '',
+                descripcion: '',
+                ubicacion: '',
+                familiasB: '',
+                tiposCultivo: '',
+                infoZona: '',
+                fotoF: '',
+                fotoC: '',
+                fotoT: '',
+                inversion: '',
+
+            })
+
+
+            window.alert(this.state.titulo);
+        }
+
         project.preventDefault();
     }
 
@@ -193,7 +267,7 @@ class NewProject extends Component {
                             placeholder="Informacion de zona"
                         />
                     </li>
-{/*
+                    {/*
                     <li id="all-inputs-item">
                         <p>Foto Familias</p>
                         <input id="newProject-input7"
@@ -212,16 +286,26 @@ class NewProject extends Component {
                         />
                         <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.fileUploadCultivoHandler}>Upload Foto</button>
                     </li>
-*/}                  <li id="all-inputs-item">
-                        <p>Foto Terreno</p>
+*/}
+                    <li id="all-inputs-item">
+                        <p>Fotos del terreno</p>
                         <input id="newProject-input9"
                             value={fotoT}
                             ref={this.fotoT}
                             type="file"
 
                         />
-                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.fileUploadTerrenoHandler}>Upload Foto</button>
-
+                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImgLand}>Agregar Foto</button>
+                        <div>
+                            { /**Muestra las imagenes que se han agregado en una lista
+                            //Permite que se borren por medio del boton*/}
+                            <ul>
+                                {this.state.listImgLand.map((img, index) =>
+                                    <li key={index} >{img.name}
+                                        <button onClick={(e) => this.handleDeleteImageLand(index, e)}>X</button>
+                                    </li>)}
+                            </ul>
+                        </div>
                     </li>
                     {/*Deberia hacerse con un spinner, en $ o LPS*/}
                     <li id="all-inputs-item">
@@ -232,6 +316,7 @@ class NewProject extends Component {
                             placeholder="Inversion inicial"
                         />
                     </li>
+
 
                 </ul>
 

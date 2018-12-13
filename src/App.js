@@ -16,7 +16,7 @@ import Register from "./Components/Register";
 import LoginPage from "./Components/LoginPage";
 import fire from './Firebase/Fire';
 import { createUser, listUsers } from './Constants/firebase';
-import AddProject from './Components/Test/NewProject';
+import AddProject from './Components/NewProject';
 import Proyectos from './Components/Proyectos';
 import Landing from './Components/Landing';
 
