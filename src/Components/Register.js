@@ -208,42 +208,55 @@ class Register extends Component {
         return (
             <div id="register-div">
                 <div id="jumbo-reg" className="jumbotron">
+                {/*
+                    <img id="logo-reg" src={icon} ></img>
 
+                    <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
+
+                    <br></br><br></br><br></br>
+                */}
                 </div>
 
 
                 <div className="jumbotron vertical-center">
                     <div className="container">
 
-                        <div id="reg-toolbar"className="button-toolbar col-sm">
-                            <img id="logo-reg" src={icon} width="40" height="40"></img>
+                        <div id="reg-toolbar" className="button-toolbar col-sm">
 
-                            <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
-                            
-                            <br></br><br></br><br></br>
                             <h2>Inicia Sesión</h2>
-                            <label htmlFor="usr">Email</label>
-                            <input
-                                onChange={this.handleChange('correo')}
-                                type="email" className="form-control" id="correoLogin" />
-                            <label htmlFor="pwd">Contraseña</label>
 
-                            <input
-                                onChange={this.handleChange('contrasena')}
-                                type="password" className="form-control" id="passwordLogin" />
-
-                            <button onClick={this.login} type="button" className="btn btn-secondary" data-dismiss="modal">
-                                LOG IN
+                            <form id="login-form">
+                                <div class="form-group">
+                                    <label htmlFor="usr">Email</label>
+                                    <input
+                                        onChange={this.handleChange('correo')}
+                                        type="email" className="form-control" id="correoLogin" />
+                                </div>
+                                <div class="form-group">
+                                    <label htmlFor="pwd">Contraseña</label>
+                                    <input
+                                        onChange={this.handleChange('contrasena')}
+                                        type="password" className="form-control" id="passwordLogin" />
+                                </div>
+                                <div>
+                                    <button onClick={this.login} type="button" className="btn btn-primary" data-dismiss="modal">
+                                        INICIAR
                                 </button>
+                                    <br></br>
+                                </div>
+                                ¿No tienes una cuenta? <a id="reg-link" data-backdrop="false" data-toggle="modal" data-target="#registerModal">Registrate</a>
+                            </form>
+                            {/*
                             <button data-backdrop="false" type="button" className="btn btn-primary" data-toggle="modal" data-target="#registerModal">
                                 Registrarse
-                    </button>
+                            </button>
 
                             <button type="button" className="btn btn-primary" data-toggle="modal" data-target="#loginModal">
                                 Iniciar Sesión
                             {//login con facebook, google?
                                 }
-                            </button>
+                            
+                            </button>*/}
                         </div>
                     </div>
                 </div>

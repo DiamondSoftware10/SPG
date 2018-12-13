@@ -60,7 +60,6 @@
     float: left;
     width: 25vmin;
     height: 25vmin;
-    padding: 3vmin;
     /*margin-top: 5vmin;*/
 }
 
@@ -76,16 +75,12 @@
     /*padding: 50px;*/
 }
 
-.button-toolbar {
-    margin-top: 5%;
-}
-
 .btn-primary {
     font-weight: 300;
     background-color: black;
     width: 30vw;
-    border-radius: 20px;
-    height: 8vh;
+    border-radius: 30px;
+    height: 7vh;
     text-transform: uppercase;
     letter-spacing: .15em;
     font-size: .9em;
@@ -133,9 +128,56 @@ label {
 
 #reg-toolbar > h2 {
     text-align: left;
-    padding-bottom: 2em;
+    padding-bottom: 1em;
     font-weight: 700;
 }
 
-#reg-toolbar {
+#login-form {
+    width: 100%;
+    padding: 0 15% 0 15%;
+}
+
+#login-form > .form-group {
+    text-align: left;
+}
+
+/*
+#login-form > .form-group > input {
+    border: none;
+    background: transparent;
+    border-radius: 0;
+    transition: border-color 0.5s, border-width 0.5s;
+    border-bottom: 1px solid rgb(134, 134, 134);
+
+
+}*/
+
+#login-form > .form-group > input {
+    background: transparent;
+    border-radius: 5px;
+    padding: 5%;
+    padding-left: 2%;
+    transition: border-color 0.5s, border-width 0.5s;
+
+
+}
+
+#login-form > .form-group > input:focus {
+    box-shadow: none;
+    border-color: rgb(49, 49, 49);
+    border-width: 1.1px;
+}
+
+#login-form > div {
+    margin-top: 5%;
+}
+
+#reg-link {
+    color: rgb(15, 107, 50);
+    text-decoration: underline;
+}
+
+#reg-link:hover {
+    color: rgb(24,162,78);
+    cursor:pointer;
 }
