@@ -204,11 +204,12 @@ class Register extends Component {
         }
     }
 
+
     render() {
         return (
             <div id="register-div">
                 <div id="jumbo-reg" className="jumbotron">
-                {/*
+                    {/*
                     <img id="logo-reg" src={icon} ></img>
 
                     <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
@@ -272,79 +273,95 @@ class Register extends Component {
 
 
                 <div className="modal" id="registerModal">
-
-                    <div className="modal-dialog">
+                    <div className="modal-dialog modal-lg">
                         <div className="modal-content">
+                            {/*
                             <div className="modal-header">
-                                <img src={icon} width="30" height="30"></img>
-
-                                <h4 className="modal-title">Registrarse</h4>
+                                <img src={icon} width="40" height="40"></img>
+                                <h3 className="modal-title">Registrarse</h3>
                                 <button type="button" className="close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div className="modal-body">
-                                <div className="container">
-                                    {/*<img id="regi-img" src="https://bit.ly/2U38JTw"></img>*/}
-                                    {/*<div className="row">*/}
-                                    <div className="form-group ">
-                                        <label htmlFor="usr">Nombre</label>
-                                        <input
-                                            onChange={this.handleChange('nombre')}
-                                            type="text" className="form-control" id="nombre" />
+                        </div>
+                        */}
+                            <div id="register-content">
+                                <div id="register-graphic"></div>
+                                <div id="register-body" className="modal-body">
+ 
+                                    <img src={icon} width="40" height="40"></img>
+                                    <h3 className="modal-title">Registrarse</h3>
+
+                                    <div id="register-form" className="container">
+                                        {/*<img id="regi-img" src="https://bit.ly/2U38JTw"></img>*/}
+                                        {/*<div className="row">*/}
+                                        <div className="form-group ">
+                                            <label htmlFor="usr">Nombre</label>
+                                            <input
+                                                onChange={this.handleChange('nombre')}
+                                                type="text" className="form-control" id="nombre" />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="usr">Apellido</label>
+                                            <input
+                                                onChange={this.handleChange('apellido')}
+                                                type="text" className="form-control" id="apellido" />
+                                        </div>
+
+                                        {/*</div>*/}
+
+                                        <div className="form-group">
+                                            <label htmlFor="usr">Región</label>
+                                            <input
+                                                onChange={this.handleChange('region')}
+                                                type="text" className="form-control" id="region" />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="usr">Telefono</label>
+                                            <input
+                                                onChange={this.handleChange('telefono')}
+                                                type="text" className="form-control" id="telefono" />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="usr">Correo</label>
+                                            <input
+                                                onChange={this.handleChange('correo')}
+                                                type="email" className="form-control" id="correo" />
+                                        </div>
+
+                                        <div className="form-group">
+                                            <label htmlFor="pwd">Contraseña</label>
+                                            <input
+                                                onChange={this.handleChange('contrasena')}
+                                                type="password" className="form-control" id="password" />
+                                        </div>
+                                        <div className="form-group">
+                                            <label htmlFor="pwd">Confirmar Contraseña</label>
+                                            <input
+                                                onChange={this.handleChange('contrasena')}
+                                                type="password" className="form-control" id="password" />
+                                        </div>
+
                                     </div>
 
-                                    <div className="form-group">
-                                        <label htmlFor="usr">Apellido</label>
-                                        <input
-                                            onChange={this.handleChange('apellido')}
-                                            type="text" className="form-control" id="apellido" />
-                                    </div>
 
-                                    {/*</div>*/}
-
-                                    <div className="form-group">
-                                        <label htmlFor="usr">Región</label>
-                                        <input
-                                            onChange={this.handleChange('region')}
-                                            type="text" className="form-control" id="region" />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="usr">Telefono</label>
-                                        <input
-                                            onChange={this.handleChange('telefono')}
-                                            type="text" className="form-control" id="telefono" />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="usr">Correo</label>
-                                        <input
-                                            onChange={this.handleChange('correo')}
-                                            type="email" className="form-control" id="correo" />
-                                    </div>
-
-                                    <div className="form-group">
-                                        <label htmlFor="pwd">Contraseña</label>
-                                        <input
-                                            onChange={this.handleChange('contrasena')}
-                                            type="password" className="form-control" id="password" />
-                                    </div>
-
-                                </div>
-
-
-                                <button data-backdrop="false" type="button" className="btn btn-secondary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
-                                    Crear Cuenta
+                                    <button id="bt-reg" data-backdrop="false" type="button" className="btn btn-primary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
+                                        Crear Cuenta
                                 </button>
+                                </div>
                             </div>
+                            {/*
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
                             </div>
+                            */}
                         </div>
 
                     </div>
 
                 </div>
 
+                {/*
                 <div className="modal" id="loginModal">
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -383,6 +400,7 @@ class Register extends Component {
                     </div>
 
                 </div>
+*/}
             </div>
 
 
