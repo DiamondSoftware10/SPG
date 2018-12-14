@@ -29,12 +29,16 @@ class NewProject extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { INITIAL_STATE, listImgCrops: [] };
+        this.state = { INITIAL_STATE, listImgCrops: [], picProject: false };
+        //Fotos de los cultivos
         this.fotoC = React.createRef();
+        //Foto del proyecto
+        this.fotoP = React.createRef();
+        this.addImgProject = this.addImgProject.bind(this);
         this.addListImgCrops = this.addListImgCrops.bind(this);
-        this.handleSaveProject = this.handleSaveProject.bind(this);
-        this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
         this.handleDeleteImageCrop = this.handleDeleteImageCrop.bind(this);
+        this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
+        this.handleSaveProject = this.handleSaveProject.bind(this);
         //this.handleChange = this.handleChange.bind(this);
         //this.handleChange2 = this.handleChange2.bind(this);
         //this.handleChange3 = this.handleChange3.bind(this);
@@ -46,6 +50,21 @@ class NewProject extends Component {
         //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
 
     }
+    addImgProject() {
+        //Revisa que se haya seleccionado una imagen
+        console.log(this.fotoP.current.files);
+        if (this.fotoP.current.files[0] != undefined) {
+            this.setState({
+                picProject: true
+            })
+        } else {
+            window.alert("No se ha seleccionado ninguna imagen");
+            document.getElementById("newProject-input9").value = "";
+        }
+
+        
+
+    }
     /**
      * @description Agrega la imagen al state listImgCrops
      * @author Diego Mendoza
@@ -55,7 +74,6 @@ class NewProject extends Component {
         let listTemp = [];
         await this.state.listImgCrops.map(img => listTemp.push(img.name));
         //Si es undefined no deja agregar y tira una alerta
-        console.log(this.fotoC.current.files[0])
         if (this.fotoC.current.files[0] != undefined) {
             //Verifica si la imagen ya esta en el arreglo listImgCrops
             if (!listTemp.includes(this.fotoC.current.files[0].name)) {
@@ -75,9 +93,17 @@ class NewProject extends Component {
         }
 
         //Resetea el valor del archivo
-        document.getElementById("newProject-input9").value = "";
+        document.getElementById("newProject-input8").value = "";
     }
 
+
+    async componentWillMount(){
+        await firebase.storage().ref().child("Campo2.jpg").getDownloadURL().then(url =>{
+            this.setState({
+                pic:url
+            })
+        })
+    }
     /**
      * @description Sube todas las imagenes al Storage
      * @author Diego Mendoza
@@ -135,14 +161,14 @@ class NewProject extends Component {
 
         let nameImgRefCrops = [];
         await this.state.listImgCrops.forEach(img => {
-            console.log(img.name);
-            nameImgRefCrops.push(img.name);
+            console.log(`${img.name}${firebase.auth().currentUser.uid}`);
+            nameImgRefCrops.push(`${img.name}`);
         });
         /////////////////////////////////////////////////
         /**
          * @param {title,timeProdxDay,raisedMoney,projectFinan,picProject,picFam,picCultures,coordinates,investor,investInitxBlock,infoZone,detailsProdxBlocks,desciption,creationDate,available,cultures}
          */
-        createProject("Proyecto Prueba", 0, 0, 0, null, null, nameImgRefCrops,new firebase.firestore.GeoPoint(10  ,10 ), "Calvin", 0, "descripcion", "detalles", "Informacion", "17/11/2018", true, ["Manzanas" , "Peras" , "Melocotones"]);
+        createProject("Proyecto Prueba", 0, 0, 0, null, null, nameImgRefCrops, new firebase.firestore.GeoPoint(10, 10), "Calvin", 0, "descripcion", "detalles", "Informacion", "17/11/2018", true, ["Manzanas", "Peras", "Melocotones"]);
         //createProject(this.state.titulo, 0, 0, 0, null, null, nameImgRefCrops, firebase.firestore.GeoPoint(10, 10), "Calvin", 0, "descripcion", "detalles", this.state.descripcion, "17/11/2018", true, this.state.tiposCultivo);
 
         //Hace una espera para subir las imagenes antes de resetear el formulario
@@ -295,7 +321,7 @@ class NewProject extends Component {
             infoZona,
             fotoF,
             fotoC,
-            fotoT,
+            fotoP,
             inversion,
         } = this.state;
 
@@ -313,9 +339,6 @@ class NewProject extends Component {
                             placeholder="titulo"
                         />
                     </li>
-
-
-
                     <li id="all-inputs-item">
                         <input id="newProject-input2"
                             value={descripcion}
@@ -344,7 +367,6 @@ class NewProject extends Component {
                             placeholder="Numero de familias benficiadas"
                         />
                     </li>
-
                     <li id="all-inputs-item">
                         <input id="newProject-input5"
                             value={tiposCultivo}
@@ -376,7 +398,7 @@ class NewProject extends Component {
                     </li>
                     {/**Subir imagenes relacionadas con los cultivos */}
                     <li id="all-inputs-item">
-                        <p>Foto Cultivo</p>
+                        <p>Fotos Cultivos</p>
                         <input id="newProject-input8"
                             value={fotoC}
                             ref={this.fotoC}
@@ -398,12 +420,11 @@ class NewProject extends Component {
                     <li id="all-inputs-item">
                         <p>Fotos del terreno</p>
                         <input id="newProject-input9"
-                            value={fotoT}
-                            ref={this.fotoT}
+                            value={fotoP}
+                            ref={this.fotoP}
                             type="file"
-
+                            onChange={this.addImgProject}
                         />
-                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImgCrops}>Agregar Foto</button>
 
                     </li>
                     {/*Deberia hacerse con un spinner, en $ o LPS*/}
@@ -416,10 +437,10 @@ class NewProject extends Component {
                             placeholder="Inversion inicial"
                         />
                     </li>
-
+                                   
 
                 </ul>
-
+                <img src = {this.state.pic}></img>    
                 <button id="bt-addProject" className="w3-button w3-round-xxlarge" onClick={this.handleSaveProject}>Crear Proyecto</button>
 
 
