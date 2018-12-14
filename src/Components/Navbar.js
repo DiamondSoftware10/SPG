@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 import './Navbar.css';
-
-
-import Card from './Card';
 import magnifier from '../Icons/magnifier.svg';
 import icon from '../Icons/iconbeta.png';
 import cart from '../Icons/cart.svg';
@@ -116,9 +113,7 @@ const NavAdmin = () => (
                     <li className="nav-item">
                         <img id="cart-icon" src={cart}></img>
                     </li>
-                    <li className="nav-item">
-                        <Card/>
-                    </li>
+
                 </ul>
             </div>
             <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
@@ -184,7 +179,7 @@ const NavUser = () => (
                     <li className="nav-item">
                         <img id="cart-icon" src={cart}></img>
                     </li>
-                        <Card/>
+                  
                     
                 </ul>
             </div>
