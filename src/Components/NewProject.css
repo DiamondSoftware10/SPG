@@ -6,7 +6,7 @@
 
 ul {
     list-style-type: none;
-  }
+}
 
   ul > li > input {
     height: 50px;
@@ -31,7 +31,8 @@ ul {
       margin-left: 20vmin;
   }
 
- #main-title{
+
+#main-title{
     font-size: 8vmin;
     margin-top: 10px;
     font-weight: 700;
@@ -88,4 +89,25 @@ ul {
     font-weight: 600;
     letter-spacing: 2px;
     border-radius: 10px;
+}
+
+
+
+  
+
+#superuser-form  {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    padding: 0 5vmin 0 5vmin;
+    width: 40vw;
+}
+
+#superuser-form > .form-group > input {
+    background: transparent;
+    border-radius: 5px;
+    transition: border-color 0.5s, border-width 0.5s;
 }

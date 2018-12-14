@@ -115,9 +115,6 @@ class Register extends Component {
     }
 
     addUser = e => {
-        //const current = this;
-        //e.preventDefault();
-        //e.persist();
 
         fire.auth().onAuthStateChanged(user => {
             if (user) {
@@ -134,64 +131,15 @@ class Register extends Component {
                     telefono: this.state.telefono,
                     region: this.state.region,
                     accType: 1
-                }/*, () => {
-                    this.setState({
-                        nombre: "",
-                        apellido: "",
-                        correo: "",
-                        telefono: "",
-                        region: "",
-                        contrasena: ""
-                    });
-                }*/);
+                });
 
-                /*this.setState({
-                    nombre: "",
-                    apellido: "",
-                    correo: "",
-                    telefono: "",
-                    region: "",
-                    contrasena: ""
-                });*/
-                //this.signup(e);
 
             } else {
 
             }
         });
 
-        /*
-                if (!this.state.email.match(/.+@.+/)) {
-                    alert('Email no es válido');
-                } else {
-                    const db = fire.firestore();
-        
-                    db.settings({
-                        timestampsInSnapshots: true
-                    });
-        
-                    const userRef = db.collection("users").add({
-                        nombre: this.state.nombre,
-                        apellido: this.state.apellido,
-                        correo: this.state.correo,
-                        telefono: this.state.telefono,
-                        region: this.state.region,
-                        accType: 1
-                    });
-        
-                    this.signup(e);
-        
-                    this.setState({
-                        nombre: "",
-                        apellido: "",
-                        correo: "",
-                        telefono: "",
-                        region: "",
-                        contrasena: ""
-                    });
-                }
-        
-                */
+
 
 
     }
@@ -261,15 +209,13 @@ class Register extends Component {
                         </div>
                     </div>
                 </div>
-                {/*
 
                 <div className="row">
 
 
 
                 </div>
-*/
-                }
+
 
 
                 <div className="modal" id="registerModal">

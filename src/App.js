@@ -9,7 +9,7 @@ import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 import Navbar from './Components/Navbar';
-
+import CreateAdmin from './Components/CreateAdminUser'
 import Infocard from './Components/Infocard'
 
 import Register from "./Components/Register";
@@ -19,7 +19,7 @@ import { createUser, listUsers } from './Constants/firebase';
 import AddProject from './Components/NewProject';
 import Proyectos from './Components/Proyectos';
 import Landing from './Components/Landing';
-
+import ProyectosAdmin from './Components/ProyectosAdmin';
 import MapContainer from "./Components/GoogleMapsContainer"
 import "circular-std"; 
 
@@ -31,8 +31,8 @@ class App extends Component {
     this.classes = props.classes;
 
     this.state = {
-      user: null
-
+      user: null,
+      type: null
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -46,9 +46,21 @@ class App extends Component {
 
   componentDidMount(){
     fire.auth().onAuthStateChanged(user => {
-      user ? this.setState(()=>({user}))
-              : this.setState(() => ({user: null}));
+      user ? this.setState(()=>({user})) : this.setState(() => ({user: null}));
+      var id = user.uid;
+      console.log(id);
+      var ref = fire.firestore().collection('users');
+      ref.get().then((snap) =>{
+        snap.forEach((doc)=>{
+          if(doc.id == id){
+            var temType = doc.data().accType
+            this.setState(()=>({type: temType}))
+          }  
+        })
+      })
+      
     });
+    
   }
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -58,20 +70,7 @@ class App extends Component {
     this.setState({ open: false });
   };
 
-  /*componentDidMount() {
-    this.listenAuth();
-  }
-
-  listenAuth() {
-    fire.auth().onAuthStateChanged((user) => {
-      if (user) {
-        this.setState({ user });
-      } else {
-        this.setState({ user: null });
-      }
-    });
-  }*/
-
+  
   logout() {
     fire.auth().signOut();
   }
@@ -82,7 +81,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Navbar authUser={this.state.user}/>
+            <Navbar authUser={this.state.user} type={this.state.type}/>
             <Route
               exact path={routes.ADMINHOMEPAGE}
               component={() => <AdminHomepage />}
@@ -109,8 +108,16 @@ class App extends Component {
               component={Proyectos}
             />
             <Route
+              exact path={routes.PROYECTOSADMIN}
+              component={()=><ProyectosAdmin/>}
+            />
+            <Route
               exact path={routes.LANDING}
               component={() => <Landing />}
+            />
+            <Route
+              exact path={routes.CREATEUSERADMIN}
+              component={() => <CreateAdmin/>}
             />
           </div>
         </Router>
