@@ -37,6 +37,12 @@ class NewProject extends Component {
         this.fotoT = React.createRef();
 
         this.addListImgLand = this.addListImgLand.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleChange2 = this.handleChange2.bind(this);
+        this.handleChange3 = this.handleChange3.bind(this);
+        this.handleChange4 = this.handleChange4.bind(this);
+        this.handleChange5 = this.handleChange5.bind(this);
+        this.handleChange6 = this.handleChange6.bind(this);
         this.onClick = this.onClick.bind(this);
         this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
         this.handleDeleteImageLand = this.handleDeleteImageLand.bind(this);
@@ -192,6 +198,91 @@ class NewProject extends Component {
         project.preventDefault();
     }
 
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+        console.log(event.target.value);
+        if(nombresVal(this.state.titulo, 0, 50) == false){
+            document.getElementById("newProject-input1").style.borderColor = "red";
+        }else if(this.state.titulo === undefined){
+            document.getElementById("newProject-input1").style.borderColor = "white";
+
+        }else{
+            document.getElementById("newProject-input1").style.borderColor = "white";
+
+        }
+    };
+
+    handleChange2 = descripcion => event => {
+        this.setState({ [descripcion]: event.target.value });
+        console.log(event.target.value);
+        if(cantidadPalabrasVal(this.state.descripcion, 0, 3) == false){
+            document.getElementById("newProject-input2").style.borderColor = "red";
+        }else if(this.state.titulo === undefined){
+            document.getElementById("newProject-input2").style.borderColor = "white";
+
+        }else{
+            document.getElementById("newProject-input2").style.borderColor = "white";
+
+        }
+    };
+
+    handleChange3 = familiasB => event => {
+        this.setState({ [familiasB]: event.target.value });
+        console.log(event.target.value);
+        if(numeroVal(this.state.familiasB, 1,7) == false){
+            document.getElementById("newProject-input4").style.borderColor = "red";
+        }else if(this.state.titulo === undefined){
+            document.getElementById("newProject-input4").style.borderColor = "white";
+
+        }else{
+            document.getElementById("newProject-input4").style.borderColor = "white";
+
+        }
+    };
+
+    handleChange4 = tiposCultivo => event => {
+        event.preventDefault();
+        this.setState({ [tiposCultivo]: event.target.value });
+        console.log(event.target.value);
+        if(rangoCaracteresVal(this.state.tiposCultivo, 2, 50) == false){
+            document.getElementById("newProject-input5").style.borderColor = "red";
+        }else if(this.state.titulo === undefined){
+            document.getElementById("newProject-input5").style.borderColor = "white";
+
+        }else{
+            document.getElementById("newProject-input5").style.borderColor = "white";
+
+        }
+    };
+
+    handleChange5 = infoZonas => event => {
+        this.setState({ [infoZonas]: event.target.value });
+        console.log(event.target.value);
+        if(cantidadPalabrasVal(this.state.infoZonas, 0, 100) == false){
+            document.getElementById("newProject-input6").style.borderColor = "red";
+        }else if(this.state.infoZonas === undefined){
+            document.getElementById("newProject-input6").style.borderColor = "white";
+
+        }else{
+            document.getElementById("newProject-input6").style.borderColor = "white";
+
+        }
+    };
+
+    handleChange6 = inversion => event => {
+        this.setState({ [inversion]: event.target.value });
+        console.log(event.target.value);
+        if(puntoDecimalVal(this.state.inversion, 0, 12) == false){
+            document.getElementById("newProject-input10").style.borderColor = "red";
+        }else if(this.state.titulo === undefined){
+            document.getElementById("newProject-input10").style.borderColor = "white";
+
+        }else{
+            document.getElementById("newProject-input10").style.borderColor = "white";
+
+        }
+    };
+
 
     render() {
 
@@ -217,16 +308,19 @@ class NewProject extends Component {
                         <input id="newProject-input1"
                             value={titulo}
                             onChange={project => this.setState(byPropKey('titulo', project.target.value))}
+                            onChange={this.handleChange('titulo')}
                             type="text"
                             placeholder="titulo"
                         />
                     </li>
+                   
 
 
                     <li id="all-inputs-item">
                         <input id="newProject-input2"
                             value={descripcion}
                             onChange={project => this.setState(byPropKey('descripcion', project.target.value))}
+                            onChange={this.handleChange2('descripcion')}
                             type="text"
                             placeholder="descripcion"
                         />
@@ -245,6 +339,7 @@ class NewProject extends Component {
                         <input id="newProject-input4"
                             value={familiasB}
                             onChange={project => this.setState(byPropKey('familiasB', project.target.value))}
+                            onChange={this.handleChange3('FamiliasB')} 
                             type="text"
                             placeholder="Numero de familias benficiadas"
                         />
@@ -254,6 +349,7 @@ class NewProject extends Component {
                         <input id="newProject-input5"
                             value={tiposCultivo}
                             onChange={project => this.setState(byPropKey('tiposCultivo', project.target.value))}
+                            onChange={this.handleChange4('tiposCultivo')}
                             type="text"
                             placeholder="Tipos de Cultivo, pongalos con , por favor  "
                         />
@@ -263,6 +359,7 @@ class NewProject extends Component {
                         <input id="newProject-input6"
                             value={infoZona}
                             onChange={project => this.setState(byPropKey('infoZona', project.target.value))}
+                            onChange={this.handleChange5('infoZona')}
                             type="text"
                             placeholder="Informacion de zona"
                         />
@@ -312,6 +409,7 @@ class NewProject extends Component {
                         <input id="newProject-input10"
                             value={inversion}
                             onChange={project => this.setState(byPropKey('inversion', project.target.value))}
+                            onChange={this.handleChange6('inversion')}
                             type="text"
                             placeholder="Inversion inicial"
                         />

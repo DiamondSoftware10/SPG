@@ -89,11 +89,14 @@
      * @author {Diego Mendoza , Jahaziel}
      * */
     const rangoCaracteresVal = (input, min, max) => {
-        if (input.length >= min && input.length <= max) {
-            return true;
-        } else {
-            return false;
+        if(input){
+            if (input.length >= min && input.length <= max) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        
     
     }
     export { nombresVal, cantidadPalabrasVal, numeroVal, rangoCaracteresVal ,urlImagenVal , puntoDecimalVal}
