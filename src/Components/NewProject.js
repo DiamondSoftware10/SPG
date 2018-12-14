@@ -99,7 +99,7 @@ class NewProject extends Component {
 
     /**
     //  @description borra la imagen del array
-    // @author Diego Mendoza
+    // @author Diego Mendoza ,Jahaziel Moreno
     */
     handleDeleteImageCrop = (index, event) => {
         event.preventDefault();
