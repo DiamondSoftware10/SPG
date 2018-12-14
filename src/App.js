@@ -48,14 +48,15 @@ class App extends Component {
   componentDidMount() {
     fire.auth().onAuthStateChanged(user => {
       user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
-      let id = user.uid;
+      var id = user.uid;
       console.log(id);
+      this.setState(()=>({uid: id}))
       var ref = fire.firestore().collection('users');
       ref.get().then((snap) => {
         snap.forEach((doc) => {
           if (doc.id == id) {
             var temType = doc.data().accType
-            this.setState(() => ({ type: temType, uid: id }))
+            this.setState(() => ({ type: temType }))
           }
         })
       })
@@ -118,7 +119,7 @@ class App extends Component {
             />
             <Route
               exact path={routes.PROFILE}
-              component={() => <Profile uid={this.state.uid} />}
+              component={() => <Profile uid={this.state.uid}/>}
             />
             <Route
               exact path={routes.CREATEUSERADMIN}
