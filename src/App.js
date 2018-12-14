@@ -22,7 +22,7 @@ import Landing from './Components/Landing';
 
 import MapContainer from "./Components/GoogleMapsContainer"
 
-
+import Profile from './Components/profile'
 class App extends Component {
 
   constructor(props) {
@@ -110,6 +110,10 @@ class App extends Component {
             <Route
               exact path={routes.LANDING}
               component={() => <Landing />}
+            />
+             <Route
+              exact path={routes.PROFILE}
+              component={() => <Profile uid="y06iKxyfRVZ3xgGSi3xddU2twOC3" />}
             />
           </div>
         </Router>
