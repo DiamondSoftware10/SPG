@@ -8,10 +8,10 @@
     background-image: url("https://bit.ly/2FRPysv");
     background-image: url("https://bit.ly/2P6sp57");
    /* background-position: center;*/
-    
+    background: white;
     border-radius: 0;
     text-align: left;
-    color: white;
+    color: black;
     padding: 5vw;
 }
 
@@ -34,7 +34,7 @@
 
 #logo-land {
     float: left;
-    width: 25vmin;
-    height: 25vmin;
+    width: 20vmin;
+    height: 20vmin;
     padding: 2vmin;
 }

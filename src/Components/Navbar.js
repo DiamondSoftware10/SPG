@@ -7,7 +7,7 @@ import icon from '../Icons/iconbeta.png';
 import cart from '../Icons/cart.svg';
 
 const Navbar = ({ authUser, type }) =>
-    <div>
+    <div className=" sticky-top ">
         {authUser
             ? <NavAuth authUser={authUser} type={type} />
             : <NavNonAuth />
@@ -116,7 +116,9 @@ const NavAdmin = () => (
                     </li>
                     <li className="nav-item">
                         <Link to={routes.PROFILE}>
-                            <a className="nav-link">Profile</a>
+                            <i id="person-icon"class="material-icons">
+                                person_outline
+                            </i>
                         </Link>
                     </li>
 

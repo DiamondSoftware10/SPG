@@ -1,7 +1,7 @@
 .navbar {
     padding-left: 5vw;
     font-size: 2.4vmin;
-    background: white;
+    background: #fefefe;
 }
 
 .navbar-brand {
@@ -33,7 +33,7 @@
 
 #main-search {
     border: none;
-    background: #f4f4f4;
+    background: #fafafa;
     border-radius: 15px;
     font-weight: 600;
     width: 25vw;
@@ -69,4 +69,10 @@
     width:7vh;
     border: none;
     background: #f4f4f4;
+}
+
+#person-icon {
+    margin-top: 20%;
+    color: rgb(82, 82, 82);
+    font-size: 5vh;
 }
