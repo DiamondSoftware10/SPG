@@ -6,7 +6,6 @@ import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImag
 import fire from '../../Firebase/Fire'
 import axios from 'axios'
 import { storage } from 'firebase';
-
 const AddProject = () =>
     <div id="project">
         <div id="main-title">Add Project</div>
@@ -37,12 +36,12 @@ class NewProject extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { INITIAL_STATE, listImgLand: [], URL: "" };
+        this.state = { INITIAL_STATE, listImgCrop: [], URL: "" };
         this.fotoT = React.createRef();
-        this.addListImgLand = this.addListImgLand.bind(this);
+        this.addListImgCrop = this.addListImgCrop.bind(this);
         this.onClick = this.onClick.bind(this);
         this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
-        this.handleDeleteImageProject = this.handleDeleteImageProject.bind(this);
+        this.handleDeleteImageCrop = this.handleDeleteImageCrop.bind(this);
         //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
         //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
 
@@ -73,18 +72,18 @@ class NewProject extends Component {
      * 
      */
     //En esta funcion se agregan las fotos del terreno    
-    async addListImgLand() {
+    async addListImgCrop() {
         //Se crea un arreglo temporal para evaluar si la imagen ya esta agregada
         let listTemp = [];
-        await this.state.listImgLand.map(img => listTemp.push(img.name));
+        await this.state.listImgCrop.map(img => listTemp.push(img.name));
         //Si es undefined debe tirar una alerta
-        console.log(this.fotoT.current.files    [0])
-        if (this.fotoT.current.files[0] != undefined ) {
+        console.log(this.fotoT.current.files[0])
+        if (this.fotoT.current.files[0] != undefined) {
             if (!listTemp.includes(this.fotoT.current.files[0].name)) {
                 await this.setState(state => {
-                    const listImgLand = state.listImgLand.concat(this.fotoT.current.files[0]);
+                    const listImgCrop = state.listImgCrop.concat(this.fotoT.current.files[0]);
                     return {
-                        listImgLand,
+                        listImgCrop,
                     }
                 });
             } else {
@@ -101,7 +100,7 @@ class NewProject extends Component {
     }
 
     uploadImageToStorage = () => {
-        this.state.listImgLand.forEach(fileImg => {
+        this.state.listImgCrop.forEach(fileImg => {
             let fd = new FormData();
             fd.append('image', fileImg, fileImg.name);
             axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
@@ -111,19 +110,19 @@ class NewProject extends Component {
         });
 
         this.setState(({
-            listImgLand: []
+            listImgCrop: []
         }));
     }
 
-    handleDeleteImageProject = (index, event) => {
+    handleDeleteImageCrop = (index, event) => {
         console.log(`Click on list ${index}`)
         event.preventDefault();
 
         this.setState(state => {
-            const listImgLand = this.state.listImgLand;
-            listImgLand.splice(index, 1);
+            const listImgCrop = this.state.listImgCrop;
+            listImgCrop.splice(index, 1);
             return (
-                listImgLand
+                listImgCrop
             )
         })
     }
@@ -150,13 +149,13 @@ class NewProject extends Component {
 
         //Agrega en la base de datos los nombres de las imagenes//
         let nameImgRef = [];
-        await this.state.listImgLand.forEach(img => {
+        await this.state.listImgCrop.forEach(img => {
             console.log(img.name);
             nameImgRef.push(img.name);
         });
         /////////////////////////////////////////////////
         await createProject(this.state.titulo, 0, 0, 0, nameImgRef, null, null
-            , "", "", "", "", "", "", "", "", "");
+            , fire.firestore.GeoPoint(10 , 10), "", "", "", "", "", "", "", "");
 
         await this.uploadImageToStorage();
         window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
@@ -168,13 +167,10 @@ class NewProject extends Component {
             familiasB: '',
             tiposCultivo: '',
             infoZona: '',
-            fotoF: '',
-            fotoC: '',
-            fotoT: '',
             inversion: '',
 
         })
-        
+
         project.preventDefault();
     }
 
@@ -191,7 +187,7 @@ class NewProject extends Component {
             fotoT,
             inversion,
         } = this.state;
-
+        
 
         return (
 
@@ -215,17 +211,17 @@ class NewProject extends Component {
                             type="file"
 
                         />
-                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImgLand}>Agregar Foto</button>
+                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImgCrop}>Agregar Foto</button>
                         <div>
                             { /**Muestra las imagenes que se han agregado en una lista
                             //Permite que se borren por medio del boton*/}
                             <ul>
-                                {this.state.listImgLand.map((img, index) =>
+                                {this.state.listImgCrop.map((img, index) =>
                                     <li key={index} >{img.name}
-                                        <button onClick={(e) => this.handleDeleteImageProject(index, e)}>X</button>
+                                        <button onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
                                     </li>)}
                             </ul>
-                            <img sr={storage.ref("campo")}></img>
+
                         </div>
                     </li>
                 </ul>

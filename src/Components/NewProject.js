@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import * as routes from '../Constants/Routes';
 import './NewProject.css';
-import { createProject } from '../Constants/firebase';
+import { createProject } from '../Constants/project';
 import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImagenVal, puntoDecimalVal } from '../Constants/validations'
-import { firebase } from 'firebase'
-import axios from 'axios'
-
+import axios from 'axios';
+import firebase from 'firebase';
 const AddProject = () =>
     <div id="project">
         <div id="main-title">Agregar Proyecto</div>
@@ -19,9 +18,6 @@ const INITIAL_STATE = {
     familiasB: '',
     tiposCultivo: '',
     infoZona: '',
-    fotoF: '',
-    fotoC: '',
-    fotoT: '',
     inversion: '',
 }
 
@@ -33,40 +29,40 @@ class NewProject extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { INITIAL_STATE, listImgLand: [] };
-        this.fotoT = React.createRef();
-
-        this.addListImgLand = this.addListImgLand.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleChange2 = this.handleChange2.bind(this);
-        this.handleChange3 = this.handleChange3.bind(this);
-        this.handleChange4 = this.handleChange4.bind(this);
-        this.handleChange5 = this.handleChange5.bind(this);
-        this.handleChange6 = this.handleChange6.bind(this);
-        this.onClick = this.onClick.bind(this);
+        this.state = { INITIAL_STATE, listImgCrops: [] };
+        this.fotoC = React.createRef();
+        this.addListImgCrops = this.addListImgCrops.bind(this);
+        this.handleSaveProject = this.handleSaveProject.bind(this);
         this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
-        this.handleDeleteImageLand = this.handleDeleteImageLand.bind(this);
+        this.handleDeleteImageCrop = this.handleDeleteImageCrop.bind(this);
+        //this.handleChange = this.handleChange.bind(this);
+        //this.handleChange2 = this.handleChange2.bind(this);
+        //this.handleChange3 = this.handleChange3.bind(this);
+        //this.handleChange4 = this.handleChange4.bind(this);
+        //this.handleChange5 = this.handleChange5.bind(this);
+        //this.handleChange6 = this.handleChange6.bind(this);
+
         //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
         //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
 
     }
     /**
-     * @description Agrega la imagen al state listImgLand
+     * @description Agrega la imagen al state listImgCrops
      * @author Diego Mendoza
      */
-    async addListImgLand() {
+    async addListImgCrops() {
         //Se crea un arreglo temporal para evaluar si la imagen ya esta agregada
         let listTemp = [];
-        await this.state.listImgLand.map(img => listTemp.push(img.name));
+        await this.state.listImgCrops.map(img => listTemp.push(img.name));
         //Si es undefined no deja agregar y tira una alerta
-        console.log(this.fotoT.current.files[0])
-        if (this.fotoT.current.files[0] != undefined) {
-            //Verifica si la imagen ya esta en el arreglo listImgLand
-            if (!listTemp.includes(this.fotoT.current.files[0].name)) {
+        console.log(this.fotoC.current.files[0])
+        if (this.fotoC.current.files[0] != undefined) {
+            //Verifica si la imagen ya esta en el arreglo listImgCrops
+            if (!listTemp.includes(this.fotoC.current.files[0].name)) {
                 await this.setState(state => {
-                    const listImgLand = state.listImgLand.concat(this.fotoT.current.files[0]);
+                    const listImgCrops = state.listImgCrops.concat(this.fotoC.current.files[0]);
                     return {
-                        listImgLand,
+                        listImgCrops,
                     }
                 });
             } else {
@@ -87,7 +83,7 @@ class NewProject extends Component {
      * @author Diego Mendoza
      */
     uploadImageToStorage = () => {
-        this.state.listImgLand.forEach(fileImg => {
+        this.state.listImgCrops.forEach(fileImg => {
             let fd = new FormData();
             fd.append('image', fileImg, fileImg.name);
             axios.post('https://us-central1-spg-project-1.cloudfunctions.net/uploadFile', fd)
@@ -97,7 +93,7 @@ class NewProject extends Component {
         });
 
         this.setState(({
-            listImgLand: []
+            listImgCrops: []
         }));
     }
 
@@ -105,35 +101,23 @@ class NewProject extends Component {
     //  @description borra la imagen del array
     // @author Diego Mendoza
     */
-    handleDeleteImageLand = (index, event) => {
+    handleDeleteImageCrop = (index, event) => {
         event.preventDefault();
 
         this.setState(state => {
-            const listImgLand = this.state.listImgLand;
-            listImgLand.splice(index, 1);
+            const listImgCrops = this.state.listImgCrops;
+            listImgCrops.splice(index, 1);
             return (
-                listImgLand
+                listImgCrops
             )
         })
     }
-
-    async onClick(project) {
-
-        let tituloBool = document.getElementById("newProject-input1").value;
-        let descripcionBool = document.getElementById("newProject-input2").value;
-        let familias = document.getElementById("newProject-input4").value;
-        let tiposCultivos = document.getElementById("newProject-input5").value;
-        let infoZonas = document.getElementById("newProject-input6").value;
-        let urlFam = document.getElementById("newProject-input7").value;
-        let urlCultivos = document.getElementById("newProject-input8").value;
-        let urlTerreno = document.getElementById("newProject-input9").value;
-        let inversionInicial = document.getElementById("newProject-input10").value;
-
-
-        //console.log("NO esta ubicacion aun");
-        //urlImagenVal(urlTerreno);
-        //puntoDecimalVal(inversionInicial, 1, 12);
-
+    /**
+     * 
+     * @param {project} 
+     * @description guarda los proyectos en la base de datos  
+     */
+    async handleSaveProject(project) {
         const {
             titulo,
             descripcion,
@@ -141,9 +125,6 @@ class NewProject extends Component {
             familiasB,
             tiposCultivo,
             infoZona,
-            fotoF,
-            fotoC,
-            fotoT,
             inversion,
         } = this.state;
 
@@ -152,137 +133,156 @@ class NewProject extends Component {
         } = this.props;
 
 
+        let nameImgRefCrops = [];
+        await this.state.listImgCrops.forEach(img => {
+            console.log(img.name);
+            nameImgRefCrops.push(img.name);
+        });
+        /////////////////////////////////////////////////
+        /**
+         * @param {title,timeProdxDay,raisedMoney,projectFinan,picProject,picFam,picCultures,coordinates,investor,investInitxBlock,infoZone,detailsProdxBlocks,desciption,creationDate,available,cultures}
+         */
+        createProject("Proyecto Prueba", 0, 0, 0, null, null, nameImgRefCrops,new firebase.firestore.GeoPoint(10  ,10 ), "Calvin", 0, "descripcion", "detalles", "Informacion", "17/11/2018", true, ["Manzanas" , "Peras" , "Melocotones"]);
+        //createProject(this.state.titulo, 0, 0, 0, null, null, nameImgRefCrops, firebase.firestore.GeoPoint(10, 10), "Calvin", 0, "descripcion", "detalles", this.state.descripcion, "17/11/2018", true, this.state.tiposCultivo);
+
+        //Hace una espera para subir las imagenes antes de resetear el formulario
+        await this.uploadImageToStorage();
+
+        this.setState({
+            titulo: '',
+            descripcion: '',
+            ubicacion: '',
+            familiasB: '',
+            tiposCultivo: '',
+            infoZona: '',
+            inversion: '',
+        })
+
+
+        window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
+
+        project.preventDefault();
+        /**
+         * let tituloBool = document.getElementById("newProject-input1").value;
+        let descripcionBool = document.getElementById("newProject-input2").value;
+        let familias = document.getElementById("newProject-input4").value;
+        let tiposCultivos = document.getElementById("newProject-input5").value;
+        let infoZonas = document.getElementById("newProject-input6").value;
+        // let urlFam = document.getElementById("newProject-input7").value;
+        //let urlCultivos = document.getElementById("newProject-input8").value;
+        //let urlTerreno = document.getElementById("newProject-input9").value;
+        let inversionInicial = document.getElementById("newProject-input10").value;
+
+
+        //console.log("NO esta ubicacion aun");
+        //urlImagenVal(urlTerreno);
+        //puntoDecimalVal(inversionInicial, 1, 12);
+
+        
         //Validacion para que no quiebre al dar click con todo en blanco y que no haga nada en la base de datos
         //Validar, quiebra
         if ((titulo === undefined || descripcion === undefined || ubicacion === undefined || familiasB === undefined ||
-            tiposCultivo === undefined || infoZona === undefined || fotoC === undefined || fotoF === undefined
-            || fotoT === undefined || inversion === undefined)) {
+            tiposCultivo === undefined || infoZona === undefined ||  inversion === undefined)) {
             window.alert("Error al ingresar proyecto, llene todos los campos")
         } else if (nombresVal(tituloBool, 1, 50) == false || cantidadPalabrasVal(descripcionBool, 1, 100) == false
             || ubicacion == false || numeroVal(familias, 1, 7) == false || rangoCaracteresVal(tiposCultivos, 2, 50) == false
-            || cantidadPalabrasVal(infoZonas, 1, 100) == false || urlImagenVal(urlCultivos) == false || urlImagenVal(urlFam) == false
-            || urlImagenVal(fotoT) == false || puntoDecimalVal(inversionInicial, 1, 12) == false) {
+            || cantidadPalabrasVal(infoZonas, 1, 100) == false || puntoDecimalVal(inversionInicial, 1, 12) == false) {
             window.alert("Error al ingresar proyecto, verifique los datos de entrada")
-
         } else {
-            //Agrega en la base de datos los nombres de las imagenes//
-            let nameImgRef = [];
-            await this.state.listImgLand.forEach(img => {
-                console.log(img.name);
-                nameImgRef.push(img.name);
-            });
-            /////////////////////////////////////////////////
-
-            createProject(this.state.titulo, 0, 0, 0, nameImgRef, null, null,
-                this.state.ubicacion, "Calvin", 0, "descripcion", "detalles", this.state.descripcion, "17/11/2018", true, this.state.tiposCultivo);
-            await this.uploadImageToStorage();
-
-            this.setState({
-                titulo: '',
-                descripcion: '',
-                ubicacion: '',
-                familiasB: '',
-                tiposCultivo: '',
-                infoZona: '',
-                fotoF: '',
-                fotoC: '',
-                fotoT: '',
-                inversion: '',
-
-            })
-
-
-            window.alert(this.state.titulo);
+            //Agrega en la base de datos los nombres de las imagenes para cada uno//
+         
         }
+         */
 
-        project.preventDefault();
+
+
     }
-
-    handleChange = name => event => {
-        this.setState({ [name]: event.target.value });
-        console.log(event.target.value);
-        if(nombresVal(this.state.titulo, 0, 50) == false){
-            document.getElementById("newProject-input1").style.borderColor = "red";
-        }else if(this.state.titulo === undefined){
-            document.getElementById("newProject-input1").style.borderColor = "white";
-
-        }else{
-            document.getElementById("newProject-input1").style.borderColor = "white";
-
-        }
-    };
-
-    handleChange2 = descripcion => event => {
-        this.setState({ [descripcion]: event.target.value });
-        console.log(event.target.value);
-        if(cantidadPalabrasVal(this.state.descripcion, 0, 3) == false){
-            document.getElementById("newProject-input2").style.borderColor = "red";
-        }else if(this.state.titulo === undefined){
-            document.getElementById("newProject-input2").style.borderColor = "white";
-
-        }else{
-            document.getElementById("newProject-input2").style.borderColor = "white";
-
-        }
-    };
-
-    handleChange3 = familiasB => event => {
-        this.setState({ [familiasB]: event.target.value });
-        console.log(event.target.value);
-        if(numeroVal(this.state.familiasB, 1,7) == false){
-            document.getElementById("newProject-input4").style.borderColor = "red";
-        }else if(this.state.titulo === undefined){
-            document.getElementById("newProject-input4").style.borderColor = "white";
-
-        }else{
-            document.getElementById("newProject-input4").style.borderColor = "white";
-
-        }
-    };
-
-    handleChange4 = tiposCultivo => event => {
-        event.preventDefault();
-        this.setState({ [tiposCultivo]: event.target.value });
-        console.log(event.target.value);
-        if(rangoCaracteresVal(this.state.tiposCultivo, 2, 50) == false){
-            document.getElementById("newProject-input5").style.borderColor = "red";
-        }else if(this.state.titulo === undefined){
-            document.getElementById("newProject-input5").style.borderColor = "white";
-
-        }else{
-            document.getElementById("newProject-input5").style.borderColor = "white";
-
-        }
-    };
-
-    handleChange5 = infoZonas => event => {
-        this.setState({ [infoZonas]: event.target.value });
-        console.log(event.target.value);
-        if(cantidadPalabrasVal(this.state.infoZonas, 0, 100) == false){
-            document.getElementById("newProject-input6").style.borderColor = "red";
-        }else if(this.state.infoZonas === undefined){
-            document.getElementById("newProject-input6").style.borderColor = "white";
-
-        }else{
-            document.getElementById("newProject-input6").style.borderColor = "white";
-
-        }
-    };
-
-    handleChange6 = inversion => event => {
-        this.setState({ [inversion]: event.target.value });
-        console.log(event.target.value);
-        if(puntoDecimalVal(this.state.inversion, 0, 12) == false){
-            document.getElementById("newProject-input10").style.borderColor = "red";
-        }else if(this.state.titulo === undefined){
-            document.getElementById("newProject-input10").style.borderColor = "white";
-
-        }else{
-            document.getElementById("newProject-input10").style.borderColor = "white";
-
-        }
-    };
-
+    /* 
+        handleChange = name => event => {
+            this.setState({ [name]: event.target.value });
+            console.log(event.target.value);
+            if (nombresVal(this.state.titulo, 0, 50) == false) {
+                document.getElementById("newProject-input1").style.borderColor = "red";
+            } else if (this.state.titulo === undefined) {
+                document.getElementById("newProject-input1").style.borderColor = "white";
+    
+            } else {
+                document.getElementById("newProject-input1").style.borderColor = "white";
+    
+            }
+        };
+    
+        handleChange2 = descripcion => event => {
+            this.setState({ [descripcion]: event.target.value });
+            console.log(event.target.value);
+            if (cantidadPalabrasVal(this.state.descripcion, 0, 3) == false) {
+                document.getElementById("newProject-input2").style.borderColor = "red";
+            } else if (this.state.titulo === undefined) {
+                document.getElementById("newProject-input2").style.borderColor = "white";
+    
+            } else {
+                document.getElementById("newProject-input2").style.borderColor = "blue";
+    
+            }
+        };
+    
+        handleChange3 = familiasB => event => {
+            this.setState({ [familiasB]: event.target.value });
+            console.log(event.target.value);
+            if (numeroVal(this.state.familiasB, 1, 7) == false) {
+                document.getElementById("newProject-input4").style.borderColor = "red";
+            } else if (this.state.titulo === undefined) {
+                document.getElementById("newProject-input4").style.borderColor = "white";
+    
+            } else {
+                document.getElementById("newProject-input4").style.borderColor = "white";
+    
+            }
+        };
+    
+        handleChange4 = tiposCultivo => event => {
+            event.preventDefault();
+            this.setState({ [tiposCultivo]: event.target.value });
+            console.log(event.target.value);
+            if (rangoCaracteresVal(this.state.tiposCultivo, 2, 50) == false) {
+                document.getElementById("newProject-input5").style.borderColor = "red";
+            } else if (this.state.titulo === undefined) {
+                document.getElementById("newProject-input5").style.borderColor = "white";
+    
+            } else {
+                document.getElementById("newProject-input5").style.borderColor = "white";
+    
+            }
+        };
+    
+        handleChange5 = infoZonas => event => {
+            this.setState({ [infoZonas]: event.target.value });
+            console.log(event.target.value);
+            if (cantidadPalabrasVal(this.state.infoZonas, 0, 100) == false) {
+                document.getElementById("newProject-input6").style.borderColor = "red";
+            } else if (this.state.infoZonas === undefined) {
+                document.getElementById("newProject-input6").style.borderColor = "white";
+    
+            } else {
+                document.getElementById("newProject-input6").style.borderColor = "white";
+    
+            }
+        };
+    
+        handleChange6 = inversion => event => {
+            this.setState({ [inversion]: event.target.value });
+            console.log(event.target.value);
+            if (puntoDecimalVal(this.state.inversion, 0, 12) == false) {
+                document.getElementById("newProject-input10").style.borderColor = "red";
+            } else if (this.state.titulo === undefined) {
+                document.getElementById("newProject-input10").style.borderColor = "white";
+    
+            } else {
+                document.getElementById("newProject-input10").style.borderColor = "white";
+    
+            }
+        };
+    */
 
     render() {
 
@@ -308,19 +308,19 @@ class NewProject extends Component {
                         <input id="newProject-input1"
                             value={titulo}
                             onChange={project => this.setState(byPropKey('titulo', project.target.value))}
-                            onChange={this.handleChange('titulo')}
+                            //onChange={this.handleChange('titulo')}
                             type="text"
                             placeholder="titulo"
                         />
                     </li>
-                   
+
 
 
                     <li id="all-inputs-item">
                         <input id="newProject-input2"
                             value={descripcion}
                             onChange={project => this.setState(byPropKey('descripcion', project.target.value))}
-                            onChange={this.handleChange2('descripcion')}
+                            //onChange={this.handleChange2('descripcion')}
                             type="text"
                             placeholder="descripcion"
                         />
@@ -339,7 +339,7 @@ class NewProject extends Component {
                         <input id="newProject-input4"
                             value={familiasB}
                             onChange={project => this.setState(byPropKey('familiasB', project.target.value))}
-                            onChange={this.handleChange3('FamiliasB')} 
+                            //onChange={this.handleChange3('FamiliasB')}
                             type="text"
                             placeholder="Numero de familias benficiadas"
                         />
@@ -349,7 +349,7 @@ class NewProject extends Component {
                         <input id="newProject-input5"
                             value={tiposCultivo}
                             onChange={project => this.setState(byPropKey('tiposCultivo', project.target.value))}
-                            onChange={this.handleChange4('tiposCultivo')}
+                            //onChange={this.handleChange4('tiposCultivo')}
                             type="text"
                             placeholder="Tipos de Cultivo, pongalos con , por favor  "
                         />
@@ -359,12 +359,12 @@ class NewProject extends Component {
                         <input id="newProject-input6"
                             value={infoZona}
                             onChange={project => this.setState(byPropKey('infoZona', project.target.value))}
-                            onChange={this.handleChange5('infoZona')}
+                            //onChange={this.handleChange5('infoZona')}
                             type="text"
                             placeholder="Informacion de zona"
                         />
                     </li>
-                    {/*
+
                     <li id="all-inputs-item">
                         <p>Foto Familias</p>
                         <input id="newProject-input7"
@@ -372,8 +372,9 @@ class NewProject extends Component {
                             ref={this.fotoF}
                             type="file"
                         />
+                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.fileUploadFamiliaHandler}>Upload Foto</button>
                     </li>
-                    <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.fileUploadFamiliaHandler}>Upload Foto</button>
+                    {/**Subir imagenes relacionadas con los cultivos */}
                     <li id="all-inputs-item">
                         <p>Foto Cultivo</p>
                         <input id="newProject-input8"
@@ -381,9 +382,19 @@ class NewProject extends Component {
                             ref={this.fotoC}
                             type="file"
                         />
-                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.fileUploadCultivoHandler}>Upload Foto</button>
+                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImgCrops}>Agregar foto</button>
+                        <div>
+                            { /**Muestra las imagenes que se han agregado en una lista
+                            //Permite que se borren por medio del boton*/}
+                            <ul>
+                                {this.state.listImgCrops.map((img, index) =>
+                                    <li key={index} >{img.name}
+                                        <button onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
+                                    </li>)}
+                            </ul>
+                        </div>
                     </li>
-*/}
+
                     <li id="all-inputs-item">
                         <p>Fotos del terreno</p>
                         <input id="newProject-input9"
@@ -392,24 +403,15 @@ class NewProject extends Component {
                             type="file"
 
                         />
-                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImgLand}>Agregar Foto</button>
-                        <div>
-                            { /**Muestra las imagenes que se han agregado en una lista
-                            //Permite que se borren por medio del boton*/}
-                            <ul>
-                                {this.state.listImgLand.map((img, index) =>
-                                    <li key={index} >{img.name}
-                                        <button onClick={(e) => this.handleDeleteImageLand(index, e)}>X</button>
-                                    </li>)}
-                            </ul>
-                        </div>
+                        <button id="bt-uploadProject" className="w3-button w3-round-xxlarge" onClick={this.addListImgCrops}>Agregar Foto</button>
+
                     </li>
                     {/*Deberia hacerse con un spinner, en $ o LPS*/}
                     <li id="all-inputs-item">
                         <input id="newProject-input10"
                             value={inversion}
                             onChange={project => this.setState(byPropKey('inversion', project.target.value))}
-                            onChange={this.handleChange6('inversion')}
+                            //onChange={this.handleChange6('inversion')}
                             type="text"
                             placeholder="Inversion inicial"
                         />
@@ -418,7 +420,7 @@ class NewProject extends Component {
 
                 </ul>
 
-                <button id="bt-addProject" className="w3-button w3-round-xxlarge" onClick={this.onClick}>Add Project</button>
+                <button id="bt-addProject" className="w3-button w3-round-xxlarge" onClick={this.handleSaveProject}>Crear Proyecto</button>
 
 
             </div>
