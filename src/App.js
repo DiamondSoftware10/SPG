@@ -21,9 +21,9 @@ import Proyectos from './Components/Proyectos';
 import Landing from './Components/Landing';
 import ProyectosAdmin from './Components/ProyectosAdmin';
 import MapContainer from "./Components/GoogleMapsContainer"
-import "circular-std"; 
+import "circular-std";
 
-
+import Profile from './Components/profile'
 class App extends Component {
 
   constructor(props) {
@@ -44,23 +44,23 @@ class App extends Component {
 
   }
 
-  componentDidMount(){
+  componentDidMount() {
     fire.auth().onAuthStateChanged(user => {
-      user ? this.setState(()=>({user})) : this.setState(() => ({user: null}));
+      user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
       var id = user.uid;
       console.log(id);
       var ref = fire.firestore().collection('users');
-      ref.get().then((snap) =>{
-        snap.forEach((doc)=>{
-          if(doc.id == id){
+      ref.get().then((snap) => {
+        snap.forEach((doc) => {
+          if (doc.id == id) {
             var temType = doc.data().accType
-            this.setState(()=>({type: temType}))
-          }  
+            this.setState(() => ({ type: temType }))
+          }
         })
       })
-      
+
     });
-    
+
   }
   handleClickOpen = () => {
     this.setState({ open: true });
@@ -70,7 +70,7 @@ class App extends Component {
     this.setState({ open: false });
   };
 
-  
+
   logout() {
     fire.auth().signOut();
   }
@@ -81,7 +81,7 @@ class App extends Component {
       <div className="App">
         <Router>
           <div>
-            <Navbar authUser={this.state.user} type={this.state.type}/>
+            <Navbar authUser={this.state.user} type={this.state.type} />
             <Route
               exact path={routes.ADMINHOMEPAGE}
               component={() => <AdminHomepage />}
@@ -97,8 +97,8 @@ class App extends Component {
             <Route
               exact path={routes.LOGINPAGE}
               component={LoginPage}
-              />
-              <Route
+            />
+            <Route
               exact path={routes.NEWPROJECT}
               component={() => <AddProject />}
             />
@@ -109,15 +109,19 @@ class App extends Component {
             />
             <Route
               exact path={routes.PROYECTOSADMIN}
-              component={()=><ProyectosAdmin/>}
+              component={() => <ProyectosAdmin />}
             />
             <Route
               exact path={routes.LANDING}
               component={() => <Landing />}
             />
             <Route
+              exact path={routes.PROFILE}
+              component={() => <Profile uid="y06iKxyfRVZ3xgGSi3xddU2twOC3" />}
+            />
+            <Route
               exact path={routes.CREATEUSERADMIN}
-              component={() => <CreateAdmin/>}
+              component={() => <CreateAdmin />}
             />
           </div>
         </Router>
