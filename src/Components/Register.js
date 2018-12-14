@@ -282,6 +282,7 @@ class Register extends Component {
                                 <button type="button" className="close" data-dismiss="modal">&times;</button>
                         </div>
                         */}
+                        <button id="close-modal" type="button" className="close" data-dismiss="modal">&times;</button>
                             <div id="register-content">
                                 <div id="register-graphic"></div>
                                 <div id="register-body" className="modal-body">

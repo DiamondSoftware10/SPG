@@ -57,6 +57,7 @@
     font-weight: 300;
     background-color: black;
     width: 30vw;
+    border: none;
     border-radius: 30px;
     height: 7vh;
     text-transform: uppercase;
@@ -64,6 +65,9 @@
     font-size: .9em;
 }
 
+.btn-primary:hover {
+    background-color: rgb(24,162,78);
+}
 
 
 label {
@@ -173,6 +177,11 @@ label {
 .modal-content {
     border: none;
     box-shadow: 2vmin 2vmin  10vmin rgba(75, 75, 75, 0.308);
+    position: relative;
+}
+
+.modal-dialog {
+    width: 800px;
 }
 
 .modal-title {
@@ -206,4 +215,10 @@ label {
 #bt-reg {
     width: 20vw;
     margin: 5vmin;
+}
+
+#close-modal {
+    position: absolute;
+    top: 1vmin;
+    right: 2vmin;
 }
