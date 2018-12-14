@@ -1,5 +1,4 @@
 .navbar {
-    font-family: Montserrat;
     padding-left: 5vw;
     font-size: 2.4vmin;
     background: white;
@@ -9,6 +8,7 @@
     font-weight: 900;
     font-size: 1.5em;
     margin-right: 2.4vw;
+    font-family: Montserrat;
 }
 .nav-item {
     margin: 0vw 1vw 0vw 1vw;
@@ -38,7 +38,7 @@
     font-weight: 600;
     width: 25vw;
     height: 7vh;
-    padding-left: 50px;
+    padding-left: 15%;
     
 }
 
@@ -47,11 +47,11 @@
 }
 
 #main-search-icon {
-    height: 25px;
+    height: 50%;
     position: absolute;
     margin-left: auto;
-    top: 10px;
-    left: 15px;
+    top: 25%;
+    left: 5%;
 }
 
 #cart-icon {

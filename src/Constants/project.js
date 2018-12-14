@@ -17,7 +17,7 @@ export const createProject = (
     investInitxBlock,
     infoZone,
     detailsProdxBlocks,
-    desciption,
+    description,
     creationDate,
     available,
     cultures
@@ -37,7 +37,7 @@ export const createProject = (
           investInitxBlock: investInitxBlock,
           infoZone: infoZone,
           detailsProdxBlocks: detailsProdxBlocks,
-          desciption: desciption,
+          description: description,
           creationDate: creationDate,
           available: available,
           cultures: cultures
@@ -79,7 +79,7 @@ export const createProject = (
     investInitxBlock,
     infoZone,
     detailsProdxBlocks,
-    desciption,
+    description,
     creationDate,
     available,
     cultures
@@ -100,7 +100,7 @@ export const createProject = (
           investInitxBlock: investInitxBlock,
           infoZone: infoZone,
           detailsProdxBlocks: detailsProdxBlocks,
-          desciption: desciption,
+          description: description,
           creationDate: creationDate,
           available: available,
           cultures: cultures

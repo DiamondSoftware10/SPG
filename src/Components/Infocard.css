@@ -1,10 +1,141 @@
-#infocards {
-    margin:auto;
-    width: 100vw;
+
+
+.icard-hor {
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 2em;
+    transition: transform .25s;
+    /*box-shadow: 5px 7px 20px rgba(0, 0, 0, 0.11);*/
+    border-radius: 15px;
+    cursor: pointer;
+    justify-content: space-between;
+    position: relative;
+    width: 40vw;
+    
 }
+.icard-hor > div , button
+{
+  text-align:center;
+
+  margin:5px;  /* and that, will result in a 10px gap */
+}
+
+.icard-hor #bt-event {
+    background: rgb(66, 143, 89);
+    border: rgb(255, 255, 255);
+    border-radius: 10px;
+    width: 17vw;
+    height: 12vw;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.icard-hor #img-pro {
+    width: 17vw;
+    height: 12vw;
+    object-fit: cover;
+}
+
+.icard-hor #box-event {
+    width: 100%;
+    text-align: left;
+    color: black;
+    font-size: .8em;
+    display: flex;
+    flex-direction: column;
+    padding: 1em;
+    padding-top: 0;
+
+}
+
+
+.icard-hor #proj-location {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: right; 
+    align-items: center;
+    justify-self: right;
+    font-size: 1em;
+    font-weight: 700;
+    color: #686868;
+    padding: 1em;
+    padding-left: 0px;
+}
+
+.icard-hor #proj-location #proj-icon {
+    margin: 0;
+    height: 2em;
+}
+
+
+.icard-hor #proj-name {
+    font-weight: 700;
+    font-size: 1.4em;
+    
+}
+
+.icard-hor #proj-gen {
+    font-size: .9em;
+    font-weight: 700;
+   /* font-family: "Text Me One";*/
+    color: rgb(66, 66, 66);
+
+
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    margin-bottom: 1.5em;
+    margin-top: 1.5em;
+}
+
+.icard-hor #proj-type {
+    text-transform: uppercase;
+    font-size: 0.9em;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: rgb(19, 92, 48);
+}
+
+.icard-hor #proj-icon {
+    height: 28px;
+    padding: 3px;
+    padding-left: 0;
+}
+.icard-hor #num {
+     margin-right: .6em;
+ }
+
+
+
+ .icard-hor #proj-footer {
+    position: absolute;
+    bottom: 1%;
+    right: 1%;
+ }
+
+ .icard-hor #proj-cont {
+    width:3em;
+    height: 3em;   
+    border-radius: 3em;   
+    background: rgb(19, 92, 48);
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 900;
+    border: none;
+    box-shadow: 5px 7px 20px rgba(0, 0, 0, 0.11);
+}
+
+
+
+
+
+
+
+
+
 
 .icard {
     display: flex;
@@ -141,134 +272,6 @@
     transform: scale(1.005);
 }
 
-
-.icard-hor {
-    display: flex;
-    flex-direction: row;
-    margin: 2em;
-    transition: transform .25s;
-    /*box-shadow: 5px 7px 20px rgba(0, 0, 0, 0.11);*/
-    border-radius: 15px;
-    cursor: pointer;
-    justify-content: space-between;
-    position: relative;
-    width: 40vw;
-    
-}
-.icard-hor > div , button
-{
-  flex:1 1 auto;
-  text-align:center;
-
-  margin:5px;  /* and that, will result in a 10px gap */
-}
-
-.icard-hor #bt-event {
-    background: rgb(66, 143, 89);
-    border: rgb(255, 255, 255);
-    border-radius: 10px;
-    width: 17vw;
-    height: 12vw;
-    font-weight: 600;
-    letter-spacing: 2px;
-}
-
-.icard-hor #img-pro {
-    width: 17vw;
-    height: 12vw;
-    object-fit: cover;
-}
-
-.icard-hor #box-event {
-    width: 100%;
-    text-align: left;
-    color: black;
-    font-size: .8em;
-    display: flex;
-    flex-direction: column;
-    padding: 1em;
-    padding-top: 0;
-
-}
-
-
-.icard-hor #proj-location {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: no wrap;
-    justify-content: right; 
-    align-items: center;
-    justify-self: right;
-    font-size: 1em;
-    font-weight: 700;
-    color: #686868;
-    padding: 1em;
-    padding-left: 0px;
-}
-
-.icard-hor #proj-location #proj-icon {
-    margin: 0;
-    height: 2em;
-}
-
-
-.icard-hor #proj-name {
-    font-weight: 700;
-    font-size: 1.4em;
-    
-}
-
-.icard-hor #proj-gen {
-    font-size: .9em;
-    font-weight: 700;
-   /* font-family: "Text Me One";*/
-    color: rgb(66, 66, 66);
-
-
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    align-items: center;
-    margin-bottom: 1.5em;
-    margin-top: 1.5em;
-}
-
-.icard-hor #proj-type {
-    text-transform: uppercase;
-    font-size: 0.9em;
-    font-weight: 600;
-    letter-spacing: 2px;
-    color: rgb(19, 92, 48);
-}
-
-.icard-hor #proj-icon {
-    height: 28px;
-    padding: 3px;
-    padding-left: 0;
-}
-.icard-hor #num {
-     margin-right: .6em;
- }
-
-
- .icard-hor #proj-footer {
-    position: absolute;
-    bottom: 1%;
-    right: 1%;
- }
-
- .icard-hor #proj-cont {
-    width:3em;
-    height: 3em;   
-    border-radius: 3em;   
-    background: rgb(19, 92, 48);
-    color: white;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 900;
-    border: none;
-    box-shadow: 5px 7px 20px rgba(0, 0, 0, 0.11);
-}
 
 
 @media (max-width: 800px) {
