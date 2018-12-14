@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import fire from "../Firebase/Fire";
 import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImagenVal, puntoDecimalVal } from '../Constants/validations'
 
-
+import './NewProject.css';
 //import "../bootstrap.min.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -143,61 +143,68 @@ class CreateAdmin extends Component {
 
     render() {
         return (
-            <div>
-                <ul id="input-list">
-                    <li id="input-list-item">
+            <div id="superuser-div">
+                <form id= "superuser-form" >
+                    <div className="form-group" id="input-list-item">
+                        <label>Primer Nombre</label>
                         <input
                             onChange={this.handleChange('nombre')}
                             type="text" className="form-control" id="nombre"
                             placeholder="Primer Nombre"
                         />
-                    </li>
-                    <li id="input-list-item">
+                    </div>
+                    <div className="form-group" id="input-list-item">
+                    <label>Apellido</label>
                         <input
                             onChange={this.handleChange('apellido')}
                             type="text" className="form-control" id="apellido"
                             placeholder="Apellido"
                         />
-                    </li>
-                    <li id="input-list-item">
+                    </div>
+                    <div className="form-group" id="input-list-item">
+                    <label>Región</label>
                         <input
                             onChange={this.handleChange('region')}
                             type="text" className="form-control" id="region"
                             placeholder="Región"
                         />
-                    </li>
-                    <li id="input-list-item">
+                   </div>
+                    <div className="form-group" id="input-list-item">
+                    <label>Telefono</label>
                         <input
                             onChange={this.handleChange('telefono')}
                             type="text" className="form-control" id="telefono"
                             placeholder="Teléfono"
                         />
-                    </li>
-                    <li id="input-list-item">
+                    </div>
+                    <div className="form-group" id="input-list-item">
+                    <label>Email Address</label>
                         <input
                             onChange={this.handleChange('correo')}
                             type="email" className="form-control" id="correo"
                             placeholder="Email Address"
                         />
-                    </li>
-                    <li id="input-list-item">
+                   </div>
+                    <div className="form-group" id="input-list-item">
+                    <label>Contraseña</label>
                         <input
                             onChange={this.handleChange('contrasena')}
                             type="password" className="form-control" id="password"
                             placeholder="Contraseña"
                         />
-                    </li>
-                    <li id="input-list-item">
+                    </div>
+                    <div className="form-group" id="input-list-item">
+                    <label>Confirmar Contraseña</label>
                         <input
                             onChange={this.handleChange('contrasena2')}
                             type="password" className="form-control" id="password2"
                             placeholder="Confirmar Contraseña"
                         />
-                    </li>
+                    </div>
                     <button data-backdrop="false" type="button" className="btn btn-secondary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
                         Crear Cuenta
                  </button>
-                </ul>
+                </form>
             </div>
            
 
