@@ -73,7 +73,7 @@ export default class ProyectosAdmin extends Component {
 
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.getProyectos();
   }
 
@@ -94,6 +94,7 @@ export default class ProyectosAdmin extends Component {
         <InfoCard
           changeLocation = {this.changeLocation}
           key={i}
+          id={doc.id}
           title={doc.title}
           location={doc.locate}
           lat={doc.coordinates._lat}
