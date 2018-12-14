@@ -80,7 +80,7 @@ const NavAdmin = () => (
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <form className="form-inline my-2 my-lg-0 input-search">
-                    <input id="main-search" className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+                    <input id="main-search" className="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Busqueda" />
                     <Link to={routes.PROYECTOSADMIN}>
                         <img id="main-search-icon" src={magnifier}></img>
                     </Link>
@@ -100,7 +100,7 @@ const NavAdmin = () => (
                     </li>
                     <li className="nav-item">
                         <Link to={routes.CREATEUSERADMIN}>
-                        <a className="nav-link">Create Admin </a>
+                        <a className="nav-link">Administrador</a>
                         </Link>
                     </li>
                     <li className="nav-item">

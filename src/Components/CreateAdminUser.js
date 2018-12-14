@@ -145,6 +145,8 @@ class CreateAdmin extends Component {
         return (
             <div id="superuser-div">
                 <form id= "superuser-form" >
+                <h1 id="main-title">Crear Administrador</h1>
+
                     <div className="form-group" id="input-list-item">
                         <label>Primer Nombre</label>
                         <input
@@ -201,10 +203,12 @@ class CreateAdmin extends Component {
                             placeholder="Confirmar Contraseña"
                         />
                     </div>
-                    <button data-backdrop="false" type="button" className="btn btn-secondary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
+                    <button data-backdrop="false" type="button" className="btn btn-primary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
                         Crear Cuenta
                  </button>
                 </form>
+                <div className="graphic-lg"></div>
+
             </div>
            
 

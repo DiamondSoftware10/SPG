@@ -249,7 +249,7 @@ class NewProject extends Component {
 
 
 
-                    <button id="bt-addProject" className="w3-button w3-round-xxlarge" onClick={this.onClick}>Agregar</button>
+                    <button className="btn btn-primary" onClick={this.onClick}>Agregar</button>
                 </div>
                 <div id="new-proj-graphic">
                     {/*<div id="graphic"></div>*/}

@@ -16,11 +16,7 @@ margin-top: 10vh;
     text-align: center;
 }
 
-#new-proj {
-    font-weight: 700;
-    width: 40%;
-    border-radius: 10px;
-}
+
 
 .Modal {
     position: absolute;

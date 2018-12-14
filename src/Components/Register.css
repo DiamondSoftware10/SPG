@@ -63,6 +63,7 @@
     text-transform: uppercase;
     letter-spacing: .15em;
     font-size: .9em;
+    margin: auto;
 }
 
 .btn-primary:hover {

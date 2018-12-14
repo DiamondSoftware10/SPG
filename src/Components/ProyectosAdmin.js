@@ -114,7 +114,7 @@ export default class ProyectosAdmin extends Component {
         </div>
         <div id="proj-nav">
           <Link to={routes.NEWPROJECT}>
-            <button className="btn btn-dark" id="new-proj" >Agregar</button>
+            <button className="btn btn-primary" id="new-proj" >Nuevo Proyecto</button>
           </Link>
         </div>
 
