@@ -18,6 +18,13 @@ class Profile extends Component {
 
 
      async componentWillMount() {
+        let id ;
+        fire.auth().onAuthStateChanged(user => {
+            if (user) {
+                id = user.uid;
+                console.log(id);
+            }
+        });
         let usersRef = fire.firestore().collection("users").doc(this.props.uid);
         console.log(usersRef)
         let user;

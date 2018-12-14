@@ -32,7 +32,8 @@ class App extends Component {
 
     this.state = {
       user: null,
-      type: null
+      type: null,
+      uid: null
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -47,14 +48,14 @@ class App extends Component {
   componentDidMount() {
     fire.auth().onAuthStateChanged(user => {
       user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
-      var id = user.uid;
+      let id = user.uid;
       console.log(id);
       var ref = fire.firestore().collection('users');
       ref.get().then((snap) => {
         snap.forEach((doc) => {
           if (doc.id == id) {
             var temType = doc.data().accType
-            this.setState(() => ({ type: temType }))
+            this.setState(() => ({ type: temType, uid: id }))
           }
         })
       })
@@ -117,7 +118,7 @@ class App extends Component {
             />
             <Route
               exact path={routes.PROFILE}
-              component={() => <Profile uid="y06iKxyfRVZ3xgGSi3xddU2twOC3" />}
+              component={() => <Profile uid={this.state.uid} />}
             />
             <Route
               exact path={routes.CREATEUSERADMIN}

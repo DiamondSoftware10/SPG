@@ -61,7 +61,7 @@ const NavNonAuth = () =>
                 </ul>
             </div>
         </nav>
-        
+
 
     </div>
 
@@ -98,20 +98,26 @@ const NavAdmin = () => (
                             <a className="nav-link">Explorar</a>
                         </Link>
                     </li>
-                    <li className="nav-item">
-                        <Link to={routes.CREATEUSERADMIN}>
-                        <a className="nav-link">Administrador</a>
-                        </Link>
-                    </li>
+
                     <li className="nav-item">
                         <a className="nav-link" href="#">Acerca de</a>
                     </li>
-                    
+                    <li className="nav-item">
+                        <Link to={routes.CREATEUSERADMIN}>
+                            <a className="nav-link">Admin</a>
+                        </Link>
+                    </li>
+
                 </ul>
 
                 <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
                     <li className="nav-item">
                         <img id="cart-icon" src={cart}></img>
+                    </li>
+                    <li className="nav-item">
+                        <Link to={routes.PROFILE}>
+                            <a className="nav-link">Profile</a>
+                        </Link>
                     </li>
 
                 </ul>
@@ -156,7 +162,7 @@ const NavUser = () => (
                     <li className="nav-item active">
                         <Link to={routes.LANDING}>
 
-                        <a className="nav-link" href="#">Inicio <span className="sr-only">(current)</span></a>
+                            <a className="nav-link" href="#">Inicio <span className="sr-only">(current)</span></a>
                         </Link>
                     </li>
                     <li className="nav-item">
@@ -179,8 +185,8 @@ const NavUser = () => (
                     <li className="nav-item">
                         <img id="cart-icon" src={cart}></img>
                     </li>
-                  
-                    
+
+
                 </ul>
             </div>
             <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
