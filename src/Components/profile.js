@@ -54,7 +54,7 @@ class Profile extends Component {
     render() {
         console.log(this.props.name)
         return (
-            <div>
+            <div id="profile-div">
                 
                 <img src={this.state.picProfile}></img>
                 <ul>
