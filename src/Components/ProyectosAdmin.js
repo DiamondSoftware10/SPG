@@ -94,6 +94,7 @@ export default class ProyectosAdmin extends Component {
         <InfoCard
           changeLocation = {this.changeLocation}
           key={i}
+          pic={doc.picProject}
           id={doc.id}
           title={doc.title}
           location={doc.locate}
