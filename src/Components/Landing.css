@@ -9,18 +9,22 @@
     background-image: url("https://bit.ly/2P6sp57");
    /* background-position: center;*/
     background: white;
+    background-image: url("../Icons/frame.svg");
     border-radius: 0;
     text-align: left;
+    background-size: cover;
     color: black;
-    padding: 5vw;
+    padding: 10vw;
+    padding-left: 5vw;
 }
 
-.lead {
+.jumbotron > .lead {
     padding: 10vmin;
     padding-top: 5vmin;
-    width: 80%;
-    font-weight: 700;
-    line-height: 50px;
+    width: 60%;
+    font-weight: 200;
+    font-size: 4vmin;
+    line-height: 8vmin;
 }
 
 #SPG {
@@ -37,4 +41,123 @@
     width: 20vmin;
     height: 20vmin;
     padding: 2vmin;
+}
+
+.block-full {
+    width: 100vw;
+    height: 60vh;
+}
+
+#b-block {
+    background: linear-gradient(to bottom, rgb(24,162,78), #2fc96a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+#e-block {
+    background: linear-gradient(to bottom, rgb(24,162,78), #2fc96a); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.block-half {
+    width: 50vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    padding: 8vmin;
+}
+
+.block-half > p {
+    font-size: 3.5vmin;
+    font-weight: 200;
+    line-height: 5vmin;
+    padding: 3vmin;
+}
+
+.block-half > h1 {
+    font-weight: 900;
+    color: black;
+}
+
+#d-block {
+    background-image: url("https://bit.ly/2P6sp57");
+   
+}
+
+.block-div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    
+}
+
+.block-flex {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-content: space-between;
+    text-align: left;
+    color: white;
+    width: 60vw;
+    height: 100%;
+    margin: auto;
+}
+
+.block-flex > div > .lead {
+    font-weight: 800;
+    font-size: 3vmin;
+    line-height: 8vmin;
+}
+
+.block-flex > div > h1 {
+    font-size: 6vmin;
+    font-weight: 900;
+}
+
+.block-flex > .block-segment > h1 {
+    font-weight: 700;
+    font-size: 4vmin;
+}
+
+.block-flex > .block-segment > h3 {
+    font-weight: 300;
+    font-size: 3vmin;
+}
+
+.block-flex > div {
+    padding:5vmin;
+}
+
+.block-segment {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.block-icon {
+    height: 20vmin;
+    width: 20vmin;
+    margin: 3vmin;
+}
+
+#f-block {
+    background: black;
+    color: white;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 0 10vmin 0 10vmin;
+    align-items: center;
+}
+
+#f-brand {
+    font-family: "Montserrat";
+    font-size: 3vmin;
+    font-weight: 700;
 }

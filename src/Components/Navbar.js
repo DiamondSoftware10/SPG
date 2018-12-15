@@ -17,7 +17,7 @@ const Navbar = ({ authUser, type }) =>
 
 const NavNonAuth = () =>
     <div id="navbar2">
-        <nav className="navbar navbar-expand-lg navbar-light ">
+        <nav className="navbar navbar-expand-lg navbar-light blurry">
             <Link to={routes.LANDING}>
                 <a className="navbar-brand" href="#">
                     <img src={icon} width="30" height="30"></img>
@@ -36,7 +36,7 @@ const NavNonAuth = () =>
                     <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit">Búsqueda</button>
                 </form>
                 <ul className="navbar-nav mr-auto ">
-                    <Link to={routes.GUESTHOMEPAGE}>
+                    <Link to={routes.LANDING}>
                         <li className="nav-item active">
                             <a className="nav-link" href="#">Inicio <span className="sr-only">(current)</span></a>
                         </li>
@@ -68,6 +68,7 @@ const NavNonAuth = () =>
 const NavAdmin = () => (
     <div id="navbar2">
         <nav className="navbar navbar-expand-lg navbar-light ">
+
             <Link to={routes.LANDING}>
                 <a className="navbar-brand" href="#">
                     <img src={icon} width="30" height="30"></img>
@@ -116,7 +117,7 @@ const NavAdmin = () => (
                     </li>
                     <li className="nav-item">
                         <Link to={routes.PROFILE}>
-                            <i id="person-icon"class="material-icons">
+                            <i id="person-icon" class="material-icons">
                                 person_outline
                             </i>
                         </Link>

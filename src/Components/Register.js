@@ -208,6 +208,8 @@ class Register extends Component {
                             </button>*/}
                         </div>
                     </div>
+
+
                 </div>
 
                 <div className="row">
@@ -228,11 +230,11 @@ class Register extends Component {
                                 <button type="button" className="close" data-dismiss="modal">&times;</button>
                         </div>
                         */}
-                        <button id="close-modal" type="button" className="close" data-dismiss="modal">&times;</button>
+                            <button id="close-modal" type="button" className="close" data-dismiss="modal">&times;</button>
                             <div id="register-content">
                                 <div id="register-graphic"></div>
                                 <div id="register-body" className="modal-body">
- 
+
                                     <img src={icon} width="40" height="40"></img>
                                     <h3 className="modal-title">Registrarse</h3>
 

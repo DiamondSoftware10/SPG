@@ -60,7 +60,6 @@ class LoginPage extends Component {
         {this.state.user ? (
           <div id="log-out-div">
             <div className="jumbotron" id="jumbo-out">
-              <img id="logo-reg" src={icon} width="40" height="40"></img>
 
               <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
               {/*<h2>¿Estas seguro que quieres cerrar sesion?</h2>*/}
@@ -68,7 +67,6 @@ class LoginPage extends Component {
             <button onClick={this.logout} type="button" className="btn btn-primary">
               Log Out
             </button>
-
           </div>
         ) : (<Register />)}
 
