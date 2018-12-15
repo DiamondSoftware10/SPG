@@ -23,9 +23,12 @@ export const createProject = (
     cultures
   ) => {
     return new Promise((resolve, reject) => {
-      projectRef
-        .add({
+      var ref = projectRef.doc();
+
+      ref
+        .set({
           title: title,
+          id: ref.id,
           timeProdxDay: timeProdxDay,
           raisedMoney: raisedMoney,
           projectFinan: projectFinan,

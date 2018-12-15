@@ -37,6 +37,7 @@ class NewProject extends Component {
             listImgCrops: [],
             picProject: false,
             previewPic: null,
+            inversion: null,
             pic: "",
             boolName: false,
             listNameCrops: []
@@ -279,7 +280,7 @@ class NewProject extends Component {
          */
             let temp = new Date();
             let fecha = temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
-            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(10, 10), "", 0, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops);
+            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(10, 10), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops);
             await this.uploadImageToStorage();
 
             this.setState({
