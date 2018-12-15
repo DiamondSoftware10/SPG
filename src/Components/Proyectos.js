@@ -77,7 +77,7 @@ export default class Proyectos extends Component {
     this.getProyectos();
   }
 
-  render() {
+   render() {
     const style = {
       /*width: '50vw',
       height: '75vh',*/
@@ -88,13 +88,18 @@ export default class Proyectos extends Component {
     }
 
     //rendering infoCards
+
     let cards = this.state.projects.map((doc, i) => {
       console.log("card " + i);
+      console.log(doc.picProject)
+   
+      
       return (
         <InfoCard
           changeLocation = {this.changeLocation}
           key={i}
           id={doc.id}
+          pic = {doc.picProject}
           title={doc.title}
           location={doc.locate}
           lat={doc.coordinates._lat}

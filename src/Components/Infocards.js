@@ -57,6 +57,13 @@ class Infocard extends Component {
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.readDB = this.readDB.bind(this);
     }
+    async componentWillMount(){
+        await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
+            this.setState({
+                foto:url
+            })
+        })
+    }
 
     //No captura el ID mandado con props desde proyecto.js
     componentDidMount() {
@@ -229,7 +236,7 @@ class Infocard extends Component {
 
                                         <div id="main-flex">
                                             <div id="img-div">
-                                                <img id="modal-img" onClick={this.handleOpenModal} src="https://bit.ly/2Dpx93w"></img>
+                                                <img id="modal-img" onClick={this.handleOpenModal} src={this.state.foto}></img>
                                             </div>
                                             <div>
                                                 <div id="terr-head">Terreno</div>
@@ -306,7 +313,7 @@ class Infocard extends Component {
                         <div id="bt-event" onClick={() => this.handleInfocard("Guanaja")}>
                             <div id="bt-more"></div>
 
-                            <img id="img-pro" onClick={this.handleOpenModal} src="https://bit.ly/2Dpx93w"></img>
+                            <img id="img-pro" onClick={this.handleOpenModal} src={this.state.foto}></img>
                         </div>
                         <div id="box-event">
                             <div id="proj-type">Terreno</div>
