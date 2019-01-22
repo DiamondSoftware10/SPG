@@ -45,8 +45,8 @@ class App extends Component {
 
   }
 
-  componentDidMount() {
-    fire.auth().onAuthStateChanged(user => {
+  async componentDidMount() {
+    await fire.auth().onAuthStateChanged(user => {
       user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
       var id = user.uid;
       console.log(id);

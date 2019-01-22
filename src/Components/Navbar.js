@@ -6,6 +6,8 @@ import magnifier from '../Icons/magnifier.svg';
 import icon from '../Icons/iconbeta.png';
 import cart from '../Icons/cart.svg';
 
+import Searchbar from './Searchbar';
+
 const Navbar = ({ authUser, type }) =>
     <div className=" sticky-top ">
         {authUser
@@ -29,12 +31,7 @@ const NavNonAuth = () =>
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <form className="form-inline my-2 my-lg-0 input-search">
-                    <input id="main-search" className="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Busqueda" />
-                    <img id="main-search-icon" src={magnifier}></img>
-
-                    <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit">Búsqueda</button>
-                </form>
+                <Searchbar />
                 <ul className="navbar-nav mr-auto ">
                     <Link to={routes.LANDING}>
                         <li className="nav-item active">
@@ -80,13 +77,7 @@ const NavAdmin = () => (
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <form className="form-inline my-2 my-lg-0 input-search">
-                    <input id="main-search" className="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Busqueda" />
-                    <Link to={routes.PROYECTOSADMIN}>
-                        <img id="main-search-icon" src={magnifier}></img>
-                    </Link>
-                    <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                <Searchbar />
                 <ul className="navbar-nav mr-auto ">
                     <li className="nav-item active">
                         <Link to={routes.LANDING}>
@@ -154,13 +145,7 @@ const NavUser = () => (
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <form className="form-inline my-2 my-lg-0 input-search">
-                    <input id="main-search" className="form-control mr-sm-2" type="search" placeholder="Busqueda" aria-label="Busqueda" />
-                    <Link to={routes.PROYECTOS}>
-                        <img id="main-search-icon" src={magnifier}></img>
-                    </Link>
-                    <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit">Búsqueda</button>
-                </form>
+            <Searchbar />
                 <ul className="navbar-nav mr-auto ">
                     <li className="nav-item active">
                         <Link to={routes.LANDING}>

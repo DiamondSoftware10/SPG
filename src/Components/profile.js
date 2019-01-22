@@ -19,7 +19,7 @@ class Profile extends Component {
 
      async componentWillMount() {
         let id ;
-        fire.auth().onAuthStateChanged(user => {
+        await fire.auth().onAuthStateChanged(user => {
             if (user) {
                 id = user.uid;
                 console.log(id);
