@@ -161,3 +161,42 @@
     font-size: 3vmin;
     font-weight: 700;
 }
+
+@media(max-width: 500px) {
+
+    .jumbotron > .lead {
+        padding: 5vmin;
+        padding-top: 5vmin;
+        width: 90%;
+        font-weight: 200;
+        font-size: 4vmin;
+        line-height: 8vmin;
+    }
+
+    #SPG {
+        font-size: 1.4em;
+        width: 70%; 
+    }
+
+    .block-flex {
+        flex-direction: column;
+        width: 90vw;
+    }
+
+    .block-div {
+        flex-direction: column-reverse;
+    }
+
+    .block-half {
+        width: 100vw;
+    }
+
+    .block-half > p {
+        line-height: 10vmin;
+    }
+
+    .block-full {
+        height: 60%;
+    }
+    
+}

@@ -82,3 +82,9 @@
     color: rgb(82, 82, 82);
     font-size: 5vh;
 }
+
+@media(max-height: 500px) {
+    .navbar {
+        font-size: 4vmin;
+    }
+}
