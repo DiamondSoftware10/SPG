@@ -145,7 +145,7 @@ const NavUser = () => (
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <Searchbar />
+                <Searchbar />
                 <ul className="navbar-nav mr-auto ">
                     <li className="nav-item active">
                         <Link to={routes.LANDING}>

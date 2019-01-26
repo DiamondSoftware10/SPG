@@ -20,7 +20,8 @@ import AddProject from './Components/NewProject';
 import Proyectos from './Components/Proyectos';
 import Landing from './Components/Landing';
 import ProyectosAdmin from './Components/ProyectosAdmin';
-import MapContainer from "./Components/GoogleMapsContainer"
+import MapContainer from "./Components/GoogleMapsContainer";
+import Cart from './Components/Cart';
 import "circular-std";
 
 import Profile from './Components/profile'
@@ -50,7 +51,7 @@ class App extends Component {
       user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
       var id = user.uid;
       console.log(id);
-      this.setState(()=>({uid: id}))
+      this.setState(() => ({ uid: id }))
       var ref = fire.firestore().collection('users');
       ref.get().then((snap) => {
         snap.forEach((doc) => {
@@ -119,12 +120,15 @@ class App extends Component {
             />
             <Route
               exact path={routes.PROFILE}
-              component={() => <Profile uid={this.state.uid}/>}
+              component={() => <Profile uid={this.state.uid} />}
             />
             <Route
               exact path={routes.CREATEUSERADMIN}
               component={() => <CreateAdmin />}
             />
+            <Route
+              exact path={routes.CART}
+              component={() => <Cart />} />
           </div>
         </Router>
       </div>

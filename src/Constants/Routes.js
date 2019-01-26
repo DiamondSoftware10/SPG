@@ -8,7 +8,7 @@ export const PROFILE = '/profile';
 export const PROYECTOSADMIN = '/proyectosAdmin';
 export const CREATEUSERADMIN = '/cUserA'
 export const LANDING = '/';
-
+export const CART = '/Cart';
 
 
 
