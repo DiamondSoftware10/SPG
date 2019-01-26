@@ -122,6 +122,10 @@ class MapContainer extends React.Component {
             initialMarkerShown: false
         })
 
+        if(this.props.type === "newproject"){
+            this.props.changeLocationFromChild(lat,long)
+        }
+
         console.log("lat: " + lat + "\nlong: " + long);
     }
 

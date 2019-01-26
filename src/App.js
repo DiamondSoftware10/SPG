@@ -47,19 +47,30 @@ class App extends Component {
 
   async componentDidMount() {
     await fire.auth().onAuthStateChanged(user => {
-      user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
-      var id = user.uid;
-      console.log(id);
-      this.setState(()=>({uid: id}))
-      var ref = fire.firestore().collection('users');
-      ref.get().then((snap) => {
-        snap.forEach((doc) => {
-          if (doc.id == id) {
-            var temType = doc.data().accType
-            this.setState(() => ({ type: temType }))
-          }
+      if (user) {
+        this.setState({
+          user : user
         })
-      })
+
+        var id = user.uid;
+        console.log(id);
+        this.setState(() => ({ uid: id }))
+        var ref = fire.firestore().collection('users');
+        ref.get().then((snap) => {
+          snap.forEach((doc) => {
+            if (doc.id == id) {
+              var temType = doc.data().accType
+              this.setState(() => ({ type: temType }))
+            }
+          })
+        })
+      } else {
+        this.setState({
+          user: null
+        })
+      }
+      //user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
+
 
     });
 
@@ -119,7 +130,7 @@ class App extends Component {
             />
             <Route
               exact path={routes.PROFILE}
-              component={() => <Profile uid={this.state.uid}/>}
+              component={() => <Profile uid={this.state.uid} />}
             />
             <Route
               exact path={routes.CREATEUSERADMIN}
