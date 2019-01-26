@@ -20,8 +20,9 @@ import AddProject from './Components/NewProject';
 import Proyectos from './Components/Proyectos';
 import Landing from './Components/Landing';
 import ProyectosAdmin from './Components/ProyectosAdmin';
-import MapContainer from "./Components/GoogleMapsContainer"
+import MapContainer from "./Components/GoogleMapsContainer";
 import "circular-std";
+import ManageUsers from "./Components/ManageUsers";
 
 import Profile from './Components/profile'
 class App extends Component {
@@ -125,6 +126,11 @@ class App extends Component {
               exact path={routes.CREATEUSERADMIN}
               component={() => <CreateAdmin />}
             />
+             <Route
+              exact path={routes.MANAGEUSERS}
+              component={() => <ManageUsers />}
+            />
+                
           </div>
         </Router>
       </div>
