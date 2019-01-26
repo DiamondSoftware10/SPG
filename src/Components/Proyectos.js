@@ -77,6 +77,11 @@ export default class Proyectos extends Component {
     this.getProyectos();
   }
 
+  componentWillUnmount() {
+    
+  }
+  
+
    render() {
     const style = {
       /*width: '50vw',

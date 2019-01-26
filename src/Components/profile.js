@@ -17,8 +17,8 @@ class Profile extends Component {
 
 
 
-     async componentWillMount() {
-        let id ;
+    async componentWillMount() {
+        let id;
         await fire.auth().onAuthStateChanged(user => {
             if (user) {
                 id = user.uid;
@@ -28,15 +28,15 @@ class Profile extends Component {
         let usersRef = fire.firestore().collection("users").doc(this.props.uid);
         console.log(usersRef)
         let user;
-        await usersRef.get().then(function(doc) {
+        await usersRef.get().then(function (doc) {
             if (doc.exists) {
                 console.log("Document data:", doc.data());
-                 user = doc.data();
+                user = doc.data();
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
-        }).catch(function(error) {
+        }).catch(function (error) {
             console.log("Error getting document:", error);
         });
         this.setState(
@@ -55,7 +55,7 @@ class Profile extends Component {
         console.log(this.props.name)
         return (
             <div id="profile-div">
-                
+
                 <img src={this.state.picProfile}></img>
                 <ul>
                     <li>
