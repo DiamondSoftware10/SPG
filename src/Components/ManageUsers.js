@@ -40,6 +40,20 @@ class ManageUsers extends Component {
                 accessor: "accType",
                 width: 70,
               }
+            ,
+              {
+                Header: "Delete",
+                id: 'deleteUserButton',
+                Cell: () => (
+                <div>
+                    <button onClick={this.DeleteUser("poof")}>
+                        Eliminar
+                    </button>
+                </div>
+                ),
+                width: 100,
+                filterable: false,
+              },
         ];
         //this.error = this.error.bind(this);
     }
@@ -77,19 +91,47 @@ class ManageUsers extends Component {
         
         });
     }
+    
+    DeleteUser(id) {
+        const db = fire.firestore();
+        db.collection("users").doc(id).delete().then(function () {
+            console.log("Document successfully deleted!");
+        }).catch(function (error) {
+            console.error("Error removing document: ", error);
+        });
+    }
 
 
 
-render() {
+    render() {
     
 
     return (
         <div>
-            <ReactTable data={this.state.data} columns={this.columns} filterable />
-        </div>
+                <ReactTable data={this.state.data} columns={this.columns} filterable 
+                    getTrProps={(state, rowInfo) => {
+                        if (rowInfo && rowInfo.row) {
+                          return {
+                            onClick: (e) => {
+                              this.setState({
+                                selected: rowInfo.index
+                              })
+                            },
+                            style: {
+                              background: rowInfo.index === this.state.selected ? '#00afec' : 'white',
+                              color: rowInfo.index === this.state.selected ? 'white' : 'black'
+                            }
+                          }
+                        }else{
+                          return {}
+                        }
+                      } 
+                    }
+                />
+         </div>
       );
 
-}
+    }
 }
 
 
