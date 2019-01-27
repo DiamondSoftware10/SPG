@@ -74,7 +74,7 @@ class ManageUsers extends Component {
 
 
               const admin ={
-                  id : doc.data().key,
+                  id : doc.id,
                   nombre: doc.data().nombre,
                   apellido: doc.data().apellido,
                   accType: type,
