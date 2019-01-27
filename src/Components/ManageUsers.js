@@ -17,6 +17,8 @@ class ManageUsers extends Component {
         
         this.state ={
             data : [],
+            selectedID: '',
+            selected : null,
         }
 
         this.columns = [
