@@ -5,12 +5,8 @@ import fire from "../Firebase/Fire";
 import 'firebase/database';
 
 import ReactTable from "react-table";
-/*
-  TO DO: 
-      -Tocar el CSS de la pagina
-      -Agregar una columna a la tabla, que tenga un botones de eliminar y modificar
-*/
-
+import "react-table/react-table.css";
+//que pedos 
 
 class ManageUsers extends Component {
     constructor(props) {
@@ -31,12 +27,17 @@ class ManageUsers extends Component {
               },
               {
                 Header: "First Name",
-                accessor: "name",
+                accessor: "nombre",
                 width: 70,
               },
               {
                 Header: "Last Name",
-                accessor: "last",
+                accessor: "apellido",
+                width: 70,
+              },
+              {
+                Header: "Type",
+                accessor: "accType",
                 width: 70,
               }
         ];
@@ -46,16 +47,24 @@ class ManageUsers extends Component {
     componentDidMount() {
         const database = fire.firestore();
        // database.settings({timestampsInSnapshots: true});
-        const collection = database.collection('admins');
+        const collection = database.collection('users');
 
         collection.get().then(snapshot => {
             const data =[];
 
               snapshot.forEach(doc => {
+                var type = 'User';
+                if (doc.data().accType == 0 ){
+                    type = 'Admin'
+                }
+
+
               const admin ={
                   id : doc.data().key,
-                  name: doc.data().name,
-                  last: doc.data().last
+                  nombre: doc.data().nombre,
+                  apellido: doc.data().apellido,
+                  accType: type,
+
               }
               data.push(admin);
             });
