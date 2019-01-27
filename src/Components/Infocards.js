@@ -12,6 +12,8 @@ import loc from '../Icons/placeholder.svg';
 import arrow from '../Icons/arrow.svg';
 
 import fire from "../Firebase/Fire"
+import * as firebase from 'firebase';
+
 
 import a from '../Images/1.jpg';
 import b from '../Images/2.jpg';
@@ -56,6 +58,7 @@ class Infocard extends Component {
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.readDB = this.readDB.bind(this);
+        this.handleAddToCart = this.handleAddToCart.bind(this);
     }
     async componentWillMount(){
         await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
@@ -121,6 +124,35 @@ class Infocard extends Component {
 
     handleCloseModal() {
         this.setState({ showModal: false });
+    }
+
+    handleAddToCart() {
+        var id = this.props.id;
+        fire.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                const database = fire.firestore();
+                // database.settings({timestampsInSnapshots: true});
+                const collection = database.collection('users').doc(user.uid);        
+                /*
+                collection.get().then(snapshot => {
+                    console.log(snapshot)
+                    if (snapshot.exists){
+                        console.log(snapshot.data().nombre);
+                        snapshot.data().update({
+                            cartera: firebase.firestore.FieldValue.arrayUnion("hola")
+
+                        });
+                    } else {
+                    }
+                });*/
+        
+                collection.update({
+                    cartera: firebase.firestore.FieldValue.arrayUnion(id)
+                });
+
+            } else {
+            }
+          });
     }
 
     async readDB() {
@@ -291,7 +323,7 @@ class Infocard extends Component {
                                                     <h3>${this.state.raisedMoney}</h3>
                                                 </div>
                                                 <div>
-                                                    <button className="spg-btn">Agregar a cartera</button>
+                                                    <button onClick={() => this.handleAddToCart()}>Agregar a cartera</button>
                                                 </div>
                                             </div>
 
