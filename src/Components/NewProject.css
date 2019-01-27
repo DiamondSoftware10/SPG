@@ -11,12 +11,11 @@ ul {
   ul > li > input {
     height: 50px;
     width: 70%;
-    
+
     border-radius: 10px;
     border-style: solid;
     border-color: rgb(248, 248, 248);
     padding: 15px;
-    text-transform: capitalize;
     font-size: 1.2em;
   }
 
@@ -30,8 +29,8 @@ ul {
     border-style: solid;
     border-color: rgb(248, 248, 248);
     padding: 15px;
-    text-transform: capitalize;
     font-size: 1.2em;
+    resize: none;
   }
 
 
@@ -179,6 +178,8 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     align-self: center;
     border: none;
 }
+
+
 
 #icon-close {
     position: absolute;

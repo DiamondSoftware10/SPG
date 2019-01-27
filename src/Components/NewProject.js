@@ -8,7 +8,7 @@ import firebase from 'firebase';
 import MapContainer from "./GoogleMapsContainer"
 
 import close from '../Icons/close.svg';
-
+import defaultProjectPic from '../Images/nature.svg'
 const AddProject = () =>
     <div id="project">
         <NewProject />
@@ -60,6 +60,7 @@ class NewProject extends Component {
         this.handleDeleteImageCrop = this.handleDeleteImageCrop.bind(this);
         this.handleDeleteImageFamily = this.handleDeleteImageFamily.bind(this);
         this.handleDeleteNameCrop = this.handleDeleteNameCrop.bind(this);
+        
         this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
 
         this.handleSaveProject = this.handleSaveProject.bind(this);
@@ -83,7 +84,7 @@ class NewProject extends Component {
     async componentWillMount() {
         firebase.storage().ref().child("Campo2.jpg").getDownloadURL().then(url => {
             this.setState({
-                pic: url
+                pic: url,
             })
         }).catch(function (error) {
             // Handle any errors
@@ -205,6 +206,7 @@ class NewProject extends Component {
     // @author Diego Mendoza ,Jahaziel Moreno
     */
     handleDeleteImageCrop = (index, event) => {
+
         event.preventDefault();
 
         this.setState(state => {
@@ -529,28 +531,28 @@ class NewProject extends Component {
                                 value={familiasB}
                                 onChange={project => this.setState(byPropKey('familiasB', project.target.value))}
                                 onChange={this.handleChangeFamily('familiasB')}
-                                type="text"
+                                type="number"
+                                min ="0"
                             />
                         </li>
                         <li id="all-inputs-item">
                             <label>Cultivos</label>
                             <br></br>
-                            <p>Haz enter para agregar un elemento</p>
                             <input id="newProject-input5"
                                 value={tiposCultivo}
                                 onChange={project => this.setState(byPropKey('tiposCultivo', project.target.value))}
                                 onChange={this.handleChangeCrops('tiposCultivo')}
                                 type="text"
+                                placeholder ="Presione Enter para agregar una etiqueta"
                                 onKeyDown={e => this.handleKeyEnterAddCrop(e, e.target.value)}
                             />
                             <div>
-                                { /**Muestra las imagenes que se han agregado en una lista
-                            //Permite que se borren por medio del boton*/}
                                 <ul>
                                     {this.state.listNameCrops.map((name, index) =>
-                                        <li id="item" key={index} >{name}
-                                            <button id="close-bt"onClick={(e) => this.handleDeleteNameCrop(index, e)}>
-                                                <img id="icon-close"src={close} height="10"></img>
+                                        <li id="item" key={index} >
+                                            {name}s
+                                            <button id="close-bt"  onClick={(e) => this.handleDeleteNameCrop(index, e)}>
+                                                <img id="close-icon" src={close} height="10"></img>
                                             </button>
                                         </li>)}
                                 </ul>
@@ -558,7 +560,7 @@ class NewProject extends Component {
                         </li>
 
                         <li id="all-inputs-item">
-                        <label>Informacion de zona</label>
+                        <label>Informacion de la zona</label>
                             <br></br>
                             <textarea id="newProject-input6"
                                 rows="3"
@@ -570,7 +572,7 @@ class NewProject extends Component {
                         </li>
 
                         <li id="all-inputs-item">
-                            <label>Foto Familias</label>
+                            <label>Foto de familias</label>
                             <br></br>
 
                             <input id="newProject-input7"
@@ -593,9 +595,8 @@ class NewProject extends Component {
                         </li>
                         {/**Subir imagenes relacionadas con los cultivos */}
                         <li id="all-inputs-item">
-                        <label>Foto Cultivos</label>
+                        <label>Foto de cultivos</label>
                         <br></br>
-
                             <input id="newProject-input8"
                                 value={fotoC}
                                 ref={this.fotoC}
@@ -614,36 +615,32 @@ class NewProject extends Component {
                             </div>
                         </li>
 
-                        <li id="all-inputs-item">
-                            <label>Foto del Proyecto</label>
+                        <li id="all-inputs-item" >
+                            <label>Foto del proyecto</label>
                             <br></br>
-
                             <input id="newProject-input9"
                                 value={fotoP}
                                 ref={this.fotoP}
                                 type="file"
                                 onChange={this.addImgProject}
                             />
-                           
-
+                            {this.state.previewPic ?<img id="img-pro" src={this.state.previewPic} ></img>:<img id="img-pro"  src={defaultProjectPic}></img>}
                         </li>
-                         <img id="img-pro" src={this.state.previewPic} ></img>
-
                          
                         {/*Deberia hacerse con un spinner, en $ o LPS*/}
                         <li id="all-inputs-item">
                         <label>Inversion inicial</label>
                         <br></br>
-
                             <input id="newProject-input10"
                                 value={inversion}
                                 onChange={project => this.setState(byPropKey('inversion', project.target.value))}
                                 onChange={this.handleChangeInversion('inversion')}
-                                type="text"
+                                type="number"
+                                min="5"
+                                step ="5"
                                 placeholder="Inversion inicial"
                             />
                         </li>
-
 
                         <li id="all-inputs-item">
                             <label>Ubicación</label>
@@ -658,13 +655,11 @@ class NewProject extends Component {
 
 
                         <li >
-                            <div id="add-map-div"className="container">
+                            <div id="add-map-div" className="container">
                                 <div className="card" style={style}>
                                     <label>Coordenadas Geográficas</label>
                                     <MapContainer type="newproject" changeLocationFromChild={this.changeLocationFromChild} center={this.state.center} ></MapContainer>
                                 </div>
-
-                                
                                     <div className="form-group col-sm">
                                         <label htmlFor="usr">Latitud:</label>
                                         <input
@@ -686,6 +681,7 @@ class NewProject extends Component {
                         </li>
 
                     </ul>
+                    <br></br>
                     <button id="bt-addProject" className="btn btn-primary" onClick={this.handleSaveProject}>Crear Proyecto</button>
 
 
@@ -695,7 +691,6 @@ class NewProject extends Component {
                     {/*<div id="graphic"></div>*/}
                     <img id="graphic" src="https://bit.ly/2UsoZO1"></img>
                 </div>
-
             </div>
 
 
