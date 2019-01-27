@@ -16,6 +16,7 @@
     margin-right: 2.4vw;
     font-family: Montserrat;
 }
+
 .nav-item {
     margin: 0vw 1vw 0vw 1vw;
     font-size: 0.9em;
@@ -24,7 +25,7 @@
 
 .nav-item #login-bt {
     border: none;
-    background-color: rgb(24,162,78);
+    background-color: rgb(24, 162, 78);
     border-radius: 4px;
     color: rgb(255, 255, 255);
     font-weight: 700;
@@ -45,7 +46,6 @@
     width: 25vw;
     height: 7vh;
     padding-left: 15%;
-    
 }
 
 .input-search {
@@ -61,7 +61,7 @@
 }
 
 #cart-icon {
-    height:6vh;
+    height: 6vh;
     padding-top: 1vh;
 }
 
@@ -71,8 +71,8 @@
 
 #nav-profile {
     border-radius: 100px;
-    height:7vh;
-    width:7vh;
+    height: 7vh;
+    width: 7vh;
     border: none;
     background: #f4f4f4;
 }
@@ -87,4 +87,8 @@
     .navbar {
         font-size: 4vmin;
     }
+}
+
+#main-search {
+    text-transform: capitalize;
 }

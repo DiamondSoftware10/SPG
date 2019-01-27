@@ -8,7 +8,6 @@ import magnifier from '../Icons/magnifier.svg';
 import { Query } from '@google-cloud/firestore';
 
 
-const db = fire.firestore();
 
 const byPropKey = (propertyName, value) => () => ({
     [propertyName]: value,
