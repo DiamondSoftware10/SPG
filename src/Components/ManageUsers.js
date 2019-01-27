@@ -6,6 +6,7 @@ import 'firebase/database';
 
 import ReactTable from "react-table";
 import "react-table/react-table.css";
+//que pedos 
 
 class ManageUsers extends Component {
     constructor(props) {
