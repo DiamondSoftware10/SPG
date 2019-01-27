@@ -44,8 +44,8 @@ export default class Cart extends Component {
                         console.log(idProj);
 
                         // database.settings({timestampsInSnapshots: true});
-                         const collection = database.collection('projects').doc(idProj);
-                 
+                        const collection = database.collection('projects').doc(idProj);
+
                         collection.get().then(snapshot => {
                             projects.push(snapshot.data());
                         })
@@ -129,17 +129,18 @@ export default class Cart extends Component {
                   });*/
 
         let cart = this.state.investments.map((doc, i) => {
+            console.log("proj " + i);
             console.log(doc[i]);
-            return ( 
+            return (
                 <div>{doc[i]}</div>
             )
 
-            
+
 
         }
         );
 
-        
+
         return (
             <div className="info-cont">
                 <h1 id="main-title">Inversiones</h1>
