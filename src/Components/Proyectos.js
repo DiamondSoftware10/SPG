@@ -75,6 +75,7 @@ export default class Proyectos extends Component {
 
   componentDidMount() {
     this.getProyectos();
+    
   }
 
   componentWillUnmount() {

@@ -18,19 +18,20 @@ class Searchbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: "terreno",
+            searchTerm: "terreno",
         };
-        this.search = this.search.bind(this);
+        //this.search = this.search.bind(this);
 
     }
 
-    search() {
+    /*search() {
         console.log("text state: " + this.state.text);
         var projects = db.collection("projects");
         var query = projects.where("title", ">=", this.state.text);
 
         console.log("query length: " + query);
         query.get().then((snap) => {
+            
             if (snap.empty) {
                 console.log('No documents found');
             } else {
@@ -39,9 +40,13 @@ class Searchbar extends Component {
                 })
             }
         })
-    }
+    }*/
 
     render() {
+       /* const newTo = { 
+            pathname: routes.SEARCHPAGE, 
+            state: {searchTerm: this.state.text}
+          };*/
 
         return (
             <form className="form-inline my-2 my-lg-0 input-search">
@@ -50,9 +55,9 @@ class Searchbar extends Component {
                     type="search"
                     placeholder="Busqueda"
                     aria-label="Busqueda"
-                    onChange={evt => this.setState(byPropKey('text', evt.target.value))}
+                    onChange={evt => this.setState(byPropKey('searchTerm', evt.target.value))}
                 />
-                <Link to={routes.SEARCHPAGE}>
+                <Link onClick = {() => window.location.reload()} to={routes.SEARCHPAGE + "/" + this.state.searchTerm} >
                     <img id="main-search-icon" src={magnifier} onClick={this.search}></img>
                 </Link>
                 <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.search}>Búsqueda</button>

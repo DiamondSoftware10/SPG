@@ -106,12 +106,12 @@ class App extends Component {
               component={() => <AddProject />}
             />
             <Route
-              exact path={routes.SEARCHPAGE}
-              component={() => <SearchPage />}
+              path={routes.SEARCHPAGE + "/:searchTerm"}
+              exact component={SearchPage}
             />
             <Route
               exact path={routes.PROYECTOS}
-              component={Proyectos}
+              component={() => <Proyectos/>}
             />
             <Route
               exact path={routes.PROYECTOSADMIN}
