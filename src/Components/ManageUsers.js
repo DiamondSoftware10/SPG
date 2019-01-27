@@ -17,7 +17,7 @@ class ManageUsers extends Component {
         
         this.state ={
             data : [],
-            selectedID: '',
+            selectedID: "empty",
             selected : null,
         }
 
@@ -48,7 +48,7 @@ class ManageUsers extends Component {
                 id: 'deleteUserButton',
                 Cell: () => (
                 <div>
-                    <button onClick={this.DeleteUser("poof")}>
+                    <button onClick={this.DeleteUser(this.selectedID)}>
                         Eliminar
                     </button>
                 </div>
@@ -67,14 +67,11 @@ class ManageUsers extends Component {
 
         collection.get().then(snapshot => {
             const data =[];
-
               snapshot.forEach(doc => {
                 var type = 'User';
                 if (doc.data().accType == 0 ){
                     type = 'Admin'
                 }
-
-
               const admin ={
                   id : doc.id,
                   nombre: doc.data().nombre,
@@ -90,24 +87,20 @@ class ManageUsers extends Component {
                     data: [...prevState.data, ...data]
                 };
             });
-        
         });
     }
     
-    DeleteUser(id) {
+    DeleteUser() {
+        console.log(this.state.selected);  
         const db = fire.firestore();
-        db.collection("users").doc(id).delete().then(function () {
+        db.collection("users").doc(this.state.selectedID).delete().then(function () {
             console.log("Document successfully deleted!");
         }).catch(function (error) {
             console.error("Error removing document: ", error);
         });
     }
 
-
-
     render() {
-    
-
     return (
         <div>
                 <ReactTable data={this.state.data} columns={this.columns} filterable 
@@ -116,7 +109,8 @@ class ManageUsers extends Component {
                           return {
                             onClick: (e) => {
                               this.setState({
-                                selected: rowInfo.index
+                                selectedID: rowInfo.original.id,
+                                selected: rowInfo.index // voy a ocupar este para borrar la fila en tiempo real
                               })
                             },
                             style: {
