@@ -95,7 +95,7 @@ const NavAdmin = () => (
                         <a className="nav-link" >Acerca de</a>
                     </li>
                     <li className="nav-item">
-                        <Link to={routes.LANDING}>
+                        <Link to={routes.MANAGEPROJECTS}>
                             <a className="nav-link">Editar Proyectos</a>
                         </Link>
                     </li>
@@ -224,7 +224,7 @@ const NavSuper = () => (
                         </Link>
                     </li>
                     <li className="nav-item">
-                        <Link to={routes.LANDING}>
+                        <Link to={routes.MANAGEPROJECTS}>
                             <a className="nav-link">Editar Proyectos</a>
                         </Link>
                     </li>

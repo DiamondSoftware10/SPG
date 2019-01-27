@@ -23,7 +23,7 @@ import ProyectosAdmin from './Components/ProyectosAdmin';
 import MapContainer from "./Components/GoogleMapsContainer";
 import "circular-std";
 import ManageUsers from "./Components/ManageUsers";
-
+import ManageProjects from './Components/ManageProjects';
 import Profile from './Components/profile'
 class App extends Component {
 
@@ -129,6 +129,10 @@ class App extends Component {
              <Route
               exact path={routes.MANAGEUSERS}
               component={() => <ManageUsers />}
+            />
+            <Route
+              exact path={routes.MANAGEPROJECTS}
+              component={() => <ManageProjects />}
             />
                 
           </div>
