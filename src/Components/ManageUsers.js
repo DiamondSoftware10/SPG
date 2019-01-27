@@ -5,6 +5,7 @@ import fire from "../Firebase/Fire";
 import 'firebase/database';
 
 import ReactTable from "react-table";
+import "react-table/react-table.css";
 
 class ManageUsers extends Component {
     constructor(props) {
