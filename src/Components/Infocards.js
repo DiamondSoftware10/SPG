@@ -131,7 +131,6 @@ class Infocard extends Component {
         fire.auth().onAuthStateChanged(function(user) {
             if (user) {
                 const database = fire.firestore();
-                // database.settings({timestampsInSnapshots: true});
                 const collection = database.collection('users').doc(user.uid);        
                 /*
                 collection.get().then(snapshot => {
@@ -145,7 +144,8 @@ class Infocard extends Component {
                     } else {
                     }
                 });*/
-        
+
+                //Agrega el id del proyecto actual a la carreta del usuario en sesión  -Calvin
                 collection.update({
                     cartera: firebase.firestore.FieldValue.arrayUnion(id)
                 });
