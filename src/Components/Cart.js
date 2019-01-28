@@ -7,12 +7,7 @@ import fire from "../Firebase/Fire"
 const db = fire.firestore();
 const usersRef = db.collection("users");
 
-export const projects = (
-
-) => {
-
-};
-
+var projects = [];
 
 export default class Cart extends Component {
     constructor(props) {
@@ -27,37 +22,43 @@ export default class Cart extends Component {
         this.getInvestments = this.getInvestments.bind(this);
     }
 
-    async getInvestments() {
+     getInvestments() {
+
+
         fire.auth().onAuthStateChanged(async (user) => {
-            var projects = [];
             if (user) {
                 const database = fire.firestore();
                 const collection = database.collection('users').doc(user.uid);
 
-                await collection.get().then(async snapshot => {
+                await collection.get().then( snapshot => {
                     //Encuentra la carreta del usuario en sesión y la asigna a variable projects
                     if (snapshot.exists) {
-                        await projects.push(snapshot.data().cartera)
+                        // projects.push(snapshot.data().cartera)
                     }
                     snapshot.data().cartera.forEach(element => {
                         var idProj = element.toString();
                         console.log(idProj);
-
-                        // database.settings({timestampsInSnapshots: true});
                         const collection = database.collection('projects').doc(idProj);
 
                         collection.get().then(snapshot => {
                             projects.push(snapshot.data());
-                        })
+                            console.log(snapshot.data().title)
+
+                        });
+
 
                     });
-                    //console.log(projects);
+                    console.log(projects);
+                    this.setState({
+                        investments: projects
+                    });
+
                 });
 
             } else {
             }
 
-            this.setState({ investments: projects });
+
             console.log(this.state.investments);
             /*
                         const database = fire.firestore();
@@ -93,7 +94,9 @@ export default class Cart extends Component {
                         */
 
         });
-        // console.log(this.state.investments);
+        console.log(projects);
+
+        console.log(this.state.investments);
 
 
     }
@@ -127,12 +130,13 @@ export default class Cart extends Component {
               
                     )
                   });*/
-
+                
         let cart = this.state.investments.map((doc, i) => {
             console.log("proj " + i);
-            console.log(doc[i]);
+
+            console.log(doc.title);
             return (
-                <div>{doc[i]}</div>
+                <div>{doc.title}</div>
             )
 
 
@@ -146,6 +150,9 @@ export default class Cart extends Component {
                 <h1 id="main-title">Inversiones</h1>
                 <div id="card-div" className="container-fluid">
                     <button onClick={this.getInvestments}>Hola</button>
+                    {this.state.investments.map((doc, id) => (
+                        <div key={id} value={id}>Hola{doc.id}</div>
+                    ))}
                     {cart}
                 </div>
             </div>
