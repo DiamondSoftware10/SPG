@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import * as routes from '../Constants/Routes';
 import './NewProject.css';
 import { createProject } from '../Constants/project';
 import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImagenVal, puntoDecimalVal } from '../Constants/validations'
-import axios from 'axios';
 import firebase from 'firebase';
 import MapContainer from "./GoogleMapsContainer"
-
 import close from '../Icons/close.svg';
-import defaultProjectPic from '../Images/nature.svg'
+import defaultProjectPic from '../Images/nature.svg';
+import PreviewCarousel from './PreviewCarousel';
+import { Carousel } from 'react-responsive-carousel';
+import "./Carousel.css";
 const AddProject = () =>
     <div id="project">
         <NewProject />
@@ -490,7 +490,6 @@ class NewProject extends Component {
 
                 <div id="new-proj-inputs">
                     <div id="main-title">Agregar Proyecto</div>
-
                     <ul id="all-inputs">
                         <li id="all-inputs-item">
                             <label>Titulo</label>
@@ -534,6 +533,7 @@ class NewProject extends Component {
                                 type="number"
                                 min ="0"
                             />
+                            
                         </li>
                         <li id="all-inputs-item">
                             <label>Cultivos</label>
@@ -584,12 +584,20 @@ class NewProject extends Component {
                             <div>
                                 { /**Muestra las imagenes que se han agregado en una lista
                             //Permite que se borren por medio del boton*/}
-                                <ul>
+                                {/*<ul>
                                     {this.state.listImgFamilies.map((img, index) =>
                                         <li key={index} >{img.name}
                                             <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
                                         </li>)}
-                                </ul>
+                                </ul>*/}
+                                <Carousel showThumbs={false} statusFormatter={(current, total) => `${current} de ${total}`} infiniteLoop={true}>
+                                    {this.state.listImgFamilies.map((img , index)=>(
+                                      <div>
+                                        <button id="delete-icon" onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>                                          
+                                        <img src={URL.createObjectURL(img)} />            
+                                      </div>  
+                                    ))}
+                                </Carousel>
                             </div>
 
                         </li>
@@ -606,12 +614,20 @@ class NewProject extends Component {
                             <div>
                                 { /**Muestra las imagenes que se han agregado en una lista
                             //Permite que se borren por medio del boton*/}
-                                <ul>
+                                {/*<ul>
                                     {this.state.listImgCrops.map((img, index) =>
                                         <li key={index} >{img.name}
                                             <button onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
                                         </li>)}
-                                </ul>
+                                </ul>*/}
+                                <Carousel showThumbs={false} statusFormatter={(current, total) => `${current} de ${total}`} infiniteLoop={true}>
+                                    {this.state.listImgCrops.map((img , index)=>(
+                                      <div>
+                                        <button id="delete-icon" onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>                                          
+                                        <img src={URL.createObjectURL(img)} width="100%" height="100%"/>            
+                                      </div>  
+                                    ))}
+                                </Carousel>
                             </div>
                         </li>
 
