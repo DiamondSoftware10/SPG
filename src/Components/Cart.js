@@ -23,7 +23,7 @@ export default class Cart extends Component {
     }
 
      getInvestments() {
-
+        var projs = [];
 
         fire.auth().onAuthStateChanged(async (user) => {
             if (user) {
@@ -35,20 +35,36 @@ export default class Cart extends Component {
                     if (snapshot.exists) {
                         // projects.push(snapshot.data().cartera)
                     }
+                    
+                    var i = 1;
                     snapshot.data().cartera.forEach(element => {
                         var idProj = element.toString();
                         console.log(idProj);
                         const collection = database.collection('projects').doc(idProj);
-
                         collection.get().then(snapshot => {
                             projects.push(snapshot.data());
-                            console.log(snapshot.data().title)
-
+                
+                            console.log(i);
+                            i++;
                         });
-
-
                     });
                     console.log(projects);
+                    var i = 0;
+                    projects.forEach(element => {
+                        if (i == 0) {
+                            projs.push(element);
+                        }
+                        console.log(projs.includes(element));
+                        var idOld = element.id;
+                        console.log(idOld);
+                        
+                        if(projs[i].id != idOld) {
+                            projs.push(element);
+                            i++;
+                        }
+                        console.log(projs[i].id);
+                    });
+
                     this.setState({
                         investments: projects
                     });
@@ -150,9 +166,7 @@ export default class Cart extends Component {
                 <h1 id="main-title">Inversiones</h1>
                 <div id="card-div" className="container-fluid">
                     <button onClick={this.getInvestments}>Hola</button>
-                    {this.state.investments.map((doc, id) => (
-                        <div key={id} value={id}>Hola{doc.id}</div>
-                    ))}
+                    
                     {cart}
                 </div>
             </div>
