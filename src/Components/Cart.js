@@ -22,7 +22,7 @@ export default class Cart extends Component {
         this.getInvestments = this.getInvestments.bind(this);
     }
 
-     getInvestments() {
+    getInvestments() {
         var projs = [];
 
         fire.auth().onAuthStateChanged(async (user) => {
@@ -30,12 +30,12 @@ export default class Cart extends Component {
                 const database = fire.firestore();
                 const collection = database.collection('users').doc(user.uid);
 
-                await collection.get().then( snapshot => {
+                await collection.get().then(snapshot => {
                     //Encuentra la carreta del usuario en sesión y la asigna a variable projects
                     if (snapshot.exists) {
                         // projects.push(snapshot.data().cartera)
                     }
-                    
+
                     var i = 1;
                     snapshot.data().cartera.forEach(element => {
                         var idProj = element.toString();
@@ -43,71 +43,31 @@ export default class Cart extends Component {
                         const collection = database.collection('projects').doc(idProj);
                         collection.get().then(snapshot => {
                             projects.push(snapshot.data());
-                
+
                             console.log(i);
                             i++;
                         });
                     });
                     console.log(projects);
-                    var i = 0;
+                    var i = 1;
                     projects.forEach(element => {
-                        if (i == 0) {
+                        if (i % 3 == 0) {
                             projs.push(element);
+                            console.log(element);
                         }
-                        console.log(projs.includes(element));
-                        var idOld = element.id;
-                        console.log(idOld);
+                        i++;
                         
-                        if(projs[i].id != idOld) {
-                            projs.push(element);
-                            i++;
-                        }
-                        console.log(projs[i].id);
                     });
 
                     this.setState({
-                        investments: projects
+                        investments: projs
                     });
 
                 });
 
             } else {
             }
-
-
             console.log(this.state.investments);
-            /*
-                        const database = fire.firestore();
-                        // database.settings({timestampsInSnapshots: true});
-                         const collection = database.collection('projects');
-                 
-                         collection.get().then(snapshot => {
-                             const data =[];
-                               snapshot.forEach(doc => {
-                                 var type = 'User';
-                                 if (doc.data().accType == 0 ){
-                                     type = 'Admin'
-                                 }
-                               const admin ={
-                                   id : doc.id,
-                                   nombre: doc.data().nombre,
-                                   apellido: doc.data().apellido,
-                                   accType: type,
-                 
-                               }
-                               data.push(admin);
-                             });
-                 
-                             this.setState(prevState => {
-                                 return {
-                                     data: [...prevState.data, ...data]
-                                 };
-                             });
-                         });
-                        
-            
-                        //console.log(this.state.investments);
-                        */
 
         });
         console.log(projects);
@@ -146,7 +106,7 @@ export default class Cart extends Component {
               
                     )
                   });*/
-                
+
         let cart = this.state.investments.map((doc, i) => {
             console.log("proj " + i);
 
@@ -166,7 +126,7 @@ export default class Cart extends Component {
                 <h1 id="main-title">Inversiones</h1>
                 <div id="card-div" className="container-fluid">
                     <button onClick={this.getInvestments}>Hola</button>
-                    
+
                     {cart}
                 </div>
             </div>
