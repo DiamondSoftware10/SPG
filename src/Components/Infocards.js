@@ -5,7 +5,7 @@ import './Proyectos.css'
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import ReactModal from 'react-modal';
 
-import "circular-std"; 
+import "circular-std";
 import workers from '../Icons/workers.svg';
 import hand from '../Icons/hand.svg';
 import loc from '../Icons/placeholder.svg';
@@ -60,10 +60,10 @@ class Infocard extends Component {
         this.readDB = this.readDB.bind(this);
         this.handleAddToCart = this.handleAddToCart.bind(this);
     }
-    async componentWillMount(){
-        await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
+    async componentWillMount() {
+        await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
             this.setState({
-                foto:url
+                foto: url
             })
         })
     }
@@ -128,10 +128,34 @@ class Infocard extends Component {
 
     handleAddToCart() {
         var id = this.props.id;
-        fire.auth().onAuthStateChanged(function(user) {
+        var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+        var d = new Date();
+        var n= d.toLocaleDateString;
+
+        fire.auth().onAuthStateChanged(function (user) {
+
             if (user) {
                 const database = fire.firestore();
-                const collection = database.collection('users').doc(user.uid);        
+
+                var docData = {
+                    id: id,
+                    inversion: 5.99,
+                    fecha: utc
+                };
+                const collection = database.collection('users').doc(user.uid).collection('cartera').doc(id);
+
+                const collProject = database.collection('projects').doc(id);
+
+                collProject.get().then(snapshot => {
+                    console.log("hey");
+                    console.log(snapshot.data().title)
+                    var docFinal = Object.assign(docData, snapshot.data());
+                    collection.set(docFinal);
+                })
+                
+
+                
+
                 /*
                 collection.get().then(snapshot => {
                     console.log(snapshot)
@@ -146,13 +170,15 @@ class Infocard extends Component {
                 });*/
 
                 //Agrega el id del proyecto actual a la carreta del usuario en sesión  -Calvin
+
+                /*
                 collection.update({
                     cartera: firebase.firestore.FieldValue.arrayUnion(id)
                 });
-
+*/
             } else {
             }
-          });
+        });
     }
 
     async readDB() {

@@ -28,7 +28,7 @@ export default class Cart extends Component {
         fire.auth().onAuthStateChanged(async (user) => {
             if (user) {
                 const database = fire.firestore();
-                const collection = database.collection('users').doc(user.uid);
+                const collection = database.collection('users').doc(user.uid).collection("cartera");
 
                 await collection.get().then(snapshot => {
                     //Encuentra la carreta del usuario en sesión y la asigna a variable projects
@@ -36,27 +36,21 @@ export default class Cart extends Component {
                         // projects.push(snapshot.data().cartera)
                     }
 
-                    var i = 1;
-                    snapshot.data().cartera.forEach(element => {
-                        var idProj = element.toString();
-                        console.log(idProj);
-                        const collection = database.collection('projects').doc(idProj);
-                        collection.get().then(snapshot => {
-                            projects.push(snapshot.data());
-
-                            console.log(i);
-                            i++;
-                        });
+                    var i = 0;
+                    snapshot.forEach(element => {
+                        console.log(element.data().id);
+                        projects.push(element.data());
+                        i++;
                     });
                     console.log(projects);
-                    var i = 1;
+                    var j = 0;
                     projects.forEach(element => {
-                        if (i % 3 == 0) {
+                        if (j < i) {
                             projs.push(element);
                             console.log(element);
                         }
-                        i++;
-                        
+                        j++;
+
                     });
 
                     this.setState({
@@ -71,16 +65,11 @@ export default class Cart extends Component {
 
         });
         console.log(projects);
-
         console.log(this.state.investments);
-
-
     }
 
     componentDidMount() {
-
         this.getInvestments();
-
     }
 
     render() {
@@ -112,7 +101,7 @@ export default class Cart extends Component {
 
             console.log(doc.title);
             return (
-                <div>{doc.title}</div>
+                <div>{doc.title},{doc.inversion}</div>
             )
 
 
