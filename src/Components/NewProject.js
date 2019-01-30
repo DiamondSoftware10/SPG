@@ -549,7 +549,7 @@ class NewProject extends Component {
                                 <ul>
                                     {this.state.listNameCrops.map((name, index) =>
                                         <li id="item" key={index} >
-                                            {name}s
+                                            {name}
                                             <button id="close-bt"  onClick={(e) => this.handleDeleteNameCrop(index, e)}>
                                                 <img id="close-icon" src={close} height="10"></img>
                                             </button>
@@ -612,7 +612,7 @@ class NewProject extends Component {
                         </li>
                         {/**Subir imagenes relacionadas con los cultivos */}
                         <li id="all-inputs-item">
-                        <label>Foto de cultivos</label>
+                         <label>Foto de cultivos</label>
                         <br></br>
                             <input id="newProject-input8"
                                 value={fotoC}
