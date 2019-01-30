@@ -42,9 +42,9 @@ class NewProject extends Component {
             pic: "",
             boolName: false,
             listNameCrops: [],
-            center: { lat: 0, lng: 0 },
+            center: { lat: 14.0839053, lng: -87.2750132 },
             latitud: 0,
-            longitud: 0, 
+            longitud: 0,
             ubicacion: "",
 
         };
@@ -289,19 +289,21 @@ class NewProject extends Component {
          */
             let temp = new Date();
             let fecha = temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
-            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(parseFloat(this.state.latitud, 10), parseFloat(this.state.longitud, 10)), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops);
+            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(parseFloat(this.state.center.lat, 10), parseFloat(this.state.center.lng, 10)), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops).then(
+                this.setState({
+                    titulo: '',
+                    descripcion: '',
+                    ubicacion: '',
+                    familiasB: '',
+                    tiposCultivo: '',
+                    infoZona: '',
+                    inversion: '',
+                   // center: { lat: 0, lng: 0 }
+                })
+            );
             await this.uploadImageToStorage();
 
-            this.setState({
-                titulo: '',
-                descripcion: '',
-                ubicacion: '',
-                familiasB: '',
-                tiposCultivo: '',
-                infoZona: '',
-                inversion: '',
-                center: { lat: 0, lng: 0 }
-            })
+
 
 
             window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
@@ -323,9 +325,11 @@ class NewProject extends Component {
 
 
     changeLocationFromChild(latitude, longitude) {
+        console.log("child center :" + latitude + ", " + longitude);
         this.setState({
             center: { lat: latitude, lng: longitude }
         })
+
 
     }
 
@@ -387,7 +391,7 @@ class NewProject extends Component {
         }
     };
 
-    
+
 
     handleChangeCrops = tiposCultivo => event => {
         event.preventDefault();
@@ -440,7 +444,7 @@ class NewProject extends Component {
         }
     };
 
-    
+
 
     handleChangeInversion = inversion => event => {
         this.setState({ [inversion]: event.target.value });
@@ -549,8 +553,8 @@ class NewProject extends Component {
                                 <ul>
                                     {this.state.listNameCrops.map((name, index) =>
                                         <li id="item" key={index} >{name}
-                                            <button id="close-bt"onClick={(e) => this.handleDeleteNameCrop(index, e)}>
-                                                <img id="icon-close"src={close} height="10"></img>
+                                            <button id="close-bt" onClick={(e) => this.handleDeleteNameCrop(index, e)}>
+                                                <img id="icon-close" src={close} height="10"></img>
                                             </button>
                                         </li>)}
                                 </ul>
@@ -558,7 +562,7 @@ class NewProject extends Component {
                         </li>
 
                         <li id="all-inputs-item">
-                        <label>Informacion de zona</label>
+                            <label>Informacion de zona</label>
                             <br></br>
                             <textarea id="newProject-input6"
                                 rows="3"
@@ -593,8 +597,8 @@ class NewProject extends Component {
                         </li>
                         {/**Subir imagenes relacionadas con los cultivos */}
                         <li id="all-inputs-item">
-                        <label>Foto Cultivos</label>
-                        <br></br>
+                            <label>Foto Cultivos</label>
+                            <br></br>
 
                             <input id="newProject-input8"
                                 value={fotoC}
@@ -624,16 +628,16 @@ class NewProject extends Component {
                                 type="file"
                                 onChange={this.addImgProject}
                             />
-                           
+
 
                         </li>
-                         <img id="img-pro" src={this.state.previewPic} ></img>
+                        <img id="img-pro" src={this.state.previewPic} ></img>
 
-                         
+
                         {/*Deberia hacerse con un spinner, en $ o LPS*/}
                         <li id="all-inputs-item">
-                        <label>Inversion inicial</label>
-                        <br></br>
+                            <label>Inversion inicial</label>
+                            <br></br>
 
                             <input id="newProject-input10"
                                 value={inversion}
@@ -658,29 +662,43 @@ class NewProject extends Component {
 
 
                         <li >
-                            <div id="add-map-div"className="container">
+                            <div id="add-map-div" className="container">
                                 <div className="card" style={style}>
-                                    <label>Coordenadas Geográficas</label>
+                                    {/*<label>Coordenadas Geográficas</label> */}
+
                                     <MapContainer type="newproject" changeLocationFromChild={this.changeLocationFromChild} center={this.state.center} ></MapContainer>
                                 </div>
 
+                                {
+
+                                    /*
+<div className="form-group col-sm">
+                                    <label htmlFor="usr">Latitud:</label>
+                                    <input
+                                        onChange={this.handleChange('latitud')}
+                                        type="text" className="form-control" id="lugar" />
+                                </div>
+                                <div className="form-group col-sm">
+                                    <label htmlFor="usr">Longitud:</label>
+                                    <input
+                                        onChange={this.handleChange('longitud')}
+                                        type="text" className="form-control" id="direccion" />
+                                </div>
+
+
+                                    */
+                                }
+
+                                {
+                                    /*
+                                <div>
+                                                                    <button className="btn btn-secondary" onClick={this.getLocation}> Guardar ubicación</button>
                                 
-                                    <div className="form-group col-sm">
-                                        <label htmlFor="usr">Latitud:</label>
-                                        <input
-                                            onChange={this.handleChange('latitud')}
-                                            type="text" className="form-control" id="lugar" />
-                                    </div>
-                                    <div className="form-group col-sm">
-                                        <label htmlFor="usr">Longitud:</label>
-                                        <input
-                                            onChange={this.handleChange('longitud')}
-                                            type="text" className="form-control" id="direccion" />
-                                    </div>
-                                    <div>
-                                    <button className="btn btn-secondary" onClick={this.getLocation}> Cambiar ubicación</button>
+                                                                </div>
                                 
-                                    </div>
+                                    */
+                                }
+
                             </div>
 
                         </li>
