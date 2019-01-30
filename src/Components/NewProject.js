@@ -6,7 +6,6 @@ import firebase from 'firebase';
 import MapContainer from "./GoogleMapsContainer"
 import close from '../Icons/close.svg';
 import defaultProjectPic from '../Images/nature.svg';
-import PreviewCarousel from './PreviewCarousel';
 import { Carousel } from 'react-responsive-carousel';
 import "./Carousel.css";
 const AddProject = () =>
@@ -524,7 +523,7 @@ class NewProject extends Component {
                     </li>
 </div>*/}
                         <li id="all-inputs-item">
-                            <label>Familias beneficiadas</label>
+                            <label>Numero de familas beneficiadas</label>
                             <br></br>
                             <input id="newProject-input4"
                                 value={familiasB}
@@ -570,7 +569,17 @@ class NewProject extends Component {
                                 type="text"
                             />
                         </li>
-
+                        <li id="all-inputs-item" >
+                            <label>Foto del proyecto</label>
+                            <br></br>
+                            <input id="newProject-input9"
+                                value={fotoP}
+                                ref={this.fotoP}
+                                type="file"
+                                onChange={this.addImgProject}
+                            />
+                            {this.state.previewPic ?<img id="img-pro" src={this.state.previewPic} ></img>:<img id="img-pro"  src={defaultProjectPic}></img>}
+                        </li>                   
                         <li id="all-inputs-item">
                             <label>Foto de familias</label>
                             <br></br>
@@ -630,23 +639,11 @@ class NewProject extends Component {
                                 </Carousel>
                             </div>
                         </li>
-
-                        <li id="all-inputs-item" >
-                            <label>Foto del proyecto</label>
-                            <br></br>
-                            <input id="newProject-input9"
-                                value={fotoP}
-                                ref={this.fotoP}
-                                type="file"
-                                onChange={this.addImgProject}
-                            />
-                            {this.state.previewPic ?<img id="img-pro" src={this.state.previewPic} ></img>:<img id="img-pro"  src={defaultProjectPic}></img>}
-                        </li>
-                         
                         {/*Deberia hacerse con un spinner, en $ o LPS*/}
                         <li id="all-inputs-item">
                         <label>Inversion inicial</label>
                         <br></br>
+                        <label>$</label>
                             <input id="newProject-input10"
                                 value={inversion}
                                 onChange={project => this.setState(byPropKey('inversion', project.target.value))}
