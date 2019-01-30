@@ -5,6 +5,7 @@ import './Navbar.css';
 import magnifier from '../Icons/magnifier.svg';
 import icon from '../Icons/iconbeta.png';
 import cart from '../Icons/cart.svg';
+import briefcase from '../Icons/briefcase.svg';
 
 import Searchbar from './Searchbar';
 
@@ -104,7 +105,7 @@ const NavAdmin = () => (
 
                 <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
                     <li className="nav-item">
-                        <img id="cart-icon" src={cart}></img>
+                        <img id="cart-icon" src={briefcase}></img>
                     </li>
                     <li className="nav-item">
                         <Link to={routes.PROFILE}>
@@ -171,7 +172,7 @@ const NavUser = () => (
 
                 <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
                     <li className="nav-item">
-                        <img id="cart-icon" src={cart}></img>
+                        <img id="cart-icon" src={briefcase}></img>
                     </li>
 
 
