@@ -134,7 +134,7 @@ class App extends Component {
                 
             <Route
               exact path={routes.RESETPASSWORD}
-              component={() => ResetPassword}
+              component={() => <ResetPassword/>}
             />
                 
                 
