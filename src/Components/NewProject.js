@@ -658,7 +658,7 @@ class NewProject extends Component {
                                 placeholder="Inversion inicial"
                             />
                         </li>
-                        {/*
+                       
 
 <li id="all-inputs-item">
                             <label>Ubicación</label>
@@ -672,7 +672,7 @@ class NewProject extends Component {
                         </li>
 
 
-*/}
+
 
 
 
