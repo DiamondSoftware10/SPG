@@ -9,6 +9,9 @@ export const PROYECTOSADMIN = '/proyectosAdmin';
 export const CREATEUSERADMIN = '/cUserA'
 export const LANDING = '/';
 export const CART = '/Cart';
+export const MANAGEUSERS = '/ManageUsers';
+export const RESETPASSWORD = '/ResetPassword';
+
 
 
 
