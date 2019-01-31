@@ -168,6 +168,9 @@ class Infocard extends Component {
         this.setState({
             showConfirmation: false
         })
+        this.handleCloseModal();
+
+       
     }
 
     handleAddToCart() {
@@ -390,10 +393,13 @@ class Infocard extends Component {
 
                                             <div id="side-flex">
                                                 <div id="sidebar">
+
+                                                    {/*
                                                     <div>
                                                         <h6>Inversionista </h6>
                                                         <h3>{this.state.investor}</h3>
                                                     </div>
+                                                */}
                                                     <div>
                                                         <h6>Inversión minima por manzana</h6>
                                                         <h3>${this.state.invMin}</h3>
@@ -453,10 +459,12 @@ class Infocard extends Component {
                     onRequestClose={this.handleCloseConfirmation}
                     className="ModalBack"
                     overlayClassName="Overlay"
+
                 >
                     <div className="Modal invest-modal">
                         <button className="hollow button" id="close-button" onClick={this.handleCloseConfirmation}><img id="proj-icon" src={close}></img></button>
                         Agregado a cartera exitosamente!
+
                     </div>
                 </ReactModal>
                 <div id="infocards">
@@ -464,7 +472,7 @@ class Infocard extends Component {
                         <div id="bt-event" onClick={() => this.handleInfocard("Guanaja")}>
                             <div id="bt-more"></div>
 
-                            <img id="img-pro" onClick={this.handleOpenModal} src={this.state.foto}></img>
+                            <img id="img-pro" src={this.state.foto}></img>
                         </div>
                         <div id="box-event">
                             <div id="proj-type">Terreno</div>
@@ -484,7 +492,7 @@ class Infocard extends Component {
                             </div>
                             <div id="proj-footer">
 
-                                <button id="proj-cont"><img src={arrow}></img></button>
+                                <button id="proj-cont" onClick={this.handleOpenModal} ><img src={arrow}></img></button>
                             </div>
 
                         </div>

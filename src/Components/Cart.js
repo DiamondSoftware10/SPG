@@ -1,6 +1,7 @@
 import React, { Component, Button } from 'react'
 import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
+import CartItem from './CartItem.js';
 
 import fire from "../Firebase/Fire"
 import './Cart.css'
@@ -17,17 +18,22 @@ export default class Cart extends Component {
 
         this.state = {
             investments: [],
+            paths: [],
+            showResult: true,
             center: { lat: 0, lng: 0 },
             suma: 0
         }
 
         this.getInvestments = this.getInvestments.bind(this);
+        this.handleDeleteFromCart = this.handleDeleteFromCart.bind(this);
     }
 
     getInvestments() {
         //var projs = [];
         var projects = [];
         var sum = 0;
+        var fotos = [];
+
 
         fire.auth().onAuthStateChanged(async (user) => {
             if (user) {
@@ -39,12 +45,19 @@ export default class Cart extends Component {
                     var i = 0;
                     snapshot.forEach(element => {
                         console.log(element.data().id);
-                        sum = sum + parseFloat(element.data().pago,10);
+                        sum = sum + parseFloat(element.data().pago, 10);
                         console.log(sum);
                         projects.push(element.data());
                         i++;
                         console.log(i);
+
+                        fire.storage().ref().child(element.data().picProject).getDownloadURL().then(url => {
+                            fotos.push(url);
+                            console.log(url);
+                        })
                     });
+
+
                     //console.log(projects);
                     var j = 0;
                     /*
@@ -56,8 +69,6 @@ export default class Cart extends Component {
                         j++;
                     });
 */
-
-
                 });
 
             } else {
@@ -65,10 +76,41 @@ export default class Cart extends Component {
             //console.log(this.state.investments);
             this.setState({
                 investments: projects,
+                paths: fotos,
                 suma: sum
             });
+
+            if (this.state.investments.length == 0) {
+                console.log("no hay nada papi");
+                this.setState({
+                    showResult: false
+                })
+            }
         });
 
+    }
+
+    handleDeleteFromCart(idProj, index, pago) {
+
+        fire.auth().onAuthStateChanged((user) => {
+            db.collection("users").doc(user.uid).collection("cartera").doc(idProj).delete().then(function () {
+                console.log("Document successfully deleted!");
+            })
+        })
+
+
+        this.setState(() => {
+            const investments = this.state.investments;
+            investments.splice(index, 1);
+            return (
+                investments
+            )
+        })
+
+        this.setState({
+            suma: this.state.suma - pago,
+            showResult: false
+        })
     }
 
     componentWillMount() {
@@ -76,49 +118,73 @@ export default class Cart extends Component {
         this.getInvestments();
 
 
+
+
     }
+
+
 
     render() {
         let cart = this.state.investments.map((doc, i) => {
             //console.log("proj " + i);
             // console.log(doc.title);
-            
+            console.log("Path: " + this.state.paths[i])
+            console.log(this.state.paths);
             return (
+
+                /*
                 <div class="flex-container">
                     <div>
-                        <img class="item-imagen" src={require("../Images/3.jpg")} alt="Test" />
+                        <img class="item-imagen" src={"https://firebasestorage.googleapis.com/v0/b/spg-project-1.appspot.com/o/Campo4.jpg?alt=media&token=18e2d58f-1834-4dc8-a8f8-3d0c2eb9fec1"} alt="Test" />
                     </div>
                     <div className="flex-text">
                         <div id="cart-name" class="text">{doc.title}</div>
                         <div id="cart-location" class="text">{doc.locate}</div>
+
                     </div>
                     <div id="cart-inv" class="text">${doc.pago}</div>
 
-                    {/*
+
                     <div class="Boton">
-                        <button id="item-cancelar"><img id="proj-icon"src={close}></img></button>
+                        <button id="item-cancelar" onClick={this.handleDeleteFromCart(doc.id)}><img id="proj-icon" src={close}></img></button>
                     </div>
-                    */}
-                </div>
+
+                </div>*/
+                <CartItem
+                    title={doc.title}
+                    locate={doc.locate}
+                    pago={doc.pago}
+                    id={doc.id}
+                    index={i}
+                    handleDeleteFromCart={this.handleDeleteFromCart}
+                    pic={doc.picProject}
+                >
+
+
+                </CartItem>
             )
         }
         );
 
 
+
+
         return (
             <div className="info-cont">
                 <h1 id="main-title">Inversiones</h1>
-                <div id="card-div" className="container-fluid">
+
+                {this.state.showResult ? <div id="card-div" className="container-fluid">
                     <div className="cart-content">
                         {cart}
                         <div class="flex-total">
                             <div id="item-totalText" class="text">Total</div>
                             <div id="item-totalNum" class="text">${this.state.suma}</div>
-                            
                         </div>
-                        <button id="btn-confirm"className="btn btn-primary">Confirmar inversión</button>
+                        <button id="btn-confirm" className="btn btn-primary">Confirmar inversión</button>
                     </div>
                 </div>
+                    : <div>Por favor agregue a cartera</div>}
+
 
             </div>
         )
