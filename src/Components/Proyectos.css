@@ -61,7 +61,7 @@ margin-top: 10vh;
     float:left;
     position: absolute;
     top: 10px;
-    left: 10px;
+    right: 10px;
     z-index: 1001;
 }
 
@@ -177,8 +177,9 @@ margin-top: 10vh;
 
 .invest-modal {
     width: 40vw;
-    top: 40vh;
+    top: 20vh;
     left: 20vw;
     overflow: auto;
     border-radius: 10px;
+    top: 0;
 }

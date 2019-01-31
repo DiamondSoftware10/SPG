@@ -280,16 +280,12 @@
 
 #add-icon {
     height: 3vmin;
+    cursor: pointer;
 }
 
 #man-num {
     font-size: 2em;
     font-weight: 600;
-}
-
-#total-num {
-    font-size: 3em;
-    font-weight: 900;
 }
 
 #number-flex {
@@ -298,27 +294,39 @@
     flex-direction: row;
     align-items: center;
     align-content: center;
-    justify-content: center;
+    justify-content: flex-end;
     padding: 5vmin;
     border-bottom: 1px solid rgb(126, 126, 126);
 }
 
 #number-flex > div {
     padding: 0 2vmin;
+    width: 20%;
 }
 
 #total-flex {
     display: flex;
     flex-wrap: nowrap;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-end;
     padding: 4vmin;
+    text-align: right;
+}
+
+#total-num {
+    font-size: 3em;
+    font-weight: 900;
+}
+
+#total-text {
+    text-transform: uppercase;
+    letter-spacing: .2em;
 }
 
 #precart-flex {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-end;
 }
 
 

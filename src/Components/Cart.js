@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 
 import fire from "../Firebase/Fire"
+import './Cart.css'
+
+import close from '../Icons/close.svg'
 
 const db = fire.firestore();
 const usersRef = db.collection("users");
@@ -14,7 +17,8 @@ export default class Cart extends Component {
 
         this.state = {
             investments: [],
-            center: { lat: 0, lng: 0 }
+            center: { lat: 0, lng: 0 },
+            suma:0
         }
 
         this.getInvestments = this.getInvestments.bind(this);
@@ -23,7 +27,7 @@ export default class Cart extends Component {
     getInvestments() {
         //var projs = [];
         var projects = [];
-
+        var sum = 0;
 
         fire.auth().onAuthStateChanged(async (user) => {
             if (user) {
@@ -35,6 +39,7 @@ export default class Cart extends Component {
                     var i = 0;
                     snapshot.forEach(element => {
                         console.log(element.data().id);
+                        sum = sum + element.data().pago;
                         projects.push(element.data());
                         i++;
                         console.log(i);
@@ -58,26 +63,42 @@ export default class Cart extends Component {
             }
             //console.log(this.state.investments);
             this.setState({
-                investments: projects
+                investments: projects,
+                suma: sum
             });
         });
- 
+
     }
 
     componentWillMount() {
         console.log("cualquier cosa")
         this.getInvestments();
 
+
     }
-
-
 
     render() {
         let cart = this.state.investments.map((doc, i) => {
             //console.log("proj " + i);
             // console.log(doc.title);
+            
             return (
-                <div>{doc.title},{doc.inversion}</div>
+                <div class="flex-container">
+                    <div>
+                        <img class="item-imagen" src={require("../Images/3.jpg")} alt="Test" />
+                    </div>
+                    <div className="flex-text">
+                        <div id="cart-name" class="text">{doc.title}</div>
+                        <div id="cart-location" class="text">{doc.locate}</div>
+                    </div>
+                    <div id="cart-inv" class="text">${doc.pago}</div>
+
+                    {/*
+                    <div class="Boton">
+                        <button id="item-cancelar"><img id="proj-icon"src={close}></img></button>
+                    </div>
+                    */}
+                </div>
             )
         }
         );
@@ -87,9 +108,15 @@ export default class Cart extends Component {
             <div className="info-cont">
                 <h1 id="main-title">Inversiones</h1>
                 <div id="card-div" className="container-fluid">
-                    <button onClick={this.getInvestments}>Hola</button>
-
-                    {cart}
+                    <div className="cart-content">
+                        {cart}
+                        <div class="flex-total">
+                            <div id="item-totalText" class="text">Total:</div>
+                            <div id="item-totalNum" class="text">${this.state.suma}</div>
+                            
+                        </div>
+                        <button id="btn-confirm"className="btn btn-primary">Confirmar inversión</button>
+                    </div>
                 </div>
 
             </div>

@@ -13,6 +13,8 @@ import arrow from '../Icons/arrow.svg';
 import close from '../Icons/close.svg'
 import add from '../Icons/add.svg';
 import sub from '../Icons/subtract.svg';
+import icon from '../Icons/iconbeta.png';
+
 
 import fire from "../Firebase/Fire"
 import * as firebase from 'firebase';
@@ -53,8 +55,9 @@ class Infocard extends Component {
             projFinan: "",
             raisedMoney: "",
 
-            pago: 123.5,
+            pago: 0,
             showInvest: false,
+            showConfirmation: false,
             manzanas: 1
         };
 
@@ -73,6 +76,9 @@ class Infocard extends Component {
         this.handleCloseInvestModal = this.handleCloseInvestModal.bind(this);
         this.handleAddManzana = this.handleAddManzana.bind(this);
         this.handleSubManzana = this.handleSubManzana.bind(this);
+        this.handleOpenConfirmation = this.handleOpenConfirmation.bind(this);
+        this.handleCloseConfirmation = this.handleCloseConfirmation.bind(this);
+
     }
     async componentWillMount() {
         await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
@@ -152,6 +158,18 @@ class Infocard extends Component {
         })
     }
 
+    handleOpenConfirmation() {
+        this.setState({
+            showConfirmation: true
+        })
+    }
+
+    handleCloseConfirmation() {
+        this.setState({
+            showConfirmation: false
+        })
+    }
+
     handleAddToCart() {
 
         var id = this.props.id;
@@ -159,6 +177,7 @@ class Infocard extends Component {
         var d = new Date();
         var n = d.toLocaleDateString;
         var man = this.state.manzanas;
+        var pag = this.state.pago;
 
         fire.auth().onAuthStateChanged(function (user) {
 
@@ -169,7 +188,8 @@ class Infocard extends Component {
                     id: id,
                     inversion: 5.99,
                     fecha: utc,
-                    manzanas: man
+                    manzanas: man,
+                    pago: pag
                 };
                 const collection = database.collection('users').doc(user.uid).collection('cartera').doc(id);
 
@@ -185,6 +205,8 @@ class Infocard extends Component {
             } else {
             }
         });
+        this.handleCloseInvestModal();
+        this.handleOpenConfirmation();
     }
 
     handleAddManzana() {
@@ -192,7 +214,8 @@ class Infocard extends Component {
             manzanas: this.state.manzanas + 1
         })
         console.log(this.state.manzanas);
-        var man = this.state.manzanas;
+        var man = this.state.manzanas + 1;
+
         this.setState({
             pago: man * this.state.invMin
         })
@@ -203,11 +226,12 @@ class Infocard extends Component {
             this.setState({
                 manzanas: this.state.manzanas - 1
             })
+            var man = this.state.manzanas - 1;
+            this.setState({
+                pago: man * this.state.invMin
+            })
         }
-        var man = this.state.manzanas;
-        this.setState({
-            pago: man * this.state.invMin
-        })
+
     }
 
     async readDB() {
@@ -225,6 +249,7 @@ class Infocard extends Component {
         var investor;
         var projFinan;
         var raisedMoney;
+        var invMin;
 
         //Capturar el proyecto correspondiente de la base de datos
         var project = db.collection("projects").doc(/*MODIFICAR-----------------*/id/*---------------------MPODIFICAR*/);
@@ -238,6 +263,7 @@ class Infocard extends Component {
                 investor = snap.data().investor;
                 projFinan = snap.data().projectFinan;
                 raisedMoney = snap.data().raisedMoney;
+                invMin = snap.data().investInitxBlock;
                 console.log("Doc exists");
                 console.log("Title " + title);
             } else {
@@ -255,6 +281,8 @@ class Infocard extends Component {
             investor: investor,
             projFinan: projFinan,
             raisedMoney: raisedMoney,
+            invMin: invMin,
+            pago: invMin
         });
 
 
@@ -367,7 +395,10 @@ class Infocard extends Component {
                                                         <h3>{this.state.investor}</h3>
                                                     </div>
                                                     <div>
-
+                                                        <h6>Inversión minima por manzana</h6>
+                                                        <h3>${this.state.invMin}</h3>
+                                                    </div>
+                                                    <div>
                                                         <h6>Financiamiento del proyecto</h6>
                                                         <h3>${this.state.projFinan}</h3>
                                                     </div>
@@ -392,38 +423,41 @@ class Infocard extends Component {
                 <ReactModal
                     isOpen={this.state.showInvest}
                     contentLabel="onRequestClose Example"
-                    onRequestClose={this.handleCloseModal}
+                    onRequestClose={this.handleCloseInvestModal}
                     className="ModalBack"
                     overlayClassName="Overlay"
                 >
                     <div className="Modal invest-modal">
                         <button className="hollow button" id="close-button" onClick={this.handleCloseInvestModal}><img id="proj-icon" src={close}></img></button>
-
-
-
+                        <h3 className="modal-title">Elegir inversión</h3>
                         <div id="precart-flex">
-                            
                             <div id="number-flex">
-                            <div>Cantidad de manzanas</div>
+                                <div>Manzanas</div>
                                 <div><img onClick={this.handleSubManzana} id="add-icon" src={sub}></img></div>
                                 <div id="man-num">{this.state.manzanas}</div>
                                 <div><img onClick={this.handleAddManzana} id="add-icon" src={add}></img></div>
                             </div>
                             <div id="total-flex">
-                            <div>Total:</div>
+                                <div id="total-text">Total</div>
                                 <div id="total-num">${this.state.pago}</div>
                             </div>
                             <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleAddToCart()}>Agregar a cartera</button>
 
                         </div>
                     </div>
+                </ReactModal>
 
-
-
-
-
-
-
+                <ReactModal
+                    isOpen={this.state.showConfirmation}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseConfirmation}
+                    className="ModalBack"
+                    overlayClassName="Overlay"
+                >
+                    <div className="Modal invest-modal">
+                        <button className="hollow button" id="close-button" onClick={this.handleCloseConfirmation}><img id="proj-icon" src={close}></img></button>
+                        Agregado a cartera exitosamente!
+                    </div>
                 </ReactModal>
                 <div id="infocards">
                     <div className="icard-hor">
