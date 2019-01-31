@@ -63,6 +63,7 @@ margin-top: 10vh;
     top: 10px;
     right: 10px;
     z-index: 1001;
+    cursor: pointer;
 }
 
 #modal-flex {

@@ -62,7 +62,14 @@
 
 #cart-icon {
     height:6vh;
-    padding-top: 1vh;
+   align-self: center;
+   padding: 1vh;
+}
+
+#prof-icon {
+    height: 4.7vh;
+    align-self: center;
+    padding-top: 1.2vh;
 }
 
 #btn-search {

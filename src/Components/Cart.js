@@ -18,7 +18,7 @@ export default class Cart extends Component {
         this.state = {
             investments: [],
             center: { lat: 0, lng: 0 },
-            suma:0
+            suma: 0
         }
 
         this.getInvestments = this.getInvestments.bind(this);
@@ -39,7 +39,8 @@ export default class Cart extends Component {
                     var i = 0;
                     snapshot.forEach(element => {
                         console.log(element.data().id);
-                        sum = sum + element.data().pago;
+                        sum = sum + parseFloat(element.data().pago,10);
+                        console.log(sum);
                         projects.push(element.data());
                         i++;
                         console.log(i);
@@ -111,7 +112,7 @@ export default class Cart extends Component {
                     <div className="cart-content">
                         {cart}
                         <div class="flex-total">
-                            <div id="item-totalText" class="text">Total:</div>
+                            <div id="item-totalText" class="text">Total</div>
                             <div id="item-totalNum" class="text">${this.state.suma}</div>
                             
                         </div>

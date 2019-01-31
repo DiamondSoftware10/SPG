@@ -76,10 +76,7 @@
     justify-content: flex-end;
     align-content: center;
     align-items: center;
-
-    align-self: flex-end;
-    width: 35%;
-    
+    align-self: flex-end;    
 }
 
 #btn-confirm {

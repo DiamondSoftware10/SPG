@@ -6,6 +6,7 @@ import magnifier from '../Icons/magnifier.svg';
 import icon from '../Icons/iconbeta.png';
 import cart from '../Icons/cart.svg';
 import briefcase from '../Icons/briefcase.svg';
+import profile from '../Icons/profile.svg';
 
 import Searchbar from './Searchbar';
 
@@ -105,13 +106,13 @@ const NavAdmin = () => (
 
                 <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
                     <li className="nav-item">
-                        <img id="cart-icon" src={briefcase}></img>
+                        <Link to={routes.CART}>
+                            <img id="cart-icon" src={briefcase}></img>
+                        </Link>
                     </li>
                     <li className="nav-item">
                         <Link to={routes.PROFILE}>
-                            <i id="person-icon" class="material-icons">
-                                person_outline
-                            </i>
+                            <img id="prof-icon" src={profile}></img>
                         </Link>
                     </li>
 
