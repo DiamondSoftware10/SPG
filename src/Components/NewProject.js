@@ -5,6 +5,7 @@ import { createProject } from '../Constants/project';
 import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImagenVal, puntoDecimalVal } from '../Constants/validations'
 import axios from 'axios';
 import firebase from 'firebase';
+import MapContainer from "./GoogleMapsContainer"
 
 import close from '../Icons/close.svg';
 
@@ -40,7 +41,11 @@ class NewProject extends Component {
             inversion: null,
             pic: "",
             boolName: false,
-            listNameCrops: []
+            listNameCrops: [],
+            center: { lat: 0, lng: 0 },
+            latitud: 0,
+            longitud: 0, 
+            ubicacion: "",
 
         };
         //Fotos de los cultivos
@@ -66,6 +71,10 @@ class NewProject extends Component {
         this.handleChangeDescription = this.handleChangeDescription.bind(this);
         this.handleChangeCrops = this.handleChangeCrops.bind(this);
         this.handleKeyEnterAddCrop = this.handleKeyEnterAddCrop.bind(this);
+        this.changeLocationFromChild = this.changeLocationFromChild.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.getLocation = this.getLocation.bind(this);
+        this.handleChangeUbicacion = this.handleChangeUbicacion.bind(this);
 
         //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
         //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
@@ -280,7 +289,7 @@ class NewProject extends Component {
          */
             let temp = new Date();
             let fecha = temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
-            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(10, 10), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops);
+            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(parseFloat(this.state.latitud, 10), parseFloat(this.state.longitud, 10)), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops);
             await this.uploadImageToStorage();
 
             this.setState({
@@ -291,6 +300,7 @@ class NewProject extends Component {
                 tiposCultivo: '',
                 infoZona: '',
                 inversion: '',
+                center: { lat: 0, lng: 0 }
             })
 
 
@@ -304,6 +314,26 @@ class NewProject extends Component {
 
 
     }
+
+
+    handleChange = name => event => {
+        this.setState({ [name]: event.target.value });
+        console.log(event.target.value);
+    };
+
+
+    changeLocationFromChild(latitude, longitude) {
+        this.setState({
+            center: { lat: latitude, lng: longitude }
+        })
+
+    }
+
+
+    getLocation() {
+        this.setState({ center: { lat: this.state.latitud, lng: this.state.longitud } });
+    }
+
     handleKeyEnterAddCrop = (event, cultivo) => {
         console.log(event.keyCode)
         if (event.keyCode === 13) {
@@ -346,7 +376,7 @@ class NewProject extends Component {
     handleChangeFamily = familiasB => event => {
         this.setState({ [familiasB]: event.target.value });
         console.log(this.state.familiasB);
-        if (numeroVal(this.state.familiasB, 1, 7) == false) {
+        if (cantidadPalabrasVal(this.state.descripcion, 0, 100) == false) {
             document.getElementById("newProject-input4").style.borderColor = "red";
         } else if (this.state.familiasB === undefined) {
             document.getElementById("newProject-input4").style.borderColor = "white";
@@ -356,6 +386,8 @@ class NewProject extends Component {
 
         }
     };
+
+    
 
     handleChangeCrops = tiposCultivo => event => {
         event.preventDefault();
@@ -394,6 +426,22 @@ class NewProject extends Component {
         }
     };
 
+    handleChangeUbicacion = ubicacion => event => {
+        this.setState({ [ubicacion]: event.target.value });
+        console.log(this.state.ubicacion);
+        if (numeroVal(this.state.ubicacion, 1, 7) == false) {
+            document.getElementById("newProject-input7").style.borderColor = "red";
+        } else if (this.state.ubicacion === undefined) {
+            document.getElementById("newProject-input7").style.borderColor = "white";
+
+        } else {
+            document.getElementById("newProject-input7").style.borderColor = "blue";
+
+        }
+    };
+
+    
+
     handleChangeInversion = inversion => event => {
         this.setState({ [inversion]: event.target.value });
         if (puntoDecimalVal(this.state.inversion, 0, 12) == false) {
@@ -409,6 +457,17 @@ class NewProject extends Component {
 
 
     render() {
+
+        const style = {
+            /*width: '50vw',
+            height: '75vh',*/
+            width: '45vw',
+            height: '40vh',
+            'marginLeft': '0',
+            'marginRight': '0',
+
+        }
+
 
         const {
             titulo,
@@ -584,6 +643,48 @@ class NewProject extends Component {
                                 placeholder="Inversion inicial"
                             />
                         </li>
+
+
+                        <li id="all-inputs-item">
+                            <label>Ubicación</label>
+                            <br></br>
+                            <input id="newProject-input7"
+                                value={ubicacion}
+                                onChange={project => this.setState(byPropKey('ubicacion', project.target.value))}
+                                onChange={this.handleChangeUbicacion('ubicacion')}
+                                type="text"
+                            />
+                        </li>
+
+
+                        <li >
+                            <div id="add-map-div"className="container">
+                                <div className="card" style={style}>
+                                    <label>Coordenadas Geográficas</label>
+                                    <MapContainer type="newproject" changeLocationFromChild={this.changeLocationFromChild} center={this.state.center} ></MapContainer>
+                                </div>
+
+                                
+                                    <div className="form-group col-sm">
+                                        <label htmlFor="usr">Latitud:</label>
+                                        <input
+                                            onChange={this.handleChange('latitud')}
+                                            type="text" className="form-control" id="lugar" />
+                                    </div>
+                                    <div className="form-group col-sm">
+                                        <label htmlFor="usr">Longitud:</label>
+                                        <input
+                                            onChange={this.handleChange('longitud')}
+                                            type="text" className="form-control" id="direccion" />
+                                    </div>
+                                    <div>
+                                    <button className="btn btn-secondary" onClick={this.getLocation}> Cambiar ubicación</button>
+                                
+                                    </div>
+                            </div>
+
+                        </li>
+
                     </ul>
                     <button id="bt-addProject" className="btn btn-primary" onClick={this.handleSaveProject}>Crear Proyecto</button>
 

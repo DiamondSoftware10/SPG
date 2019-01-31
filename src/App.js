@@ -59,12 +59,12 @@ class App extends Component {
             var temType = doc.data().accType
             this.setState(() => ({ type: temType }))
           }
-        })
-      })
-
+        });
+      });
     });
-
   }
+
+
   handleClickOpen = () => {
     this.setState({ open: true });
   };
