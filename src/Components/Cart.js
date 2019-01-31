@@ -18,7 +18,6 @@ export default class Cart extends Component {
 
         this.state = {
             investments: [],
-            paths: [],
             showResult: true,
             center: { lat: 0, lng: 0 },
             suma: 0
@@ -32,17 +31,19 @@ export default class Cart extends Component {
         //var projs = [];
         var projects = [];
         var sum = 0;
-        var fotos = [];
+        var result = true;
 
 
         fire.auth().onAuthStateChanged(async (user) => {
             if (user) {
                 const database = fire.firestore();
-                const collection = database.collection('users').doc(user.uid).collection("cartera");
+                const collection = database.collection('users').doc(user.uid).collection('cartera');
 
                 await collection.get().then(snapshot => {
                     //Encuentra la carreta del usuario en sesión y la asigna a variable projects
                     var i = 0;
+
+                    //if (snapshot.exists) {
                     snapshot.forEach(element => {
                         console.log(element.data().id);
                         sum = sum + parseFloat(element.data().pago, 10);
@@ -50,78 +51,70 @@ export default class Cart extends Component {
                         projects.push(element.data());
                         i++;
                         console.log(i);
-
-                        fire.storage().ref().child(element.data().picProject).getDownloadURL().then(url => {
-                            fotos.push(url);
-                            console.log(url);
-                        })
                     });
 
+                    if (projects.length == 0) {
+                        result = false;
+                    }
+                    //}
+                    console.log(projects.length)
 
-                    //console.log(projects);
-                    var j = 0;
                     /*
-                    projects.forEach(element => {
-                        if (j < i) {
-                            projs.push(element);
-                            console.log(element);
-                        }
-                        j++;
-                    });
-*/
+                                        projects.forEach(element => {
+                                            if (j < i) {
+                                                projs.push(element);
+                                                console.log(element);
+                                            }
+                                            j++;
+                                        });
+                    */
                 });
 
             } else {
             }
             //console.log(this.state.investments);
+            console.log(projects.length)
             this.setState({
                 investments: projects,
-                paths: fotos,
-                suma: sum
+                suma: sum,
+                showResult: result
             });
-
-            if (this.state.investments.length == 0) {
-                console.log("no hay nada papi");
-                this.setState({
-                    showResult: false
-                })
-            }
         });
 
     }
 
     handleDeleteFromCart(idProj, index, pago) {
-
+        var result = true;
         fire.auth().onAuthStateChanged((user) => {
             db.collection("users").doc(user.uid).collection("cartera").doc(idProj).delete().then(function () {
                 console.log("Document successfully deleted!");
             })
         })
 
-        /*
-        this.setState(() => {
-            const investments = this.state.investments;
-            investments.splice(index, 1);
-            return (
-                investments
-            )
-        })
-        */
-       
+
+        console.log(idProj + " borrado")
+        const investments = this.state.investments;
+        investments.splice(index, 1);
+        console.log(investments.length)
+
+
+        if (investments.length == 0) {
+            result = false;
+
+        }
+
+        console.log(result);
         this.setState({
             suma: this.state.suma - pago,
-            showResult: false
+            showResult: result,
+            investments: investments
         })
-        
+
     }
 
-    componentWillMount() {
+    componentDidMount() {
         console.log("cualquier cosa")
         this.getInvestments();
-
-
-
-
     }
 
 
@@ -129,9 +122,7 @@ export default class Cart extends Component {
     render() {
         let cart = this.state.investments.map((doc, i) => {
             //console.log("proj " + i);
-            // console.log(doc.title);
-            console.log("Path: " + this.state.paths[i])
-            console.log(this.state.paths);
+
             return (
 
                 /*
