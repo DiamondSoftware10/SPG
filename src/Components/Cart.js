@@ -98,7 +98,7 @@ export default class Cart extends Component {
             })
         })
 
-
+        /*
         this.setState(() => {
             const investments = this.state.investments;
             investments.splice(index, 1);
@@ -106,11 +106,13 @@ export default class Cart extends Component {
                 investments
             )
         })
-
+        */
+       
         this.setState({
             suma: this.state.suma - pago,
             showResult: false
         })
+        
     }
 
     componentWillMount() {

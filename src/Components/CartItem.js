@@ -39,7 +39,7 @@ export default class CartItem extends Component {
         return (
             <div class="flex-container">
                 <div>
-                    <img class="item-imagen" src={this.state.foto} alt="Test" />
+                    <img class="item-imagen" src={this.state.foto} />
                 </div>
                 <div className="flex-text">
                     <div id="cart-name" class="text">{this.props.title}</div>
