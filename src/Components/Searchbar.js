@@ -18,10 +18,18 @@ class Searchbar extends Component {
         super(props);
         this.state = {
             searchTerm: "terreno",
+            option: this.props.option,
         };
         //this.search = this.search.bind(this);
 
     }
+
+    /*componentWillReceiveProps(){
+        this.setState({
+            option: this.props.option
+        })
+        console.log("Update option: " + this.state.option);
+    }*/
 
     /*search() {
         console.log("text state: " + this.state.text);
@@ -40,7 +48,7 @@ class Searchbar extends Component {
             }
         })
     }*/
-
+    
     render() {
        /* const newTo = { 
             pathname: routes.SEARCHPAGE, 
