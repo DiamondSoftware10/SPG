@@ -17,6 +17,8 @@ class ManageUsers extends Component {
         
         this.state ={
             data : [],
+            selectedID: "empty",
+            selected : null,
         }
 
         this.columns = [
@@ -40,6 +42,20 @@ class ManageUsers extends Component {
                 accessor: "accType",
                 width: 70,
               }
+            ,
+              {
+                Header: "Delete",
+                id: 'deleteUserButton',
+                Cell: () => (
+                <div>
+                    <button onClick={this.DeleteUser(this.selectedID)}>
+                        Eliminar
+                    </button>
+                </div>
+                ),
+                width: 100,
+                filterable: false,
+              },
         ];
         //this.error = this.error.bind(this);
     }
@@ -51,16 +67,13 @@ class ManageUsers extends Component {
 
         collection.get().then(snapshot => {
             const data =[];
-
               snapshot.forEach(doc => {
                 var type = 'User';
                 if (doc.data().accType == 0 ){
                     type = 'Admin'
                 }
-
-
               const admin ={
-                  id : doc.data().key,
+                  id : doc.id,
                   nombre: doc.data().nombre,
                   apellido: doc.data().apellido,
                   accType: type,
@@ -74,22 +87,47 @@ class ManageUsers extends Component {
                     data: [...prevState.data, ...data]
                 };
             });
-        
+        });
+    }
+    
+    DeleteUser() {
+        console.log(this.state.selected);  
+        const db = fire.firestore();
+        db.collection("users").doc(this.state.selectedID).delete().then(function () {
+            console.log("Document successfully deleted!");
+        }).catch(function (error) {
+            console.error("Error removing document: ", error);
         });
     }
 
-
-
-render() {
-    
-
+    render() {
     return (
         <div>
-            <ReactTable data={this.state.data} columns={this.columns} filterable />
-        </div>
+                <ReactTable data={this.state.data} columns={this.columns} filterable 
+                    getTrProps={(state, rowInfo) => {
+                        if (rowInfo && rowInfo.row) {
+                          return {
+                            onClick: (e) => {
+                              this.setState({
+                                selectedID: rowInfo.original.id,
+                                selected: rowInfo.index // voy a ocupar este para borrar la fila en tiempo real
+                              })
+                            },
+                            style: {
+                              background: rowInfo.index === this.state.selected ? '#00afec' : 'white',
+                              color: rowInfo.index === this.state.selected ? 'white' : 'black'
+                            }
+                          }
+                        }else{
+                          return {}
+                        }
+                      } 
+                    }
+                />
+         </div>
       );
 
-}
+    }
 }
 
 
