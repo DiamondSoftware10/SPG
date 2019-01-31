@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import * as routes from '../Constants/Routes';
 import './NewProject.css';
 import { createProject } from '../Constants/project';
 import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImagenVal, puntoDecimalVal } from '../Constants/validations'
-import axios from 'axios';
 import firebase from 'firebase';
 import MapContainer from "./GoogleMapsContainer"
-
 import close from '../Icons/close.svg';
-
+import defaultProjectPic from '../Images/nature.svg';
+import { Carousel } from 'react-responsive-carousel';
+import "./Carousel.css";
 const AddProject = () =>
     <div id="project">
         <NewProject />
@@ -42,9 +41,9 @@ class NewProject extends Component {
             pic: "",
             boolName: false,
             listNameCrops: [],
-            center: { lat: 0, lng: 0 },
+            center: { lat: 14.0839053, lng: -87.2750132 },
             latitud: 0,
-            longitud: 0, 
+            longitud: 0,
             ubicacion: "",
 
         };
@@ -60,6 +59,7 @@ class NewProject extends Component {
         this.handleDeleteImageCrop = this.handleDeleteImageCrop.bind(this);
         this.handleDeleteImageFamily = this.handleDeleteImageFamily.bind(this);
         this.handleDeleteNameCrop = this.handleDeleteNameCrop.bind(this);
+
         this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
 
         this.handleSaveProject = this.handleSaveProject.bind(this);
@@ -83,7 +83,7 @@ class NewProject extends Component {
     async componentWillMount() {
         firebase.storage().ref().child("Campo2.jpg").getDownloadURL().then(url => {
             this.setState({
-                pic: url
+                pic: url,
             })
         }).catch(function (error) {
             // Handle any errors
@@ -205,6 +205,7 @@ class NewProject extends Component {
     // @author Diego Mendoza ,Jahaziel Moreno
     */
     handleDeleteImageCrop = (index, event) => {
+
         event.preventDefault();
 
         this.setState(state => {
@@ -289,19 +290,21 @@ class NewProject extends Component {
          */
             let temp = new Date();
             let fecha = temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
-            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(parseFloat(this.state.latitud, 10), parseFloat(this.state.longitud, 10)), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops);
+            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(parseFloat(this.state.center.lat, 10), parseFloat(this.state.center.lng, 10)), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops).then(
+                this.setState({
+                    titulo: '',
+                    descripcion: '',
+                    ubicacion: '',
+                    familiasB: '',
+                    tiposCultivo: '',
+                    infoZona: '',
+                    inversion: '',
+                    // center: { lat: 0, lng: 0 }
+                })
+            );
             await this.uploadImageToStorage();
 
-            this.setState({
-                titulo: '',
-                descripcion: '',
-                ubicacion: '',
-                familiasB: '',
-                tiposCultivo: '',
-                infoZona: '',
-                inversion: '',
-                center: { lat: 0, lng: 0 }
-            })
+
 
 
             window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
@@ -323,9 +326,11 @@ class NewProject extends Component {
 
 
     changeLocationFromChild(latitude, longitude) {
+        console.log("child center :" + latitude + ", " + longitude);
         this.setState({
             center: { lat: latitude, lng: longitude }
         })
+
 
     }
 
@@ -387,7 +392,7 @@ class NewProject extends Component {
         }
     };
 
-    
+
 
     handleChangeCrops = tiposCultivo => event => {
         event.preventDefault();
@@ -440,7 +445,7 @@ class NewProject extends Component {
         }
     };
 
-    
+
 
     handleChangeInversion = inversion => event => {
         this.setState({ [inversion]: event.target.value });
@@ -488,7 +493,6 @@ class NewProject extends Component {
 
                 <div id="new-proj-inputs">
                     <div id="main-title">Agregar Proyecto</div>
-
                     <ul id="all-inputs">
                         <li id="all-inputs-item">
                             <label>Titulo</label>
@@ -523,34 +527,35 @@ class NewProject extends Component {
                     </li>
 </div>*/}
                         <li id="all-inputs-item">
-                            <label>Familias beneficiadas</label>
+                            <label>Numero de familas beneficiadas</label>
                             <br></br>
                             <input id="newProject-input4"
                                 value={familiasB}
                                 onChange={project => this.setState(byPropKey('familiasB', project.target.value))}
                                 onChange={this.handleChangeFamily('familiasB')}
-                                type="text"
+                                type="number"
+                                min="0"
                             />
+
                         </li>
                         <li id="all-inputs-item">
                             <label>Cultivos</label>
                             <br></br>
-                            <p>Haz enter para agregar un elemento</p>
                             <input id="newProject-input5"
                                 value={tiposCultivo}
                                 onChange={project => this.setState(byPropKey('tiposCultivo', project.target.value))}
                                 onChange={this.handleChangeCrops('tiposCultivo')}
                                 type="text"
+                                placeholder="Presione Enter para agregar una etiqueta"
                                 onKeyDown={e => this.handleKeyEnterAddCrop(e, e.target.value)}
                             />
                             <div>
-                                { /**Muestra las imagenes que se han agregado en una lista
-                            //Permite que se borren por medio del boton*/}
                                 <ul>
                                     {this.state.listNameCrops.map((name, index) =>
-                                        <li id="item" key={index} >{name}
-                                            <button id="close-bt"onClick={(e) => this.handleDeleteNameCrop(index, e)}>
-                                                <img id="icon-close"src={close} height="10"></img>
+                                        <li id="item" key={index} >
+                                            {name}
+                                            <button id="close-bt" onClick={(e) => this.handleDeleteNameCrop(index, e)}>
+                                                <img id="close-icon" src={close} height="10"></img>
                                             </button>
                                         </li>)}
                                 </ul>
@@ -558,7 +563,7 @@ class NewProject extends Component {
                         </li>
 
                         <li id="all-inputs-item">
-                        <label>Informacion de zona</label>
+                            <label>Informacion de la zona</label>
                             <br></br>
                             <textarea id="newProject-input6"
                                 rows="3"
@@ -568,9 +573,19 @@ class NewProject extends Component {
                                 type="text"
                             />
                         </li>
-
+                        <li id="all-inputs-item" >
+                            <label>Foto del proyecto</label>
+                            <br></br>
+                            <input id="newProject-input9"
+                                value={fotoP}
+                                ref={this.fotoP}
+                                type="file"
+                                onChange={this.addImgProject}
+                            />
+                            {this.state.previewPic ? <img id="img-pro" src={this.state.previewPic} ></img> : <img id="img-pro" src={defaultProjectPic}></img>}
+                        </li>
                         <li id="all-inputs-item">
-                            <label>Foto Familias</label>
+                            <label>Foto de familias</label>
                             <br></br>
 
                             <input id="newProject-input7"
@@ -582,20 +597,27 @@ class NewProject extends Component {
                             <div>
                                 { /**Muestra las imagenes que se han agregado en una lista
                             //Permite que se borren por medio del boton*/}
-                                <ul>
+                                {/*<ul>
                                     {this.state.listImgFamilies.map((img, index) =>
                                         <li key={index} >{img.name}
                                             <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
                                         </li>)}
-                                </ul>
+                                </ul>*/}
+                                <Carousel showThumbs={false} statusFormatter={(current, total) => `${current} de ${total}`} infiniteLoop={true}>
+                                    {this.state.listImgFamilies.map((img, index) => (
+                                        <div>
+                                            <button id="delete-icon" onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
+                                            <img src={URL.createObjectURL(img)} />
+                                        </div>
+                                    ))}
+                                </Carousel>
                             </div>
 
                         </li>
                         {/**Subir imagenes relacionadas con los cultivos */}
                         <li id="all-inputs-item">
-                        <label>Foto Cultivos</label>
-                        <br></br>
-
+                            <label>Foto de cultivos</label>
+                            <br></br>
                             <input id="newProject-input8"
                                 value={fotoC}
                                 ref={this.fotoC}
@@ -605,47 +627,40 @@ class NewProject extends Component {
                             <div>
                                 { /**Muestra las imagenes que se han agregado en una lista
                             //Permite que se borren por medio del boton*/}
-                                <ul>
+                                {/*<ul>
                                     {this.state.listImgCrops.map((img, index) =>
                                         <li key={index} >{img.name}
                                             <button onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
                                         </li>)}
-                                </ul>
+                                </ul>*/}
+                                <Carousel showThumbs={false} statusFormatter={(current, total) => `${current} de ${total}`} infiniteLoop={true}>
+                                    {this.state.listImgCrops.map((img, index) => (
+                                        <div>
+                                            <button id="delete-icon" onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
+                                            <img src={URL.createObjectURL(img)} width="100%" height="100%" />
+                                        </div>
+                                    ))}
+                                </Carousel>
                             </div>
                         </li>
-
-                        <li id="all-inputs-item">
-                            <label>Foto del Proyecto</label>
-                            <br></br>
-
-                            <input id="newProject-input9"
-                                value={fotoP}
-                                ref={this.fotoP}
-                                type="file"
-                                onChange={this.addImgProject}
-                            />
-                           
-
-                        </li>
-                         <img id="img-pro" src={this.state.previewPic} ></img>
-
-                         
                         {/*Deberia hacerse con un spinner, en $ o LPS*/}
                         <li id="all-inputs-item">
-                        <label>Inversion inicial</label>
-                        <br></br>
-
+                            <label>Inversion inicial</label>
+                            <br></br>
+                            <label>$</label>
                             <input id="newProject-input10"
                                 value={inversion}
                                 onChange={project => this.setState(byPropKey('inversion', project.target.value))}
                                 onChange={this.handleChangeInversion('inversion')}
-                                type="text"
+                                type="number"
+                                min="5"
+                                step="5"
                                 placeholder="Inversion inicial"
                             />
                         </li>
+                       
 
-
-                        <li id="all-inputs-item">
+<li id="all-inputs-item">
                             <label>Ubicación</label>
                             <br></br>
                             <input id="newProject-input7"
@@ -657,35 +672,54 @@ class NewProject extends Component {
                         </li>
 
 
+
+
+
+
                         <li >
-                            <div id="add-map-div"className="container">
+                            <div id="add-map-div" className="container">
                                 <div className="card" style={style}>
-                                    <label>Coordenadas Geográficas</label>
-                                    <MapContainer type="newproject" changeLocationFromChild={this.changeLocationFromChild} center={this.state.center} ></MapContainer>
+                                    {/*<label>Coordenadas Geográficas</label> */}
+
+                                    <MapContainer type="newproject" changeLocationFromChild={this.changeLocationFromChild} initialCenter = {{lat: this.state.center.lat, lng:this.state.lng}} center={this.state.center} ></MapContainer>
                                 </div>
 
+                                {
+
+                                    /*
+<div className="form-group col-sm">
+                                    <label htmlFor="usr">Latitud:</label>
+                                    <input
+                                        onChange={this.handleChange('latitud')}
+                                        type="text" className="form-control" id="lugar" />
+                                </div>
+                                <div className="form-group col-sm">
+                                    <label htmlFor="usr">Longitud:</label>
+                                    <input
+                                        onChange={this.handleChange('longitud')}
+                                        type="text" className="form-control" id="direccion" />
+                                </div>
+
+
+                                    */
+                                }
+
+                                {
+                                    /*
+                                <div>
+                                                                    <button className="btn btn-secondary" onClick={this.getLocation}> Guardar ubicación</button>
                                 
-                                    <div className="form-group col-sm">
-                                        <label htmlFor="usr">Latitud:</label>
-                                        <input
-                                            onChange={this.handleChange('latitud')}
-                                            type="text" className="form-control" id="lugar" />
-                                    </div>
-                                    <div className="form-group col-sm">
-                                        <label htmlFor="usr">Longitud:</label>
-                                        <input
-                                            onChange={this.handleChange('longitud')}
-                                            type="text" className="form-control" id="direccion" />
-                                    </div>
-                                    <div>
-                                    <button className="btn btn-secondary" onClick={this.getLocation}> Cambiar ubicación</button>
+                                                                </div>
                                 
-                                    </div>
+                                    */
+                                }
+
                             </div>
 
                         </li>
 
                     </ul>
+                    <br></br>
                     <button id="bt-addProject" className="btn btn-primary" onClick={this.handleSaveProject}>Crear Proyecto</button>
 
 
@@ -695,7 +729,6 @@ class NewProject extends Component {
                     {/*<div id="graphic"></div>*/}
                     <img id="graphic" src="https://bit.ly/2UsoZO1"></img>
                 </div>
-
             </div>
 
 

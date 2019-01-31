@@ -142,6 +142,7 @@ class MapContainer extends React.Component {
                                             onClick={ this.handleClickMap}
                                             zoom={14}
                                             center = {this.props.center}
+
                                             //onReady = {this.onReadyMap}
                                             //currentLocation = {this.props.currentLocation}
                                             //center={{ lat: this.props.lat, lng: this.props.long}}
