@@ -108,7 +108,7 @@ const NavAdmin = () => (
                     </li>
                     <li className="nav-item">
                         <Link to={routes.PROFILE}>
-                            <i id="person-icon" class="material-icons">
+                            <i id="person-icon" className="material-icons">
                                 person_outline
                             </i>
                         </Link>

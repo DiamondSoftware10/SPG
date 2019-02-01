@@ -64,7 +64,7 @@ class Searchbar extends Component {
                     aria-label="Busqueda"
                     onChange={evt => this.setState(byPropKey('searchTerm', evt.target.value))}
                 />
-                <Link onClick = {() => window.location.reload()} to={routes.SEARCHPAGE + "/" + this.state.searchTerm} >
+                <Link onClick = {() => window.location.reload()} to={routes.SEARCHPAGE + "/title/" +  this.state.searchTerm} >
                     <img id="main-search-icon" src={magnifier} onClick={this.search}></img>
                 </Link>
                 <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.search}>Búsqueda</button>

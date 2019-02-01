@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import InfoCard from "./Infocards";
 import fire from '../Firebase/Fire';
-import Searchbar from './Searchbar';
+//import Searchbar from './Searchbar';
 import magnifier from '../Icons/magnifier.svg';
+import { Link } from 'react-router-dom';
+
+import * as routes from '../Constants/Routes';
 
 const db = fire.firestore();
 
@@ -19,6 +22,7 @@ class SearchPage extends Component {
             center: { lat: 0, lng: 0 },
             option: "title",
             searchTerm: "",
+            foto: "",
         }
 
         this.search = this.search.bind(this);
@@ -26,11 +30,39 @@ class SearchPage extends Component {
         this.titleCase = this.titleCase.bind(this);
     }
 
-    componentDidMount() {
-        this.setState({
-            option: this.props.option,
+   /* async componentWillMount(){
+        await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
+            this.setState({
+                foto:url
+            })
         })
-        this.search();
+    }*/
+    
+
+    componentWillReceiveProps (nextProps) {
+        if(nextProps.id === this.props.id) {
+          this.search();
+        }
+     }
+
+     
+
+    componentDidMount() {
+        const type = this.props.match.params.type;
+        const searchTerm = this.props.match.params.searchTerm;
+        console.log("option: " + this.props.match.params.type)
+        console.log("searchTerm:" + searchTerm)
+       /* this.setState({
+            //option: this.props .option,
+            option: type
+        })*/
+        this.setState({
+            option: type,
+            searchTerm: searchTerm
+        }, () => {
+            this.search();
+        });
+       // this.search();
         //console.log(this.props.params.name);
     }
 
@@ -50,17 +82,22 @@ class SearchPage extends Component {
         console.log("option: " + this.state.option);
         console.log("searchTerm state: " + this.state.searchTerm);
 
-        const { searchTerm } = this.props.match.params
+        const searchTerm = this.props.match.params.searchTerm;
+        const type = this.props.match.params.type;
 
-        if (searchTerm.empty) {
+        console.log("opcion: " + type)
+        console.log("search term: " + searchTerm)
+
+        /*if (searchTerm.empty) {
             searchTerm = this.state.searchTerm;
             console.log(searchTerm);
-        }
+        }*/
         console.log("Search term: " + this.titleCase(searchTerm));
         //const {searchTerm} = this.props.match.params
         //console.log("text state: " + this.state.text);
         var projects = db.collection("projects");
-        var query = projects.where(this.state.option, ">=", this.titleCase(searchTerm));
+        //var query = projects.where(this.state.option, "==", this.titleCase(searchTerm));
+        var query = projects.where(type, "==", this.titleCase(searchTerm));
 
         console.log("query length: " + query);
         query.get().then((snap) => {
@@ -115,14 +152,14 @@ class SearchPage extends Component {
 
 
         //console.log(this.props.params.sarchTerm)
-        let cards = "";
-        cards = this.state.searchResults.map((doc, i) => {
+        //let cards = "";
+        let cards = this.state.searchResults.map((doc, i) => {
             console.log("card " + i);
 
 
             return (
                 <InfoCard
-                    changeLocation={this.changeLocation}
+                    //changeLocation={this.changeLocation}
                     key={i}
                     id={doc.id}
                     pic={doc.picProject}
@@ -143,9 +180,9 @@ class SearchPage extends Component {
             <div className="info-cont">
                 <div className="searchSection">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <button type="radio" name="options" id="option1" autocomplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
+                        <button type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
 
-                        <button type="radio" name="options" id="option2" autocomplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
+                        <button type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
 
                         {/*<Searchbar option={this.state.option}/>*/}
                         <form className="form-inline my-2 my-lg-0 input-search">
@@ -156,8 +193,13 @@ class SearchPage extends Component {
                                 aria-label="Busqueda"
                                 onChange={evt => this.setState(byPropKey('searchTerm', evt.target.value))}
                             />
-                            <img id="main-search-icon" src={magnifier} onClick={this.search2}></img>
-                            <button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.search}>Búsqueda</button>
+                            {/*Link no funciona asi que tuve que usar this.props.history para actualizar el URL  */}
+                            <a href = {routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm} onClick = {() => this.props.history.push(routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm)} >
+                                <img id="main-search-icon" src={magnifier} onClick = {() => window.location.reload()}/*onClick={this.search2}*//>
+                            </a>
+
+                            
+                            {/*<button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.search}>Búsqueda</button>*/}
                         </form>
                     </div>
                 </div>

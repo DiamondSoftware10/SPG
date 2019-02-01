@@ -59,6 +59,7 @@ class Infocard extends Component {
     }
     async componentWillMount(){
         await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
+            console.log("pic url: " + url)
             this.setState({
                 foto:url
             })
