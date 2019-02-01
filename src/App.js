@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import 'bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import * as routes from './Constants/Routes';
 import AdminHomepage from './Components/AdminHomepage';
@@ -28,6 +27,8 @@ import ResetPassword from "./Components/ResetPassword";
 
 import ManageProjects from './Components/ManageProjects';
 import Profile from './Components/profile'
+import SearchPage from "./Components/SearchPage";
+
 class App extends Component {
 
   constructor(props) {
@@ -108,7 +109,10 @@ class App extends Component {
               exact path={routes.NEWPROJECT}
               component={() => <AddProject />}
             />
-
+            <Route
+              path={routes.SEARCHPAGE + "/:type/:searchTerm"}
+              exact component={SearchPage}
+            />
             <Route
               exact path={routes.PROYECTOS}
               component={Proyectos}
@@ -156,4 +160,3 @@ class App extends Component {
 }
 
 export default App;
-

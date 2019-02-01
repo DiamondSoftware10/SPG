@@ -33,7 +33,7 @@ const NavNonAuth = () =>
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <Searchbar />
+                <Searchbar option={"title"} />
                 <ul className="navbar-nav mr-auto ">
                     <Link to={routes.LANDING}>
                         <li className="nav-item active">
@@ -79,7 +79,7 @@ const NavAdmin = () => (
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <Searchbar />
+                <Searchbar option={"title"}/>
                 <ul className="navbar-nav mr-auto ">
                     <li className="nav-item active">
                         <Link to={routes.LANDING}>
@@ -147,7 +147,7 @@ const NavUser = () => (
             </button>
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                <Searchbar />
+            <Searchbar option={"title"}/>
                 <ul className="navbar-nav mr-auto ">
                     <li className="nav-item active">
                         <Link to={routes.LANDING}>
