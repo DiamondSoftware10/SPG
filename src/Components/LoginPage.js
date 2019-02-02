@@ -23,8 +23,6 @@ class LoginPage extends Component {
     this.listenAuth = this.listenAuth.bind(this);
     this.logout = this.logout.bind(this);
 
-
-
   }
 
   handleClickOpen = () => {

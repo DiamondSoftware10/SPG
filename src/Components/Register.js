@@ -37,8 +37,7 @@ class Register extends Component {
         this.login = this.login.bind(this);
         this.signup = this.signup.bind(this);
         this.checkInputs = this.checkInputs.bind(this);
-
-
+        this.SendVerifyEmail = this.SendVerifyEmail.bind(this);
 
     }
 
@@ -133,15 +132,11 @@ class Register extends Component {
                     accType: 1
                 });
 
-
+                this.SendVerifyEmail();
             } else {
 
             }
         });
-
-
-
-
     }
 
     checkInputs(email) {
@@ -150,6 +145,16 @@ class Register extends Component {
         } else {
             //this.addUser
         }
+    }
+
+    SendVerifyEmail(){
+        fire.auth().currentUser.sendEmailVerification().then(function() {
+            console.log('se envio correo de verificacion')
+           }, function(error) {
+            console.log('NO se envio correo de verificacion')
+
+            // An error happened.
+           });
     }
 
 
