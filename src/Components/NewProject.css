@@ -62,7 +62,7 @@ ul {
     font-size: 8vmin;
     margin-top: 10px;
     font-weight: 700;
-    text-transform: capitalize;
+    text-transform: initial;
     text-align: left;
     margin-left: 10vw;
   }

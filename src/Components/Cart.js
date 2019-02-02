@@ -164,7 +164,7 @@ export default class Cart extends Component {
 
         return (
             <div className="info-cont">
-                <h1 id="main-title">Inversiones</h1>
+                <h1 id="main-title">Cartera de Inversión</h1>
 
                 {this.state.showResult ? <div id="card-div" className="container-fluid">
                     <div className="flex-content" id="cart-flex">
