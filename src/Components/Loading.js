@@ -22,11 +22,10 @@ class Loading extends Component {
             <div>
                 <LoadingScreen
                     loading={this.state.loading}
-                    bgColor='#f1f1f1'
-                    spinnerColor='#9ee5f8'
-                    textColor='#676767'
+                    bgColor='#fefefe'
+                    spinnerColor='rgb(24,162,78)'
+                    textColor='rgb(31, 31, 31)'
                     logoSrc={icon}
-                    text='Here an introduction sentence (Optional)'
                 >
                     <App />
                 </LoadingScreen>

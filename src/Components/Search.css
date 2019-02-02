@@ -1,0 +1,24 @@
+#page-search {
+    border: none;
+    background: #fafafa;
+    border-radius: 100px;
+    font-weight: 300;
+    width: 60vw;
+    height: 13vh;
+    padding-left: 12%;
+    font-size: 2em;
+    color: rgb(24, 24, 24);
+    
+}
+
+#page-search-icon {
+    height: 50%;
+    position: absolute;
+    margin-left: auto;
+    top: 25%;
+    left: 4%;
+}
+
+#search-flex {
+    flex-direction: column-reverse;
+}

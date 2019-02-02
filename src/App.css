@@ -33,3 +33,57 @@
   }
 }
 
+
+.btn-primary {
+  font-weight: 300;
+  background-color: black;
+  width: 30vw;
+  border: none;
+  border-radius: 30px;
+  height: 7vh;
+  text-transform: uppercase;
+  letter-spacing: .15em;
+  font-size: .9em;
+  margin: auto;
+}
+
+.btn-primary:hover {
+  background-color: rgb(24,162,78);
+}
+
+.btn-tertiary {
+  font-weight: 300;
+  background-color: white;
+  border-color: rgb(43, 43, 43);
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin: auto;
+  padding: 1em 0px;
+  width: 10vw;
+}
+
+.btn-tertiary:hover {
+  background-color: rgb(24,162,78);
+  color: white;
+  border:transparent;
+}
+
+.flex-content {
+  margin: 10vh 10vw;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+}
+
+
+.flex-content > div {
+    margin: 1%;
+}
+
+@media(max-width: 800px) {
+  .btn-primary {
+    width: 80vw;
+  }
+}

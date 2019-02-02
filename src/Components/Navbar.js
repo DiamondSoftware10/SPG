@@ -182,17 +182,17 @@ const NavUser = () => (
                             <img id="prof-icon" src={profile}></img>
                         </Link>
                     </li>
-
-
-                </ul>
-            </div>
-            <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
-                <li className="nav-item">
+                    <li className="nav-item">
                     <Link to={routes.LOGINPAGE}>
                         <button className="nav-link bt" id="login-bt" >LOG OUT</button>
                     </Link>
 
                 </li>
+
+                </ul>
+            </div>
+            <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
+               
             </ul>           
         </nav>
 
@@ -252,7 +252,20 @@ const NavSuper = () => (
                     </li>
 
                 </ul>
+                <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
+                <li className="nav-item">
+                        <Link to={routes.CART}>
+                            <img id="cart-icon" src={briefcase}></img>
+                        </Link>
+                    </li>
+                    <li className="nav-item">
+                        <Link to={routes.PROFILE}>
+                            <img id="prof-icon" src={profile}></img>
+                        </Link>
+                    </li>
 
+
+                </ul>
                 
             </div>
             <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">

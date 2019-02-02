@@ -6,7 +6,7 @@ import CartItem from './CartItem.js';
 import fire from "../Firebase/Fire"
 import './Cart.css'
 
-import close from '../Icons/close.svg'
+import hand from '../Icons/hand.svg'
 
 const db = fire.firestore();
 const usersRef = db.collection("users");
@@ -167,7 +167,7 @@ export default class Cart extends Component {
                 <h1 id="main-title">Inversiones</h1>
 
                 {this.state.showResult ? <div id="card-div" className="container-fluid">
-                    <div className="cart-content">
+                    <div className="flex-content" id="cart-flex">
                         {cart}
                         <div class="flex-total">
                             <div id="item-totalText" class="text">Total</div>
@@ -176,7 +176,15 @@ export default class Cart extends Component {
                         <button id="btn-confirm" className="btn btn-primary">Confirmar inversión</button>
                     </div>
                 </div>
-                    : <div>Por favor agregue a cartera</div>}
+                    :
+                    <div className="flex-content">
+                        <img className="main-icon"src={hand}></img>
+                        <h4 className="main-msg">Tu cartera de inversión esta actualmente vacia</h4>
+                        <Link to={routes.PROYECTOS}>
+                        <button className="btn btn-primary">Explorar proyectos</button>
+                        </Link>
+                    </div>
+                }
 
 
             </div>

@@ -60,22 +60,6 @@
     /*padding: 50px;*/
 }
 
-.btn-primary {
-    font-weight: 300;
-    background-color: black;
-    width: 30vw;
-    border: none;
-    border-radius: 30px;
-    height: 7vh;
-    text-transform: uppercase;
-    letter-spacing: .15em;
-    font-size: .9em;
-    margin: auto;
-}
-
-.btn-primary:hover {
-    background-color: rgb(24,162,78);
-}
 
 
 label {

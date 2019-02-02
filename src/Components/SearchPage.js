@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import InfoCard from "./Infocards";
 import fire from '../Firebase/Fire';
 //import Searchbar from './Searchbar';
-import magnifier from '../Icons/magnifier.svg';
+import magnifier from '../Icons/magnifier2.svg';
 import { Link } from 'react-router-dom';
+
+import './Search.css'
 
 import * as routes from '../Constants/Routes';
 
@@ -30,39 +32,39 @@ class SearchPage extends Component {
         this.titleCase = this.titleCase.bind(this);
     }
 
-   /* async componentWillMount(){
-        await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
-            this.setState({
-                foto:url
-            })
-        })
-    }*/
-    
+    /* async componentWillMount(){
+         await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
+             this.setState({
+                 foto:url
+             })
+         })
+     }*/
 
-    componentWillReceiveProps (nextProps) {
-        if(nextProps.id === this.props.id) {
-          this.search();
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.id === this.props.id) {
+            this.search();
         }
-     }
+    }
 
-     
+
 
     componentDidMount() {
         const type = this.props.match.params.type;
         const searchTerm = this.props.match.params.searchTerm;
         console.log("option: " + this.props.match.params.type)
         console.log("searchTerm:" + searchTerm)
-       /* this.setState({
-            //option: this.props .option,
-            option: type
-        })*/
+        /* this.setState({
+             //option: this.props .option,
+             option: type
+         })*/
         this.setState({
             option: type,
             searchTerm: searchTerm
         }, () => {
             this.search();
         });
-       // this.search();
+        // this.search();
         //console.log(this.props.params.name);
     }
 
@@ -178,32 +180,33 @@ class SearchPage extends Component {
 
         return (
             <div className="info-cont">
-                <div className="searchSection">
+                <div className="flex-content" id="search-flex">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <button type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
 
-                        <button type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
-
-                        {/*<Searchbar option={this.state.option}/>*/}
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
+                    </div>
+                    {/*<Searchbar option={this.state.option}/>*/}
+                    <div>
                         <form className="form-inline my-2 my-lg-0 input-search">
-                            <input id="main-search"
+                            <input id="page-search"
                                 className="form-control mr-sm-2"
                                 type="search"
-                                placeholder="Busqueda"
+                                placeholder="Busca proyectos"
                                 aria-label="Busqueda"
                                 onChange={evt => this.setState(byPropKey('searchTerm', evt.target.value))}
                             />
                             {/*Link no funciona asi que tuve que usar this.props.history para actualizar el URL  */}
-                            <a href = {routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm} onClick = {() => this.props.history.push(routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm)} >
-                                <img id="main-search-icon" src={magnifier} onClick = {() => window.location.reload()}/*onClick={this.search2}*//>
+                            <a href={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm} onClick={() => this.props.history.push(routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm)} >
+                                <img id="page-search-icon" src={magnifier} onClick={() => window.location.reload()}/*onClick={this.search2}*/ />
                             </a>
 
-                            
+
                             {/*<button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.search}>Búsqueda</button>*/}
                         </form>
                     </div>
                 </div>
-                <h1 id="main-title">Proyectos</h1>
+                {/* <h1 id="main-title">Proyectos</h1>*/}
 
                 <div id="cards-div">
                     {cards}
