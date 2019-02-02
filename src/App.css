@@ -34,6 +34,8 @@
 }
 
 
+
+
 .btn-primary {
   font-weight: 300;
   background-color: black;
@@ -58,9 +60,10 @@
   border-radius: 30px;
   text-transform: uppercase;
   letter-spacing: .05em;
-  margin: auto;
-  padding: 1em 0px;
-  width: 10vw;
+  
+  padding: .8em 0px;
+  width: 9vw;
+  font-size: .8em;
 }
 
 .btn-tertiary:hover {
@@ -78,8 +81,13 @@
 }
 
 
-.flex-content > div {
+.flex-content > * {
     margin: 1%;
+}
+
+h2 {
+  text-transform: initial;
+  font-weight: 700;
 }
 
 @media(max-width: 800px) {

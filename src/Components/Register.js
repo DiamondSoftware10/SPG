@@ -7,6 +7,8 @@ import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImag
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 
+import * as routes from '../Constants/Routes';
+
 import './Register.css';
 import icon from '../Icons/iconbeta.png';
 
@@ -147,14 +149,14 @@ class Register extends Component {
         }
     }
 
-    SendVerifyEmail(){
-        fire.auth().currentUser.sendEmailVerification().then(function() {
+    SendVerifyEmail() {
+        fire.auth().currentUser.sendEmailVerification().then(function () {
             console.log('se envio correo de verificacion')
-           }, function(error) {
+        }, function (error) {
             console.log('NO se envio correo de verificacion')
 
             // An error happened.
-           });
+        });
     }
 
 
@@ -179,7 +181,7 @@ class Register extends Component {
 
                             <h2>Inicia Sesión</h2>
 
-                            <form id="login-form">
+                            <form className="form">
                                 <div class="form-group">
                                     <label htmlFor="usr">Email</label>
                                     <input
@@ -191,6 +193,9 @@ class Register extends Component {
                                     <input
                                         onChange={this.handleChange('contrasena')}
                                         type="password" className="form-control" id="passwordLogin" />
+                                    <Link to={routes.RESETPASSWORD}>
+                                        ¿Olvidaste tu contraseña?
+                                </Link>
                                 </div>
                                 <div>
                                     <button onClick={this.login} type="button" className="btn btn-primary" data-dismiss="modal">
@@ -199,6 +204,8 @@ class Register extends Component {
                                     <br></br>
                                 </div>
                                 ¿No tienes una cuenta? <a id="reg-link" data-backdrop="false" data-toggle="modal" data-target="#registerModal">Registrate</a>
+
+
                             </form>
                             {/*
                             <button data-backdrop="false" type="button" className="btn btn-primary" data-toggle="modal" data-target="#registerModal">

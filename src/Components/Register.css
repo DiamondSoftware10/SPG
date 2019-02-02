@@ -90,12 +90,12 @@ label {
     font-weight: 700;
 }
 
-#login-form {
+.form {
     width: 100%;
     padding: 0 15% 0 15%;
 }
 
-#login-form > .form-group {
+.form > .form-group {
     text-align: left;
 }
 
@@ -110,7 +110,7 @@ label {
 
 }*/
 
-#login-form > .form-group > input {
+.form > .form-group > input {
     background: transparent;
     border-radius: 5px;
     padding: 5%;
@@ -118,13 +118,13 @@ label {
     transition: border-color 0.5s, border-width 0.5s;
 }
 
-#login-form > .form-group > input:focus {
+.form > .form-group > input:focus {
     box-shadow: none;
     border-color: rgb(49, 49, 49);
     border-width: 1.1px;
 }
 
-#login-form > div {
+.form > div {
     margin-top: 5%;
 }
 
@@ -177,7 +177,7 @@ label {
 }
 
 .modal-title {
-    text-transform: capitalize;
+    text-transform: initial;
     font-weight: 700;
 }
 

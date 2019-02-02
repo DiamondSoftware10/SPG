@@ -111,14 +111,15 @@ export default class ProyectosAdmin extends Component {
     return (
       <div className="info-cont">
         <h1 id="main-title">Proyectos</h1>
-        <div id="cards-div" className="container-fluid">
-          {cards}
-        </div>
         <div id="proj-nav">
           <Link to={routes.NEWPROJECT}>
             <button className="btn btn-primary" id="new-proj" >Nuevo Proyecto</button>
           </Link>
         </div>
+        <div id="cards-div" className="container-fluid">
+          {cards}
+        </div>
+       
 
         <div className="modal" id="mapModal">
           <div className="modal-dialog">

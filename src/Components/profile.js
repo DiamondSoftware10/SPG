@@ -19,6 +19,7 @@ class Profile extends Component {
 
     async componentWillMount() {
         let id;
+        /*
         await fire.auth().onAuthStateChanged(user => {
             if (user) {
                 id = user.uid;
@@ -53,7 +54,7 @@ class Profile extends Component {
 
             }
         });
-
+*/
 
     }
     render() {
@@ -78,7 +79,7 @@ class Profile extends Component {
                     <li>
                         <label>{this.state.phone}</label>
                     </li>
-                    <button onClick={this.handleChange}>Matenme</button>
+                    
                 </ul>
             </div>
         )

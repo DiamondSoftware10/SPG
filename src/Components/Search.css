@@ -22,3 +22,9 @@
 #search-flex {
     flex-direction: column-reverse;
 }
+
+#button-flex {
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 60vw;
+}

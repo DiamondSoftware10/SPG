@@ -181,9 +181,8 @@ class SearchPage extends Component {
         return (
             <div className="info-cont">
                 <div className="flex-content" id="search-flex">
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <div id="button-flex" className="flex-content btn-group btn-group-toggle" data-toggle="buttons">
                         <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
-
                         <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
                     </div>
                     {/*<Searchbar option={this.state.option}/>*/}
