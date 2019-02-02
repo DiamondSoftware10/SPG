@@ -286,11 +286,11 @@ class NewProject extends Component {
                 nameImgRefFamilies.push(`${img.name}`);
             });
             /**
-         * @param {title,timeProdxDay,raisedMoney,projectFinan,picProject,picFam,picCultures,coordinates,investor,investInitxBlock,infoZone,detailsProdxBlocks,desciption,creationDate,available,cultures}
+         * @param {title,timeProdxDay,raisedMoney,projectFinan,picProject,picFam,picCultures,coordinates,investor,investInitxBlock,infoZone,detailsProdxBlocks,desciption,creationDate,available,cultures, locate}
          */
             let temp = new Date();
             let fecha = temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
-            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(parseFloat(this.state.center.lat, 10), parseFloat(this.state.center.lng, 10)), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops).then(
+            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(parseFloat(this.state.center.lat, 10), parseFloat(this.state.center.lng, 10)), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops , this.state.ubicacion).then(
                 this.setState({
                     titulo: '',
                     descripcion: '',
@@ -299,6 +299,7 @@ class NewProject extends Component {
                     tiposCultivo: '',
                     infoZona: '',
                     inversion: '',
+                    listNameCrops:[]
                     // center: { lat: 0, lng: 0 }
                 })
             );

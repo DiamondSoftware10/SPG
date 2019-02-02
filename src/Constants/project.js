@@ -20,7 +20,9 @@ export const createProject = (
     description,
     creationDate,
     available,
-    cultures
+    cultures,
+    locate
+
   ) => {
     return new Promise((resolve, reject) => {
       var ref = projectRef.doc();
@@ -43,7 +45,8 @@ export const createProject = (
           description: description,
           creationDate: creationDate,
           available: available,
-          cultures: cultures
+          cultures: cultures,
+          locate:locate
         })
         .then(result => {
           resolve(true);
