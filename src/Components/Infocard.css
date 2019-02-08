@@ -290,12 +290,10 @@
 }
 
 #number-flex {
-    display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
-    align-items: center;
-    align-content: center;
-    justify-content: flex-end;
+    width: 100%;
+    margin: 0;
     padding: 5vmin;
     border-bottom: 1px solid rgb(126, 126, 126);
 }
@@ -303,6 +301,10 @@
 #number-flex > div {
     padding: 0 2vmin;
     width: 20%;
+}
+
+#flex-head {
+    width: 100%;
 }
 
 #total-flex {

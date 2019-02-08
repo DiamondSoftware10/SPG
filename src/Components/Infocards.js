@@ -437,11 +437,13 @@ class Infocard extends Component {
                         <button className="hollow button" id="close-button" onClick={this.handleCloseInvestModal}><img id="proj-icon" src={close}></img></button>
                         <h3 className="modal-title">Elegir inversión</h3>
                         <div id="precart-flex">
-                            <div id="number-flex">
-                                <div>Manzanas</div>
+                            <div className="flexbox">
+                                <div id="flex-head">Manzanas</div>
+                                <div className="flexbox" id ="number-flex">
                                 <div><img onClick={this.handleSubManzana} id="add-icon" src={sub}></img></div>
                                 <div id="man-num">{this.state.manzanas}</div>
                                 <div><img onClick={this.handleAddManzana} id="add-icon" src={add}></img></div>
+                                </div>
                             </div>
                             <div id="total-flex">
                                 <div id="total-text">Total</div>
