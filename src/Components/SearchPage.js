@@ -28,7 +28,6 @@ class SearchPage extends Component {
         }
 
         this.search = this.search.bind(this);
-        this.search2 = this.search2.bind(this);
         this.titleCase = this.titleCase.bind(this);
     }
 
@@ -47,16 +46,14 @@ class SearchPage extends Component {
         }
     }
 
-
-
     componentDidMount() {
         const type = this.props.match.params.type;
         const searchTerm = this.props.match.params.searchTerm;
         console.log("option: " + this.props.match.params.type)
         console.log("searchTerm:" + searchTerm)
         /* this.setState({
-             //option: this.props .option,
-             option: type
+            //option: this.props .option,
+            option: type
          })*/
         this.setState({
             option: type,
@@ -79,8 +76,27 @@ class SearchPage extends Component {
         return splitStr.join(' ');
     }
 
+    searchDB(query) {
+        if (query != null) {
+            query.get().then((snap) => {
+                if (snap.empty) {
+                    console.log('No documents found');
+                } else {
+                    let data = [];
+                    snap.forEach(function (doc) {
+                        console.log("Doc ID: " + doc.id + " Data: " + doc.data().title);
+                        data.push(doc.data())
+                    })
+                    this.setState({ searchResults: data })
+                }
+            })
+        } else {
+            console.log("error");
+        }
+    }
 
     search() {
+
         console.log("option: " + this.state.option);
         console.log("searchTerm state: " + this.state.searchTerm);
 
@@ -89,70 +105,36 @@ class SearchPage extends Component {
 
         console.log("opcion: " + type)
         console.log("search term: " + searchTerm)
-
-        /*if (searchTerm.empty) {
-            searchTerm = this.state.searchTerm;
-            console.log(searchTerm);
-        }*/
         console.log("Search term: " + this.titleCase(searchTerm));
-        //const {searchTerm} = this.props.match.params
-        //console.log("text state: " + this.state.text);
+
+
         var projects = db.collection("projects");
-        //var query = projects.where(this.state.option, "==", this.titleCase(searchTerm));
-        var query = projects.where(type, "==", this.titleCase(searchTerm));
+        var query
+        if (this.state.option === "investInitxBlock") {
+            if (this.state.searchTerm.match(/[a-z]/i)) {
+                alert("La busqueda por inversión no debe de contener letras");
+                query = null;
+            } else {
+                query = projects.where(this.state.option, ">=", this.titleCase(parseInt(searchTerm)));
+            }
+        } else if (this.state.option === "locate") {
+            query = projects.where(this.state.option, "==", this.titleCase(searchTerm));
+
+        } else if (this.state.option === "title") {
+            query = projects.where(this.state.option, "==", this.titleCase(searchTerm))
+
+        } else if (this.state.option === "cultures") {
+            query = projects.where(this.state.option, "array-contains", this.titleCase(searchTerm))
+
+
+        }
 
         console.log("query length: " + query);
-        query.get().then((snap) => {
-            if (snap.empty) {
-                console.log('No documents found');
-            } else {
-                let data = [];
-                snap.forEach(function (doc) {
-                    console.log("Doc ID: " + doc.id + " Data: " + doc.data().title);
-                    data.push(doc.data())
-                })
+        this.searchDB(query);
 
-                this.setState({ searchResults: data })
-
-
-            }
-        })
-    }
-
-    search2() {
-        console.log("option: " + this.state.option);
-        console.log("searchTerm state: " + this.state.searchTerm);
-
-        let mySearch = this.state.searchTerm
-
-        console.log("Search term: " + this.titleCase(mySearch));
-        //const {searchTerm} = this.props.match.params
-        //console.log("text state: " + this.state.text);
-        var projects = db.collection("projects");
-        var query = projects.where(this.state.option, "==", this.titleCase(mySearch));
-
-        console.log("query length: " + query);
-        query.get().then((snap) => {
-            if (snap.empty) {
-                console.log('No documents found');
-            } else {
-                let data = [];
-                snap.forEach(function (doc) {
-                    console.log("Doc ID: " + doc.id + " Data: " + doc.data().title);
-                    data.push(doc.data())
-                })
-
-                this.setState({ searchResults: data })
-
-
-            }
-        })
-        this.render();
     }
 
     render() {
-
-
         //console.log(this.props.params.sarchTerm)
         //let cards = "";
         let cards = this.state.searchResults.map((doc, i) => {
@@ -184,6 +166,8 @@ class SearchPage extends Component {
                     <div id="button-flex" className="flex-content btn-group btn-group-toggle" data-toggle="buttons">
                         <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
                         <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "investInitxBlock"))} > Inversión inicial </button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "cultures"))} > Cultivos </button>
                     </div>
                     {/*<Searchbar option={this.state.option}/>*/}
                     <div>
