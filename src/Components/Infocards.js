@@ -147,9 +147,27 @@ class Infocard extends Component {
     }
 
     handleOpenInvestModal() {
-        this.setState({
-            showInvest: true
-        })
+        var manzanas = 1;
+        var id = this.props.id;
+        fire.auth().onAuthStateChanged(async (user) =>{
+            if (user) {
+                const item = db.collection("users").doc(user.uid).collection("cartera").doc(id);
+                console.log(user.uid);
+                await item.get().then(function (snap) {
+                    console.log(snap.exists)
+                    if (snap.exists) {
+                        manzanas = snap.data().manzanas;
+                        console.log(manzanas);
+                        console.log("yes");
+                    } 
+                })
+            }
+            this.setState({
+                showInvest: true,
+                manzanas: manzanas,
+                pago: this.state.invMin * manzanas
+            })
+        });
     }
 
     handleCloseInvestModal() {
@@ -170,7 +188,7 @@ class Infocard extends Component {
         })
         this.handleCloseModal();
 
-       
+
     }
 
     handleAddToCart() {
@@ -257,7 +275,7 @@ class Infocard extends Component {
         //Capturar el proyecto correspondiente de la base de datos
         var project = db.collection("projects").doc(/*MODIFICAR-----------------*/id/*---------------------MPODIFICAR*/);
 
-        await project.get().then(function (snap) {
+        await project.get().then(async function (snap) {
             if (snap.exists) {
                 title = snap.data().title;
                 culture = snap.data().cultures;
@@ -273,7 +291,9 @@ class Infocard extends Component {
                 console.log("No such doc")
             }
 
+
         });
+
 
 
         this.setState({
@@ -439,10 +459,10 @@ class Infocard extends Component {
                         <div id="precart-flex">
                             <div className="flexbox">
                                 <div id="flex-head">Manzanas</div>
-                                <div className="flexbox" id ="number-flex">
-                                <div><img onClick={this.handleSubManzana} id="add-icon" src={sub}></img></div>
-                                <div id="man-num">{this.state.manzanas}</div>
-                                <div><img onClick={this.handleAddManzana} id="add-icon" src={add}></img></div>
+                                <div className="flexbox" id="number-flex">
+                                    <div><img onClick={this.handleSubManzana} id="add-icon" src={sub}></img></div>
+                                    <div className="amount-number">{this.state.manzanas}</div>
+                                    <div><img onClick={this.handleAddManzana} id="add-icon" src={add}></img></div>
                                 </div>
                             </div>
                             <div id="total-flex">

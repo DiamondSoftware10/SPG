@@ -284,7 +284,7 @@
     cursor: pointer;
 }
 
-#man-num {
+.amount-number {
     font-size: 2em;
     font-weight: 600;
 }
@@ -293,7 +293,7 @@
     flex-wrap: nowrap;
     flex-direction: row;
     width: 100%;
-    margin: 0;
+    text-align: center;
     padding: 5vmin;
     border-bottom: 1px solid rgb(126, 126, 126);
 }
@@ -305,6 +305,7 @@
 
 #flex-head {
     width: 100%;
+    margin: auto;
 }
 
 #total-flex {
