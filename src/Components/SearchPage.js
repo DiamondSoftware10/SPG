@@ -163,13 +163,6 @@ class SearchPage extends Component {
         return (
             <div className="info-cont">
                 <div className="flex-content" id="search-flex">
-                    <div id="button-flex" className="flex-content btn-group btn-group-toggle" data-toggle="buttons">
-                        <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
-                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
-                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "investInitxBlock"))} > Inversión inicial </button>
-                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "cultures"))} > Cultivos </button>
-                    </div>
-                    {/*<Searchbar option={this.state.option}/>*/}
                     <div>
                         <form className="form-inline my-2 my-lg-0 input-search">
                             <input id="page-search"
@@ -177,10 +170,16 @@ class SearchPage extends Component {
                                 type="search"
                                 placeholder="Busca proyectos"
                                 aria-label="Busqueda"
+                                autocomplete="off"
                                 onChange={evt => this.setState(byPropKey('searchTerm', evt.target.value))}
+                                onKeyPress={event => {
+                                    if (event.key === 'Enter') {
+                                        //this.componentDidMount()
+                                    }
+                                }}
                             />
                             {/*Link no funciona asi que tuve que usar this.props.history para actualizar el URL  */}
-                            <a href={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm} onClick={() => this.props.history.push(routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm)} >
+                            <a /*href={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm} */ onClick={() => this.props.history.push(routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm)} >
                                 <img id="page-search-icon" src={magnifier} onClick={() => window.location.reload()}/*onClick={this.search2}*/ />
                             </a>
 
@@ -188,12 +187,40 @@ class SearchPage extends Component {
                             {/*<button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.search}>Búsqueda</button>*/}
                         </form>
                     </div>
+                    <div id="button-flex" className="flex-content btn-group btn-group-toggle" data-toggle="buttons">
+                        <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "investInitxBlock"))} > Inversión inicial </button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "cultures"))} > Cultivos </button>
+                    </div>
+                    <div className="flexbox" id="filter-flex">
+                        <div className="side-flex">
+                            <div id="sidebar">
+                                <h2>Filtros</h2>
+                                <div>
+                                    <h6>Inversion Minima</h6>
+                                    <h6>Nombre de Proyecto</h6>
+                                    <h6>Ubicacion</h6>
+                                    <h6>Cultivos</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="main-flex">
+                            <div>
+                                <h2>Resultados para "{this.state.searchTerm}"</h2>
+                            </div>
+                            <div>
+                                {cards}
+                            </div>
+
+                        </div>
+
+                        {/*<Searchbar option={this.state.option}/>*/}
+                    </div>
                 </div>
                 {/* <h1 id="main-title">Proyectos</h1>*/}
 
-                <div id="cards-div">
-                    {cards}
-                </div>
+
 
             </div>
 

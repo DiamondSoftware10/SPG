@@ -90,6 +90,10 @@ h2 {
   font-weight: 700;
 }
 
+*:focus {
+  outline: 0;
+}
+
 @media(max-width: 800px) {
   .btn-primary {
     width: 80vw;
