@@ -28,7 +28,7 @@ export default class CartItem extends Component {
     }
 
     handleDeleteFromCart() {
-        this.props.handleDeleteFromCart(this.props.id, this.props.index, this.props.pago)
+        this.props.handleDeleteFromCart(this.props.id, this.props.index, this.state.pago)
     }
 
     async componentWillMount() {
