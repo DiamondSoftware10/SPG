@@ -308,7 +308,7 @@ class Infocard extends Component {
                     isOpen={this.state.showModal}
                     contentLabel="onRequestClose Example"
                     onRequestClose={this.handleCloseModal}
-                    className="ModalBack"
+                    className="ModalBack animated fadeIn faster"
                     overlayClassName="Overlay"
                 >
                     <div className="Modal">
@@ -430,7 +430,7 @@ class Infocard extends Component {
                     isOpen={this.state.showInvest}
                     contentLabel="onRequestClose Example"
                     onRequestClose={this.handleCloseInvestModal}
-                    className="ModalBack"
+                    className="ModalBack animated fadeIn faster"
                     overlayClassName="Overlay"
                 >
                     <div className="Modal invest-modal">
@@ -470,7 +470,7 @@ class Infocard extends Component {
                     </div>
                 </ReactModal>
                 <div id="infocards">
-                    <div className="icard-hor">
+                    <div className="icard-hor animated slideInUp fast">
                         <div id="bt-event" onClick={() => this.handleInfocard("Guanaja")}>
                             <div id="bt-more"></div>
 
