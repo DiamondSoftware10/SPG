@@ -1,0 +1,58 @@
+
+#form-heading {
+    margin:0;
+}
+
+#form-subhead {
+    margin-left: 4em;
+    font-weight: 400;
+}
+
+.number-circle {
+    width: 2.5em;
+    height: 2.5em;
+    border-radius: 100%;
+    background: rgb(24,162,78);
+    background: rgb(88,183,123);
+    text-align: center;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1.2em;
+}
+
+
+.number-circle > #number {
+    font-size: 1.5em;
+    font-family: Montserrat;
+    color: white;
+    font-weight: 600;
+    vertical-align: middle;
+}
+
+.flex-add-element {
+    align-items: flex-start;
+}
+
+.element-heading {
+    flex-direction: row;
+    align-items: center;
+}
+
+/*
+@media (max-width: 700px) { 
+    .number-circle {
+        width: 20px;
+        height: 20px;
+        border-radius: 100px;
+        margin-right: 10px;
+    }
+
+    .number-circle > #number {
+        font-size: 10px;
+    }
+
+    
+
+}*/

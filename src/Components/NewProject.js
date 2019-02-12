@@ -8,6 +8,10 @@ import close from '../Icons/close.svg';
 import defaultProjectPic from '../Images/nature.svg';
 import { Carousel } from 'react-responsive-carousel';
 import "./Carousel.css";
+import ItemHeading from './Objects/ItemHeading';
+import Input from './Objects/Input';
+import TextArea from './Objects/TextArea';
+
 const AddProject = () =>
     <div id="project">
         <NewProject />
@@ -490,43 +494,50 @@ class NewProject extends Component {
 
         return (
             <div>
-                <div id="main-title">Agregar Proyecto</div>
-                <div className="number-circle">
-                    <div id="circle"></div>
-                    <div id="number"></div>
+                <div className="graphic-lg"></div>
+                <h1>Nuevo Proyecto</h1>
+
+                <div className="flex-content" id="add-flex">
+                    <ItemHeading number="1" title="Datos Generales"
+                        subtitle="Informacion basica del proyecto">
+                    </ItemHeading>
+                    <div className="flexbox" id="input-flex">
+                        <Input label="Titulo" tipo="text" placeholder="e.g. Terreno San Lorenzo"></Input>
+                        <TextArea label="Descripción del proyecto" placeholder="Breve descripcion del proyecto"></TextArea>
+                        
+                    </div>
+                    <ItemHeading number="2" title="Información del Terreno"
+                        subtitle="Datos edofaclimaticos y de cultivos del terreno"></ItemHeading>
                 </div>
-                <h2>Datos Generales
-                </h2>
-                <h5>Titulo, descripcion del proyecto</h5>
-                <div className="flex-content" id="new-proj-div" onSubmit={this.onSubmit}>
 
-                    <div id="new-proj-inputs">
 
-                        <ul className="flexbox" id="all-inputs">
-                            <li id="all-inputs-item">
-                                <label>Titulo</label>
-                                <br></br>
-                                <input id="newProject-input1"
-                                    value={titulo}
-                                    onChange={project => this.setState(byPropKey('titulo', project.target.value))}
-                                    onChange={this.handleChangeTitle('titulo')}
-                                    // style={{borderColor:nombresVal(this.state.titulo)?"red":"blue"}}
-                                    type="text"
-                                />
-                            </li>
-                            <li id="all-inputs-item">
-                                <label>Descripción</label>
-                                <br></br>
-                                <textarea id="newProject-input2"
-                                    rows="3"
-                                    value={descripcion}
-                                    onChange={project => this.setState(byPropKey('descripcion', project.target.value))}
-                                    onChange={this.handleChangeDescription('descripcion')}
-                                    type="text"
-                                />
-                            </li>
-                            {/*Momento*/}
-                            {/*<li id="all-inputs-item">
+                <div id="new-proj-inputs">
+
+                    <ul className="flexbox" id="all-inputs">
+                        <li id="all-inputs-item">
+                            <label>Titulo</label>
+                            <br></br>
+                            <input id="newProject-input1"
+                                value={titulo}
+                                onChange={project => this.setState(byPropKey('titulo', project.target.value))}
+                                onChange={this.handleChangeTitle('titulo')}
+                                // style={{borderColor:nombresVal(this.state.titulo)?"red":"blue"}}
+                                type="text"
+                            />
+                        </li>
+                        <li id="all-inputs-item">
+                            <label>Descripción</label>
+                            <br></br>
+                            <textarea id="newProject-input2"
+                                rows="3"
+                                value={descripcion}
+                                onChange={project => this.setState(byPropKey('descripcion', project.target.value))}
+                                onChange={this.handleChangeDescription('descripcion')}
+                                type="text"
+                            />
+                        </li>
+                        {/*Momento*/}
+                        {/*<li id="all-inputs-item">
                         <input id="newProject-input3"
                             value={ubicacion}
                             onChange={project => this.setState(byPropKey('ubicacion', project.target.value))}
@@ -535,241 +546,212 @@ class NewProject extends Component {
                         />
                     </li>
 </div>*/}
-                            <li id="all-inputs-item">
-                                <label>Numero de familas beneficiadas</label>
-                                <br></br>
-                                <input id="newProject-input4"
-                                    value={familiasB}
-                                    onChange={project => this.setState(byPropKey('familiasB', project.target.value))}
-                                    onChange={this.handleChangeFamily('familiasB')}
-                                    type="number"
-                                    min="0"
-                                />
+                        <li id="all-inputs-item">
+                            <label>Numero de familas beneficiadas</label>
+                            <br></br>
+                            <input id="newProject-input4"
+                                value={familiasB}
+                                onChange={project => this.setState(byPropKey('familiasB', project.target.value))}
+                                onChange={this.handleChangeFamily('familiasB')}
+                                type="number"
+                                min="0"
+                            />
 
-                            </li>
-                            <li id="all-inputs-item">
-                                <label>Cultivos</label>
-                                <br></br>
-                                <input id="newProject-input5"
-                                    value={tiposCultivo}
-                                    onChange={project => this.setState(byPropKey('tiposCultivo', project.target.value))}
-                                    onChange={this.handleChangeCrops('tiposCultivo')}
-                                    type="text"
-                                    placeholder="Presione Enter para agregar una etiqueta"
-                                    onKeyDown={e => this.handleKeyEnterAddCrop(e, e.target.value)}
-                                />
-                                <div>
-                                    <ul>
-                                        {this.state.listNameCrops.map((name, index) =>
-                                            <li id="item" key={index} >
-                                                {name}
-                                                <button id="close-bt" onClick={(e) => this.handleDeleteNameCrop(index, e)}>
-                                                    <img id="close-icon" src={close} height="10"></img>
-                                                </button>
-                                            </li>)}
-                                    </ul>
-                                </div>
-                            </li>
+                        </li>
+                        <li id="all-inputs-item">
+                            <label>Cultivos</label>
+                            <br></br>
+                            <input id="newProject-input5"
+                                value={tiposCultivo}
+                                onChange={project => this.setState(byPropKey('tiposCultivo', project.target.value))}
+                                onChange={this.handleChangeCrops('tiposCultivo')}
+                                type="text"
+                                placeholder="Presione Enter para agregar una etiqueta"
+                                onKeyDown={e => this.handleKeyEnterAddCrop(e, e.target.value)}
+                            />
+                            <div>
+                                <ul>
+                                    {this.state.listNameCrops.map((name, index) =>
+                                        <li id="item" key={index} >
+                                            {name}
+                                            <button id="close-bt" onClick={(e) => this.handleDeleteNameCrop(index, e)}>
+                                                <img id="close-icon" src={close} height="10"></img>
+                                            </button>
+                                        </li>)}
+                                </ul>
+                            </div>
+                        </li>
 
-                            <li id="all-inputs-item">
-                                <label>Informacion de la zona</label>
-                                <br></br>
-                                <textarea id="newProject-input6"
-                                    rows="3"
-                                    value={infoZona}
-                                    onChange={project => this.setState(byPropKey('infoZona', project.target.value))}
-                                    onChange={this.handleChangeInfoZona('infoZona')}
-                                    type="text"
-                                />
-                            </li>
-                            <li id="all-inputs-item" >
-                                <label>Foto del proyecto</label>
-                                <br></br>
-                                <input id="newProject-input9"
-                                    value={fotoP}
-                                    ref={this.fotoP}
-                                    type="file"
-                                    onChange={this.addImgProject}
-                                />
-                                {this.state.previewPic ? <img id="img-pro" src={this.state.previewPic} ></img> : <img id="img-pro" src={defaultProjectPic}></img>}
-                            </li>
-                            <li id="all-inputs-item">
-                                <label>Foto de familias</label>
-                                <br></br>
+                        <li id="all-inputs-item">
+                            <label>Informacion de la zona</label>
+                            <br></br>
+                            <textarea id="newProject-input6"
+                                rows="3"
+                                value={infoZona}
+                                onChange={project => this.setState(byPropKey('infoZona', project.target.value))}
+                                onChange={this.handleChangeInfoZona('infoZona')}
+                                type="text"
+                            />
+                        </li>
+                        <li id="all-inputs-item" >
+                            <label>Foto del proyecto</label>
+                            <br></br>
+                            <input id="newProject-input9"
+                                value={fotoP}
+                                ref={this.fotoP}
+                                type="file"
+                                onChange={this.addImgProject}
+                            />
+                            {this.state.previewPic ? <img id="img-pro" src={this.state.previewPic} ></img> : <img id="img-pro" src={defaultProjectPic}></img>}
+                        </li>
+                        <li id="all-inputs-item">
+                            <label>Foto de familias</label>
+                            <br></br>
 
-                                <input id="newProject-input7"
-                                    value={fotoF}
-                                    ref={this.fotoF}
-                                    type="file"
-                                />
-                                <button id="bt-uploadProject" className="btn btn-secondary" onClick={this.addListImgFamilies}>Agregar foto</button>
-                                <div>
-                                    { /**Muestra las imagenes que se han agregado en una lista
+                            <input id="newProject-input7"
+                                value={fotoF}
+                                ref={this.fotoF}
+                                type="file"
+                            />
+                            <button id="bt-uploadProject" className="btn btn-secondary" onClick={this.addListImgFamilies}>Agregar foto</button>
+                            <div>
+                                { /**Muestra las imagenes que se han agregado en una lista
                             //Permite que se borren por medio del boton*/}
-                                    {/*<ul>
+                                {/*<ul>
                                     {this.state.listImgFamilies.map((img, index) =>
                                         <li key={index} >{img.name}
                                             <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
                                         </li>)}
                                 </ul>*/}
-                                    <Carousel showThumbs={false} statusFormatter={(current, total) => `${current} de ${total}`} infiniteLoop={true}>
-                                        {this.state.listImgFamilies.map((img, index) => (
-                                            <div>
-                                                <button id="delete-icon" onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
-                                                <img src={URL.createObjectURL(img)} />
-                                            </div>
-                                        ))}
-                                    </Carousel>
-                                </div>
+                                <Carousel showThumbs={false} statusFormatter={(current, total) => `${current} de ${total}`} infiniteLoop={true}>
+                                    {this.state.listImgFamilies.map((img, index) => (
+                                        <div>
+                                            <button id="delete-icon" onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
+                                            <img src={URL.createObjectURL(img)} />
+                                        </div>
+                                    ))}
+                                </Carousel>
+                            </div>
 
-                            </li>
-                            {/**Subir imagenes relacionadas con los cultivos */}
-                            <li id="all-inputs-item">
-                                <label>Foto de cultivos</label>
-                                <br></br>
-                                <input id="newProject-input8"
-                                    value={fotoC}
-                                    ref={this.fotoC}
-                                    type="file"
-                                />
-                                <button id="bt-uploadProject" className="btn btn-secondary" onClick={this.addListImgCrops}>Agregar foto</button>
-                                <div>
-                                    { /**Muestra las imagenes que se han agregado en una lista
+                        </li>
+                        {/**Subir imagenes relacionadas con los cultivos */}
+                        <li id="all-inputs-item">
+                            <label>Foto de cultivos</label>
+                            <br></br>
+                            <input id="newProject-input8"
+                                value={fotoC}
+                                ref={this.fotoC}
+                                type="file"
+                            />
+                            <button id="bt-uploadProject" className="btn btn-secondary" onClick={this.addListImgCrops}>Agregar foto</button>
+                            <div>
+                                { /**Muestra las imagenes que se han agregado en una lista
                             //Permite que se borren por medio del boton*/}
-                                    {/*<ul>
+                                {/*<ul>
                                     {this.state.listImgCrops.map((img, index) =>
                                         <li key={index} >{img.name}
                                             <button onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
                                         </li>)}
                                 </ul>*/}
-                                    <Carousel showThumbs={false} statusFormatter={(current, total) => `${current} de ${total}`} infiniteLoop={true}>
-                                        {this.state.listImgCrops.map((img, index) => (
-                                            <div>
-                                                <button id="delete-icon" onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
-                                                <img src={URL.createObjectURL(img)} width="100%" height="100%" />
-                                            </div>
-                                        ))}
-                                    </Carousel>
+                                <Carousel showThumbs={false} statusFormatter={(current, total) => `${current} de ${total}`} infiniteLoop={true}>
+                                    {this.state.listImgCrops.map((img, index) => (
+                                        <div>
+                                            <button id="delete-icon" onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
+                                            <img src={URL.createObjectURL(img)} width="100%" height="100%" />
+                                        </div>
+                                    ))}
+                                </Carousel>
+                            </div>
+                        </li>
+                        {/*Deberia hacerse con un spinner, en $ o LPS*/}
+                        <li id="all-inputs-item">
+                            <label>Inversion inicial</label>
+                            <br></br>
+                            <label>$</label>
+                            <input id="newProject-input10"
+                                value={inversion}
+                                onChange={project => this.setState(byPropKey('inversion', project.target.value))}
+                                onChange={this.handleChangeInversion('inversion')}
+                                type="number"
+                                min="5"
+                                step="5"
+                                placeholder="Inversion inicial"
+                            />
+                        </li>
+
+
+                        <li id="all-inputs-item">
+                            <label>Ubicación</label>
+                            <br></br>
+                            <input id="newProject-input7"
+                                value={ubicacion}
+                                onChange={project => this.setState(byPropKey('ubicacion', project.target.value))}
+                                onChange={this.handleChangeUbicacion('ubicacion')}
+                                type="text"
+                            />
+                        </li>
+
+
+
+
+
+
+                        <li >
+                            <div id="add-map-div" className="container">
+                                <div className="card" style={style}>
+                                    {/*<label>Coordenadas Geográficas</label> */}
+
+                                    <MapContainer type="newproject" changeLocationFromChild={this.changeLocationFromChild} initialCenter={{ lat: this.state.center.lat, lng: this.state.lng }} center={this.state.center} ></MapContainer>
                                 </div>
-                            </li>
-                            {/*Deberia hacerse con un spinner, en $ o LPS*/}
-                            <li id="all-inputs-item">
-                                <label>Inversion inicial</label>
-                                <br></br>
-                                <label>$</label>
-                                <input id="newProject-input10"
-                                    value={inversion}
-                                    onChange={project => this.setState(byPropKey('inversion', project.target.value))}
-                                    onChange={this.handleChangeInversion('inversion')}
-                                    type="number"
-                                    min="5"
-                                    step="5"
-                                    placeholder="Inversion inicial"
-                                />
-                            </li>
 
+                                {
 
-                            <li id="all-inputs-item">
-                                <label>Ubicación</label>
-                                <br></br>
-                                <input id="newProject-input7"
-                                    value={ubicacion}
-                                    onChange={project => this.setState(byPropKey('ubicacion', project.target.value))}
-                                    onChange={this.handleChangeUbicacion('ubicacion')}
-                                    type="text"
-                                />
-                            </li>
-
-
-
-
-
-
-                            <li >
-                                <div id="add-map-div" className="container">
-                                    <div className="card" style={style}>
-                                        {/*<label>Coordenadas Geográficas</label> */}
-
-                                        <MapContainer type="newproject" changeLocationFromChild={this.changeLocationFromChild} initialCenter={{ lat: this.state.center.lat, lng: this.state.lng }} center={this.state.center} ></MapContainer>
-                                    </div>
-
-                                    {
-
-                                        /*
+                                    /*
     <div className="form-group col-sm">
-                                        <label htmlFor="usr">Latitud:</label>
-                                        <input
-                                            onChange={this.handleChange('latitud')}
-                                            type="text" className="form-control" id="lugar" />
-                                    </div>
-                                    <div className="form-group col-sm">
-                                        <label htmlFor="usr">Longitud:</label>
-                                        <input
-                                            onChange={this.handleChange('longitud')}
-                                            type="text" className="form-control" id="direccion" />
-                                    </div>
-
-                                    <div>
-                                                                        <button className="btn btn-secondary" onClick={this.getLocation}> Guardar ubicación</button>
-                                    
-                                                                    </div>
-                                    
-                                        */
-                                    }
-
+                                    <label htmlFor="usr">Latitud:</label>
+                                    <input
+                                        onChange={this.handleChange('latitud')}
+                                        type="text" className="form-control" id="lugar" />
                                 </div>
+                                <div className="form-group col-sm">
+                                    <label htmlFor="usr">Longitud:</label>
+                                    <input
+                                        onChange={this.handleChange('longitud')}
+                                        type="text" className="form-control" id="direccion" />
+                                </div>
+     
+                                <div>
+                                                                    <button className="btn btn-secondary" onClick={this.getLocation}> Guardar ubicación</button>
+                                
+                                                                </div>
+                                
+                                    */
+                                }
 
-                            </li>
+                            </div>
 
-                        </ul>
-                        <br></br>
-                        <button id="bt-addProject" className="btn btn-primary" onClick={this.handleSaveProject}>Crear Proyecto</button>
+                        </li>
+
+                    </ul>
+                    <br></br>
+                    <button id="bt-addProject" className="btn btn-primary" onClick={this.handleSaveProject}>Crear Proyecto</button>
 
 
-                    </div>
-                    {/*
+                </div>
+                {/*
                 <div id="new-proj-graphic">
                     <img id="graphic" src="https://bit.ly/2UsoZO1"></img>
                 </div>
-                <div className="graphic-lg"></div>
+                
     */}
-                    <div><nav id="navbar-example2" class="navbar navbar-light bg-light">
-                        <a class="navbar-brand" href="#">Navbar</a>
-                        <ul class="nav nav-pills">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#fat">@fat</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#mdo">@mdo</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#one">one</a>
-                                    <a class="dropdown-item" href="#two">two</a>
-                                    <div role="separator" class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#three">three</a>
-                                </div>
-                            </li>
-                        </ul>
-                    </nav>
-                        <div data-spy="scroll" data-target="#navbar-example2" data-offset="0">
-                            <h4 id="fat">@fat</h4>
-                            <p>...</p>
-                            <h4 id="mdo">@mdo</h4>
-                            <p>...</p>
-                            <h4 id="one">one</h4>
-                            <p>...</p>
-                            <h4 id="two">two</h4>
-                            <p>...</p>
-                            <h4 id="three">three</h4>
-                            <p>...</p>
-                        </div></div>
-                </div>
+
+
+
 
 
 
             </div>
+
 
 
         );

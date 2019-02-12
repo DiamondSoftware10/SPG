@@ -358,7 +358,7 @@ class Infocard extends Component {
                                                     <div id="terr-head">Terreno</div>
                                                 </div>
                                                 <div id="proj-title">
-                                                    <h1>{this.state.title}</h1>
+                                                    <h2 className="h2-project">{this.state.title}</h2>
                                                 </div>
                                                 <br></br>
 
