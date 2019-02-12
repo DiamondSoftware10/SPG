@@ -24,7 +24,7 @@ import Cart from './Components/Cart';
 import "circular-std";
 import ManageUsers from "./Components/ManageUsers";
 import ResetPassword from "./Components/ResetPassword";
-
+import UserContext from "./Components/UserContext";
 import ManageProjects from './Components/ManageProjects';
 import Profile from './Components/profile'
 import SearchPage from "./Components/SearchPage";
@@ -85,10 +85,12 @@ class App extends Component {
 
   render() {
     return (
+      
       <div className="App">
+      <UserContext.Provider value = {this.state}>
         <Router>
           <div>
-            <Navbar authUser={this.state.user} type={this.state.type} />
+            <Navbar />
             <Route
               exact path={routes.ADMINHOMEPAGE}
               component={() => <AdminHomepage />}
@@ -154,7 +156,9 @@ class App extends Component {
                 
           </div>
         </Router>
+        </UserContext.Provider>
       </div>
+      
     );
   }
 }
