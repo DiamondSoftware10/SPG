@@ -63,7 +63,19 @@ class Register extends Component {
 
     login(e) {
         e.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => { }).catch((error) => {
+        fire.auth().signInWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => { 
+            fire.auth().onAuthStateChanged(user =>{
+                if(user){
+                    let usersRef = fire.firestore().collection("users").doc(user.uid);
+                    usersRef.get().then(snapshot =>{
+                        if(snapshot.data().active == false){
+                            fire.auth().signOut();
+                            window.alert("Su cuenta ha sido deshabilitada!");
+                        }
+                    })
+                }
+            })
+        }).catch((error) => {
             console.log(error);
         });
     }
@@ -130,7 +142,8 @@ class Register extends Component {
                     correo: this.state.correo,
                     telefono: this.state.telefono,
                     region: this.state.region,
-                    accType: 1
+                    accType: 1,
+                    active: true
                 });
 
 

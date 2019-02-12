@@ -37,8 +37,13 @@ class App extends Component {
 
     this.state = {
       user: null,
+      nombre:null,
       type: null,
-      uid: null
+      uid: null,
+      apellido: null,
+      telefono: null,
+      region: null,
+      correo: null
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -62,6 +67,11 @@ class App extends Component {
           if (doc.id == id) {
             var temType = doc.data().accType
             this.setState(() => ({ type: temType }))
+            this.setState(()=>({ nombre: doc.data().nombre }))
+            this.setState(()=>({ apellido: doc.data().apellido }))
+            this.setState(()=>({ region: doc.data().region }))
+            this.setState(()=>({ telefono: doc.data().telefono }))
+            this.setState(()=>({ correo: doc.data().correo }))
           }
         });
       });
