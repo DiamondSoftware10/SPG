@@ -95,15 +95,7 @@ class Formularios extends Component {
                                         <div id="modal-flex">
 
                                             <div id="main-flex">
-                                                <div id="img-div">
-                                                    <img id="modal-img" onClick={this.handleOpenModal} src={this.state.foto}></img>
-                                                </div>
-                                                <div>
-                                                    <div id="terr-head">Terreno</div>
-                                                </div>
-                                                <div id="proj-title">
-                                                    <h1>{this.state.title}</h1>
-                                                </div>
+                                                
                                                 <br></br>
 
 {
@@ -130,13 +122,6 @@ class Formularios extends Component {
 
                                             </div>
 
-                                            <div id="side-flex">
-                                                <div id="sidebar">
-
-                                        
-                                                </div>
-
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
