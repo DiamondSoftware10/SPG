@@ -24,6 +24,7 @@ import Cart from './Components/Cart';
 import "circular-std";
 import ManageUsers from "./Components/ManageUsers";
 import ResetPassword from "./Components/ResetPassword";
+import Formularios from "./Components/Formularios";
 
 import ManageProjects from './Components/ManageProjects';
 import Profile from './Components/profile'
