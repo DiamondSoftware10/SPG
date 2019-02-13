@@ -98,9 +98,8 @@ class Infocard extends Component {
 
     //No captura el ID mandado con props desde proyecto.js
     componentDidMount() {
-        fire.auth().onAuthStateChanged(user => {
-            user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
-        });
+        
+
 
         console.log("Este es");
         this.setState({
@@ -110,14 +109,20 @@ class Infocard extends Component {
     }
 
     handleLoginModal() {
-        if (!this.state.user) {
+        console.log('entro login modal');
+        fire.auth().onAuthStateChanged(user => {
+            user ? this.handleOpenModal() : this.setState({
+                showLoginModal: true,
+            });
+        });
+        /*if (!this.state.user) {
             this.setState({
                 showLoginModal: true,
             });
 
         } else {
             this.handleOpenModal();
-        }
+        }*/
 
 
     }
