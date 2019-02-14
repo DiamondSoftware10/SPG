@@ -43,7 +43,8 @@ class App extends Component {
       apellido: null,
       telefono: null,
       region: null,
-      correo: null
+      correo: null, 
+      active: false
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -72,6 +73,7 @@ class App extends Component {
             this.setState(()=>({ region: doc.data().region }))
             this.setState(()=>({ telefono: doc.data().telefono }))
             this.setState(()=>({ correo: doc.data().correo }))
+            this.setState(()=>({active: doc.data().active }))
           }
         });
       });

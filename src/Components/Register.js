@@ -63,7 +63,9 @@ class Register extends Component {
 
     login(e) {
         e.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => { 
+        
+        fire.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => { 
+            
             fire.auth().onAuthStateChanged(user =>{
                 if(user){
                     let usersRef = fire.firestore().collection("users").doc(user.uid);
@@ -78,6 +80,7 @@ class Register extends Component {
         }).catch((error) => {
             console.log(error);
         });
+        
     }
 
     signup(e) {

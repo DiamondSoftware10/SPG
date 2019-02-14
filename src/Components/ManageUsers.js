@@ -70,17 +70,20 @@ class ManageUsers extends Component {
         collection.get().then(snapshot => {
             const data = [];
             snapshot.docs.forEach(doc => {
-                var type = 'User';
-                if (doc.data().accType == 0) {
-                    type = 'Admin'
+                if (doc.data().active) {
+                    var type = 'User';
+                    if (doc.data().accType == 0) {
+                        type = 'Admin'
+                    }
+                    const admin = {
+                        id: doc.id,
+                        nombre: doc.data().nombre,
+                        apellido: doc.data().apellido,
+                        accType: type,
+                    }
+                    data.push(admin);
                 }
-                const admin = {
-                    id: doc.id,
-                    nombre: doc.data().nombre,
-                    apellido: doc.data().apellido,
-                    accType: type,
-                }
-                data.push(admin);
+
             });
 
             this.setState(prevState => {
@@ -130,47 +133,52 @@ class ManageUsers extends Component {
 
 
     DeleteUser() {
-        console.log('que pedos')
-        console.log(this.state.selected);
-        console.log(this.state.selectedID);
+        if (window.confirm("¿ Está seguro que desea elminar el usuario ?")) {
+            console.log('que pedos')
+            console.log(this.state.selected);
+            console.log(this.state.selectedID);
 
-        const db = fire.firestore();
+            const db = fire.firestore();
+            db.collection("users").doc(this.state.selectedID).update({ active: false });
+            /*db.collection("users").doc(this.state.selectedID).delete().then(function () {
+                console.log("Document successfully deleted!");
+            }).catch(function (error) {
+                console.error("Error removing document: ", error);
+            });*/
 
-        db.collection("users").doc(this.state.selectedID).delete().then(function () {
-            console.log("Document successfully deleted!");
-        }).catch(function (error) {
-            console.error("Error removing document: ", error);
-        });
+            this.setState({ data: [] })
 
-        this.setState({ data: [] })
-
-        const database = fire.firestore();
-        // database.settings({timestampsInSnapshots: true});
-        const collection = database.collection('users');
+            const database = fire.firestore();
+            // database.settings({timestampsInSnapshots: true});
+            const collection = database.collection('users');
 
 
-        collection.get().then(snapshot => {
-            const data = [];
-            snapshot.docs.forEach(doc => {
-                var type = 'User';
-                if (doc.data().accType == 0) {
-                    type = 'Admin'
-                }
-                const admin = {
-                    id: doc.id,
-                    nombre: doc.data().nombre,
-                    apellido: doc.data().apellido,
-                    accType: type,
-                }
-                data.push(admin);
+            collection.get().then(snapshot => {
+                const data = [];
+                snapshot.docs.forEach(doc => {
+                    if (doc.data().active) {
+                        var type = 'User';
+                        if (doc.data().accType == 0) {
+                            type = 'Admin'
+                        }
+                        const admin = {
+                            id: doc.id,
+                            nombre: doc.data().nombre,
+                            apellido: doc.data().apellido,
+                            accType: type,
+                        }
+                        data.push(admin);
+                    }
+                });
+
+                this.setState(prevState => {
+                    return {
+                        data: [...prevState.data, ...data]
+                    };
+                });
             });
+        }
 
-            this.setState(prevState => {
-                return {
-                    data: [...prevState.data, ...data]
-                };
-            });
-        });
 
     }
 

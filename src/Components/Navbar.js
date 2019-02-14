@@ -14,7 +14,7 @@ const Navbar = () =>
 
     <div className=" sticky-top ">
        <UserContext.Consumer>
-        {context => context.user ? <NavAuth type = {context.type}/> : <p>NO HAY NADA</p>}   
+        {context => context.user ? <NavAuth type = {context.type}/> : <NavNonAuth/>}   
        </UserContext.Consumer> 
         
         
