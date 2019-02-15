@@ -61,19 +61,20 @@ class ManageUsers extends Component {
         collection.get().then(snapshot => {
             const data = [];
             snapshot.docs.forEach(doc => {
-                var type = 'User';
-                if (doc.data().accType == 0) {
-                    type = 'Admin'
+                if (doc.data().accType < 2) {
+                    var type = 'User';
+                    if (doc.data().accType == 0) {
+                        type = 'Admin'
+                    }
+                    const admin = {
+                        id: doc.id,
+                        nombre: doc.data().nombre,
+                        apellido: doc.data().apellido,
+                        accType: type,
+                        active: doc.data().active ? "activo" : "inactivo"
+                    }
+                    data.push(admin);
                 }
-                const admin = {
-                    id: doc.id,
-                    nombre: doc.data().nombre,
-                    apellido: doc.data().apellido,
-                    accType: type,
-                    active: doc.data().active ? "activo" : "inactivo"
-                }
-                data.push(admin);
-
 
             });
 
@@ -142,18 +143,20 @@ class ManageUsers extends Component {
                 const data = [];
                 snapshot.docs.forEach(doc => {
 
-                    var type = 'User';
-                    if (doc.data().accType == 0) {
-                        type = 'Admin'
+                    if (doc.data().accType < 2) {
+                        var type = 'User';
+                        if (doc.data().accType == 0) {
+                            type = 'Admin'
+                        }
+                        const admin = {
+                            id: doc.id,
+                            nombre: doc.data().nombre,
+                            apellido: doc.data().apellido,
+                            accType: type,
+                            active: doc.data().active ? "activo" : "inactivo"
+                        }
+                        data.push(admin);
                     }
-                    const admin = {
-                        id: doc.id,
-                        nombre: doc.data().nombre,
-                        apellido: doc.data().apellido,
-                        accType: type,
-                        active: doc.data().active ? "activo" : "inactivo"
-                    }
-                    data.push(admin);
 
                 });
 
