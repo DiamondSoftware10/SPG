@@ -25,7 +25,7 @@ import ManageUsers from "./Components/ManageUsers";
 import ResetPassword from "./Components/ResetPassword";
 
 import ManageProjects from './Components/ManageProjects';
-import Profile from './Components/profile'
+import Profile from './Components/Profile'
 import SearchPage from "./Components/SearchPage";
 
 class App extends Component {

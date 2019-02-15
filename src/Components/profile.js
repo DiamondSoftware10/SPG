@@ -168,39 +168,22 @@ class Profile extends Component {
 
                 {this.state.showInversiones ?
 
-                    <div >
-                        <h1 className="textD1" id="main-title">Mis inversiones</h1>
-
-                            <div class= "flex-container"> </div>
-                                <div >
-                                    <img class="item-imagen" src={require('../Images/1.jpg')} alt="Test" />
-                                </div>
-
-                                <div className="flex-text">
-                                    <div id="cart-name" class="text">Cultivo de Sandia </div>
-
-                                    <div id="cart-location" class="text">San lorenzo </div>
-
-                                </div>
-
-                                <div id="cart-inv" class="text">$1500.00</div>
-
-
-                            <div class="flex-container">
-                                <div >
-                                    <img class="item-imagen" src={require('../Images/1.jpg')} alt="Test" />
-                                </div>
-
-                                <div className="flex-text">
-                                    <div id="cart-name" class="text">Cultivo de Sandia </div>
-
-                                    <div id="cart-location" class="text">San lorenzo </div>
-
-                                </div>
-
-                                <div id="cart-inv" class="text">$1500.00</div>
-
-                            </div>
+                    <div id="invest-div">
+                        <h2 className="textD" id="main-title">Mis inversiones</h2>
+                        <div className="flexbox" id="invest-flex">
+                            <h4>Nombre proyecto</h4>
+                            <div>(Ubicacion)</div>
+                            <div>Shit</div>
+                            <div>(Ubicacion)</div>
+                            <div>Shit</div>
+                        </div>
+                        <div className="flexbox" id="invest-flex">
+                            <h4>Nombre proyecto</h4>
+                            <div>(Ubicacion)</div>
+                            <div>Shit</div>
+                            <div>(Ubicacion)</div>
+                            <div>Shit</div>
+                        </div>
                     </div>
 
 
