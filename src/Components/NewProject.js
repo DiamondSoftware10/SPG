@@ -91,8 +91,14 @@ class NewProject extends Component {
 
     //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
     //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
+    this.getTitle = this.getTitle.bind(this);
   }
-
+  //Nuevos metodos para recuperar los valores de los inputs
+  getTitle(value) {
+    this.setState({
+      titulo: value
+    });
+  }
   handleSubmit(e) {
     console.log(e.target.input.value);
   }
@@ -532,8 +538,9 @@ class NewProject extends Component {
               <Input
                 label="Titulo"
                 type="text"
-                alert = "El titulo debe empezar con una letra mayuscula"
-                regex = "^[A-Z][a-zA-ZñÑíÍáÁéÉóÓúÚ\s]"
+                getValue={this.getTitle}
+                alert="El titulo debe empezar con una letra mayuscula"
+                regex="^[A-Z][a-zA-ZñÑíÍáÁéÉóÓúÚ\s]"
                 placeholder="e.g. Terreno San Lorenzo"
               />
               <TextArea

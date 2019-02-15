@@ -1,6 +1,66 @@
 import React, { Component } from "react";
 import "./Input.css";
 
+var cultivos = [
+  "Café",
+  "Banano",
+  "Plátano",
+  "Piña",
+  "Melón",
+  "Ciruela",
+  "Mora",
+  "Aguacate",
+  "Maracuyá",
+  "Mango",
+  "Cacao",
+  "Marañon",
+  "Coco",
+  "Fresa",
+  "Camote",
+  "Ayote",
+  "Berenjena",
+  "Licha2​",
+  "Cítricos",
+  "Naranja",
+  "Toronja",
+  "Limón",
+  "limón",
+  "Hortalizas",
+  "Tomates",
+  "Cebolla",
+  "Pataste",
+  "Espinaca",
+  "Brócoli",
+  "Lechuga",
+  "Repollo",
+  "Zanahoria",
+  "Sandía",
+  "Chile",
+  "Patatas",
+  "Pepino",
+  "Acelga",
+  "Yuca",
+  "Remolacha",
+  "Leguminosas",
+  "Frijol",
+  "Ejote",
+  "Cacahuates",
+  "Hierbas aromáticas",
+  "Cilantro",
+  "Albahaca",
+  "Perejil",
+  "Ajo",
+  "Apio",
+  "Jengibre",
+  "Gramíneas",
+  "Maíz",
+  "Elote",
+  "Caña de azúcar",
+  "Azúcar",
+  "Tortillas",
+  "Otros"
+];
+
 export default class Input extends Component {
   constructor(props) {
     super(props);
@@ -10,9 +70,9 @@ export default class Input extends Component {
     };
   }
 
-  validation( value) {
+  validation(e, value) {
     let expreg = new RegExp(this.props.regex);
-    
+
     if (value === "") {
       this.setState({
         showAlert: true,
@@ -27,7 +87,6 @@ export default class Input extends Component {
       this.setState({
         showAlert: false
       });
-      this.props.getValue(value);
     }
   }
 
@@ -53,7 +112,7 @@ export default class Input extends Component {
             type={this.props.type}
             class="form-control"
             placeholder={this.props.placeholder}
-            onBlur={e => this.validation(e.target.value)}
+            onBlur={e => this.validation(e, e.target.value)}
             required
           />
         </div>
