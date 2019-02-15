@@ -80,21 +80,40 @@ class Infocard extends Component {
         this.handleCloseConfirmation = this.handleCloseConfirmation.bind(this);
 
     }
-    async componentWillMount() {
+    /*async componentWillMount() {
         await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
             this.setState({
                 foto: url
             })
         })
-    }
+    }*/
 
     //No captura el ID mandado con props desde proyecto.js
-    componentDidMount() {
-        console.log("Este es");
+    async componentDidMount() {
+        await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
+            this.setState({
+                id: this.props.id,
+                foto: url
+            })
+        })
+        /*console.log("Este es");
         this.setState({
             id: this.props.id,
         })
-        console.log(this.props.id);
+        console.log(this.props.id);*/
+    }
+    
+
+    async componentDidUpdate(prevProps){
+        if(this.props.id !== this.state.id){
+            await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
+                this.setState({
+                    id: this.props.id,
+                    foto: url
+                })
+            })
+            console.log("updating");
+        }
     }
 
     handleInfocard(title) {

@@ -25,11 +25,14 @@ class SearchPage extends Component {
             option: "title",
             searchTerm: "",
             foto: "",
+            nextSearch: "",
+            placeholder: "Buscar proyectos"
         }
 
         this.search = this.search.bind(this);
-        this.search2 = this.search2.bind(this);
+        this.searchDB = this.searchDB.bind(this);
         this.titleCase = this.titleCase.bind(this);
+        this.handleOption = this.handleOption.bind(this);
     }
 
     /* async componentWillMount(){
@@ -41,13 +44,11 @@ class SearchPage extends Component {
      }*/
 
 
-    componentWillReceiveProps(nextProps) {
+    /*componentWillReceiveProps(nextProps) {
         if (nextProps.id === this.props.id) {
             this.search();
         }
-    }
-
-
+    }*/
 
     componentDidMount() {
         const type = this.props.match.params.type;
@@ -55,8 +56,8 @@ class SearchPage extends Component {
         console.log("option: " + this.props.match.params.type)
         console.log("searchTerm:" + searchTerm)
         /* this.setState({
-             //option: this.props .option,
-             option: type
+            //option: this.props .option,
+            option: type
          })*/
         this.setState({
             option: type,
@@ -67,6 +68,20 @@ class SearchPage extends Component {
         // this.search();
         //console.log(this.props.params.name);
     }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.type !== this.props.match.params.type || prevProps.match.params.searchTerm !== this.props.match.params.searchTerm) {
+            this.setState({
+                option: this.props.match.params.type,
+                searchTerm: this.props.match.params.searchTerm
+            }, () => {
+                this.search();
+            });
+
+        }
+
+    }
+
 
     titleCase(str) {
         var splitStr = String(str).toLowerCase().split(' ');
@@ -79,8 +94,27 @@ class SearchPage extends Component {
         return splitStr.join(' ');
     }
 
+    searchDB(query) {
+        if (query != null) {
+            query.get().then((snap) => {
+                if (snap.empty) {
+                    console.log('No documents found');
+                } else {
+                    let data = [];
+                    snap.forEach(function (doc) {
+                        console.log("Doc ID: " + doc.id + " Data: " + doc.data().title);
+                        data.push(doc.data())
+                    })
+                    this.setState({ searchResults: data })
+                }
+            })
+        } else {
+            console.log("error");
+        }
+    }
 
     search() {
+
         console.log("option: " + this.state.option);
         console.log("searchTerm state: " + this.state.searchTerm);
 
@@ -89,70 +123,46 @@ class SearchPage extends Component {
 
         console.log("opcion: " + type)
         console.log("search term: " + searchTerm)
-
-        /*if (searchTerm.empty) {
-            searchTerm = this.state.searchTerm;
-            console.log(searchTerm);
-        }*/
         console.log("Search term: " + this.titleCase(searchTerm));
-        //const {searchTerm} = this.props.match.params
-        //console.log("text state: " + this.state.text);
+
+
         var projects = db.collection("projects");
-        //var query = projects.where(this.state.option, "==", this.titleCase(searchTerm));
-        var query = projects.where(type, "==", this.titleCase(searchTerm));
+        var query
+        if (this.state.option === "investInitxBlock") {
+            if (this.state.searchTerm.match(/[a-z]/i)) {
+                alert("La busqueda por inversión no debe de contener letras");
+                query = null;
+            } else {
+                query = projects.where(this.state.option, ">=", this.titleCase(parseInt(searchTerm)));
+            }
+        } else if (this.state.option === "locate") {
+            query = projects.where(this.state.option, "==", this.titleCase(searchTerm));
+
+        } else if (this.state.option === "title") {
+            query = projects.where(this.state.option, "==", this.titleCase(searchTerm))
+
+        } else if (this.state.option === "cultures") {
+            query = projects.where(this.state.option, "array-contains", this.titleCase(searchTerm))
+
+
+        }
 
         console.log("query length: " + query);
-        query.get().then((snap) => {
-            if (snap.empty) {
-                console.log('No documents found');
-            } else {
-                let data = [];
-                snap.forEach(function (doc) {
-                    console.log("Doc ID: " + doc.id + " Data: " + doc.data().title);
-                    data.push(doc.data())
-                })
+        this.searchDB(query);
 
-                this.setState({ searchResults: data })
-
-
-            }
-        })
     }
 
-    search2() {
-        console.log("option: " + this.state.option);
-        console.log("searchTerm state: " + this.state.searchTerm);
-
-        let mySearch = this.state.searchTerm
-
-        console.log("Search term: " + this.titleCase(mySearch));
-        //const {searchTerm} = this.props.match.params
-        //console.log("text state: " + this.state.text);
-        var projects = db.collection("projects");
-        var query = projects.where(this.state.option, "==", this.titleCase(mySearch));
-
-        console.log("query length: " + query);
-        query.get().then((snap) => {
-            if (snap.empty) {
-                console.log('No documents found');
-            } else {
-                let data = [];
-                snap.forEach(function (doc) {
-                    console.log("Doc ID: " + doc.id + " Data: " + doc.data().title);
-                    data.push(doc.data())
-                })
-
-                this.setState({ searchResults: data })
-
-
-            }
+    handleOption(value, category) {
+        var ph = "Buscar proyectos " + category;
+        this.setState({
+            option: value,
+            placeholder: ph
         })
-        this.render();
+
+        console.log(this.state.placeholder)
     }
 
     render() {
-
-
         //console.log(this.props.params.sarchTerm)
         //let cards = "";
         let cards = this.state.searchResults.map((doc, i) => {
@@ -181,35 +191,64 @@ class SearchPage extends Component {
         return (
             <div className="info-cont">
                 <div className="flex-content" id="search-flex">
-                    <div id="button-flex" className="flex-content btn-group btn-group-toggle" data-toggle="buttons">
-                        <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
-                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
-                    </div>
-                    {/*<Searchbar option={this.state.option}/>*/}
                     <div>
                         <form className="form-inline my-2 my-lg-0 input-search">
                             <input id="page-search"
                                 className="form-control mr-sm-2"
                                 type="search"
-                                placeholder="Busca proyectos"
+                                placeholder={this.state.placeholder}
                                 aria-label="Busqueda"
-                                onChange={evt => this.setState(byPropKey('searchTerm', evt.target.value))}
+                                autocomplete="off"
+                                onChange={evt => this.setState(byPropKey('nextSearch', evt.target.value))}
+                                onKeyPress={event => {
+                                    if (event.key === 'Enter') {
+                                        //this.componentDidMount()
+                                    }
+                                }}
                             />
-                            {/*Link no funciona asi que tuve que usar this.props.history para actualizar el URL  */}
-                            <a href={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm} onClick={() => this.props.history.push(routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm)} >
-                                <img id="page-search-icon" src={magnifier} onClick={() => window.location.reload()}/*onClick={this.search2}*/ />
-                            </a>
+
+                            <Link /*onClick = {() => window.location.reload()}*/ to={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.nextSearch} >
+                                <img id="page-search-icon" src={magnifier} />
+                            </Link>
 
 
                             {/*<button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.search}>Búsqueda</button>*/}
                         </form>
                     </div>
+                    <div id="button-flex" className="flex-content btn-group btn-group-toggle" data-toggle="buttons">
+                        <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.handleOption("title", "por nombre")} checked > Titulo</button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("locate", "por ubicacion")} > Ubicación </button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("investInitxBlock", "por inversión minima")} > Inversión inicial </button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("cultures", "por cultivos")} > Cultivos </button>
+                    </div>
+                    <div className="flexbox" id="filter-flex">
+                        <div className="side-flex">
+                            <div id="sidebar">
+                                <h2>Filtros</h2>
+                                <div>
+                                    <h6>Inversion Minima</h6>
+                                    <h6>Nombre de Proyecto</h6>
+                                    <h6>Ubicacion</h6>
+                                    <h6>Cultivos</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="main-flex">
+                            <div>
+                                <h2>Resultados para "{this.state.searchTerm}"</h2>
+                            </div>
+                            <div>
+                                {cards}
+                            </div>
+
+                        </div>
+
+                        {/*<Searchbar option={this.state.option}/>*/}
+                    </div>
                 </div>
                 {/* <h1 id="main-title">Proyectos</h1>*/}
 
-                <div id="cards-div">
-                    {cards}
-                </div>
+
 
             </div>
 
