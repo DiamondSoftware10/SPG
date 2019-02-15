@@ -150,28 +150,39 @@ class NewProject extends Component {
     this.getTitle = this.getTitle.bind(this);
     this.addListCrops = this.addListCrops.bind(this);
     this.deleteListCrops = this.deleteListCrops.bind(this);
-
+    this.getDescription = this.getDescription.bind(this);
+    this.getInformation = this.getInformation.bind(this);
   }
   //Nuevos metodos para recuperar los valores de los inputs
   getTitle(value) {
-    alert(value);
     this.setState({
       titulo: value
     });
   }
-  addListCrops(value){
+  addListCrops(value) {
     this.setState({
-      listNameCrops:this.state.listNameCrops.concat(value),
-    })
+      listNameCrops: this.state.listNameCrops.concat(value)
+    });
   }
-  deleteListCrops (index){
+
+  deleteListCrops(index) {
     this.setState(() => {
       const listNameCrops = this.state.listNameCrops;
       listNameCrops.splice(index, 1);
       return listNameCrops;
     });
   }
-
+  getDescription(value) {
+    this.setState({
+      descripcion: value
+    });
+  }
+  getInformation(value) {
+    alert(value)
+    this.setState({
+        infoZona: value
+    });
+  }
   handleSubmit(e) {
     console.log(e.target.input.value);
   }
@@ -620,6 +631,7 @@ class NewProject extends Component {
               <TextArea
                 label="Descripción del proyecto"
                 placeholder="Breve descripcion del proyecto"
+                getValue={this.getDescription}
               />
             </div>
             <ItemHeading
@@ -629,8 +641,17 @@ class NewProject extends Component {
             />
             <div className="flexbox" id="input-flex">
               {/**Cultivos cambiar*/}
-              <ComboBox label="Cultivos" add={this.addListCrops} delete={this.deleteListCrops} array ={arregloCultivos}/>
-              <TextArea label="Informacion de la zona" placeholder="" />
+              <ComboBox
+                label="Cultivos"
+                add={this.addListCrops}
+                delete={this.deleteListCrops}
+                array={arregloCultivos}
+              />
+              <TextArea
+                label="Informacion de la zona"
+                placeholder="¿Qué tal es esta zona para la agricultura?"
+                getValue = {this.getInformation}
+              />
               {/**#Numero de manzanas */}
             </div>
             <ItemHeading
