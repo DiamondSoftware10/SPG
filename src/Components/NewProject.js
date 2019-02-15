@@ -19,6 +19,8 @@ import ItemHeading from "./Objects/ItemHeading";
 import Input from "./Objects/Input";
 import TextArea from "./Objects/TextArea";
 import ComboBox from "./Objects/ComboBox";
+import InputNumber from "./Objects/InputNumber";
+
 const AddProject = () => (
   <div id="project">
     <NewProject />
@@ -661,8 +663,8 @@ class NewProject extends Component {
             />
             <div className="flexbox" id="input-flex">
               {/** Inversion minima*/}
-              <Input
-                label="Cultivos"
+              <InputNumber
+                label="Inversion por manzana"
                 tipo="text"
                 placeholder="e.g. Presione Enter para ingresar un cultivo"
               />
