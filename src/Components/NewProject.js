@@ -154,6 +154,8 @@ class NewProject extends Component {
     this.deleteListCrops = this.deleteListCrops.bind(this);
     this.getDescription = this.getDescription.bind(this);
     this.getInformation = this.getInformation.bind(this);
+    this.getNumeroManzanas = this.getNumeroManzanas.bind(this);
+    this.getInversion =this.getInversion.bind();
   }
   //Nuevos metodos para recuperar los valores de los inputs
   getTitle(value) {
@@ -180,9 +182,19 @@ class NewProject extends Component {
     });
   }
   getInformation(value) {
+    this.setState({
+      infoZona: value
+    });
+  }
+  getNumeroManzanas(value) {
+    this.setState({
+      numeroManzanas: value
+    });
+  }
+  getInversion(value){
     alert(value)
     this.setState({
-        infoZona: value
+      inversionInicial: value
     });
   }
   handleSubmit(e) {
@@ -652,9 +664,12 @@ class NewProject extends Component {
               <TextArea
                 label="Informacion de la zona"
                 placeholder="¿Qué tal es esta zona para la agricultura?"
-                getValue = {this.getInformation}
+                getValue={this.getInformation}
               />
-              {/**#Numero de manzanas */}
+              <InputNumber
+                label="Número de manzanas"
+                getValue={this.getNumeroManzanas}
+              />
             </div>
             <ItemHeading
               number="3"
@@ -666,7 +681,8 @@ class NewProject extends Component {
               <InputNumber
                 label="Inversion por manzana"
                 tipo="text"
-                placeholder="e.g. Presione Enter para ingresar un cultivo"
+                placeholder=""
+                getValue={this.getInversion}
               />
               {/**Mostrarlo en un label */}
             </div>
