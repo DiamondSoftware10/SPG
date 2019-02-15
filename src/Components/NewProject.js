@@ -532,6 +532,8 @@ class NewProject extends Component {
               <Input
                 label="Titulo"
                 type="text"
+                alert = "El titulo debe empezar con una letra mayuscula"
+                regex = "^[A-Z][a-zA-ZñÑíÍáÁéÉóÓúÚ\s]"
                 placeholder="e.g. Terreno San Lorenzo"
               />
               <TextArea
@@ -588,7 +590,6 @@ class NewProject extends Component {
               <input
                 id="newProject-input1"
                 value={titulo}
-                alert = "El proyecto debe tener un titulo"
                 onChange={project =>
                   this.setState(byPropKey("titulo", project.target.value))
                 }
