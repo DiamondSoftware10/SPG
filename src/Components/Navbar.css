@@ -15,12 +15,30 @@
     font-size: 1.5em;
     margin-right: 2.4vw;
     font-family: Montserrat;
-    color: black;
+    color: black !important;
+}
+
+.navbar-nav {
+    align-items: center;
 }
 .nav-item {
     margin: 0vw 1vw 0vw 1vw;
     font-size: 0.9em;
     font-weight: 600;
+}
+
+.nav-link {
+    color: rgb(106, 106, 106);
+    font-size: 0.9em;
+    align-items: flex-start;
+   font-weight: 200;
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+  
+}
+
+.dropdown-item {
+    color: rgb(106, 106, 106);
 }
 
 .nav-item #login-bt {
@@ -61,17 +79,11 @@
     left: 5%;
 }
 
-#cart-icon {
-    height:6vh;
-   align-self: center;
-   padding: 1vh;
+#nav-icon {
+        width: 1.5em;
+        height: 1.5em;
 }
 
-#prof-icon {
-    height: 4.7vh;
-    align-self: center;
-    padding-top: 1.2vh;
-}
 
 #btn-search {
     display: none;
