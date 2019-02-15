@@ -1,120 +1,72 @@
 import React, { Component } from "react";
-import "./Input.css";
+import "./ComboBox.css";
+import close from "../../Icons/close.svg";
 
-var cultivos = [
-  "Café",
-  "Banano",
-  "Plátano",
-  "Piña",
-  "Melón",
-  "Ciruela",
-  "Mora",
-  "Aguacate",
-  "Maracuyá",
-  "Mango",
-  "Cacao",
-  "Marañon",
-  "Coco",
-  "Fresa",
-  "Camote",
-  "Ayote",
-  "Berenjena",
-  "Licha2​",
-  "Cítricos",
-  "Naranja",
-  "Toronja",
-  "Limón",
-  "limón",
-  "Hortalizas",
-  "Tomates",
-  "Cebolla",
-  "Pataste",
-  "Espinaca",
-  "Brócoli",
-  "Lechuga",
-  "Repollo",
-  "Zanahoria",
-  "Sandía",
-  "Chile",
-  "Patatas",
-  "Pepino",
-  "Acelga",
-  "Yuca",
-  "Remolacha",
-  "Leguminosas",
-  "Frijol",
-  "Ejote",
-  "Cacahuates",
-  "Hierbas aromáticas",
-  "Cilantro",
-  "Albahaca",
-  "Perejil",
-  "Ajo",
-  "Apio",
-  "Jengibre",
-  "Gramíneas",
-  "Maíz",
-  "Elote",
-  "Caña de azúcar",
-  "Azúcar",
-  "Tortillas",
-  "Otros"
-];
 
 export default class Input extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showAlert: false,
-      inputValue: ""
+      inputValue: "",
+      list: []
     };
+    this.handleAddList = this.handleAddList.bind(this);
+    this.handleDelete= this.handleDelete.bind(this);  
   }
-
-  validation(e, value) {
-    let expreg = new RegExp(this.props.regex);
-
-    if (value === "") {
-      this.setState({
-        showAlert: true,
-        inputValue: value
-      });
-    } else if (!expreg.test(value)) {
-      this.setState({
-        showAlert: true,
-        inputValue: value
-      });
-    } else {
-      this.setState({
-        showAlert: false
-      });
-    }
+  handleAddList=index=>{
+    this.setState({
+      list:this.state.list.concat(this.props.array[index]),
+      showAlert: false
+    })
+    this.props.add(this.props.array[index]);
   }
-
-  renderAlert() {
-    let expreg = new RegExp(this.props.regex);
-
-    if (this.state.inputValue === "") {
-      return <label>El campo no puede estar vacio</label>;
-    } else if (!expreg.test(this.state.inputValue)) {
-      return <label>{this.props.alert}</label>;
-    }
+  handleDelete =index=>{
+    this.setState(state => {
+      const list = this.state.list;
+      list.splice(index, 1);
+      return list;
+    });
+    this.props.delete(index);
   }
+ 
 
   render() {
     return (
       <div>
-        <div class="form-group">
+        <div class="form-group" >
           <label>{this.props.label}</label>
-          {this.state.showAlert ? this.renderAlert() : null}
-
-          <input
-            name="input"
-            type={this.props.type}
-            class="form-control"
-            placeholder={this.props.placeholder}
-            onBlur={e => this.validation(e, e.target.value)}
-            required
-          />
+          <div class="dropdown" >
+            <button
+              type="button"
+              class="btn btn-primary dropdown-toggle"
+              data-toggle="dropdown"
+            >
+              Seleccione un elemento
+            </button>
+            <ul class="dropdown-menu scrollable-menu" role="menu" >
+              {this.props.array.map((name, index) => (
+                <li key={index} onClick ={()=>this.handleAddList(index)}>
+                  <a class="dropdown-item" >{name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <ul>
+              {this.state.list.map((name, index) => (
+                <li id="item" key={index}>
+                  {name}
+                  <button
+                    id="close-bt"
+                    onClick={e => this.handleDelete(index, e)}
+                  >
+                    <img id="close-icon" src={close} height="10" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     );

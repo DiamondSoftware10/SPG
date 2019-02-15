@@ -18,12 +18,68 @@ import "./Carousel.css";
 import ItemHeading from "./Objects/ItemHeading";
 import Input from "./Objects/Input";
 import TextArea from "./Objects/TextArea";
-
+import ComboBox from "./Objects/ComboBox";
 const AddProject = () => (
   <div id="project">
     <NewProject />
   </div>
 );
+
+var arregloCultivos = [
+  "Café",
+  "Banano",
+  "Plátano",
+  "Piña",
+  "Melón",
+  "Ciruela",
+  "Mora",
+  "Aguacate",
+  "Maracuyá",
+  "Mango",
+  "Cacao",
+  "Marañon",
+  "Coco",
+  "Fresa",
+  "Camote",
+  "Ayote",
+  "Berenjena",
+  "Licha​",
+  "Cítricos",
+  "Naranja",
+  "Toronja",
+  "Limón",
+  "limón",
+  "Hortalizas",
+  "Tomates",
+  "Cebolla",
+  "Pataste",
+  "Espinaca",
+  "Brócoli",
+  "Lechuga",
+  "Repollo",
+  "Zanahoria",
+  "Sandía",
+  "Chile",
+  "Patatas",
+  "Pepino",
+  "Acelga",
+  "Yuca",
+  "Remolacha",
+  "Frijol",
+  "Ejote",
+  "Cacahuates",
+  "Hierbas aromáticas",
+  "Cilantro",
+  "Albahaca",
+  "Perejil",
+  "Ajo",
+  "Apio",
+  "Jengibre",
+  "Gramíneas",
+  "Maíz",
+  "Elote",
+  "Caña de azúcar"
+];
 
 const INITIAL_STATE = {
   titulo: "",
@@ -92,13 +148,30 @@ class NewProject extends Component {
     //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
     //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
     this.getTitle = this.getTitle.bind(this);
+    this.addListCrops = this.addListCrops.bind(this);
+    this.deleteListCrops = this.deleteListCrops.bind(this);
+
   }
   //Nuevos metodos para recuperar los valores de los inputs
   getTitle(value) {
+    alert(value);
     this.setState({
       titulo: value
     });
   }
+  addListCrops(value){
+    this.setState({
+      listNameCrops:this.state.listNameCrops.concat(value),
+    })
+  }
+  deleteListCrops (index){
+    this.setState(() => {
+      const listNameCrops = this.state.listNameCrops;
+      listNameCrops.splice(index, 1);
+      return listNameCrops;
+    });
+  }
+
   handleSubmit(e) {
     console.log(e.target.input.value);
   }
@@ -392,6 +465,7 @@ class NewProject extends Component {
 
   handleKeyEnterAddCrop = (event, cultivo) => {
     console.log(event.keyCode);
+
     if (event.keyCode === 13) {
       this.setState({
         listNameCrops: this.state.listNameCrops.concat(cultivo),
@@ -555,11 +629,7 @@ class NewProject extends Component {
             />
             <div className="flexbox" id="input-flex">
               {/**Cultivos cambiar*/}
-              <Input
-                label="Cultivos"
-                tipo="text"
-                placeholder="Presione Enter para ingresar un cultivo"
-              />
+              <ComboBox label="Cultivos" add={this.addListCrops} delete={this.deleteListCrops} array ={arregloCultivos}/>
               <TextArea label="Informacion de la zona" placeholder="" />
               {/**#Numero de manzanas */}
             </div>
