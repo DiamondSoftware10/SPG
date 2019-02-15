@@ -10,11 +10,25 @@ export default class Input extends Component {
     };
   }
 
-  validation(e, value) {
-    this.setState({
-      showAlert: !this.state.showAlert,
-      inputValue: value
-    });
+  validation( value) {
+    let expreg = new RegExp(this.props.regex);
+    
+    if (value === "") {
+      this.setState({
+        showAlert: true,
+        inputValue: value
+      });
+    } else if (!expreg.test(value)) {
+      this.setState({
+        showAlert: true,
+        inputValue: value
+      });
+    } else {
+      this.setState({
+        showAlert: false
+      });
+      this.props.getValue(value);
+    }
   }
 
   renderAlert() {
@@ -22,10 +36,8 @@ export default class Input extends Component {
 
     if (this.state.inputValue === "") {
       return <label>El campo no puede estar vacio</label>;
-    } else if (expreg.test) {
+    } else if (!expreg.test(this.state.inputValue)) {
       return <label>{this.props.alert}</label>;
-    } else {
-      return <label>Que putas </label>;
     }
   }
 
@@ -41,8 +53,7 @@ export default class Input extends Component {
             type={this.props.type}
             class="form-control"
             placeholder={this.props.placeholder}
-            onBlur={e => this.validation(e, e.target.value)}
-            on
+            onBlur={e => this.validation(e.target.value)}
             required
           />
         </div>

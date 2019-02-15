@@ -18,12 +18,70 @@ import "./Carousel.css";
 import ItemHeading from "./Objects/ItemHeading";
 import Input from "./Objects/Input";
 import TextArea from "./Objects/TextArea";
+import ComboBox from "./Objects/ComboBox";
+import InputNumber from "./Objects/InputNumber";
 
 const AddProject = () => (
   <div id="project">
     <NewProject />
   </div>
 );
+
+var arregloCultivos = [
+  "Café",
+  "Banano",
+  "Plátano",
+  "Piña",
+  "Melón",
+  "Ciruela",
+  "Mora",
+  "Aguacate",
+  "Maracuyá",
+  "Mango",
+  "Cacao",
+  "Marañon",
+  "Coco",
+  "Fresa",
+  "Camote",
+  "Ayote",
+  "Berenjena",
+  "Licha​",
+  "Cítricos",
+  "Naranja",
+  "Toronja",
+  "Limón",
+  "limón",
+  "Hortalizas",
+  "Tomates",
+  "Cebolla",
+  "Pataste",
+  "Espinaca",
+  "Brócoli",
+  "Lechuga",
+  "Repollo",
+  "Zanahoria",
+  "Sandía",
+  "Chile",
+  "Patatas",
+  "Pepino",
+  "Acelga",
+  "Yuca",
+  "Remolacha",
+  "Frijol",
+  "Ejote",
+  "Cacahuates",
+  "Hierbas aromáticas",
+  "Cilantro",
+  "Albahaca",
+  "Perejil",
+  "Ajo",
+  "Apio",
+  "Jengibre",
+  "Gramíneas",
+  "Maíz",
+  "Elote",
+  "Caña de azúcar"
+];
 
 const INITIAL_STATE = {
   titulo: "",
@@ -91,8 +149,54 @@ class NewProject extends Component {
 
     //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
     //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
+    this.getTitle = this.getTitle.bind(this);
+    this.addListCrops = this.addListCrops.bind(this);
+    this.deleteListCrops = this.deleteListCrops.bind(this);
+    this.getDescription = this.getDescription.bind(this);
+    this.getInformation = this.getInformation.bind(this);
+    this.getNumeroManzanas = this.getNumeroManzanas.bind(this);
+    this.getInversion =this.getInversion.bind();
+  }
+  //Nuevos metodos para recuperar los valores de los inputs
+  getTitle(value) {
+    this.setState({
+      titulo: value
+    });
+  }
+  addListCrops(value) {
+    this.setState({
+      listNameCrops: this.state.listNameCrops.concat(value)
+    });
   }
 
+  deleteListCrops(index) {
+    this.setState(() => {
+      const listNameCrops = this.state.listNameCrops;
+      listNameCrops.splice(index, 1);
+      return listNameCrops;
+    });
+  }
+  getDescription(value) {
+    this.setState({
+      descripcion: value
+    });
+  }
+  getInformation(value) {
+    this.setState({
+      infoZona: value
+    });
+  }
+  getNumeroManzanas(value) {
+    this.setState({
+      numeroManzanas: value
+    });
+  }
+  getInversion(value){
+    alert(value)
+    this.setState({
+      inversionInicial: value
+    });
+  }
   handleSubmit(e) {
     console.log(e.target.input.value);
   }
@@ -386,6 +490,7 @@ class NewProject extends Component {
 
   handleKeyEnterAddCrop = (event, cultivo) => {
     console.log(event.keyCode);
+
     if (event.keyCode === 13) {
       this.setState({
         listNameCrops: this.state.listNameCrops.concat(cultivo),
@@ -532,6 +637,7 @@ class NewProject extends Component {
               <Input
                 label="Titulo"
                 type="text"
+                getValue={this.getTitle}
                 alert="El titulo debe empezar con una letra mayuscula"
                 regex="^[A-Z][a-zA-ZñÑíÍáÁéÉóÓúÚ\s]"
                 placeholder="e.g. Terreno San Lorenzo"
@@ -539,6 +645,7 @@ class NewProject extends Component {
               <TextArea
                 label="Descripción del proyecto"
                 placeholder="Breve descripcion del proyecto"
+                getValue={this.getDescription}
               />
             </div>
             <ItemHeading
@@ -548,13 +655,21 @@ class NewProject extends Component {
             />
             <div className="flexbox" id="input-flex">
               {/**Cultivos cambiar*/}
-              <Input
+              <ComboBox
                 label="Cultivos"
-                tipo="text"
-                placeholder="Presione Enter para ingresar un cultivo"
+                add={this.addListCrops}
+                delete={this.deleteListCrops}
+                array={arregloCultivos}
               />
-              <TextArea label="Informacion de la zona" placeholder="" />
-              {/**#Numero de manzanas */}
+              <TextArea
+                label="Informacion de la zona"
+                placeholder="¿Qué tal es esta zona para la agricultura?"
+                getValue={this.getInformation}
+              />
+              <InputNumber
+                label="Número de manzanas"
+                getValue={this.getNumeroManzanas}
+              />
             </div>
             <ItemHeading
               number="3"
@@ -563,10 +678,11 @@ class NewProject extends Component {
             />
             <div className="flexbox" id="input-flex">
               {/** Inversion minima*/}
-              <Input
-                label="Cultivos"
+              <InputNumber
+                label="Inversion por manzana"
                 tipo="text"
-                placeholder="e.g. Presione Enter para ingresar un cultivo"
+                placeholder=""
+                getValue={this.getInversion}
               />
               {/**Mostrarlo en un label */}
             </div>

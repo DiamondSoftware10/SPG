@@ -1,0 +1,25 @@
+.form-group {
+    text-align: left;
+    padding-right: 4em; 
+}
+
+.form-group * {
+    width: 30vw;
+    padding-right: 2em;
+}
+
+textarea {
+    border-radius: 8em;
+    resize: none
+}
+
+@media(max-width: 800px) {
+    .form-group * {
+        width: 15em;
+    }
+}
+.scrollable-menu {
+    height: auto;
+    max-height: 200px;
+    overflow-x: hidden;
+}
