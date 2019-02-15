@@ -144,9 +144,10 @@ class CreateAdmin extends Component {
     render() {
         return (
             <div id="superuser-div">
-                <form id= "superuser-form" >
-                <h1 id="main-title">Crear Administrador</h1>
+           
 
+                <form id= "superuser-form" >
+                <h1>Crear Administrador</h1>
                     <div className="form-group" id="input-list-item">
                         <label>Primer Nombre</label>
                         <input
