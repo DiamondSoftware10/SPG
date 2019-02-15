@@ -31,6 +31,12 @@ class ManageUsers extends Component {
                 width: 100,
             },
             {
+                Header: "Type",
+                accessor: "accType",
+                width: 100,
+            }
+            ,
+            {
                 Header: "First Name",
                 accessor: "nombre",
                 width: 100,
@@ -40,12 +46,7 @@ class ManageUsers extends Component {
                 accessor: "apellido",
                 width: 100,
             },
-            {
-                Header: "Type",
-                accessor: "accType",
-                width: 100,
-            }
-            ,
+            
 
         ];
     }
@@ -62,9 +63,9 @@ class ManageUsers extends Component {
             const data = [];
             snapshot.docs.forEach(doc => {
                 if (doc.data().accType < 2) {
-                    var type = 'User';
+                    var type = 'Usuario';
                     if (doc.data().accType == 0) {
-                        type = 'Admin'
+                        type = 'Gestor de Proyecto'
                     }
                     const admin = {
                         id: doc.id,
