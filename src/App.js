@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as routes from './Constants/Routes';
 import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
@@ -53,7 +53,11 @@ class App extends Component {
   async componentDidMount() {
     await fire.auth().onAuthStateChanged(user => {
       user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
-      var id = user.uid;
+      
+      if(user){
+        var id = user.uid;
+      }
+      
       console.log(id);
       this.setState(() => ({ uid: id }))
       var ref = fire.firestore().collection('users');
@@ -89,69 +93,73 @@ class App extends Component {
         <Router>
           <div>
             <Navbar authUser={this.state.user} type={this.state.type} />
-            <Route
-              exact path={routes.ADMINHOMEPAGE}
-              component={() => <AdminHomepage />}
-            />
-            <Route
-              exact path={routes.USERHOMEPAGE}
-              component={() => <UserHomepage />}
-            />
-            <Route
-              exact path={routes.GUESTHOMEPAGE}
-              component={() => <GuestHomepage />}
-            />
-            <Route
-              exact path={routes.LOGINPAGE}
-              component={LoginPage}
-            />
-            <Route
-              exact path={routes.NEWPROJECT}
-              component={() => <AddProject />}
-            />
-            <Route
-              path={routes.SEARCHPAGE + "/:type/:searchTerm"}
-              exact component={SearchPage}
-            />
-            <Route
-              exact path={routes.PROYECTOS}
-              component={Proyectos}
-            />
-            <Route
-              exact path={routes.PROYECTOSADMIN}
-              component={() => <ProyectosAdmin />}
-            />
-            <Route
-              exact path={routes.LANDING}
-              component={() => <Landing />}
-            />
-            <Route
-              exact path={routes.PROFILE}
-              component={() => <Profile uid={this.state.uid} />}
-            />
-            <Route
-              exact path={routes.CREATEUSERADMIN}
-              component={() => <CreateAdmin />}
-            />
-            <Route
-              exact path={routes.CART}
-              component={() => <Cart />} 
-            />
-             <Route
-              exact path={routes.MANAGEUSERS}
-              component={() => <ManageUsers />}
-            />
-            <Route
-              exact path={routes.MANAGEPROJECTS}
-              component={() => <ManageProjects />}
-            />
-                
-            <Route
-              exact path={routes.RESETPASSWORD}
-              component={() => <ResetPassword/>}
-            />
-                
-                
+            <Switch>
+
+              <Route
+                exact path={routes.ADMINHOMEPAGE}
+                component={() => <AdminHomepage />}
+              />
+              <Route
+                exact path={routes.USERHOMEPAGE}
+                component={() => <UserHomepage />}
+              />
+              <Route
+                exact path={routes.GUESTHOMEPAGE}
+                component={() => <GuestHomepage />}
+              />
+              <Route
+                exact path={routes.LOGINPAGE}
+                component={LoginPage}
+              />
+              <Route
+                exact path={routes.NEWPROJECT}
+                component={() => <AddProject />}
+              />
+              <Route
+                path={routes.SEARCHPAGE + "/:type/:searchTerm"}
+                component={SearchPage}
+              />
+              <Route
+                exact path={routes.PROYECTOS}
+                component={Proyectos}
+              />
+              <Route
+                exact path={routes.PROYECTOSADMIN}
+                component={() => <ProyectosAdmin />}
+              />
+              <Route
+                exact path={routes.LANDING}
+                component={() => <Landing />}
+              />
+              <Route
+                exact path={routes.PROFILE}
+                component={() => <Profile uid={this.state.uid} />}
+              />
+              <Route
+                exact path={routes.CREATEUSERADMIN}
+                component={() => <CreateAdmin />}
+              />
+              <Route
+                exact path={routes.CART}
+                component={() => <Cart />}
+              />
+              <Route
+                exact path={routes.MANAGEUSERS}
+                component={() => <ManageUsers />}
+              />
+              <Route
+                exact path={routes.MANAGEPROJECTS}
+                component={() => <ManageProjects />}
+              />
+
+              <Route
+                exact path={routes.RESETPASSWORD}
+                component={() => <ResetPassword />}
+              />
+
+            </Switch>
+
+
           </div>
         </Router>
       </div>

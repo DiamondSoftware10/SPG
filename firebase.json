@@ -15,10 +15,15 @@
     ],
     "rewrites" : [
       {
-        "source": "**",
+        "source": "!{/bower_components,/src}/**",
         "destination": "/index.html"
       }
+    ],
+    
+    "headers": [
+      { "source":"/service-worker.js", "headers": [{"key": "Cache-Control", "value": "no-cache"}] }
     ]
+
   },
   "storage": {
     "rules": "storage.rules"

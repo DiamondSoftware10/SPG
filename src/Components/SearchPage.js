@@ -28,6 +28,7 @@ class SearchPage extends Component {
         }
 
         this.search = this.search.bind(this);
+        this.searchDB = this.searchDB.bind(this);
         this.titleCase = this.titleCase.bind(this);
     }
 
@@ -40,11 +41,11 @@ class SearchPage extends Component {
      }*/
 
 
-    componentWillReceiveProps(nextProps) {
+    /*componentWillReceiveProps(nextProps) {
         if (nextProps.id === this.props.id) {
             this.search();
         }
-    }
+    }*/
 
     componentDidMount() {
         const type = this.props.match.params.type;
@@ -64,6 +65,20 @@ class SearchPage extends Component {
         // this.search();
         //console.log(this.props.params.name);
     }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.match.params.type !== this.props.match.params.type || prevProps.match.params.searchTerm !== this.props.match.params.searchTerm){
+            this.setState({
+                option: this.props.match.params.type,
+                searchTerm: this.props.match.params.searchTerm
+            }, () => {
+                this.search();
+            });
+
+        }
+
+    }
+    
 
     titleCase(str) {
         var splitStr = String(str).toLowerCase().split(' ');
@@ -178,10 +193,10 @@ class SearchPage extends Component {
                                     }
                                 }}
                             />
-                            {/*Link no funciona asi que tuve que usar this.props.history para actualizar el URL  */}
-                            <a /*href={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm} */ onClick={() => this.props.history.push(routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm)} >
-                                <img id="page-search-icon" src={magnifier} onClick={() => window.location.reload()}/*onClick={this.search2}*/ />
-                            </a>
+                            
+                            <Link /*onClick = {() => window.location.reload()}*/ to={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm} >
+                                <img id="page-search-icon" src={magnifier} />
+                            </Link>
 
 
                             {/*<button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.search}>Búsqueda</button>*/}
