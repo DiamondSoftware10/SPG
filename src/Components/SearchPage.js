@@ -25,11 +25,14 @@ class SearchPage extends Component {
             option: "title",
             searchTerm: "",
             foto: "",
+            nextSearch: "",
+            placeholder: "Buscar proyectos"
         }
 
         this.search = this.search.bind(this);
         this.searchDB = this.searchDB.bind(this);
         this.titleCase = this.titleCase.bind(this);
+        this.handleOption = this.handleOption.bind(this);
     }
 
     /* async componentWillMount(){
@@ -66,8 +69,8 @@ class SearchPage extends Component {
         //console.log(this.props.params.name);
     }
 
-    componentDidUpdate(prevProps){
-        if(prevProps.match.params.type !== this.props.match.params.type || prevProps.match.params.searchTerm !== this.props.match.params.searchTerm){
+    componentDidUpdate(prevProps) {
+        if (prevProps.match.params.type !== this.props.match.params.type || prevProps.match.params.searchTerm !== this.props.match.params.searchTerm) {
             this.setState({
                 option: this.props.match.params.type,
                 searchTerm: this.props.match.params.searchTerm
@@ -78,7 +81,7 @@ class SearchPage extends Component {
         }
 
     }
-    
+
 
     titleCase(str) {
         var splitStr = String(str).toLowerCase().split(' ');
@@ -149,6 +152,16 @@ class SearchPage extends Component {
 
     }
 
+    handleOption(value, category) {
+        var ph = "Buscar proyectos " + category;
+        this.setState({
+            option: value,
+            placeholder: ph
+        })
+
+        console.log(this.state.placeholder)
+    }
+
     render() {
         //console.log(this.props.params.sarchTerm)
         //let cards = "";
@@ -183,18 +196,18 @@ class SearchPage extends Component {
                             <input id="page-search"
                                 className="form-control mr-sm-2"
                                 type="search"
-                                placeholder="Busca proyectos"
+                                placeholder={this.state.placeholder}
                                 aria-label="Busqueda"
                                 autocomplete="off"
-                                onChange={evt => this.setState(byPropKey('searchTerm', evt.target.value))}
+                                onChange={evt => this.setState(byPropKey('nextSearch', evt.target.value))}
                                 onKeyPress={event => {
                                     if (event.key === 'Enter') {
                                         //this.componentDidMount()
                                     }
                                 }}
                             />
-                            
-                            <Link /*onClick = {() => window.location.reload()}*/ to={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.searchTerm} >
+
+                            <Link /*onClick = {() => window.location.reload()}*/ to={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.nextSearch} >
                                 <img id="page-search-icon" src={magnifier} />
                             </Link>
 
@@ -203,10 +216,10 @@ class SearchPage extends Component {
                         </form>
                     </div>
                     <div id="button-flex" className="flex-content btn-group btn-group-toggle" data-toggle="buttons">
-                        <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.setState(byPropKey('option', "title"))} checked > Titulo</button>
-                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "locate"))} > Ubicación </button>
-                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "investInitxBlock"))} > Inversión inicial </button>
-                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.setState(byPropKey('option', "cultures"))} > Cultivos </button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.handleOption("title", "por nombre")} checked > Titulo</button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("locate", "por ubicacion")} > Ubicación </button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("investInitxBlock", "por inversión minima")} > Inversión inicial </button>
+                        <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("cultures", "por cultivos")} > Cultivos </button>
                     </div>
                     <div className="flexbox" id="filter-flex">
                         <div className="side-flex">

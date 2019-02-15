@@ -66,12 +66,12 @@
     align-content: center;
 }
 
-#sidebar > div > h6 {
+#filter-flex > .side-flex > #sidebar > div > h6 {
     font-weight: 300;
     letter-spacing: .05em;
     font-size: .8em;
     text-transform: uppercase;
-    padding: 5em 0;
+    padding: 2em 0;
     display: none;
 }
 

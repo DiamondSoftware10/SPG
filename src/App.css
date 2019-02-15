@@ -69,7 +69,11 @@
 .btn-tertiary:hover {
   background-color: rgb(24,162,78);
   color: white;
-  border:transparent;
+  border-color: transparent;
+}
+
+.btn-tertiary:focus {
+  outline-width: 1px;
 }
 
 .flex-content {
