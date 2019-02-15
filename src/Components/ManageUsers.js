@@ -47,9 +47,9 @@ class ManageUsers extends Component {
                 Header: "Delete",
                 id: 'deleteUserButton',
                 accessor: row => (
-                    <div>
+                    
                         <button onClick={() => this.DeleteUser(this.state.selectedID)}>Eliminar</button>
-                    </div>
+                    
                 ),
                 // width: 100,
                 filterable: false,
@@ -189,7 +189,8 @@ class ManageUsers extends Component {
         return (
 
             <div>
-                <ReactTable data={this.state.data} columns={this.columns} filterable
+                
+                <ReactTable pageSizeOptions={[5,5,5,5,5,5]} data={this.state.data} columns={this.columns} filterable
                     getTrProps={(state, rowInfo) => {
                         if (rowInfo && rowInfo.row) {
                             return {
