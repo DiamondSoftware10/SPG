@@ -1,3 +1,8 @@
+:root {
+  --main-spg-color: rgb(24,162,78);
+  --sec-spg-color: rgb(52, 102, 69);
+}
+
 .App {
   text-align: center;
   font-family: CircularStd, Montserrat;
@@ -105,9 +110,27 @@ h2 {
 *:focus {
   outline: 0;
 }
+.spg-link {
+  color: var(--main-spg-color);
+  text-decoration: none;
+
+}
+
+.spg-link:hover {
+  text-decoration: none;
+  color: var(--sec-spg-color);
+}
 
 @media(max-width: 800px) {
   .btn-primary {
     width: 80vw;
   }
+}
+
+
+/*ALERTS*/
+.alert-danger {
+  background: white;
+  border-color: red;
+  color: red;
 }

@@ -25,6 +25,7 @@ export default class Cart extends Component {
 
         this.getInvestments = this.getInvestments.bind(this);
         this.handleDeleteFromCart = this.handleDeleteFromCart.bind(this);
+        this.handleUpdateSuma = this.handleUpdateSuma.bind(this);
     }
 
     getInvestments() {
@@ -112,6 +113,18 @@ export default class Cart extends Component {
 
     }
 
+    handleUpdateSuma(invMin, suma) {
+        if(suma) {
+            this.setState({
+                suma: this.state.suma + parseInt(invMin)
+            })
+        } else {
+            this.setState({
+                suma: this.state.suma - parseInt(invMin)
+            })
+        }
+    }
+
     componentDidMount() {
         console.log("cualquier cosa")
         this.getInvestments();
@@ -151,6 +164,9 @@ export default class Cart extends Component {
                     index={i}
                     handleDeleteFromCart={this.handleDeleteFromCart}
                     pic={doc.picProject}
+                    manzanas={doc.manzanas}
+                    invMin = {doc.investInitxBlock}
+                    handleUpdateSuma = {this.handleUpdateSuma}
                 >
 
 

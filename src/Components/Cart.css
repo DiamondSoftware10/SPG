@@ -61,7 +61,8 @@
 #cart-inv {
     font-weight: 900;
     font-size: 1.6em;
-    
+    width: 50px;
+    text-align: right;
 }
 
 
@@ -104,6 +105,19 @@
     color: rgb(31, 31, 31);
 }
 
+#cart-number-flex {
+    flex-direction: row;
+    border: transparent;
+}
+#cart-number-flex > div {
+    padding: 0 2em;
+}
+
+#cart-man-num {
+    font-size: 1.5em;
+    width: 2em;
+    text-align: center;
+}
 
 @media(max-width: 800px) {
         
