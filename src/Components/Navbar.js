@@ -7,16 +7,19 @@ import icon from '../Icons/iconbeta.png';
 import cart from '../Icons/cart.svg';
 import briefcase from '../Icons/briefcase.svg';
 import profile from '../Icons/profile.svg';
-
+import UserContext from './UserContext';
 import Searchbar from './Searchbar';
 
-const Navbar = ({ authUser, type }) =>
+const Navbar = () =>
+
     <div className=" sticky-top ">
-        {authUser
-            ? <NavAuth authUser={authUser} type={type} />
-            : <NavNonAuth />
-        }
+       <UserContext.Consumer>
+        {context => context.user ? <NavAuth type = {context.type}/> : <NavNonAuth/>}   
+       </UserContext.Consumer> 
+        
+        
     </div>
+    
 
 
 const NavNonAuth = () =>
@@ -284,7 +287,7 @@ const NavSuper = () => (
     </div>
 
 )
-const NavAuth = ({ authUser, type }) => (
+const NavAuth = ({ type }) => (
     <div>
 
         {type == 2 ? <NavSuper /> : type == 0 ? <NavAdmin /> : <NavUser/>}

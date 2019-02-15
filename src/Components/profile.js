@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import fire from '../Firebase/Fire'
-
+import UserContext from './UserContext';
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -17,15 +17,9 @@ class Profile extends Component {
 
 
 
-    async componentWillMount() {
-        let id;
-        /*
-        await fire.auth().onAuthStateChanged(user => {
-            if (user) {
-                id = user.uid;
-                console.log(id);
-
-                let usersRef = fire.firestore().collection("users").doc(this.props.uid);
+   componentWillMount() {
+       /* let id;
+        let usersRef = fire.firestore().collection("users").doc(this.props.uid);
                 console.log(usersRef)
                 let user;
                 usersRef.get().then(function (doc) {
@@ -48,40 +42,41 @@ class Profile extends Component {
                         // doc.data() will be undefined in this case
                         console.log("No such document!");
                     }
-                }).catch(function (error) {
-                    console.log("Error getting document:", error);
-                });
-
-            }
-        });
+                })
 */
 
     }
     render() {
         console.log(this.props.name)
         return (
+            <UserContext.Consumer>
+                {context => context.user ? 
             <div id="profile-div">
-
-                <img src={this.state.picProfile}></img>
-                <ul>
-                    <li>
-                        <label>{this.state.name}</label>
-                    </li>
-                    <li>
-                        <label>{this.state.lastName}</label>
-                    </li>
-                    <li>
-                        <label>{this.state.email}</label>
-                    </li>
-                    <li>
-                        <label>{this.state.region}</label>
-                    </li>
-                    <li>
-                        <label>{this.state.phone}</label>
-                    </li>
+               
                     
-                </ul>
-            </div>
+               <img src={this.state.picProfile}></img>
+               <ul>
+                   <li>
+                       <label>{context.nombre}</label>
+                   </li>
+                   <li>
+                       <label>{context.apellido}</label>
+                   </li>
+                   <li>
+                       <label>{context.correo}</label>
+                   </li>
+                   <li>
+                       <label>{context.region}</label>
+                   </li>
+                   <li>
+                       <label>{context.telefono}</label>
+                   </li>
+                   <button onClick={this.handleChange}>Matenme</button>
+               </ul>
+               
+           </div> : <p>no hay usuario</p>}
+            
+            </UserContext.Consumer>
         )
     }
 

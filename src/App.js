@@ -26,6 +26,7 @@ import ManageUsers from "./Components/ManageUsers";
 import ResetPassword from "./Components/ResetPassword";
 import Formularios from "./Components/Formularios";
 
+import UserContext from "./Components/UserContext";
 import ManageProjects from './Components/ManageProjects';
 import Profile from './Components/profile'
 import SearchPage from "./Components/SearchPage";
@@ -38,8 +39,14 @@ class App extends Component {
 
     this.state = {
       user: null,
+      nombre:null,
       type: null,
-      uid: null
+      uid: null,
+      apellido: null,
+      telefono: null,
+      region: null,
+      correo: null, 
+      active: false
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
@@ -67,6 +74,12 @@ class App extends Component {
           if (doc.id == id) {
             var temType = doc.data().accType
             this.setState(() => ({ type: temType }))
+            this.setState(()=>({ nombre: doc.data().nombre }))
+            this.setState(()=>({ apellido: doc.data().apellido }))
+            this.setState(()=>({ region: doc.data().region }))
+            this.setState(()=>({ telefono: doc.data().telefono }))
+            this.setState(()=>({ correo: doc.data().correo }))
+            this.setState(()=>({active: doc.data().active }))
           }
         });
       });
@@ -90,10 +103,12 @@ class App extends Component {
 
   render() {
     return (
+      
       <div className="App">
+      <UserContext.Provider value = {this.state}>
         <Router>
           <div>
-            <Navbar authUser={this.state.user} type={this.state.type} />
+            <Navbar /*authUser={this.state.user} type={this.state.type}*/ />
             <Switch>
 
               <Route
@@ -163,7 +178,9 @@ class App extends Component {
 
           </div>
         </Router>
+        </UserContext.Provider>
       </div>
+      
     );
   }
 }
