@@ -28,7 +28,7 @@ import Formularios from "./Components/Formularios";
 
 import UserContext from "./Components/UserContext";
 import ManageProjects from './Components/ManageProjects';
-import Profile from './Components/profile'
+import Profile from './Components/Profile'
 import SearchPage from "./Components/SearchPage";
 
 class App extends Component {

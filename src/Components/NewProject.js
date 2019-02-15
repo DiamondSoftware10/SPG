@@ -290,7 +290,7 @@ class NewProject extends Component {
          */
             let temp = new Date();
             let fecha = temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
-            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(parseFloat(this.state.center.lat, 10), parseFloat(this.state.center.lng, 10)), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops , this.state.ubicacion).then(
+            createProject(this.state.titulo, 0, 0, 0, this.fotoP.current.files[0].name, nameImgRefFamilies, nameImgRefCrops, new firebase.firestore.GeoPoint(parseFloat(this.state.center.lat, 10), parseFloat(this.state.center.lng, 10)), "", this.state.inversion, this.state.infoZona, "", this.state.descripcion, fecha, true, this.state.listNameCrops, this.state.ubicacion).then(
                 this.setState({
                     titulo: '',
                     descripcion: '',
@@ -299,7 +299,7 @@ class NewProject extends Component {
                     tiposCultivo: '',
                     infoZona: '',
                     inversion: '',
-                    listNameCrops:[]
+                    listNameCrops: []
                     // center: { lat: 0, lng: 0 }
                 })
             );
@@ -490,11 +490,11 @@ class NewProject extends Component {
 
         return (
 
-            <div id="new-proj-div" onSubmit={this.onSubmit}>
+            <div className="flex-content" id="new-proj-div" onSubmit={this.onSubmit}>
 
-                <div id="new-proj-inputs">
+                <div  id="new-proj-inputs">
                     <div id="main-title">Agregar Proyecto</div>
-                    <ul id="all-inputs">
+                    <ul className="flexbox" id="all-inputs">
                         <li id="all-inputs-item">
                             <label>Titulo</label>
                             <br></br>
@@ -659,9 +659,9 @@ class NewProject extends Component {
                                 placeholder="Inversion inicial"
                             />
                         </li>
-                       
 
-<li id="all-inputs-item">
+
+                        <li id="all-inputs-item">
                             <label>Ubicación</label>
                             <br></br>
                             <input id="newProject-input7"
@@ -682,7 +682,7 @@ class NewProject extends Component {
                                 <div className="card" style={style}>
                                     {/*<label>Coordenadas Geográficas</label> */}
 
-                                    <MapContainer type="newproject" changeLocationFromChild={this.changeLocationFromChild} initialCenter = {{lat: this.state.center.lat, lng:this.state.lng}} center={this.state.center} ></MapContainer>
+                                    <MapContainer type="newproject" changeLocationFromChild={this.changeLocationFromChild} initialCenter={{ lat: this.state.center.lat, lng: this.state.lng }} center={this.state.center} ></MapContainer>
                                 </div>
 
                                 {
@@ -726,10 +726,13 @@ class NewProject extends Component {
 
 
                 </div>
+                {/*
                 <div id="new-proj-graphic">
-                    {/*<div id="graphic"></div>*/}
                     <img id="graphic" src="https://bit.ly/2UsoZO1"></img>
                 </div>
+    */}
+                <div className="graphic-lg"></div>
+
             </div>
 
 
