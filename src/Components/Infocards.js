@@ -4,6 +4,9 @@ import './Infocard.css'
 import './Proyectos.css'
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import ReactModal from 'react-modal';
+import Formularios from "./Formularios";
+
+import { Link } from 'react-router-dom';
 
 import "circular-std";
 import workers from '../Icons/workers.svg';
@@ -15,6 +18,8 @@ import add from '../Icons/add.svg';
 import sub from '../Icons/subtract.svg';
 import icon from '../Icons/iconbeta.png';
 
+
+import * as routes from '../Constants/Routes';
 
 import fire from "../Firebase/Fire"
 import * as firebase from 'firebase';
@@ -57,6 +62,7 @@ class Infocard extends Component {
 
             pago: 0,
             showInvest: false,
+            showLoginModal: false,
             showConfirmation: false,
             manzanas: 1
         };
@@ -70,6 +76,8 @@ class Infocard extends Component {
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.readDB = this.readDB.bind(this);
 
+        this.handleLoginModal = this.handleLoginModal.bind(this);
+        this.handleCloseLoginModal = this.handleCloseLoginModal.bind(this);
 
         this.handleAddToCart = this.handleAddToCart.bind(this);
         this.handleOpenInvestModal = this.handleOpenInvestModal.bind(this);
@@ -116,6 +124,31 @@ class Infocard extends Component {
         }
     }
 
+    handleLoginModal() {
+        console.log('entro login modal');
+        fire.auth().onAuthStateChanged(user => {
+            user ? this.handleOpenModal() : this.setState({
+                showLoginModal: true,
+            });
+        });
+        /*if (!this.state.user) {
+            this.setState({
+                showLoginModal: true,
+            });
+
+        } else {
+            this.handleOpenModal();
+        }*/
+
+
+    }
+
+    handleCloseLoginModal() {
+        this.setState({
+            showLoginModal: false,
+        })
+    }
+
     handleInfocard(title) {
         console.log("handle card");
 
@@ -158,6 +191,7 @@ class Infocard extends Component {
         });
         console.log("Modal");
         console.log(this.props.id);
+
         this.readDB();
     }
 
@@ -391,7 +425,7 @@ class Infocard extends Component {
 
                                             <div id="main-flex">
                                                 <div id="img-div">
-                                                    <img id="modal-img" onClick={this.handleOpenModal} src={this.state.foto}></img>
+                                                    <img id="modal-img" onClick={this.handleOpenModal} src={this.state.foto} ></img>
                                                 </div>
                                                 <div>
                                                     <div id="terr-head">Terreno</div>
@@ -495,6 +529,41 @@ class Infocard extends Component {
                 </ReactModal>
 
                 <ReactModal
+                    isOpen={this.state.showLoginModal}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseLoginModal}
+                    className="ModalBack animated fadeIn faster"
+                    overlayClassName="Overlay"
+                >
+                    <div className="Modal">
+                        <button className="hollow button" id="close-button" onClick={this.handleCloseLoginModal}><img id="proj-icon" src={close}></img></button>
+                        <h3 className="modal-title">Debe registrarse o iniciar sesión para poder continuar.</h3>
+
+                        <div className="flexbox">
+                            <div className="row">
+
+                                <Link to={routes.LOGINPAGE}>
+                                    <button className="btn btn-primary">OK</button>
+                                </Link>
+
+                                <div>
+                                    <button className="btn btn-primary" onClick={this.handleCloseLoginModal}>Cancelar</button>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </ReactModal>
+
+                <ReactModal
                     isOpen={this.state.showConfirmation}
                     contentLabel="onRequestClose Example"
                     onRequestClose={this.handleCloseConfirmation}
@@ -533,7 +602,7 @@ class Infocard extends Component {
                             </div>
                             <div id="proj-footer">
 
-                                <button id="proj-cont" onClick={this.handleOpenModal} ><img src={arrow}></img></button>
+                                <button id="proj-cont" onClick={this.handleLoginModal} data-toggle="modal" data-target="#formModal" ><img src={arrow}></img></button>
                             </div>
 
                         </div>
