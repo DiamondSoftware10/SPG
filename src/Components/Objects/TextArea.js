@@ -17,7 +17,7 @@ export default class TextArea extends Component {
                 
                     <div class="form-group">
                         <label>{this.props.label}</label>
-                        <textarea rows="3" class="form-control" placeholder={this.props.placeholder}></textarea>
+                        <textarea  rows="3" class="form-control" placeholder={this.props.placeholder}></textarea>
                     </div>
             </div>
         );

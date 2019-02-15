@@ -10,7 +10,7 @@
 
 textarea {
     border-radius: 8em;
-   
+    resize: none
 }
 
 @media(max-width: 800px) {
