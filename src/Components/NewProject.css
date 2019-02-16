@@ -225,8 +225,15 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     }
 }
 
-.add-image{
-    width: 10em;
-    height: 7em;
+.image-add {  
     object-fit: cover;
+    border-radius: 20px;
+}
+
+.carousel {
+   padding: 4em;
+   text-align: center;
+}
+.carousel-status {
+    background-color: white;
 }
