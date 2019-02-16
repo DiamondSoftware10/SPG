@@ -117,7 +117,7 @@ class NewProject extends Component {
       numeroManzanas: 0,
       inversionMinima: 0,
       inversionInicial: 0,
-      jobs:0
+      jobs: 0
     };
     /* CJ Changes */
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -160,11 +160,17 @@ class NewProject extends Component {
     this.getInformation = this.getInformation.bind(this);
     this.getNumeroManzanas = this.getNumeroManzanas.bind(this);
     this.getInversion = this.getInversion.bind(this);
-    
+
     this.getFamilyB = this.getFamilyB.bind(this);
     this.getJobs = this.getJobs.bind(this);
+    this.getUbicación = this.getUbicación.bind(this);
   }
   //Nuevos metodos para recuperar los valores de los inputs
+  getUbicación(value) {
+    this.setState({
+      ubicacion: value
+    });
+  }
   getTitle(value) {
     this.setState({
       titulo: value
@@ -703,14 +709,18 @@ class NewProject extends Component {
                 getValue={this.getInversion}
               />
               <div class="form-group">
-                <label>Inversion minima</label>
+                <label>Inversión minima</label>
                 <h3>{`${this.state.inversionInicial} X ${
                   this.state.numeroManzanas
                 }\n=$${this.state.numeroManzanas *
                   this.state.inversionInicial}`}</h3>
               </div>
             </div>
-            <ItemHeading number="4" title="Impacto social" subtitle="¿Como el proyecto impacta en la comunidad?" />
+            <ItemHeading
+              number="4"
+              title="Impacto social"
+              subtitle="¿Como el proyecto impacta en la comunidad?"
+            />
             {/** Numero de familias beneficiadas*/}
             <InputNumber
               label="Familias Beneficiadas"
@@ -724,11 +734,142 @@ class NewProject extends Component {
             />
             {/** Trabajo generado*/}
             <ItemHeading number="5" title="Fotos" subtitle="" />
-            {/** Lista de fotos proyectos*/}
-            {/** Lista de fotos de familias*/}
-            {/** Lista de fotos de proyectos*/}
+            <li id="all-inputs-item">
+              <label>Foto del proyecto</label>
+              <br />
+              <input
+                id="newProject-input9"
+                value={fotoP}
+                ref={this.fotoP}
+                type="file"
+                onChange={this.addImgProject}
+              />
+              {this.state.previewPic ? (
+                <img id="img-pro" src={this.state.previewPic} />
+              ) : (
+                <img id="img-pro" src={defaultProjectPic} />
+              )}
+            </li>
+            <li id="all-inputs-item">
+              <label>Foto de familias</label>
+              <br />
+
+              <input
+                id="newProject-input7"
+                value={fotoF}
+                ref={this.fotoF}
+                type="file"
+              />
+              <button
+                id="bt-uploadProject"
+                className="btn btn-secondary"
+                onClick={this.addListImgFamilies}
+              >
+                Agregar foto
+              </button>
+              <div>
+                {/**Muestra las imagenes que se han agregado en una lista
+                            //Permite que se borren por medio del boton*/}
+                {/*<ul>
+                                    {this.state.listImgFamilies.map((img, index) =>
+                                        <li key={index} >{img.name}
+                                            <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
+                                        </li>)}
+                                </ul>*/}
+                <Carousel
+                  showThumbs={false}
+                  statusFormatter={(current, total) => `${current} de ${total}`}
+                  infiniteLoop={true}
+                >
+                  {this.state.listImgFamilies.map((img, index) => (
+                    <div>
+                      <button
+                        id="delete-icon"
+                        onClick={e => this.handleDeleteImageFamily(index, e)}
+                      >
+                        X
+                      </button>
+                      <img src={URL.createObjectURL(img)} />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
+            </li>
+            {/**Subir imagenes relacionadas con los cultivos */}
+            <li id="all-inputs-item">
+              <label>Foto de cultivos</label>
+              <br />
+              <input
+                id="newProject-input8"
+                value={fotoC}
+                ref={this.fotoC}
+                type="file"
+              />
+              <button
+                id="bt-uploadProject"
+                className="btn btn-secondary"
+                onClick={this.addListImgCrops}
+              >
+                Agregar foto
+              </button>
+              <div>
+                {/**Muestra las imagenes que se han agregado en una lista
+                            //Permite que se borren por medio del boton*/}
+                {/*<ul>
+                                    {this.state.listImgCrops.map((img, index) =>
+                                        <li key={index} >{img.name}
+                                            <button onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
+                                        </li>)}
+                                </ul>*/}
+                <Carousel
+                  showThumbs={false}
+                  statusFormatter={(current, total) => `${current} de ${total}`}
+                  infiniteLoop={true}
+                >
+                  {this.state.listImgCrops.map((img, index) => (
+                    <div>
+                      <button
+                        id="delete-icon"
+                        onClick={e => this.handleDeleteImageCrop(index, e)}
+                      >
+                        X
+                      </button>
+                      <img
+                        src={URL.createObjectURL(img)}
+                        width="100%"
+                        height="100%"
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
+            </li>
 
             <ItemHeading number="6" title="Ubicación" subtitle="" />
+            <Input
+                label="Dirección exacta"
+                type="text"
+                getValue={this.getUbicación}
+                alert="Cualquier valor"
+                regex="[.]*"
+                placeholder="e.g Salida al norte de San Pedro Sula"
+              />
+              <div id="add-map-div" className="container">
+                <div className="card" style={style}>
+                  {/*<label>Coordenadas Geográficas</label> */}
+
+                  <MapContainer
+                    type="newproject"
+                    changeLocationFromChild={this.changeLocationFromChild}
+                    initialCenter={{
+                      lat: this.state.center.lat,
+                      lng: this.state.lng
+                    }}
+                    center={this.state.center}
+                  />
+                </div>
+              </div>
+
           </div>
         </form>
 
@@ -859,7 +1000,7 @@ class NewProject extends Component {
               />
               <button
                 id="bt-uploadProject"
-                className="btn btn-tertiary"
+                className="btn btn-secondary"
                 onClick={this.addListImgFamilies}
               >
                 Agregar foto
@@ -877,17 +1018,16 @@ class NewProject extends Component {
                   showThumbs={false}
                   statusFormatter={(current, total) => `${current} de ${total}`}
                   infiniteLoop={true}
-                  className="carousel"
                 >
                   {this.state.listImgFamilies.map((img, index) => (
-                    <div >
+                    <div>
                       <button
                         id="delete-icon"
                         onClick={e => this.handleDeleteImageFamily(index, e)}
                       >
                         X
                       </button>
-                      <img className="image-add" src={URL.createObjectURL(img)} />
+                      <img src={URL.createObjectURL(img)} />
                     </div>
                   ))}
                 </Carousel>
@@ -905,7 +1045,7 @@ class NewProject extends Component {
               />
               <button
                 id="bt-uploadProject"
-                className="btn btn-tertiary"
+                className="btn btn-secondary"
                 onClick={this.addListImgCrops}
               >
                 Agregar foto
@@ -932,7 +1072,7 @@ class NewProject extends Component {
                       >
                         X
                       </button>
-                      <img 
+                      <img
                         src={URL.createObjectURL(img)}
                         width="100%"
                         height="100%"
