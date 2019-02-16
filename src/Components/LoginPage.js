@@ -66,7 +66,7 @@ class LoginPage extends Component {
               Log Out
             </button>
           </div>
-        ) : (<Register />)}
+        ) : (<Register history = {this.props.history}/>)}
 
 
 

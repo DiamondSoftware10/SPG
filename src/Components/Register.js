@@ -75,6 +75,8 @@ class Register extends Component {
                         if(snapshot.data().active == false){
                             fire.auth().signOut();
                             window.alert("Su cuenta ha sido deshabilitada!");
+                        }else{
+                            this.props.history.push(routes.LANDING);
                         }
                     })
                 }
