@@ -3,7 +3,7 @@ import "./ComboBox.css";
 import close from "../../Icons/close.svg";
 
 
-export default class Input extends Component {
+export default class ComboBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
