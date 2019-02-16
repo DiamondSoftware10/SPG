@@ -843,16 +843,17 @@ class NewProject extends Component {
                   showThumbs={false}
                   statusFormatter={(current, total) => `${current} de ${total}`}
                   infiniteLoop={true}
+                  className="carousel"
                 >
                   {this.state.listImgFamilies.map((img, index) => (
-                    <div>
+                    <div >
                       <button
                         id="delete-icon"
                         onClick={e => this.handleDeleteImageFamily(index, e)}
                       >
                         X
                       </button>
-                      <img src={URL.createObjectURL(img)} />
+                      <img className="image-add" src={URL.createObjectURL(img)} />
                     </div>
                   ))}
                 </Carousel>
@@ -897,7 +898,7 @@ class NewProject extends Component {
                       >
                         X
                       </button>
-                      <img
+                      <img 
                         src={URL.createObjectURL(img)}
                         width="100%"
                         height="100%"
