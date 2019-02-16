@@ -4,6 +4,9 @@ import './Infocard.css'
 import './Proyectos.css'
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import ReactModal from 'react-modal';
+import Formularios from "./Formularios";
+
+import { Link } from 'react-router-dom';
 
 import "circular-std";
 import workers from '../Icons/workers.svg';
@@ -15,6 +18,8 @@ import add from '../Icons/add.svg';
 import sub from '../Icons/subtract.svg';
 import icon from '../Icons/iconbeta.png';
 
+
+import * as routes from '../Constants/Routes';
 
 import fire from "../Firebase/Fire"
 import * as firebase from 'firebase';
@@ -57,6 +62,7 @@ class Infocard extends Component {
 
             pago: 0,
             showInvest: false,
+            showLoginModal: false,
             showConfirmation: false,
             manzanas: 1
         };
@@ -70,6 +76,8 @@ class Infocard extends Component {
         this.handleCloseModal = this.handleCloseModal.bind(this);
         this.readDB = this.readDB.bind(this);
 
+        this.handleLoginModal = this.handleLoginModal.bind(this);
+        this.handleCloseLoginModal = this.handleCloseLoginModal.bind(this);
 
         this.handleAddToCart = this.handleAddToCart.bind(this);
         this.handleOpenInvestModal = this.handleOpenInvestModal.bind(this);
@@ -80,21 +88,65 @@ class Infocard extends Component {
         this.handleCloseConfirmation = this.handleCloseConfirmation.bind(this);
 
     }
-    async componentWillMount() {
+    /*async componentWillMount() {
         await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
             this.setState({
                 foto: url
             })
         })
-    }
+    }*/
 
     //No captura el ID mandado con props desde proyecto.js
-    componentDidMount() {
-        console.log("Este es");
+    async componentDidMount() {
+        await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
+            this.setState({
+                id: this.props.id,
+                foto: url
+            })
+        })
+        /*console.log("Este es");
         this.setState({
             id: this.props.id,
         })
-        console.log(this.props.id);
+        console.log(this.props.id);*/
+    }
+    
+
+    async componentDidUpdate(prevProps){
+        if(this.props.id !== this.state.id){
+            await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
+                this.setState({
+                    id: this.props.id,
+                    foto: url
+                })
+            })
+            console.log("updating");
+        }
+    }
+
+    handleLoginModal() {
+        console.log('entro login modal');
+        fire.auth().onAuthStateChanged(user => {
+            user ? this.handleOpenModal() : this.setState({
+                showLoginModal: true,
+            });
+        });
+        /*if (!this.state.user) {
+            this.setState({
+                showLoginModal: true,
+            });
+
+        } else {
+            this.handleOpenModal();
+        }*/
+
+
+    }
+
+    handleCloseLoginModal() {
+        this.setState({
+            showLoginModal: false,
+        })
     }
 
     handleInfocard(title) {
@@ -139,6 +191,7 @@ class Infocard extends Component {
         });
         console.log("Modal");
         console.log(this.props.id);
+
         this.readDB();
     }
 
@@ -147,9 +200,27 @@ class Infocard extends Component {
     }
 
     handleOpenInvestModal() {
-        this.setState({
-            showInvest: true
-        })
+        var manzanas = 1;
+        var id = this.props.id;
+        fire.auth().onAuthStateChanged(async (user) =>{
+            if (user) {
+                const item = db.collection("users").doc(user.uid).collection("cartera").doc(id);
+                console.log(user.uid);
+                await item.get().then(function (snap) {
+                    console.log(snap.exists)
+                    if (snap.exists) {
+                        manzanas = snap.data().manzanas;
+                        console.log(manzanas);
+                        console.log("yes");
+                    } 
+                })
+            }
+            this.setState({
+                showInvest: true,
+                manzanas: manzanas,
+                pago: this.state.invMin * manzanas
+            })
+        });
     }
 
     handleCloseInvestModal() {
@@ -170,7 +241,7 @@ class Infocard extends Component {
         })
         this.handleCloseModal();
 
-       
+
     }
 
     handleAddToCart() {
@@ -257,7 +328,7 @@ class Infocard extends Component {
         //Capturar el proyecto correspondiente de la base de datos
         var project = db.collection("projects").doc(/*MODIFICAR-----------------*/id/*---------------------MPODIFICAR*/);
 
-        await project.get().then(function (snap) {
+        await project.get().then(async function (snap) {
             if (snap.exists) {
                 title = snap.data().title;
                 culture = snap.data().cultures;
@@ -273,7 +344,9 @@ class Infocard extends Component {
                 console.log("No such doc")
             }
 
+
         });
+
 
 
         this.setState({
@@ -352,13 +425,13 @@ class Infocard extends Component {
 
                                             <div id="main-flex">
                                                 <div id="img-div">
-                                                    <img id="modal-img" onClick={this.handleOpenModal} src={this.state.foto}></img>
+                                                    <img id="modal-img" onClick={this.handleOpenModal} src={this.state.foto} ></img>
                                                 </div>
                                                 <div>
                                                     <div id="terr-head">Terreno</div>
                                                 </div>
                                                 <div id="proj-title">
-                                                    <h1>{this.state.title}</h1>
+                                                    <h2 className="h2-project">{this.state.title}</h2>
                                                 </div>
                                                 <br></br>
 
@@ -439,10 +512,10 @@ class Infocard extends Component {
                         <div id="precart-flex">
                             <div className="flexbox">
                                 <div id="flex-head">Manzanas</div>
-                                <div className="flexbox" id ="number-flex">
-                                <div><img onClick={this.handleSubManzana} id="add-icon" src={sub}></img></div>
-                                <div id="man-num">{this.state.manzanas}</div>
-                                <div><img onClick={this.handleAddManzana} id="add-icon" src={add}></img></div>
+                                <div className="flexbox" id="number-flex">
+                                    <div><img onClick={this.handleSubManzana} id="add-icon" src={sub}></img></div>
+                                    <div className="amount-number">{this.state.manzanas}</div>
+                                    <div><img onClick={this.handleAddManzana} id="add-icon" src={add}></img></div>
                                 </div>
                             </div>
                             <div id="total-flex">
@@ -452,6 +525,41 @@ class Infocard extends Component {
                             <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleAddToCart()}>Agregar a cartera</button>
 
                         </div>
+                    </div>
+                </ReactModal>
+
+                <ReactModal
+                    isOpen={this.state.showLoginModal}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseLoginModal}
+                    className="ModalBack animated fadeIn faster"
+                    overlayClassName="Overlay"
+                >
+                    <div className="Modal">
+                        <button className="hollow button" id="close-button" onClick={this.handleCloseLoginModal}><img id="proj-icon" src={close}></img></button>
+                        <h3 className="modal-title">Debe registrarse o iniciar sesión para poder continuar.</h3>
+
+                        <div className="flexbox">
+                            <div className="row">
+
+                                <Link to={routes.LOGINPAGE}>
+                                    <button className="btn btn-primary">OK</button>
+                                </Link>
+
+                                <div>
+                                    <button className="btn btn-primary" onClick={this.handleCloseLoginModal}>Cancelar</button>
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+
                     </div>
                 </ReactModal>
 
@@ -494,7 +602,7 @@ class Infocard extends Component {
                             </div>
                             <div id="proj-footer">
 
-                                <button id="proj-cont" onClick={this.handleOpenModal} ><img src={arrow}></img></button>
+                                <button id="proj-cont" onClick={this.handleLoginModal} data-toggle="modal" data-target="#formModal" ><img src={arrow}></img></button>
                             </div>
 
                         </div>

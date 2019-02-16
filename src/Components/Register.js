@@ -28,7 +28,8 @@ class Register extends Component {
             region: "",
             contrasena: "",
             condicion: null,
-
+            showAlert: false,
+            showRegisterAlert: false
 
         };
 
@@ -64,9 +65,27 @@ class Register extends Component {
 
     login(e) {
         e.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => { }).catch((error) => {
+        
+        fire.auth().signInAndRetrieveDataWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => { 
+            
+            fire.auth().onAuthStateChanged(user =>{
+                if(user){
+                    let usersRef = fire.firestore().collection("users").doc(user.uid);
+                    usersRef.get().then(snapshot =>{
+                        if(snapshot.data().active == false){
+                            fire.auth().signOut();
+                            window.alert("Su cuenta ha sido deshabilitada!");
+                        }
+                    })
+                }
+            })
+        }).catch((error) => {
             console.log(error);
+            this.setState({
+                showAlert: true
+            })
         });
+        
     }
 
     signup(e) {
@@ -79,9 +98,9 @@ class Register extends Component {
         } else if (nombresVal(this.state.nombre, 1, 50) == false || nombresVal(this.state.apellido, 1, 50) == false
             || numeroVal(this.state.telefono, 1, 7) == false
             || rangoCaracteresVal(this.state.region, 2, 50) == false) {
-
-            window.alert("Error al registrarse, verifique los datos de entrada")
-
+                this.setState({
+                    showRegisterAlert: true
+                })
         } else {
 
             fire.auth().createUserWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => {
@@ -131,7 +150,8 @@ class Register extends Component {
                     correo: this.state.correo,
                     telefono: this.state.telefono,
                     region: this.state.region,
-                    accType: 1
+                    accType: 1,
+                    active: true
                 });
 
                 this.SendVerifyEmail();
@@ -163,7 +183,7 @@ class Register extends Component {
     render() {
         return (
             <div id="register-div">
-                <div id="jumbo-reg" className="jumbotron">
+                <div id="jumbo-reg">
                     {/*
                     <img id="logo-reg" src={icon} ></img>
 
@@ -174,40 +194,41 @@ class Register extends Component {
                 </div>
 
 
-                <div className="jumbotron vertical-center">
-                    <div className="container">
+                <div className="flexbox" id="login-flex">
+                    <h2>Inicia Sesión</h2>
 
-                        <div id="reg-toolbar" className="button-toolbar col-sm">
+                    <div className="form">
+                        {this.state.showAlert ? <div className="alert alert-danger" role="alert">
+                            Error al iniciar sesión   </div> : ''}
 
-                            <h2>Inicia Sesión</h2>
 
-                            <form className="form">
-                                <div class="form-group">
-                                    <label htmlFor="usr">Email</label>
-                                    <input
-                                        onChange={this.handleChange('correo')}
-                                        type="email" className="form-control" id="correoLogin" />
-                                </div>
-                                <div class="form-group">
-                                    <label htmlFor="pwd">Contraseña</label>
-                                    <input
-                                        onChange={this.handleChange('contrasena')}
-                                        type="password" className="form-control" id="passwordLogin" />
-                                    <Link to={routes.RESETPASSWORD}>
-                                        ¿Olvidaste tu contraseña?
+                        <div class="form-group">
+                            <label htmlFor="usr">Email</label>
+                            <input
+                                onChange={this.handleChange('correo')}
+                                type="email" className="form-control" id="correoLogin" />
+                        </div>
+                        <div class="form-group">
+                            <label htmlFor="pwd">Contraseña</label>
+                            <input
+                                onChange={this.handleChange('contrasena')}
+                                type="password" className="form-control" id="passwordLogin" />
+                            <Link to={routes.RESETPASSWORD}>
+                            <p className="spg-link">¿Olvidaste tu contraseña? </p>
                                 </Link>
-                                </div>
-                                <div>
-                                    <button onClick={this.login} type="button" className="btn btn-primary" data-dismiss="modal">
-                                        INICIAR
+                        </div>
+
+                        <button onClick={this.login} type="button" className="btn btn-primary" data-dismiss="modal">
+                            INICIAR
                                 </button>
-                                    <br></br>
-                                </div>
-                                ¿No tienes una cuenta? <a id="reg-link" data-backdrop="false" data-toggle="modal" data-target="#registerModal">Registrate</a>
+                        ¿No tienes una cuenta? <a id="reg-link" data-backdrop="false" data-toggle="modal" data-target="#registerModal">Registrate</a>
+                    </div>
+                </div>
+
+                <div>
 
 
-                            </form>
-                            {/*
+                    {/*
                             <button data-backdrop="false" type="button" className="btn btn-primary" data-toggle="modal" data-target="#registerModal">
                                 Registrarse
                             </button>
@@ -218,16 +239,6 @@ class Register extends Component {
                                 }
                             
                             </button>*/}
-                        </div>
-                    </div>
-
-
-                </div>
-
-                <div className="row">
-
-
-
                 </div>
 
 
@@ -304,7 +315,8 @@ class Register extends Component {
                                         </div>
 
                                     </div>
-
+                                    {this.state.showRegisterAlert ? <div className="alert alert-danger" role="alert">
+                                        Error al registrarse: Verifique los datos de entrada  </div> : ''}
 
                                     <button id="bt-reg" data-backdrop="false" type="button" className="btn btn-primary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
                                         Crear Cuenta

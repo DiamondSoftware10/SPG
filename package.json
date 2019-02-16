@@ -7,9 +7,10 @@
     "ajv": "^6.5.5",
     "animate.css": "^3.7.0",
     "axios": "^0.18.0",
+    "bootstrap": "^4.3.1",
     "circular-std": "^1.0.0",
     "firebase": "^5.6.0",
-    "firebase-admin": "^6.0.0",
+    "firebase-admin": "^6.5.1",
     "firebase-functions": "^2.1.0",
     "google-maps-react": "^2.0.2",
     "history": "^4.7.2",
@@ -54,5 +55,7 @@
   "bugs": {
     "url": "https://github.com/DiamondSoftware10/SPG/issues"
   },
-  "homepage": "."
+
+  "homepage": "https://spg-project-1.firebaseapp.com"
+  
 }

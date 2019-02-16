@@ -1,3 +1,8 @@
+:root {
+  --main-spg-color: rgb(24,162,78);
+  --sec-spg-color: rgb(52, 102, 69);
+}
+
 .App {
   text-align: center;
   font-family: CircularStd, Montserrat;
@@ -50,7 +55,7 @@
 }
 
 .btn-primary:hover {
-  background-color: rgb(24,162,78);
+  background-color: rgb(88,183,123);
 }
 
 .btn-tertiary {
@@ -69,7 +74,11 @@
 .btn-tertiary:hover {
   background-color: rgb(24,162,78);
   color: white;
-  border:transparent;
+  border-color: transparent;
+}
+
+.btn-tertiary:focus {
+  outline-width: 1px;
 }
 
 .flex-content {
@@ -96,10 +105,62 @@
 h2 {
   text-transform: initial;
   font-weight: 700;
+  font-size: 2em;
+}
+
+.h2-project {
+  font-weight: 900;
+        z-index: 1000;
+        font-size: 2em;
+        padding-left: 0.5em;
+        padding-top: .3em;
+}
+
+h1 {
+  font-size: 8vmin;
+  margin-top: 10px;
+  font-weight: 700;
+  text-transform: initial;
+  text-align: left;
+  margin-left: 7vw;
+}
+
+h5 {
+  font-size: 1em;
+}
+
+* :focus {
+  outline: 0;
+}
+
+*:focus {
+  outline: 0;
+}
+.spg-link {
+  color: var(--main-spg-color);
+  text-decoration: none;
+
+}
+
+.spg-link:hover {
+  text-decoration: none;
+  color: var(--sec-spg-color);
 }
 
 @media(max-width: 800px) {
   .btn-primary {
     width: 80vw;
   }
+  body {
+    font-size: 10px;
+  }
+}
+
+
+/*ALERTS*/
+.alert-danger {
+  background: white;
+  border-color: red;
+  color: red;
+  
 }

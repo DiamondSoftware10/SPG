@@ -1,3 +1,194 @@
-#profile-div {
-    
+
+#barra-info{
+
+  display: flex;
+  flex-wrap: nowrap;
+  align-items:center;
+  width: 100%;
+  height: 18vh;
+  position: relative;
+  padding: 11vh 0vh;
+
+}
+
+#profile-imagen{
+  object-fit: cover; 
+  border-radius: 50px;
+  position: initial;
+  width:9em;
+  height: 9em;
+  border-radius:300px;
+  display: flex;
+  align-items: flex-start;
+}
+
+#navProfile-flex{
+  
+  height: 90vh;
+  width: 20vw;
+  /*background: rgb(154, 174, 131);*/
+  background: rgb(245, 245, 245);
+  float: left;
+  /*border-right: 0.4vh solid rgb(219, 219, 219);
+  border-top: 0.4vh solid rgb(219, 219, 219);
+  border-bottom: 0.4vh solid rgb(219, 219, 219);
+  */
+
+}
+
+#profile-done{
+  border-radius: 100px;
+  width: 1.5em;
+  height: 1.5em;
+  margin-top: 1.2vh;
+  
+}
+
+.nav-icon{
+  width: 1.5em;
+  height: 1.5em;
+  
+}
+
+#flex-verified{
+
+  display: none;
+  flex-direction: row;
+
+
+}
+
+#profile-nav > .nav-item:hover{
+  transform: scale(1.2); 
+ 
+}
+
+#profile-nav > .nav-item{
+  transition: transform .2s;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 1em 0;
+}
+
+
+#profile-nav > .nav-item > .nav-link {
+  color: rgb(106, 106, 106);
+  font-size: 0.9em;
+  align-items: flex-start;
+ font-weight: 200;
+ text-transform: uppercase;
+ letter-spacing: 0.1em;
+
+
+}
+
+
+
+#profile-verified{
+      padding: 0vh 0.5vw;
+
+}
+
+.textD {
+  font-weight: 900;
+  font-size: 1.4em;
+  color:black;
+  margin-top: 1vh;
+
+}
+
+.textD1 {
+  font-weight: 900;
+  font-size: 1.1em;
+  color:black;
+
+}
+
+
+
+#profile-nav{
+  width: 100%;
+  padding: 5%;
+}
+
+
+#flex-nombre{
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 4vh;
+  padding-top: 1.7vh;
+
+}
+
+#profile-flex{
+  height: 50vh;
+  width: 75vw;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  
+
+}
+
+
+.textD2 {
+  font-weight: 900;
+  font-size: 1.0em;
+  color: rgba(0,0,0,.5);
+  margin-top: 1.5vh;
+  margin-left: 0.5vw;   
+}
+
+#invest-flex {
+flex-direction: row;
+justify-content: space-around;
+padding: 2em 0;
+margin: 0 2em;
+border-bottom: 1px solid rgb(156, 156, 156);
+}
+
+
+/* INVERSIONES*/
+
+
+#name-flex{
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  padding-left: 5vw;
+  padding-top: 5vh;
+}
+
+
+#name-flex  > .textD1{
+  font-weight: 500;
+  font-size: 3.8em;
+  color: rgb(24,162,78);
+  padding-left: 0.2em;
+  
+}
+
+#name-flex > #name-text{
+  
+  font-weight: 300;
+}
+
+#flexbox-infoG{
+  display: flex;
+  flex-direction: row;
+  
+
+}
+
+#flexbox-infoG > .textD1 {
+
+  padding-right: 5em;
+  margin-left: 6em;
+  color: rgb(201, 201, 201);
+
+}
+
+
+#flex-nombre{
+  letter-spacing: 0.06em;
 }
