@@ -165,6 +165,7 @@ border-bottom: 1px solid rgb(156, 156, 156);
   font-size: 3.8em;
   color: rgb(24,162,78);
   padding-left: 0.2em;
+  padding-top: 1.2em;
   
 }
 
@@ -175,16 +176,20 @@ border-bottom: 1px solid rgb(156, 156, 156);
 
 #flexbox-infoG{
   display: flex;
-  flex-direction: row;
-  
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 5.5em;
+  margin-left: 6.5em;
+  margin-bottom: 4em;
 
 }
 
 #flexbox-infoG > .textD1 {
 
   padding-right: 5em;
-  margin-left: 6em;
+  margin-left: 0em;
   color: rgb(201, 201, 201);
+  
 
 }
 
@@ -192,3 +197,46 @@ border-bottom: 1px solid rgb(156, 156, 156);
 #flex-nombre{
   letter-spacing: 0.06em;
 }
+
+#flex-four{
+
+    width: 78vw;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 15%;
+    padding-left: 3em;
+    padding-right: 2em;
+  }
+
+
+  #flex-four > .flexbox{
+
+    justify-content: center;
+    padding: 1em 4em;
+    
+  } 
+
+  #flex-four > * {
+    margin: 1em 2em;
+    height: 10em;
+    transition: transform .25s;
+  }
+
+  #flex-four > *:hover {
+    transform: scale(1.1)
+  }
+
+.item-lg {
+  width: 50%;
+  background: white;
+  box-shadow: 0 10px 100px rgba(194, 194, 194, 0.349);
+  border-radius: 30px;
+}
+
+.item-sm  {
+  width: 25%;
+  background: white;
+  box-shadow: 0 10px 100px rgba(194, 194, 194, 0.349);
+  border-radius: 30px;
+}
+

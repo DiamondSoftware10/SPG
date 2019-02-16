@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
-import fire from '../Firebase/Fire'
+import fire from '../Firebase/Fire';
+import { Link } from 'react-router-dom';
+import * as routes from '../Constants/Routes';
 import UserContext from './UserContext';
 import userP from '../Icons/user.svg'
 import settings from '../Icons/settings.svg'
 import linec from '../Icons/line-chart.svg'
 import planning from '../Icons/planning.svg'
+import cart from '../Icons/briefcase.svg'
+import notificaciones from '../Icons/settings.svg'
+import news from '../Icons/settings.svg'
+import email from '../Icons/mail.svg'
+import terrenos from '../Icons/settings.svg'
+
+
 import './Profile.css'
 
 class Profile extends Component {
@@ -112,28 +121,62 @@ class Profile extends Component {
                             </div>
                         </div>
 
-
-
                         {this.state.showGeneral ?
 
                             <div className="flexbox" id="profile-flex">
 
                                 <div className="flexbox" id="name-flex">
-                                    <div className="textD1" id="name-text" >Vladimir</div>
-                                    <div className="textD1">Mamatov</div>
+                                    <div className="textD1" id="name-text" >{context.nombre}</div>
+                                    <div className="textD1">{context.apellido}</div>
 
                                 </div>
 
                                 <div className="flexbox" id="flexbox-infoG" >
+            
+                                    <div class="textD1">{context.correo}</div>
 
-                                    <div class="textD1">vladimirMama@tov.com</div>
+                                    <div class="textD1">{context.region}</div>
 
-                                    <div class="textD1">Rusia</div>
+                                </div>
+                                <div className="flexbox" id="flex-four">
+
+                                    <div className="flexbox item-sm" id="notificaciones">
+                                        <Link to={routes.CART}>
+
+                                            <img className="nav-icon" src={notificaciones}></img>  <a className="textD2" >NOTIFICACIONES</a>
+                                        </Link>
+
+                                    </div>
+                                    <div className="flexbox item-lg" id="cartera">
+                                        <Link to={routes.CART}>
+
+                                            <img className="nav-icon" src={cart}></img>  <a className="textD2" >CARTERA</a>
+                                        </Link>
+
+                                    </div>
+
+                                    <div className="flexbox item-lg" id="terrenos">
+                                        <Link to={routes.PROYECTOS}>
+
+                                            <img className="nav-icon" src={terrenos}></img>  <a className="textD2" >TERRENOS</a>
+                                        </Link>
+
+                                    </div>
+
+                                    <div className="flexbox item-sm" id="noticias">
+                                        <Link to={routes.PROYECTOS}>
+
+                                            <img className="nav-icon" src={news}></img>  <a className="textD2" >NOTICIAS</a>
+                                        </Link>
+
+                                    </div>
 
                                 </div>
 
-                            </div>
 
+
+
+                            </div>
 
 
                             : ''}
@@ -158,7 +201,6 @@ class Profile extends Component {
                                     <div>Shit</div>
                                 </div>
                             </div>
-
 
                             : ''}
                     </div> : <p>no hay usuario</p>}
