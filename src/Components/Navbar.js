@@ -118,9 +118,12 @@ const NavAdmin = () => (
                             <img id="nav-icon" src={profile}></img>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <Link to={routes.PROFILE}>
-                                <a class="dropdown-item" href="#">Perfil</a>
-                            </Link>
+                            <UserContext.Consumer>
+                                {context => context.user ?
+                                    <Link to={routes.PROFILE}>
+                                        <a class="dropdown-item" href="#">{context.nombre}</a>
+                                    </Link> : ''}
+                            </UserContext.Consumer>
                             <Link to={routes.MANAGEPROJECTS}>
                                 <a class="dropdown-item" href="#">Mis Inversiones</a>
                             </Link>
@@ -189,9 +192,12 @@ const NavUser = () => (
                             <img id="nav-icon" src={profile}></img>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <Link to={routes.PROFILE}>
-                                <a class="dropdown-item" href="#">Perfil</a>
-                            </Link>
+                        <UserContext.Consumer>
+                                {context => context.user ?
+                                    <Link to={routes.PROFILE}>
+                                        <a class="dropdown-item" href="#">{context.nombre}</a>
+                                    </Link> : ''}
+                            </UserContext.Consumer>
                             <Link to={routes.MANAGEPROJECTS}>
                                 <a class="dropdown-item" href="#">Mis Inversiones</a>
                             </Link>
@@ -294,9 +300,12 @@ const NavSuper = () => (
                             <img id="nav-icon" src={profile}></img>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <Link to={routes.PROFILE}>
-                                <a class="dropdown-item" href="#">Perfil</a>
-                            </Link>
+                        <UserContext.Consumer>
+                                {context => context.user ?
+                                    <Link to={routes.PROFILE}>
+                                        <a class="dropdown-item" href="#">{context.nombre}</a>
+                                    </Link> : ''}
+                            </UserContext.Consumer>
                             <Link to={routes.MANAGEPROJECTS}>
                                 <a class="dropdown-item" href="#">Mis Inversiones</a>
                             </Link>
@@ -313,7 +322,7 @@ const NavSuper = () => (
             </div>
 
         </nav>
-       
+
 
 
     </div>
