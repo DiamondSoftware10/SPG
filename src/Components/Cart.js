@@ -182,7 +182,7 @@ export default class Cart extends Component {
             <div className="info-cont">
                 <h1 id="main-title">Cartera de Inversión</h1>
 
-                {this.state.showResult ? <div id="card-div" className="container-fluid">
+                {this.state.showResult ? <div id="card-div" className="container-fluid animated fadeIn">
                     <div className="flex-content" id="cart-flex">
                         {cart}
                         <div class="flex-total">

@@ -186,19 +186,13 @@ class Profile extends Component {
 
                             <div id="invest-div" >
                                 <div id="main-title" > Inversiones </div>
+                                
                                 <div className="flexbox" id="invest-flex">
                                     <h4>Nombre proyecto</h4>
                                     <div>(Ubicacion)</div>
-                                    <div>Shit</div>
-                                    <div>(Ubicacion)</div>
-                                    <div>Shit</div>
-                                </div>
-                                <div className="flexbox" id="invest-flex">
-                                    <h4>Nombre proyecto</h4>
-                                    <div>(Ubicacion)</div>
-                                    <div>Shit</div>
-                                    <div>(Ubicacion)</div>
-                                    <div>Shit</div>
+                                    <div>(Inversion)</div>
+                                    <div>(Fecha)</div>
+                                    <div>(Ganancia)</div>
                                 </div>
                             </div>
 
