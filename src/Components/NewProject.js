@@ -113,7 +113,11 @@ class NewProject extends Component {
       center: { lat: 14.0839053, lng: -87.2750132 },
       latitud: 0,
       longitud: 0,
-      ubicacion: ""
+      ubicacion: "",
+      numeroManzanas: 0,
+      inversionMinima: 0,
+      inversionInicial: 0,
+      jobs:0
     };
     /* CJ Changes */
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -155,7 +159,10 @@ class NewProject extends Component {
     this.getDescription = this.getDescription.bind(this);
     this.getInformation = this.getInformation.bind(this);
     this.getNumeroManzanas = this.getNumeroManzanas.bind(this);
-    this.getInversion =this.getInversion.bind();
+    this.getInversion = this.getInversion.bind(this);
+    
+    this.getFamilyB = this.getFamilyB.bind(this);
+    this.getJobs = this.getJobs.bind(this);
   }
   //Nuevos metodos para recuperar los valores de los inputs
   getTitle(value) {
@@ -188,13 +195,25 @@ class NewProject extends Component {
   }
   getNumeroManzanas(value) {
     this.setState({
-      numeroManzanas: value
+      numeroManzanas: value,
+      inversionMinima: this.state.inversionInicial * value
     });
   }
-  getInversion(value){
-    alert(value)
+
+  getJobs(value) {
     this.setState({
-      inversionInicial: value
+      jobs: value
+    });
+  }
+  getFamilyB(value) {
+    this.setState({
+      familiasB: value
+    });
+  }
+  getInversion(value) {
+    this.setState({
+      inversionInicial: value,
+      inversionMinima: this.state.numeroManzanas * value
     });
   }
   handleSubmit(e) {
@@ -212,7 +231,7 @@ class NewProject extends Component {
           pic: url
         });
       })
-      .catch(function (error) {
+      .catch(function(error) {
         // Handle any errors
       });
   }
@@ -668,6 +687,7 @@ class NewProject extends Component {
               />
               <InputNumber
                 label="Número de manzanas"
+                placeholder=""
                 getValue={this.getNumeroManzanas}
               />
             </div>
@@ -677,17 +697,31 @@ class NewProject extends Component {
               subtitle="Información monetaria del proyecto"
             />
             <div className="flexbox" id="input-flex">
-              {/** Inversion minima*/}
               <InputNumber
                 label="Inversion por manzana"
-                tipo="text"
                 placeholder=""
                 getValue={this.getInversion}
               />
-              {/**Mostrarlo en un label */}
+              <div class="form-group">
+                <label>Inversion minima</label>
+                <h3>{`${this.state.inversionInicial} X ${
+                  this.state.numeroManzanas
+                }\n=$${this.state.numeroManzanas *
+                  this.state.inversionInicial}`}</h3>
+              </div>
             </div>
-            <ItemHeading number="4" title="Impacto social" subtitle="" />
+            <ItemHeading number="4" title="Impacto social" subtitle="¿Como el proyecto impacta en la comunidad?" />
             {/** Numero de familias beneficiadas*/}
+            <InputNumber
+              label="Familias Beneficiadas"
+              placeholder=""
+              getValue={this.getFamilyB}
+            />
+            <InputNumber
+              label="Trabajos generados"
+              placeholder=""
+              getValue={this.getJobs}
+            />
             {/** Trabajo generado*/}
             <ItemHeading number="5" title="Fotos" subtitle="" />
             {/** Lista de fotos proyectos*/}
@@ -810,8 +844,8 @@ class NewProject extends Component {
               {this.state.previewPic ? (
                 <img id="img-pro" src={this.state.previewPic} />
               ) : (
-                  <img id="img-pro" src={defaultProjectPic} />
-                )}
+                <img id="img-pro" src={defaultProjectPic} />
+              )}
             </li>
             <li id="all-inputs-item">
               <label>Foto de familias</label>

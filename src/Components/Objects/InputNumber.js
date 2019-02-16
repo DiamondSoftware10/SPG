@@ -8,6 +8,9 @@ export default class InputNumber extends Component {
       showAlert: false,
     };
   }
+  handleBlur(value){
+    this.props.getValue(value);
+  }
 
   render() {
     return (
@@ -21,8 +24,8 @@ export default class InputNumber extends Component {
             class="form-control"
             placeholder={this.props.placeholder}
             min="0"
+            onBlur={e => this.handleBlur(e.target.value)}
             required
-            onBlur={e => this.props.getValue(e.target.value)}
           />
         </div>
       </div>

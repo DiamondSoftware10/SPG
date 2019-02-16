@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Input.css";
 
 export default class TextArea extends Component {
-  constructor(props) {
+ constructor(props) {
     super(props);
     this.state = {
       showAlert: false,
