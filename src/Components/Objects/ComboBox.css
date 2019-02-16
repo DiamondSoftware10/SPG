@@ -1,13 +1,3 @@
-.form-group {
-    text-align: left;
-    padding-right: 4em; 
-}
-
-.form-group * {
-    width: 30vw;
-    padding-right: 2em;
-}
-
 textarea {
     border-radius: 8em;
     resize: none

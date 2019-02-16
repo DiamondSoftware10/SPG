@@ -15,7 +15,7 @@ class Loading extends Component {
         // fake promise
         setTimeout(() =>
             this.setState({ loading: false })
-            , 4000)
+            , 2500)
     }
     render() {
         return (

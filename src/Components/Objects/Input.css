@@ -3,7 +3,7 @@
     padding-right: 4em; 
 }
 
-.form-group * {
+.form-group > * {
     width: 30vw;
     padding-right: 2em;
 }
@@ -14,7 +14,7 @@ textarea {
 }
 
 @media(max-width: 800px) {
-    .form-group * {
+    .form-group > * {
         width: 15em;
     }
 }
