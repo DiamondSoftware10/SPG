@@ -58,6 +58,25 @@
   background-color: rgb(88,183,123);
 }
 
+.btn-sec {
+  font-weight: 300;
+  background-color: white;
+  border-color: rgb(43, 43, 43);
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: .1rem;
+  width:30vw;
+  padding: .8em 0px;
+  font-size: .9em;
+  color: black;
+}
+
+.btn-sec:hover {
+  background-color: rgb(24,162,78);
+  color: white;
+  border-color: transparent;
+}
+
 .btn-tertiary {
   font-weight: 300;
   background-color: white;

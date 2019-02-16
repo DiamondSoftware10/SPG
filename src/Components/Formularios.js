@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom';
 import ReactModal from 'react-modal';
 import './Search.css'
 
+
 import * as routes from '../Constants/Routes';
+import icon from '../Icons/iconbeta.png';
 
 const db = fire.firestore();
 
@@ -30,7 +32,7 @@ class Formularios extends Component {
         this.handleOpenModal = this.handleOpenModal.bind(this);
 
         this.goToLogin = this.goToLogin.bind(this);
-  
+
     }
 
     handleOpenModal() {
@@ -39,15 +41,15 @@ class Formularios extends Component {
             //id: this.props.id,
         });
         console.log("Modal");
-        
+
     }
 
-    
+
 
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.id === this.props.id) {
-            
+
         }
     }
 
@@ -57,7 +59,7 @@ class Formularios extends Component {
 
     }
 
-    goToLogin(){
+    goToLogin() {
 
     }
 
@@ -72,7 +74,7 @@ class Formularios extends Component {
             height: '35vh',
             'marginLeft': 'auto',
             'marginRight': 'auto'
-          }
+        }
 
 
 
@@ -95,27 +97,27 @@ class Formularios extends Component {
                                         <div id="modal-flex">
 
                                             <div id="main-flex">
+
+                                                <br></br>
+
+                                                {
+                                                    /*
+                                                    <div id="proj-location">
+                                                                                                    <img id="proj-icon" src={loc}></img>
+                                                                                                    <div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
+                                                                                                        {this.props.location}
+                                                                                                    </div>
+                                                                                                </div>
                                                 
-                                                <br></br>
-
-{
-    /*
-    <div id="proj-location">
-                                                    <img id="proj-icon" src={loc}></img>
-                                                    <div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
-                                                        {this.props.location}
-                                                    </div>
-                                                </div>
-
-
-    */
-}
                                                 
-                                                <br></br>
+                                                    */
+                                                }
 
                                                 <br></br>
 
-                                                <h5>Debe registrarse o iniciar sesión para poder continuar. </h5>
+                                                <br></br>
+                                                <img src={icon} width="40" height="40"></img>
+                                                <h3 className="modal-title">Registrarse</h3>
                                                 <br></br>
 
                                                 <br></br>
@@ -130,44 +132,44 @@ class Formularios extends Component {
                     </div>
                 </ReactModal>
 
-                
-        <div className="modal" id="formModal">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title">Ubicación del Proyecto</h4>
-                <button type="button" className="close" data-dismiss="modal">&times;</button>
-              </div>
 
-              <div className="modal-body">
+                <div className="modal" id="formModal">
+                    <div className="modal-dialog">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h4 className="modal-title">Ubicación del Proyecto</h4>
+                                <button type="button" className="close" data-dismiss="modal">&times;</button>
+                            </div>
 
-                <div className="container">
+                            <div className="modal-body">
 
-                  <div className="card" style={style}>
-                    <div className="form-group col-sm">
-                      <label htmlFor="usr">Debe iniciar sesión para poder continuar.</label>
-                    </div>
-                
-                  </div>
+                                <div className="container">
 
-                </div>
+                                    <div className="card" style={style}>
+                                        <div className="form-group col-sm">
+                                            <label htmlFor="usr">Debe iniciar sesión para poder continuar.</label>
+                                        </div>
 
-              </div>
-              <div className="modal-footer">
-                {/*<button onClick={() => this.recenter} type="button" className="btn btn-secondary">
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div className="modal-footer">
+                                {/*<button onClick={() => this.recenter} type="button" className="btn btn-secondary">
                                     RECENTER
                                 </button>*/}
 
-                <button onClick={this.goToLogin} type="button" className="btn btn-secondary" data-dismiss="modal">
-                  OK
+                                <button onClick={this.goToLogin} type="button" className="btn btn-secondary" data-dismiss="modal">
+                                    OK
                                 </button>
-                <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
-              </div>
-            </div>
+                                <button type="button" className="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                            </div>
+                        </div>
 
-          </div>
+                    </div>
 
-        </div>
+                </div>
 
             </div>
 

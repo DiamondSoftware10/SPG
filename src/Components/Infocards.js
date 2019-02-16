@@ -110,10 +110,10 @@ class Infocard extends Component {
         })
         console.log(this.props.id);*/
     }
-    
 
-    async componentDidUpdate(prevProps){
-        if(this.props.id !== this.state.id){
+
+    async componentDidUpdate(prevProps) {
+        if (this.props.id !== this.state.id) {
             await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
                 this.setState({
                     id: this.props.id,
@@ -127,7 +127,7 @@ class Infocard extends Component {
     handleLoginModal() {
         console.log('entro login modal');
         fire.auth().onAuthStateChanged(user => {
-            user ? this.handleOpenModal() : this.setState({
+            user ? this.handleOpenInvestModal() : this.setState({
                 showLoginModal: true,
             });
         });
@@ -202,7 +202,7 @@ class Infocard extends Component {
     handleOpenInvestModal() {
         var manzanas = 1;
         var id = this.props.id;
-        fire.auth().onAuthStateChanged(async (user) =>{
+        fire.auth().onAuthStateChanged(async (user) => {
             if (user) {
                 const item = db.collection("users").doc(user.uid).collection("cartera").doc(id);
                 console.log(user.uid);
@@ -212,13 +212,13 @@ class Infocard extends Component {
                         manzanas = snap.data().manzanas;
                         console.log(manzanas);
                         console.log("yes");
-                    } 
+                    }
                 })
             }
             this.setState({
                 showInvest: true,
                 manzanas: manzanas,
-                pago: this.state.invMin * manzanas
+                pago: this.state.invMin * manzanas,
             })
         });
     }
@@ -486,7 +486,7 @@ class Infocard extends Component {
                                                         <h3>${this.state.raisedMoney}</h3>
                                                     </div>
                                                     <div>
-                                                        <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleOpenInvestModal()}>Invertir</button>
+                                                        <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleLoginModal()}>Invertir</button>
                                                     </div>
                                                 </div>
 
@@ -537,21 +537,18 @@ class Infocard extends Component {
                 >
                     <div className="Modal">
                         <button className="hollow button" id="close-button" onClick={this.handleCloseLoginModal}><img id="proj-icon" src={close}></img></button>
-                        <h3 className="modal-title">Debe registrarse o iniciar sesión para poder continuar.</h3>
-
-                        <div className="flexbox">
-                            <div className="row">
+                        <img id="spg-logo" src={icon} width="40" height="40"></img>
+                        <h3 className="navbar-brand">SPG</h3>
+                        <h4>Debes iniciar sesion para invertir en un proyecto</h4>
+                        <div className="flexbox" id="invest-login-modal">
 
                                 <Link to={routes.LOGINPAGE}>
-                                    <button className="btn btn-primary">OK</button>
+                                    <button className="btn btn-sec">Inicia Sesion</button>
                                 </Link>
 
                                 <div>
                                     <button className="btn btn-primary" onClick={this.handleCloseLoginModal}>Cancelar</button>
                                 </div>
-
-
-                            </div>
 
 
 
@@ -602,7 +599,7 @@ class Infocard extends Component {
                             </div>
                             <div id="proj-footer">
 
-                                <button id="proj-cont" onClick={this.handleLoginModal} data-toggle="modal" data-target="#formModal" ><img src={arrow}></img></button>
+                                <button id="proj-cont" onClick={this.handleOpenModal} data-toggle="modal" data-target="#formModal" ><img src={arrow}></img></button>
                             </div>
 
                         </div>

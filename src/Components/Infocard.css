@@ -347,3 +347,16 @@
 }
 
 }
+
+
+#spg-logo {
+    float: left;
+}
+
+#invest-login-modal {
+    padding: 8vh 0;
+}
+
+#invest-login-modal > * {
+    padding: 2vh;
+}
