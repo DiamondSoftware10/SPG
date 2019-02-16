@@ -10,9 +10,9 @@ export default class Input extends Component {
     };
   }
 
-  validation( value) {
+  validation(value) {
     let expreg = new RegExp(this.props.regex);
-    
+
     if (value === "") {
       this.setState({
         showAlert: true,
@@ -46,7 +46,6 @@ export default class Input extends Component {
       <div>
         <div class="form-group">
           <label>{this.props.label}</label>
-          {this.state.showAlert ? this.renderAlert() : null}
 
           <input
             name="input"
@@ -56,6 +55,8 @@ export default class Input extends Component {
             onBlur={e => this.validation(e.target.value)}
             required
           />
+          {this.state.showAlert ? this.renderAlert() : null}
+
         </div>
       </div>
     );

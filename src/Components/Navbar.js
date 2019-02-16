@@ -56,7 +56,7 @@ const NavNonAuth = () =>
                 <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
                     <li className="nav-item">
                         <Link to={routes.LOGINPAGE}>
-                            <button className="nav-link bt" id="login-bt" >LOG IN</button>
+                            <button className="btn-secondary">LOG IN</button>
                         </Link>
 
                     </li>

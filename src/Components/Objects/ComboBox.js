@@ -3,7 +3,7 @@ import "./ComboBox.css";
 import close from "../../Icons/close.svg";
 
 
-export default class Input extends Component {
+export default class ComboBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,8 +39,9 @@ export default class Input extends Component {
           <div class="dropdown" >
             <button
               type="button"
-              class="btn btn-primary dropdown-toggle"
+              class="btn btn-tertiary dropdown-toggle"
               data-toggle="dropdown"
+              id="drop-button"
             >
               Seleccione un elemento
             </button>

@@ -9,7 +9,7 @@ export default class TextArea extends Component {
     };
   }
 
-  validation( value) {
+  validation(value) {
     if (value === "") {
       this.setState({
         showAlert: true,
@@ -27,13 +27,14 @@ export default class TextArea extends Component {
       <div>
         <div class="form-group">
           <label>{this.props.label}</label>
-          {this.state.showAlert ?<label>El campo no puede estar vacio</label>  : null}
           <textarea
             rows="3"
             class="form-control"
             placeholder={this.props.placeholder}
-            onBlur ={e=>this.validation(e.target.value)}
+            onBlur={e => this.validation(e.target.value)}
           />
+          {this.state.showAlert ? <label>El campo no puede estar vacio</label> : null}
+
         </div>
       </div>
     );

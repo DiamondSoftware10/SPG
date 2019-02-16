@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import "./Input.css";
 
-export default class Input extends Component {
+export default class InputNumber extends Component {
   constructor(props) {
     super(props);
     this.state = {
       showAlert: false,
     };
   }
-  
+
   render() {
     return (
       <div>
