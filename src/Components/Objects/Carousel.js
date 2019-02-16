@@ -16,16 +16,24 @@ export default class Carousel extends Component {
       <div>
         <div class="form-group">
           <label>{this.props.label}</label>
+          <input value={fotoF} ref={this.fotoF} type="file" />
+          <button
+            id="bt-uploadProject"
+            className="btn btn-secondary"
+            onClick={this.addList}
+          >
+            Agregar foto
+          </button>
           <Carousel
             showThumbs={false}
             statusFormatter={(current, total) => `${current} de ${total}`}
             infiniteLoop={true}
           >
-            {this.state.listImgFamilies.map((img, index) => (
+            {this.state.list.map((img, index) => (
               <div>
                 <button
                   id="delete-icon"
-                  onClick={e => this.handleDeleteImageFamily(index, e)}
+                  onClick={e => this.handleDelete(index, e)}
                 >
                   X
                 </button>
