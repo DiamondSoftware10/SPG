@@ -825,7 +825,7 @@ class NewProject extends Component {
               />
               <button
                 id="bt-uploadProject"
-                className="btn btn-secondary"
+                className="btn btn-tertiary"
                 onClick={this.addListImgFamilies}
               >
                 Agregar foto
@@ -870,7 +870,7 @@ class NewProject extends Component {
               />
               <button
                 id="bt-uploadProject"
-                className="btn btn-secondary"
+                className="btn btn-tertiary"
                 onClick={this.addListImgCrops}
               >
                 Agregar foto
