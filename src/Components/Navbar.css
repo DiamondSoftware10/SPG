@@ -22,7 +22,7 @@
     align-items: center;
 }
 .nav-item {
-    margin: 0vw 1vw 0vw 1vw;
+    margin: 0vw 1vw;
     font-size: 0.9em;
     font-weight: 600;
 }
@@ -34,6 +34,7 @@
    font-weight: 200;
    text-transform: uppercase;
    letter-spacing: 0.1em;
+   justify-self: center;
   
 }
 
@@ -56,28 +57,7 @@
     --padding: .75vw 2.5vw .75vw 2.5vw;
 }
 
-#main-search {
-    border: none;
-    background: #fafafa;
-    border-radius: 15px;
-    font-weight: 600;
-    width: 25vw;
-    height: 7vh;
-    padding-left: 15%;
-    
-}
 
-.input-search {
-    position: relative;
-}
-
-#main-search-icon {
-    height: 50%;
-    position: absolute;
-    margin-left: auto;
-    top: 25%;
-    left: 5%;
-}
 
 #nav-icon {
         width: 1.5em;

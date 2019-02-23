@@ -84,26 +84,28 @@ const NavAdmin = () => (
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <Searchbar option={"title"} />
                 <ul className="navbar-nav mr-auto ">
-                    <li className="nav-item active">
-                        <Link to={routes.LANDING}>
 
+                    <Link to={routes.LANDING}>
+                        <li className="nav-item ">
                             <a className="nav-link" >Inicio <span className="sr-only">(current)</span></a>
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={routes.PROYECTOSADMIN}>
-                            <a className="nav-link">Explorar</a>
-                        </Link>
-                    </li>
+                        </li>
+                    </Link>
 
-                    <li className="nav-item">
-                        <a className="nav-link" >Acerca</a>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={routes.MANAGEPROJECTS}>
+                    <Link to={routes.PROYECTOSADMIN}>
+                        <li className="nav-item">
+                            <a className="nav-link">Explorar</a>
+                        </li>
+                    </Link>
+                    <Link to={routes.LANDING}>
+                        <li className="nav-item">
+                            <a className="nav-link" >Acerca</a>
+                        </li>
+                    </Link>
+                    <Link to={routes.MANAGEPROJECTS}>
+                        <li className="nav-item">
                             <a className="nav-link">Editar Proyectos</a>
-                        </Link>
-                    </li>
+                        </li>
+                    </Link>
 
                 </ul>
 
@@ -160,21 +162,25 @@ const NavUser = () => (
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <Searchbar option={"title"} />
                 <ul className="navbar-nav mr-auto ">
-                    <li className="nav-item active">
-                        <Link to={routes.LANDING}>
+                    <Link to={routes.LANDING}>
+                        <li className="nav-item active">
 
                             <a className="nav-link" >Inicio <span className="sr-only">(current)</span></a>
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={routes.PROYECTOS}>
-                            <a className="nav-link" >Explorar</a>
-                        </Link>
-                    </li>
+                        </li>
+                    </Link>
 
-                    <li className="nav-item">
-                        <a className="nav-link" >Acerca de</a>
-                    </li>
+
+                    <Link to={routes.PROYECTOS}>
+                        <li className="nav-item">
+                            <a className="nav-link" >Explorar</a>
+                        </li>
+                    </Link>
+
+                    <Link to={routes.LANDING}>
+                        <li className="nav-item">
+                            <a className="nav-link" >Acerca de</a>
+                        </li>
+                    </Link>
                     {/*
                             <li className="nav-item">
                                 <a className="nav-link disabled" >Disabled</a>
@@ -192,7 +198,7 @@ const NavUser = () => (
                             <img id="nav-icon" src={profile}></img>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <UserContext.Consumer>
+                            <UserContext.Consumer>
                                 {context => context.user ?
                                     <Link to={routes.PROFILE}>
                                         <a class="dropdown-item" href="#">{context.nombre}</a>
@@ -238,21 +244,25 @@ const NavSuper = () => (
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <Searchbar />
                 <ul className="navbar-nav mr-auto ">
-                    <li className="nav-item active">
-                        <Link to={routes.LANDING}>
 
+                    <Link to={routes.LANDING}>
+                        <li className="nav-item active">
                             <a className="nav-link" >Inicio <span className="sr-only">(current)</span></a>
-                        </Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link to={routes.PROYECTOSADMIN}>
-                            <a className="nav-link">Explorar</a>
-                        </Link>
-                    </li>
+                        </li>
+                    </Link>
 
-                    <li className="nav-item">
-                        <a className="nav-link" >Acerca</a>
-                    </li>
+
+                    <Link to={routes.PROYECTOSADMIN}>
+                        <li className="nav-item">
+                            <a className="nav-link">Explorar</a>
+                        </li>
+                    </Link>
+
+                    <Link to={routes.LANDING}>
+                        <li className="nav-item">
+                            <a className="nav-link" >Acerca</a>
+                        </li>
+                    </Link>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -300,7 +310,7 @@ const NavSuper = () => (
                             <img id="nav-icon" src={profile}></img>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <UserContext.Consumer>
+                            <UserContext.Consumer>
                                 {context => context.user ?
                                     <Link to={routes.PROFILE}>
                                         <a class="dropdown-item" href="#">{context.nombre}</a>

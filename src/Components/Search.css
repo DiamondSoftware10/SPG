@@ -1,6 +1,6 @@
 #page-search {
     border: none;
-    background: #fafafa;
+    background: #fbfbfb;
     border-radius: 100px;
     font-weight: 300;
     width: 60vw;
@@ -8,13 +8,14 @@
     padding-left: 12%;
     font-size: 2em;
     color: rgb(24, 24, 24);
-    
+    transition: width 1s;
 }
 
 #page-search:focus {
     outline: 0;
     box-shadow:  2px 2px 20px 2px rgba(0, 0, 0, 0.1);;
     background: white;
+    width: 70vw;
 }
 
 
@@ -24,7 +25,41 @@
     margin-left: auto;
     top: 25%;
     left: 4%;
+    
 }
+
+#main-search {
+    border: none;
+    background: #fafafa;
+    border-radius: 15px;
+    width: 20vw;
+    height: 7vh;
+    padding-left: 17%;
+    transition: width 1s;
+    
+}
+
+#main-search:focus {
+    outline: 0;
+    box-shadow:  2px 2px 20px 2px rgba(0, 0, 0, 0.1);;
+    background: white;
+    width: 25vw;
+    color: black;
+}
+
+
+.input-search {
+    position: relative;
+}
+
+#main-search-icon {
+    height: 50%;
+    position: absolute;
+    margin-left: auto;
+    top: 25%;
+    left: 5%;
+}
+
 
 #search-flex {
     flex-direction: column;
