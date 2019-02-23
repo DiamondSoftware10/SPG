@@ -275,15 +275,15 @@ class SearchPage extends Component {
                             {/*<button id="btn-search" className="btn btn-outline-success my-2 my-sm-0" type="submit" onClick={this.search}>Búsqueda</button>*/}
                         </form>
                     </div>
-                    <div id="button-flex" className="flex-content btn-group btn-group-toggle" data-toggle="buttons">
+                    <div id="button-flex" className="flex-content btn-group" >
                         {(this.state.titleOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("title")}> Titulo</button>
-                            : <button style={deselectedButton} className=" btn-tertiary" onClick={() => this.handleOption("title")}> Titulo</button>}
+                            : <button className=" btn-tertiary" onClick={() => this.handleOption("title")}> Titulo</button>}
                         {(this.state.locateOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("locate")}> Ubicación</button>
-                            : <button style={deselectedButton} className=" btn-tertiary" onClick={() => this.handleOption("locate")}> Ubicación</button>}
+                            : <button className=" btn-tertiary" onClick={() => this.handleOption("locate")}> Ubicación</button>}
                         {(this.state.invOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("investment")}> Inversión</button>
-                            : <button style={deselectedButton} className=" btn-tertiary" onClick={() => this.handleOption("investment")}> Inversión</button>}
+                            : <button className=" btn-tertiary" onClick={() => this.handleOption("investment")}> Inversión</button>}
                         {(this.state.cropOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("crops")}> Cultivos</button>
-                            : <button style={deselectedButton} className=" btn-tertiary" onClick={() => this.handleOption("crops")}> Cultivos</button>}
+                            : <button className=" btn-tertiary" onClick={() => this.handleOption("crops")}> Cultivos</button>}
 
                         {/*
                         <button className="btn-tertiary" onClick={() => this.handleOption("title", "por nombre")}> Titulo</button>

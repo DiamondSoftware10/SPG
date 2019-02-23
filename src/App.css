@@ -110,7 +110,7 @@
   background-color: rgb(24,162,78);
   color: white;
   border-color: transparent;
-  display: block;
+  font-weight: 700;
 }
 
 .btn-tertiary:focus {
