@@ -26,7 +26,12 @@ class SearchPage extends Component {
             searchTerm: "",
             foto: "",
             nextSearch: "",
-            placeholder: "Buscar proyectos"
+            placeholder: "Buscar proyectos",
+
+            titleOption: false,
+            locateOption: false,
+            invOption: false,
+            cropOption: false
         }
 
         this.search = this.search.bind(this);
@@ -152,7 +157,53 @@ class SearchPage extends Component {
 
     }
 
-    handleOption(value, category) {
+
+    handleOption(value) {
+        var sel;
+        var category;
+        if (value == "title") {
+            category = "por nombre"
+            if (this.state.titleOption) { sel = false }
+            else { sel = true }
+            this.setState({
+                titleOption: sel,
+                locateOption: false,
+                invOption: false,
+                cropOption: false
+            })
+        } else if (value == "locate") {
+            category = "por ubicacion"
+            if (this.state.locateOption) { sel = false }
+            else { sel = true }
+            this.setState({
+                titleOption: false,
+                locateOption: sel,
+                invOption: false,
+                cropOption: false
+            })
+        }
+        else if (value == "investment") {
+            category = "por inversión mínima"
+            if (this.state.invOption) { sel = false }
+            else { sel = true }
+            this.setState({
+                titleOption: false,
+                locateOption: false,
+                invOption: sel,
+                cropOption: false
+            })
+        }
+        else if (value == "crops") {
+            category = "por cultivos"
+            if (this.state.cropOption) { sel = false }
+            else { sel = true }
+            this.setState({
+                titleOption: false,
+                locateOption: false,
+                invOption: false,
+                cropOption: sel
+            })
+        }
         var ph = "Buscar proyectos " + category;
         this.setState({
             option: value,
@@ -165,6 +216,15 @@ class SearchPage extends Component {
     render() {
         //console.log(this.props.params.sarchTerm)
         //let cards = "";
+        const selectedButton = {
+            backgroundColor: 'rgb(24,162,78)',
+            color: 'white',
+            borderColor: 'transparent'
+        }
+
+        const deselectedButton = {
+            backgroundColor: "white"
+        }
         let cards = this.state.searchResults.map((doc, i) => {
             console.log("card " + i);
 
@@ -216,10 +276,21 @@ class SearchPage extends Component {
                         </form>
                     </div>
                     <div id="button-flex" className="flex-content btn-group btn-group-toggle" data-toggle="buttons">
-                        <button className="btn-tertiary" type="radio" name="options" id="option1" autoComplete="off" onClick={() => this.handleOption("title", "por nombre")} checked > Titulo</button>
+                        {(this.state.titleOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("title")}> Titulo</button>
+                            : <button style={deselectedButton} className=" btn-tertiary" onClick={() => this.handleOption("title")}> Titulo</button>}
+                        {(this.state.locateOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("locate")}> Ubicación</button>
+                            : <button style={deselectedButton} className=" btn-tertiary" onClick={() => this.handleOption("locate")}> Ubicación</button>}
+                        {(this.state.invOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("investment")}> Inversión</button>
+                            : <button style={deselectedButton} className=" btn-tertiary" onClick={() => this.handleOption("investment")}> Inversión</button>}
+                        {(this.state.cropOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("crops")}> Cultivos</button>
+                            : <button style={deselectedButton} className=" btn-tertiary" onClick={() => this.handleOption("crops")}> Cultivos</button>}
+
+                        {/*
+                        <button className="btn-tertiary" onClick={() => this.handleOption("title", "por nombre")}> Titulo</button>
                         <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("locate", "por ubicacion")} > Ubicación </button>
                         <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("investInitxBlock", "por inversión minima")} > Inversión inicial </button>
                         <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("cultures", "por cultivos")} > Cultivos </button>
+                        */}
                     </div>
                     <div className="flexbox" id="filter-flex">
                         <div className="side-flex">
