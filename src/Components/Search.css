@@ -35,7 +35,7 @@
     width: 20vw;
     height: 7vh;
     padding-left: 17%;
-    transition: width 1s;
+    transition: width .5s;
     
 }
 
