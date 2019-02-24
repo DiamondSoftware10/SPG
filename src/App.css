@@ -1,6 +1,7 @@
 :root {
   --main-spg-color: rgb(24,162,78);
   --sec-spg-color: rgb(52, 102, 69);
+  --alt-spg-color: rgb(88,183,123);
 }
 
 .App {
@@ -47,7 +48,7 @@
   width: 30vw;
   border: none;
   border-radius: 30px;
-  height: 7vh;
+  height: 4vw;
   text-transform: uppercase;
   letter-spacing: .15em;
   font-size: .9em;
@@ -183,15 +184,21 @@ h5 {
   color: var(--sec-spg-color);
 }
 
-@media(max-width: 800px) {
-  .btn-primary {
-    width: 80vw;
-  }
+
+@media(max-width: 990px) {
+  
   body {
     font-size: 10px;
   }
 }
 
+
+@media(max-width: 500px) {
+  .btn-primary {
+    width: 80vw;
+    height: 10vw;
+  }
+}
 
 /*ALERTS*/
 .alert-danger {

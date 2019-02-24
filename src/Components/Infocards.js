@@ -375,6 +375,14 @@ class Infocard extends Component {
 
         }
 
+        const styles = {
+            progress: {
+                width: '75%',
+                backgroundColor: 'green',
+            }
+        }
+        const { progress } = styles;
+
         return (
             <div >
                 <ReactModal
@@ -442,7 +450,9 @@ class Infocard extends Component {
                                                     </div>
                                                 </div>
                                                 <br></br>
-
+                                                <div class="progress">
+                                                    <div class="progress-bar" role="progressbar" style={styles.progress} aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
                                                 <br></br>
 
                                                 <h5>Descripción </h5>
@@ -485,6 +495,7 @@ class Infocard extends Component {
                                                         <h6>Dinero recaudado</h6>
                                                         <h3>${this.state.raisedMoney}</h3>
                                                     </div>
+
                                                     <div>
                                                         <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleLoginModal()}>Invertir</button>
                                                     </div>
@@ -542,13 +553,13 @@ class Infocard extends Component {
                         <h4>Debes iniciar sesion para invertir en un proyecto</h4>
                         <div className="flexbox" id="invest-login-modal">
 
-                                <Link to={routes.LOGINPAGE}>
-                                    <button className="btn btn-sec">Inicia Sesion</button>
-                                </Link>
+                            <Link to={routes.LOGINPAGE}>
+                                <button className="btn btn-sec">Inicia Sesion</button>
+                            </Link>
 
-                                <div>
-                                    <button className="btn btn-primary" onClick={this.handleCloseLoginModal}>Cancelar</button>
-                                </div>
+                            <div>
+                                <button className="btn btn-primary" onClick={this.handleCloseLoginModal}>Cancelar</button>
+                            </div>
 
 
 
@@ -598,12 +609,12 @@ class Infocard extends Component {
                                 <div id="num">{this.props.money}  </div>
                             </div>
                             <div id="proj-footer">
-
-                                <button id="proj-cont" onClick={this.handleOpenModal} data-toggle="modal" data-target="#formModal" ><img src={arrow}></img></button>
+                                <button id="proj-cont" onClick={this.handleOpenModal} data-toggle="modal" data-target="#formModal" ><img id="proj-cont-icon" src={arrow}></img></button>
                             </div>
-
                         </div>
+
                     </div>
+
                 </div >
             </div>
         );

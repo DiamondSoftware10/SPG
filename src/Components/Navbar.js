@@ -83,10 +83,10 @@ const NavAdmin = () => (
 
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <Searchbar option={"title"} />
-                <ul className="navbar-nav mr-auto ">
+                <ul className="navbar-nav mr-auto">
 
                     <Link to={routes.LANDING}>
-                        <li className="nav-item ">
+                        <li className="nav-item">
                             <a className="nav-link" >Inicio <span className="sr-only">(current)</span></a>
                         </li>
                     </Link>

@@ -308,12 +308,10 @@ class SearchPage extends Component {
                             <div>
                                 <h2>Resultados para "{this.state.searchTerm}"</h2>
                             </div>
-                            <div>
+                            <div className="cards-flex">
                                 {cards}
                             </div>
-
                         </div>
-
                         {/*<Searchbar option={this.state.option}/>*/}
                     </div>
                 </div>

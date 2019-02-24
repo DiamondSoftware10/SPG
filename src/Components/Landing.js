@@ -60,17 +60,17 @@ export default class Landing extends Component {
                     <div className="block-flex">
                         <div className="block-segment">
                             <img className="block-icon" src={planting}></img>
-                            <h1>Contribuye</h1>
+                            <h2>Contribuye</h2>
                             <h3>al desarrollo del sector agricola</h3>
                         </div>
                         <div className="block-segment">
                             <img className="block-icon" src={connection}></img>
-                            <h1>Conecta</h1>
+                            <h2>Conecta</h2>
                             <h3>inversionistas con agricultores</h3>
                         </div>
                         <div className="block-segment">
                             <img className="block-icon" src={development}></img>
-                            <h1>Crece</h1>
+                            <h2>Crece</h2>
                             <h3>adquiere capital y ayuda a tu país</h3>
                         </div>
                     </div>
