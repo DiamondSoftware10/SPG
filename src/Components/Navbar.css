@@ -38,8 +38,14 @@
   
 }
 
+.dropdown-menu {
+    border: none;
+    box-shadow: 0px 0px 50px rgba(160, 160, 160, 0.212);
+}
+
 .dropdown-item {
     color: rgb(106, 106, 106);
+    font-size: 0.8em;
 }
 
 .nav-item #login-bt {
@@ -87,8 +93,6 @@
     color: black;
 
 }
-
-
 
 @media(max-width: 990px) {
     .navbar {

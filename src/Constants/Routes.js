@@ -13,6 +13,7 @@ export const MANAGEUSERS = '/ManageUsers';
 export const RESETPASSWORD = '/ResetPassword';
 export const MANAGEPROJECTS = '/ManageProjects';
 export const SEARCHPAGE = '/SearchPage';
+export const PROJECT =  '/Project';
 
 
 

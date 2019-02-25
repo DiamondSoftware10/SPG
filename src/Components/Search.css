@@ -36,7 +36,7 @@
     height: 7vh;
     padding-left: 17%;
     transition: width .5s;
-    
+    font-size: .9em;
 }
 
 #main-search:focus {

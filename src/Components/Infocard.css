@@ -284,68 +284,6 @@
 }
 */
 
-/*ADD CART*/
-#btn-add-cart {
-    padding: 0 0;
-    margin-top: 5vmin;
-    width: 20vw;
-    justify-self: center;
-}
-
-#add-icon {
-    height: 3vmin;
-    cursor: pointer;
-}
-
-.amount-number {
-    font-size: 2em;
-    font-weight: 600;
-}
-
-#number-flex {
-    flex-wrap: nowrap;
-    flex-direction: row;
-    width: 100%;
-    text-align: center;
-    padding: 5vmin;
-    border-bottom: 1px solid rgb(126, 126, 126);
-}
-
-#number-flex > div {
-    padding: 0 2vmin;
-    width: 20%;
-}
-
-#flex-head {
-    width: 100%;
-    margin: auto;
-}
-
-#total-flex {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 4vmin;
-    text-align: right;
-}
-
-#total-num {
-    font-size: 3em;
-    font-weight: 900;
-}
-
-#total-text {
-    text-transform: uppercase;
-    letter-spacing: .2em;
-}
-
-#precart-flex {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
 
 @media (max-width: 990px) {
 
@@ -363,15 +301,3 @@
     }
 }
 
-
-#spg-logo {
-    float: left;
-}
-
-#invest-login-modal {
-    padding: 8vh 0;
-}
-
-#invest-login-modal > * {
-    padding: 2vh;
-}

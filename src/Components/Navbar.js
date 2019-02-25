@@ -91,7 +91,7 @@ const NavAdmin = () => (
                         </li>
                     </Link>
 
-                    <Link to={routes.PROYECTOSADMIN}>
+                    <Link to={routes.PROYECTOS}>
                         <li className="nav-item">
                             <a className="nav-link">Explorar</a>
                         </li>
@@ -101,11 +101,21 @@ const NavAdmin = () => (
                             <a className="nav-link" >Acerca</a>
                         </li>
                     </Link>
-                    <Link to={routes.MANAGEPROJECTS}>
-                        <li className="nav-item">
-                            <a className="nav-link">Editar Proyectos</a>
-                        </li>
-                    </Link>
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Gestionar
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <Link to={routes.NEWPROJECT}>
+                                <a class="dropdown-item" href="#">Nuevo Proyecto</a>
+                            </Link>
+                            <Link to={routes.MANAGEPROJECTS}>
+                                <a class="dropdown-item" href="#">Editar Proyectos</a>
+                            </Link>
+
+                        </div>
+                    </li>
 
                 </ul>
 
@@ -252,7 +262,7 @@ const NavSuper = () => (
                     </Link>
 
 
-                    <Link to={routes.PROYECTOSADMIN}>
+                    <Link to={routes.PROYECTOS}>
                         <li className="nav-item">
                             <a className="nav-link">Explorar</a>
                         </li>
@@ -269,6 +279,9 @@ const NavSuper = () => (
                             Gestor
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <Link to={routes.NEWPROJECT}>
+                                <a class="dropdown-item" href="#">Nuevo Proyecto</a>
+                            </Link>
                             <Link to={routes.CREATEUSERADMIN}>
                                 <a class="dropdown-item" href="#">Crear Gestor de Proyectos</a>
                             </Link>

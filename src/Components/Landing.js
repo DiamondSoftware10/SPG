@@ -1,6 +1,4 @@
 import React, { Component } from 'react'
-import Infocard from '../Components/Infocard'
-import HorizontalInfo from '../Components/HorizontalInfo'
 
 import './Landing.css';
 

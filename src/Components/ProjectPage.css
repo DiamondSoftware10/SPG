@@ -1,0 +1,208 @@
+.page-container {
+    margin: 0 10vw;
+    text-align: left;
+}
+
+
+#modal-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    min-height: 1000px;
+    min-width: 100%;
+}
+
+#main-flex {
+    background-color: rgb(255, 255, 255);
+    padding: 2.5em;
+    padding-left: 3em;
+
+    /*padding-top: 4.2em;*/
+    flex-grow: 2;
+    position: relative;
+    width: 66%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+#side-flex {
+    background-color: rgb(255, 255, 255);
+    width: 33%;
+    min-height: 100%;
+}
+
+#side-flex > #sidebar {
+    margin: 1em;
+    background-color: rgb(1, 95, 1);
+    color: white;
+    padding: 1em;
+    display: flex;
+    border-radius: 5px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 200vh;
+    align-content: center;
+    flex-grow: 1;
+}
+
+#side-flex > #sidebar > * {
+    margin: .6em;
+}
+
+#side-flex > #sidebar > * > h3 {
+    font-weight: 700;
+}
+
+#side-flex > #sidebar > * > h6 {
+    font-weight: 400;
+    letter-spacing: 1px;
+
+}
+
+
+
+#main-flex > h5 {
+    font-weight: 700;
+}
+
+#terr-head {
+    position: absolute;
+    top: 31%;
+    left: .55em;
+    font-size: 100;
+    text-transform: uppercase;
+    color: rgba(0, 128, 0, 0.192);
+    letter-spacing: .25em;
+    font-weight: 700;
+    font-size: 4em;
+}
+
+#main-flex > #proj-location {
+    font-size: 1.5em;
+    margin: 0;
+    font-weight: 400;
+}
+
+#main-flex > #proj-title {
+    padding-top: 6%;
+}
+
+#modal-img {
+    height:100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#img-div {
+    height: 30%;
+    width: 120%;
+}
+
+.spg-btn {
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    margin: auto;
+    height: 10vmin;
+    width: 40vmin;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: .25em;
+    display: none;
+}
+
+.invest-modal {
+    width: 40vw;
+    top: 20vh;
+    left: 20vw;
+    overflow: auto;
+    border-radius: 10px;
+    top: 0;
+}
+
+.flex-item {
+    width: 100%;
+}
+
+.progress {
+    background-color: transparent;
+    border: 1px solid var(--main-spg-color);
+}
+
+
+/*ADD CART*/
+#btn-add-cart {
+    padding: 0 0;
+    margin-top: 5vmin;
+    width: 90%;
+    justify-self: center;
+}
+
+#add-icon {
+    height: 3vmin;
+    cursor: pointer;
+}
+
+.amount-number {
+    font-size: 2em;
+    font-weight: 600;
+}
+
+#number-flex {
+    flex-wrap: nowrap;
+    flex-direction: row;
+    width: 100%;
+    text-align: center;
+    padding: 5vmin;
+    border-bottom: 1px solid rgb(126, 126, 126);
+}
+
+#number-flex > div {
+    padding: 0 2vmin;
+    width: 20%;
+}
+
+#flex-head {
+    width: 100%;
+    margin: auto;
+}
+
+#total-flex {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 4vmin;
+    text-align: right;
+}
+
+#total-num {
+    font-size: 3em;
+    font-weight: 900;
+}
+
+#total-text {
+    text-transform: uppercase;
+    letter-spacing: .2em;
+}
+
+#precart-flex {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+
+#spg-logo {
+    float: left;
+}
+
+#invest-login-modal {
+    padding: 8vh 0;
+}
+
+#invest-login-modal > * {
+    padding: 2vh;
+}

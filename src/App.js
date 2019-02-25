@@ -9,7 +9,6 @@ import UserHomepage from './Components/UserHomepage';
 import GuestHomepage from './Components/GuestHomepage';
 import Navbar from './Components/Navbar';
 import CreateAdmin from './Components/CreateAdminUser'
-import Infocard from './Components/Infocard'
 
 import Register from "./Components/Register";
 import LoginPage from "./Components/LoginPage";
@@ -30,6 +29,7 @@ import UserContext from "./Components/UserContext";
 import ManageProjects from './Components/ManageProjects';
 import Profile from './Components/Profile'
 import SearchPage from "./Components/SearchPage";
+import ProjectPage from './Components/ProjectPage';
 
 class App extends Component {
 
@@ -171,6 +171,11 @@ class App extends Component {
               <Route
                 exact path={routes.RESETPASSWORD}
                 component={() => <ResetPassword />}
+              />
+
+               <Route
+                exact path={routes.PROJECT}
+                component={() => <ProjectPage />}
               />
 
             </Switch>

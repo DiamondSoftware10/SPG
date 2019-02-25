@@ -1,0 +1,441 @@
+import React, { Component } from 'react';
+import ReactModal from 'react-modal';
+import { Link } from 'react-router-dom';
+import MapContainer from './GoogleMapsContainer';
+import * as routes from '../Constants/Routes';
+import fire from '../Firebase/Fire'
+
+import loc from '../Icons/placeholder.svg';
+import close from '../Icons/close.svg'
+import add from '../Icons/add.svg';
+import sub from '../Icons/subtract.svg';
+import icon from '../Icons/iconbeta.png';
+
+import './ProjectPage.css'
+
+var db = fire.firestore();
+
+const ProjectPage = () =>
+    <div className="page-container">
+        <ProjectInfo id="KqefNVCiFFpwCvRq71By" />
+    </div>
+
+
+export class ProjectInfo extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: "",
+            foto: "",
+            cultivos: [],
+            invMin: 0,
+            empleoGen: "23",
+            title: "Nombre",
+            culture: "",
+            description: "",
+            infoZone: "",
+            investor: "",
+            projFinan: "",
+            raisedMoney: "",
+            location: "Ubicacion",
+            progress: "",
+
+            pago: 0,
+            showInvest: false,
+            showLoginModal: false,
+            showConfirmation: false,
+            manzanas: 1
+        };
+
+        this.handleLoginModal = this.handleLoginModal.bind(this);
+        this.handleCloseLoginModal = this.handleCloseLoginModal.bind(this);
+        this.readDB = this.readDB.bind(this);
+        this.handleAddToCart = this.handleAddToCart.bind(this);
+        this.handleOpenInvestModal = this.handleOpenInvestModal.bind(this);
+        this.handleCloseInvestModal = this.handleCloseInvestModal.bind(this);
+        this.handleAddManzana = this.handleAddManzana.bind(this);
+        this.handleSubManzana = this.handleSubManzana.bind(this);
+        this.handleOpenConfirmation = this.handleOpenConfirmation.bind(this);
+        this.handleCloseConfirmation = this.handleCloseConfirmation.bind(this);
+    }
+
+    componentDidMount() {
+        this.readDB();
+    }
+
+    async readDB() {
+
+        await this.setState({
+            id: this.props.id,
+        })
+        console.log("ID " + this.state.id);
+        var id = this.state.id;
+
+        var title = "";
+        var culture;
+        var description;
+        var infoZone;
+        var investor;
+        var projFinan;
+        var raisedMoney;
+        var invMin;
+        var location;
+
+        //Capturar el proyecto correspondiente de la base de datos
+        var project = db.collection("projects").doc(/*MODIFICAR-----------------*/id/*---------------------MPODIFICAR*/);
+
+        await project.get().then(async function (snap) {
+            if (snap.exists) {
+                title = snap.data().title;
+                culture = snap.data().cultures;
+                description = snap.data().description;
+                infoZone = snap.data().infoZone;
+                investor = snap.data().investor;
+                projFinan = snap.data().projectFinan;
+                raisedMoney = snap.data().raisedMoney;
+                invMin = snap.data().investInitxBlock;
+                location = snap.data().locate;
+                console.log("Doc exists");
+                console.log("Title " + title);
+            } else {
+                console.log("No such doc")
+            }
+
+
+        });
+        this.setState({
+            title: title,
+            culture: culture,
+            description: description,
+            infoZone: infoZone,
+            investor: investor,
+            projFinan: projFinan,
+            raisedMoney: raisedMoney,
+            invMin: invMin,
+            pago: invMin,
+            location: location,
+            progress: Math.round(raisedMoney / projFinan * 100) + "%"
+        });
+        console.log(this.state.progress);
+
+    }
+
+    handleOpenInvestModal() {
+        var manzanas = 1;
+        var id = this.props.id;
+        fire.auth().onAuthStateChanged(async (user) => {
+            if (user) {
+                const item = db.collection("users").doc(user.uid).collection("cartera").doc(id);
+                console.log(user.uid);
+                await item.get().then(function (snap) {
+                    console.log(snap.exists)
+                    if (snap.exists) {
+                        manzanas = snap.data().manzanas;
+                        console.log(manzanas);
+                        console.log("yes");
+                    }
+                })
+            }
+            this.setState({
+                showInvest: true,
+                manzanas: manzanas,
+                pago: this.state.invMin * manzanas,
+            })
+        });
+    }
+
+    handleCloseInvestModal() {
+        this.setState({
+            showInvest: false
+        })
+    }
+
+    handleOpenConfirmation() {
+        this.setState({
+            showConfirmation: true
+        })
+    }
+
+    handleCloseConfirmation() {
+        this.setState({
+            showConfirmation: false
+        })
+        //this.handleCloseModal();
+
+
+    }
+
+
+    handleLoginModal() {
+        console.log('entro login modal');
+        fire.auth().onAuthStateChanged(user => {
+            user ? this.handleOpenInvestModal() : this.setState({
+                showLoginModal: true,
+            });
+        });
+
+
+    }
+
+    handleCloseLoginModal() {
+        this.setState({
+            showLoginModal: false,
+        })
+    }
+
+
+    handleAddToCart() {
+
+        var id = this.props.id;
+        var utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+        var d = new Date();
+        var n = d.toLocaleDateString;
+        var man = this.state.manzanas;
+        var pag = this.state.pago;
+
+        fire.auth().onAuthStateChanged(function (user) {
+
+            if (user) {
+                const database = fire.firestore();
+
+                var docData = {
+                    id: id,
+                    inversion: 5.99,
+                    fecha: utc,
+                    manzanas: man,
+                    pago: pag
+                };
+                const collection = database.collection('users').doc(user.uid).collection('cartera').doc(id);
+
+                const collProject = database.collection('projects').doc(id);
+
+                collProject.get().then(snapshot => {
+                    console.log("hey");
+                    console.log(snapshot.data().title)
+                    var docFinal = Object.assign(docData, snapshot.data());
+                    collection.set(docFinal);
+                })
+
+            } else {
+            }
+        });
+        this.handleCloseInvestModal();
+        this.handleOpenConfirmation();
+    }
+
+    handleAddManzana() {
+        this.setState({
+            manzanas: this.state.manzanas + 1
+        })
+        console.log(this.state.manzanas);
+        var man = this.state.manzanas + 1;
+
+        this.setState({
+            pago: man * this.state.invMin
+        })
+    }
+
+    handleSubManzana() {
+        if (this.state.manzanas > 1) {
+            this.setState({
+                manzanas: this.state.manzanas - 1
+            })
+            var man = this.state.manzanas - 1;
+            this.setState({
+                pago: man * this.state.invMin
+            })
+        }
+
+    }
+
+
+    render() {
+        const style = {
+            /*width: '50vw',
+            height: '75vh',*/
+            width: '45vw',
+            height: '40vh',
+            'marginLeft': '0',
+            'marginRight': '0',
+
+        }
+
+        const styles = {
+            progress: {
+                width: this.state.progress,
+                backgroundColor: 'rgb(24,162,78)',
+            }
+        }
+        const { progress } = styles;
+        return (
+
+            <div>
+
+                <div id="modal-detail">
+                    <div className="card">
+                        <div className="row">
+                            <div id="modal-flex">
+
+                                <div id="main-flex">
+                                    <div id="img-div">
+                                        <img id="modal-img" onClick={this.handleOpenModal} src={this.props.foto} ></img>
+                                    </div>
+                                    <div>
+                                        <div id="terr-head">Terreno</div>
+                                    </div>
+                                    <div id="proj-title">
+                                        <h2 className="h2-project">{this.state.title}</h2>
+                                    </div>
+                                    <br></br>
+
+                                    <div id="proj-location">
+                                        <img id="proj-icon" src={loc}></img>
+                                        <div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
+                                            {this.state.location}
+                                        </div>
+                                    </div>
+                                    <br></br>
+
+                                    <br></br>
+
+                                    <h5>Descripción </h5>
+                                    <p>{this.state.description}</p>
+                                    <br></br>
+
+                                    <h5>Información de la Zona </h5>
+                                    <p>{this.state.infoZone}</p>
+                                    <br></br>
+
+                                    <h5>Ubicación</h5>
+                                    {/*
+                                            <div style={style} className="card" id="modal-map">
+                                                <MapContainer center={{
+                                                    lat: this.props.center.lat,
+                                                    lng: this.props.center.lng
+                                                }} />
+                                            </div>
+                                            */}
+                                    <br></br>
+
+                                </div>
+
+                                <div id="side-flex">
+                                    <div id="sidebar">
+
+                                        {/*
+                                                    <div>
+                                                        <h6>Inversionista </h6>
+                                                        <h3>{this.state.investor}</h3>
+                                                    </div>
+                                                */}
+                                        <div className="flex-item">
+                                            <h6>Progreso</h6>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style={styles.progress} aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{this.state.progress}</div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h6>Inversión minima por manzana</h6>
+                                            <h3>${this.state.invMin}</h3>
+                                        </div>
+                                        <div>
+                                            <h6>Dinero recaudado</h6>
+                                            <h3>${this.state.raisedMoney}</h3>
+                                        </div>
+                                        <div>
+                                            <h6>Financiamiento total</h6>
+                                            <h3>${this.state.projFinan}</h3>
+                                        </div>
+                                       
+
+                                        <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleLoginModal()}>Invertir</button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <ReactModal
+                    isOpen={this.state.showInvest}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseInvestModal}
+                    className="ModalBack animated fadeIn faster"
+                    overlayClassName="Overlay"
+                >
+                    <div className="Modal invest-modal">
+                        <button className="hollow button" id="close-button" onClick={this.handleCloseInvestModal}><img id="proj-icon" src={close}></img></button>
+                        <h3 className="modal-title">Elegir inversión</h3>
+                        <div id="precart-flex">
+                            <div className="flexbox">
+                                <div id="flex-head">Manzanas</div>
+                                <div className="flexbox" id="number-flex">
+                                    <div><img onClick={this.handleSubManzana} id="add-icon" src={sub}></img></div>
+                                    <div className="amount-number">{this.state.manzanas}</div>
+                                    <div><img onClick={this.handleAddManzana} id="add-icon" src={add}></img></div>
+                                </div>
+                            </div>
+                            <div id="total-flex">
+                                <div id="total-text">Total</div>
+                                <div id="total-num">${this.state.pago}</div>
+                            </div>
+                            <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleAddToCart()}>Agregar a cartera</button>
+
+                        </div>
+                    </div>
+                </ReactModal>
+                <ReactModal
+                    isOpen={this.state.showLoginModal}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseLoginModal}
+                    className="ModalBack animated fadeIn faster"
+                    overlayClassName="Overlay"
+                >
+                    <div className="Modal">
+                        <button className="hollow button" id="close-button" onClick={this.handleCloseLoginModal}><img id="proj-icon" src={close}></img></button>
+                        <img id="spg-logo" src={icon} width="40" height="40"></img>
+                        <h3 className="navbar-brand">SPG</h3>
+                        <h4>Debes iniciar sesion para invertir en un proyecto</h4>
+                        <div className="flexbox" id="invest-login-modal">
+
+                            <Link to={routes.LOGINPAGE}>
+                                <button className="btn btn-sec">Inicia Sesion</button>
+                            </Link>
+
+                            <div>
+                                <button className="btn btn-primary" onClick={this.handleCloseLoginModal}>Cancelar</button>
+                            </div>
+
+
+
+                        </div>
+
+
+
+
+                    </div>
+                </ReactModal>
+
+                <ReactModal
+                    isOpen={this.state.showConfirmation}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseConfirmation}
+                    className="ModalBack"
+                    overlayClassName="Overlay"
+
+                >
+                    <div className="Modal invest-modal">
+                        <button className="hollow button" id="close-button" onClick={this.handleCloseConfirmation}><img id="proj-icon" src={close}></img></button>
+                        Agregado a cartera exitosamente!
+
+                    </div>
+                </ReactModal>
+            </div>
+        );
+    }
+}
+
+export default ProjectPage;
