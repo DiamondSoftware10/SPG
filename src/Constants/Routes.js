@@ -14,6 +14,7 @@ export const RESETPASSWORD = '/ResetPassword';
 export const MANAGEPROJECTS = '/ManageProjects';
 export const SEARCHPAGE = '/SearchPage';
 export const PROJECT =  '/Project';
+export const PAYMENT = '/Payment';
 
 
 

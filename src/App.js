@@ -30,6 +30,7 @@ import ManageProjects from './Components/ManageProjects';
 import Profile from './Components/Profile'
 import SearchPage from "./Components/SearchPage";
 import ProjectPage from './Components/ProjectPage';
+import Payment from './Components/Payment';
 
 class App extends Component {
 
@@ -39,13 +40,13 @@ class App extends Component {
 
     this.state = {
       user: null,
-      nombre:null,
+      nombre: null,
       type: null,
       uid: null,
       apellido: null,
       telefono: null,
       region: null,
-      correo: null, 
+      correo: null,
       active: false
     };
 
@@ -61,11 +62,11 @@ class App extends Component {
   async componentDidMount() {
     await fire.auth().onAuthStateChanged(user => {
       user ? this.setState(() => ({ user })) : this.setState(() => ({ user: null }));
-      
-      if(user){
+
+      if (user) {
         var id = user.uid;
       }
-      
+
       console.log(id);
       this.setState(() => ({ uid: id }))
       var ref = fire.firestore().collection('users');
@@ -74,12 +75,12 @@ class App extends Component {
           if (doc.id == id) {
             var temType = doc.data().accType
             this.setState(() => ({ type: temType }))
-            this.setState(()=>({ nombre: doc.data().nombre }))
-            this.setState(()=>({ apellido: doc.data().apellido }))
-            this.setState(()=>({ region: doc.data().region }))
-            this.setState(()=>({ telefono: doc.data().telefono }))
-            this.setState(()=>({ correo: doc.data().correo }))
-            this.setState(()=>({active: doc.data().active }))
+            this.setState(() => ({ nombre: doc.data().nombre }))
+            this.setState(() => ({ apellido: doc.data().apellido }))
+            this.setState(() => ({ region: doc.data().region }))
+            this.setState(() => ({ telefono: doc.data().telefono }))
+            this.setState(() => ({ correo: doc.data().correo }))
+            this.setState(() => ({ active: doc.data().active }))
           }
         });
       });
@@ -103,89 +104,94 @@ class App extends Component {
 
   render() {
     return (
-      
+
       <div className="App">
-      <UserContext.Provider value = {this.state}>
-        <Router>
-          <div>
-            <Navbar /*authUser={this.state.user} type={this.state.type}*/ />
-            <Switch>
+        <UserContext.Provider value={this.state}>
+          <Router>
+            <div>
+              <Navbar /*authUser={this.state.user} type={this.state.type}*/ />
+              <Switch>
 
-              <Route
-                exact path={routes.ADMINHOMEPAGE}
-                component={() => <AdminHomepage />}
-              />
-              <Route
-                exact path={routes.USERHOMEPAGE}
-                component={() => <UserHomepage />}
-              />
-              <Route
-                exact path={routes.GUESTHOMEPAGE}
-                component={() => <GuestHomepage />}
-              />
-              <Route
-                exact path={routes.LOGINPAGE}
-                component={LoginPage}
-              />
-              <Route
-                exact path={routes.NEWPROJECT}
-                component={() => <AddProject />}
-              />
-              <Route
-                path={routes.SEARCHPAGE + "/:type/:searchTerm"}
-                component={SearchPage}
-              />
-              <Route
-                exact path={routes.PROYECTOS}
-                component={Proyectos}
-              />
-              <Route
-                exact path={routes.PROYECTOSADMIN}
-                component={() => <ProyectosAdmin />}
-              />
-              <Route
-                exact path={routes.LANDING}
-                component={() => <Landing />}
-              />
-              <Route
-                exact path={routes.PROFILE}
-                component={() => <Profile uid={this.state.uid} />}
-              />
-              <Route
-                exact path={routes.CREATEUSERADMIN}
-                component={() => <CreateAdmin />}
-              />
-              <Route
-                exact path={routes.CART}
-                component={() => <Cart />}
-              />
-              <Route
-                exact path={routes.MANAGEUSERS}
-                component={() => <ManageUsers />}
-              />
-              <Route
-                exact path={routes.MANAGEPROJECTS}
-                component={() => <ManageProjects />}
-              />
+                <Route
+                  exact path={routes.ADMINHOMEPAGE}
+                  component={() => <AdminHomepage />}
+                />
+                <Route
+                  exact path={routes.USERHOMEPAGE}
+                  component={() => <UserHomepage />}
+                />
+                <Route
+                  exact path={routes.GUESTHOMEPAGE}
+                  component={() => <GuestHomepage />}
+                />
+                <Route
+                  exact path={routes.LOGINPAGE}
+                  component={LoginPage}
+                />
+                <Route
+                  exact path={routes.NEWPROJECT}
+                  component={() => <AddProject />}
+                />
+                <Route
+                  path={routes.SEARCHPAGE + "/:type/:searchTerm"}
+                  component={SearchPage}
+                />
+                <Route
+                  exact path={routes.PROYECTOS}
+                  component={Proyectos}
+                />
+                <Route
+                  exact path={routes.PROYECTOSADMIN}
+                  component={() => <ProyectosAdmin />}
+                />
+                <Route
+                  exact path={routes.LANDING}
+                  component={() => <Landing />}
+                />
+                <Route
+                  exact path={routes.PROFILE}
+                  component={() => <Profile uid={this.state.uid} />}
+                />
+                <Route
+                  exact path={routes.CREATEUSERADMIN}
+                  component={() => <CreateAdmin />}
+                />
+                <Route
+                  exact path={routes.CART}
+                  component={() => <Cart />}
+                />
+                <Route
+                  exact path={routes.MANAGEUSERS}
+                  component={() => <ManageUsers />}
+                />
+                <Route
+                  exact path={routes.MANAGEPROJECTS}
+                  component={() => <ManageProjects />}
+                />
 
-              <Route
-                exact path={routes.RESETPASSWORD}
-                component={() => <ResetPassword />}
-              />
+                <Route
+                  exact path={routes.RESETPASSWORD}
+                  component={() => <ResetPassword />}
+                />
 
-               <Route
-                exact path={routes.PROJECT}
-                component={() => <ProjectPage />}
-              />
+                <Route
+                  exact path={routes.PROJECT}
+                  component={() => <ProjectPage />}
+                />
 
-            </Switch>
+                <Route
+                  exact path={routes.PAYMENT}
+                  component={() => <Payment />}
+                />
+
+              </Switch>
 
 
-          </div>
-        </Router>
+            </div>
+          </Router>
         </UserContext.Provider>
       </div>
-      
+
     );
   }
 }

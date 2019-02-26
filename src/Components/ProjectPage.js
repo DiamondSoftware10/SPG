@@ -263,7 +263,7 @@ export class ProjectInfo extends Component {
         const styles = {
             progress: {
                 width: this.state.progress,
-                backgroundColor: 'rgb(24,162,78)',
+                
             }
         }
         const { progress } = styles;

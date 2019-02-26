@@ -2,6 +2,8 @@ import React, { Component, Button } from 'react'
 import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 import CartItem from './CartItem.js';
+import UserContext from './UserContext';
+
 
 import fire from "../Firebase/Fire"
 import './Cart.css'
@@ -26,6 +28,7 @@ export default class Cart extends Component {
         this.getInvestments = this.getInvestments.bind(this);
         this.handleDeleteFromCart = this.handleDeleteFromCart.bind(this);
         this.handleUpdateSuma = this.handleUpdateSuma.bind(this);
+        this.handleConfirmInvestment = this.handleConfirmInvestment.bind(this);
     }
 
     getInvestments() {
@@ -84,6 +87,34 @@ export default class Cart extends Component {
 
     }
 
+    handleConfirmInvestment() {
+        fire.auth().onAuthStateChanged(async (user) => {
+            if (user) {
+                const database = fire.firestore();
+                const collection = database.collection('users').doc(user.uid).collection('investments');
+
+                this.state.investments.forEach(element => {
+                    console.log(element.id);
+                    collection.doc(element.id).set(element);
+
+                    database.collection('users').doc(user.uid).collection('cartera').doc(element.id).delete().then(function() {
+                        console.log("Document successfully deleted!");
+                    }).catch(function(error) {
+                        console.error("Error removing document: ", error);
+                    });
+                    
+                })
+              
+            } else {
+            }
+            //console.log(this.state.investments);
+            this.setState({
+                showResult: false,
+                investments: []
+            });
+        });   
+    }
+
     handleDeleteFromCart(idProj, index, pago) {
         var result = true;
         fire.auth().onAuthStateChanged((user) => {
@@ -114,7 +145,7 @@ export default class Cart extends Component {
     }
 
     handleUpdateSuma(invMin, suma) {
-        if(suma) {
+        if (suma) {
             this.setState({
                 suma: this.state.suma + parseInt(invMin)
             })
@@ -165,8 +196,8 @@ export default class Cart extends Component {
                     handleDeleteFromCart={this.handleDeleteFromCart}
                     pic={doc.picProject}
                     manzanas={doc.manzanas}
-                    invMin = {doc.investInitxBlock}
-                    handleUpdateSuma = {this.handleUpdateSuma}
+                    invMin={doc.investInitxBlock}
+                    handleUpdateSuma={this.handleUpdateSuma}
                 >
 
 
@@ -180,7 +211,7 @@ export default class Cart extends Component {
 
         return (
             <div className="info-cont">
-                <h1 id="main-title">Cartera de Inversión</h1>
+                <h1 className="main-title">Cartera de Inversión</h1>
 
                 {this.state.showResult ? <div id="card-div" className="container-fluid animated fadeIn">
                     <div className="flex-content" id="cart-flex">
@@ -189,15 +220,15 @@ export default class Cart extends Component {
                             <div id="item-totalText" class="text">Total</div>
                             <div id="item-totalNum" class="text">${this.state.suma}</div>
                         </div>
-                        <button id="btn-confirm" className="btn btn-primary">Confirmar inversión</button>
+                        <button id="btn-confirm" className="btn btn-primary" onClick={this.handleConfirmInvestment}>Confirmar inversión</button>
                     </div>
                 </div>
                     :
                     <div className="flex-content">
-                        <img className="main-icon"src={hand}></img>
-                        <h4 className="main-msg">Tu cartera de inversión esta actualmente vacia</h4>
+                        <img className="main-icon" src={hand}></img>
+                        <h4 className="main-msg">Tu cartera de inversión está actualmente vacía</h4>
                         <Link to={routes.PROYECTOS}>
-                        <button className="btn btn-primary">Explorar proyectos</button>
+                            <button className="btn btn-primary">Explorar proyectos</button>
                         </Link>
                     </div>
                 }
