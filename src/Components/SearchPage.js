@@ -31,7 +31,9 @@ class SearchPage extends Component {
             titleOption: false,
             locateOption: false,
             invOption: false,
-            cropOption: false
+            cropOption: false,
+            areaOption: false,
+            available: false,
         }
 
         this.search = this.search.bind(this);
@@ -284,7 +286,8 @@ class SearchPage extends Component {
                             : <button className=" btn-tertiary" onClick={() => this.handleOption("investment")}> Inversión</button>}
                         {(this.state.cropOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("crops")}> Cultivos</button>
                             : <button className=" btn-tertiary" onClick={() => this.handleOption("crops")}> Cultivos</button>}
-
+                        {(this.state.areaOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("raisedMoney")}> Manzanas</button>
+                            : <button className=" btn-tertiary" onClick={() => this.handleOption("raisedMoney")}> Manzanas</button>}
                         {/*
                         <button className="btn-tertiary" onClick={() => this.handleOption("title", "por nombre")}> Titulo</button>
                         <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("locate", "por ubicacion")} > Ubicación </button>
@@ -300,7 +303,7 @@ class SearchPage extends Component {
                                     <h6>Inversion Minima</h6>
                                     <h6>Nombre de Proyecto</h6>
                                     <h6>Ubicacion</h6>
-                                    <h6>Cultivos</h6>
+                                    <h2>Inversión minima</h2>
                                 </div>
                             </div>
                         </div>
