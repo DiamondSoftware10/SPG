@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     margin: 1.5em;
-    transition: transform .25s;
+    transition: transform 1s;
     /*box-shadow: 5px 7px 20px rgba(0, 0, 0, 0.11);*/
     border-radius: 15px;
     /*cursor: pointer;*/
@@ -13,6 +13,11 @@
     width: 20vw;  
     font-size: 0.9rem;  
 }
+/*
+.icard-hor:hover {
+    transform: skewY(180deg) skewX(180deg) rotate(180deg) scale(3);
+}*/
+
 .icard-hor > div , button
 {
   text-align:center;

@@ -7,7 +7,7 @@ import './Payment.css'
 
 const PaymentPage = () =>
     <div >
-        <h1 className="main-title">Payment</h1>
+        <h1 className="main-title">Pago</h1>
         <Payment />
     </div>
 
