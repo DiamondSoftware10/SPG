@@ -15,6 +15,7 @@ export const MANAGEPROJECTS = '/ManageProjects';
 export const SEARCHPAGE = '/SearchPage';
 export const PROJECT =  '/Project';
 export const PAYMENT = '/Payment';
+export const LOGOUT = '/logout';
 
 
 

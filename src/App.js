@@ -31,6 +31,7 @@ import Profile from './Components/Profile'
 import SearchPage from "./Components/SearchPage";
 import ProjectPage from './Components/ProjectPage';
 import Payment from './Components/Payment';
+import Logout from './Components/Logout';
 
 class App extends Component {
 
@@ -126,7 +127,7 @@ class App extends Component {
                 />
                 <Route
                   exact path={routes.LOGINPAGE}
-                  component={LoginPage}
+                  component={() => <LoginPage history={this.props.history} />}
                 />
                 <Route
                   exact path={routes.NEWPROJECT}
@@ -182,6 +183,11 @@ class App extends Component {
                 <Route
                   exact path={routes.PAYMENT}
                   component={() => <Payment />}
+                />
+
+                <Route
+                  exact path={routes.LOGOUT}
+                  component={() => <Logout />}
                 />
 
               </Switch>
