@@ -10,6 +10,12 @@ import profile from '../Icons/profile.svg';
 import UserContext from './UserContext';
 import Searchbar from './Searchbar';
 
+import fire from "../Firebase/Fire";
+
+function logout() {
+    fire.auth().signOut();
+}
+
 
 
 const Navbar = () =>
@@ -337,7 +343,7 @@ const NavSuper = () => (
                             </Link>
                             <div class="dropdown-divider"></div>
                             <Link to={routes.LOGOUT}>
-                                <a class="dropdown-item"  /*onClick={fire.auth().signOut()} */>Log out</a>
+                                <a class="dropdown-item" onClick={() => logout()} >Log out</a>
                             </Link>
                         </div>
                     </li>
