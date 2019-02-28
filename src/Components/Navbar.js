@@ -10,6 +10,14 @@ import profile from '../Icons/profile.svg';
 import UserContext from './UserContext';
 import Searchbar from './Searchbar';
 
+import fire from "../Firebase/Fire";
+
+function logout() {
+    fire.auth().signOut();
+}
+
+
+
 const Navbar = () =>
 
     <div className=" sticky-top ">
@@ -140,8 +148,8 @@ const NavAdmin = () => (
                                 <a class="dropdown-item" href="#">Mis Inversiones</a>
                             </Link>
                             <div class="dropdown-divider"></div>
-                            <Link to={routes.LOGINPAGE}>
-                                <a class="dropdown-item" href="#">Log out</a>
+                            <Link to={routes.LOGOUT}>
+                                <a class="dropdown-item">Log out</a>
                             </Link>
                         </div>
                     </li>
@@ -218,8 +226,8 @@ const NavUser = () => (
                                 <a class="dropdown-item" href="#">Mis Inversiones</a>
                             </Link>
                             <div class="dropdown-divider"></div>
-                            <Link to={routes.LOGINPAGE}>
-                                <a class="dropdown-item" href="#">Log out</a>
+                            <Link to={routes.LOGOUT}>
+                                <a class="dropdown-item">Log out</a>
                             </Link>
                         </div>
                     </li>
@@ -237,6 +245,7 @@ const NavUser = () => (
     </div>
 
 )
+
 const NavSuper = () => (
     <div id="navbar2">
         <nav className="navbar navbar-expand-lg navbar-light ">
@@ -333,8 +342,8 @@ const NavSuper = () => (
                                 <a class="dropdown-item" href="#">Mis Inversiones</a>
                             </Link>
                             <div class="dropdown-divider"></div>
-                            <Link to={routes.LOGINPAGE}>
-                                <a class="dropdown-item" href="#">Log out</a>
+                            <Link to={routes.LOGOUT}>
+                                <a class="dropdown-item" onClick={() => logout()} >Log out</a>
                             </Link>
                         </div>
                     </li>

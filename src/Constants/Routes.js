@@ -14,6 +14,8 @@ export const RESETPASSWORD = '/ResetPassword';
 export const MANAGEPROJECTS = '/ManageProjects';
 export const SEARCHPAGE = '/search';
 export const PROJECT =  '/Project';
+export const PAYMENT = '/Payment';
+export const LOGOUT = '/logout';
 
 
 

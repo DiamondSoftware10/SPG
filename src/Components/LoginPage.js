@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Register from "./Register";
+import Login from "./Login";
 
 import fire from '../Firebase/Fire';
 import icon from '../Icons/iconbeta.png';
+
+import * as routes from '../Constants/Routes';
+import { Link, Redirect } from "react-router-dom";
+
 
 
 
@@ -14,7 +18,8 @@ class LoginPage extends Component {
     this.classes = props.classes;
 
     this.state = {
-      user: null
+      user: null,
+      renderLanding: null
 
     };
 
@@ -34,9 +39,9 @@ class LoginPage extends Component {
   };
 
   componentDidMount() {
-    this.listenAuth()
+    this.listenAuth();
   }
-
+  
   listenAuth() {
     fire.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -49,44 +54,23 @@ class LoginPage extends Component {
 
   logout() {
     fire.auth().signOut();
+  
   }
 
 
   render() {
-    return (
-      <div className="App">
-        {this.state.user ? (
-          <div id="log-out-div">
-            <div className="jumbotron" id="jumbo-out">
-
-              <h1 id="SPG-reg" class="display-4">Sprouting Productive Gear</h1>
-              {/*<h2>¿Estas seguro que quieres cerrar sesion?</h2>*/}
-            </div>
-            <button onClick={this.logout} type="button" className="btn btn-primary">
-              Log Out
-            </button>
-          </div>
-        ) : (<Register history = {this.props.history}/>)}
-
-
-
-        {/*  
-
-  <Switch>
-                    <Route exact path="/">
-                        {<div>HOME</div>}
-                    </Route>
-                    <Route path="/register" component={Register}></Route>
-
-                    {//tira error
-                    }
-                </Switch>
-
-
-
-*/}
-      </div>
-    );
+    if (this.state.user) {
+      return <Redirect push to={routes.LANDING} />;
+    }
+    else {
+      return (
+        <div id="register-div">
+          <div id="jumbo-reg"></div>
+          <Login />
+        </div>
+      )
+    }
+    
   }
 }
 

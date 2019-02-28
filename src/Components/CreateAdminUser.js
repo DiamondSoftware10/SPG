@@ -79,7 +79,7 @@ class CreateAdmin extends Component {
 
             fire.auth().createUserWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => {
 
-                
+
                 this.addUser(e);
 
 
@@ -143,76 +143,79 @@ class CreateAdmin extends Component {
 
     render() {
         return (
-            <div id="superuser-div">
-           
+            <div>
+                <div className="graphic-lg" id="create-admin-graphic"></div>
+                <h1 className="main-title">Crear Administrador</h1>
 
-                <form id= "superuser-form" >
-                <h1>Crear Administrador</h1>
-                    <div className="form-group" id="input-list-item">
-                        <label>Primer Nombre</label>
-                        <input
-                            onChange={this.handleChange('nombre')}
-                            type="text" className="form-control" id="nombre"
-                            placeholder="Primer Nombre"
-                        />
-                    </div>
-                    <div className="form-group" id="input-list-item">
-                    <label>Apellido</label>
-                        <input
-                            onChange={this.handleChange('apellido')}
-                            type="text" className="form-control" id="apellido"
-                            placeholder="Apellido"
-                        />
-                    </div>
-                    <div className="form-group" id="input-list-item">
-                    <label>Región</label>
-                        <input
-                            onChange={this.handleChange('region')}
-                            type="text" className="form-control" id="region"
-                            placeholder="Región"
-                        />
-                   </div>
-                    <div className="form-group" id="input-list-item">
-                    <label>Telefono</label>
-                        <input
-                            onChange={this.handleChange('telefono')}
-                            type="text" className="form-control" id="telefono"
-                            placeholder="Teléfono"
-                        />
-                    </div>
-                    <div className="form-group" id="input-list-item">
-                    <label>Email Address</label>
-                        <input
-                            onChange={this.handleChange('correo')}
-                            type="email" className="form-control" id="correo"
-                            placeholder="Email Address"
-                        />
-                   </div>
-                    <div className="form-group" id="input-list-item">
-                    <label>Contraseña</label>
-                        <input
-                            onChange={this.handleChange('contrasena')}
-                            type="password" className="form-control" id="password"
-                            placeholder="Contraseña"
-                        />
-                    </div>
-                    <div className="form-group" id="input-list-item">
-                    <label>Confirmar Contraseña</label>
-                        <input
-                            onChange={this.handleChange('contrasena2')}
-                            type="password" className="form-control" id="password2"
-                            placeholder="Confirmar Contraseña"
-                        />
-                    </div>
-                    <button data-backdrop="false" type="button" className="btn btn-primary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
-                        Crear Cuenta
+                <div id="superuser-div">
+                    <form id="superuser-form" >
+                        <div className="form-group" id="input-list-item">
+                            <label>Primer Nombre</label>
+                            <input
+                                onChange={this.handleChange('nombre')}
+                                type="text" className="form-control" id="nombre"
+                                placeholder="Primer Nombre"
+                            />
+                        </div>
+                        <div className="form-group" id="input-list-item">
+                            <label>Apellido</label>
+                            <input
+                                onChange={this.handleChange('apellido')}
+                                type="text" className="form-control" id="apellido"
+                                placeholder="Apellido"
+                            />
+                        </div>
+                        <div className="form-group" id="input-list-item">
+                            <label>Región</label>
+                            <input
+                                onChange={this.handleChange('region')}
+                                type="text" className="form-control" id="region"
+                                placeholder="Región"
+                            />
+                        </div>
+                        <div className="form-group" id="input-list-item">
+                            <label>Telefono</label>
+                            <input
+                                onChange={this.handleChange('telefono')}
+                                type="text" className="form-control" id="telefono"
+                                placeholder="Teléfono"
+                            />
+                        </div>
+                        <div className="form-group" id="input-list-item">
+                            <label>Email Address</label>
+                            <input
+                                onChange={this.handleChange('correo')}
+                                type="email" className="form-control" id="correo"
+                                placeholder="Email Address"
+                            />
+                        </div>
+                        <div className="form-group" id="input-list-item">
+                            <label>Contraseña</label>
+                            <input
+                                onChange={this.handleChange('contrasena')}
+                                type="password" className="form-control" id="password"
+                                placeholder="Contraseña"
+                            />
+                        </div>
+                        <div className="form-group" id="input-list-item">
+                            <label>Confirmar Contraseña</label>
+                            <input
+                                onChange={this.handleChange('contrasena2')}
+                                type="password" className="form-control" id="password2"
+                                placeholder="Confirmar Contraseña"
+                            />
+                        </div>
+                        <div>
+                            
+                        </div>
+                    </form>
+
+                    
+                </div>
+                <button data-backdrop="false" type="button" className="btn btn-primary" onClick={this.signup} {...this.state.condicion && { 'data-dismiss': "modal" }}>
+                                Crear Cuenta
                  </button>
-                </form>
-                <div className="graphic-lg"></div>
-
             </div>
-           
-
 
         );
     }

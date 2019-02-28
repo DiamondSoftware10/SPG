@@ -8,6 +8,7 @@
     padding-left: 12%;
     font-size: 2em;
     color: rgb(24, 24, 24);
+    -webkit-transition: width .5s;
     transition: width .5s;
 }
 
@@ -35,6 +36,7 @@
     width: 20vw;
     height: 7vh;
     padding-left: 17%;
+    -webkit-transition: width .5s;
     transition: width .5s;
     font-size: .9em;
 }

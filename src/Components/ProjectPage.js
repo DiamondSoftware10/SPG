@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
-import MapContainer from './GoogleMapsContainer';
 import * as routes from '../Constants/Routes';
+import MapContainer from './GoogleMapsContainer';
 import fire from '../Firebase/Fire'
+
+import LoginRegisterModal from './LoginRegisterModal';
 
 import loc from '../Icons/placeholder.svg';
 import close from '../Icons/close.svg'
@@ -47,7 +49,8 @@ export class ProjectInfo extends Component {
             manzanas: 1
         };
 
-        this.handleLoginModal = this.handleLoginModal.bind(this);
+        this.handleInvestButton = this.handleInvestButton.bind(this);
+        this.handleOpenLoginModal = this.handleOpenLoginModal.bind(this);
         this.handleCloseLoginModal = this.handleCloseLoginModal.bind(this);
         this.readDB = this.readDB.bind(this);
         this.handleAddToCart = this.handleAddToCart.bind(this);
@@ -166,15 +169,19 @@ export class ProjectInfo extends Component {
     }
 
 
-    handleLoginModal() {
+    handleInvestButton() {
         console.log('entro login modal');
         fire.auth().onAuthStateChanged(user => {
-            user ? this.handleOpenInvestModal() : this.setState({
-                showLoginModal: true,
-            });
+            user ? this.handleOpenInvestModal() : this.handleOpenLoginModal()
         });
 
 
+    }
+
+    handleOpenLoginModal() {
+        this.setState({
+            showLoginModal: true,
+        })
     }
 
     handleCloseLoginModal() {
@@ -263,7 +270,7 @@ export class ProjectInfo extends Component {
         const styles = {
             progress: {
                 width: this.state.progress,
-                backgroundColor: 'rgb(24,162,78)',
+
             }
         }
         const { progress } = styles;
@@ -358,7 +365,7 @@ export class ProjectInfo extends Component {
                                         </div>
 
 
-                                        <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleLoginModal()}>Invertir</button>
+                                        <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleInvestButton()}>Invertir</button>
 
                                     </div>
 
@@ -397,37 +404,12 @@ export class ProjectInfo extends Component {
                         </div>
                     </div>
                 </ReactModal>
-                <ReactModal
-                    isOpen={this.state.showLoginModal}
-                    contentLabel="onRequestClose Example"
-                    onRequestClose={this.handleCloseLoginModal}
-                    className="ModalBack animated fadeIn faster"
-                    overlayClassName="Overlay"
-                >
-                    <div className="Modal">
-                        <button className="hollow button" id="close-button" onClick={this.handleCloseLoginModal}><img id="proj-icon" src={close}></img></button>
-                        <img id="spg-logo" src={icon} width="40" height="40"></img>
-                        <h3 className="navbar-brand">SPG</h3>
-                        <h4>Debes iniciar sesion para invertir en un proyecto</h4>
-                        <div className="flexbox" id="invest-login-modal">
 
-                            <Link to={routes.LOGINPAGE}>
-                                <button className="btn btn-sec">Inicia Sesion</button>
-                            </Link>
-
-                            <div>
-                                <button className="btn btn-primary" onClick={this.handleCloseLoginModal}>Cancelar</button>
-                            </div>
-
-
-
-                        </div>
-
-
-
-
-                    </div>
-                </ReactModal>
+                <LoginRegisterModal
+                    showLoginModal={this.state.showLoginModal}
+                    handleCloseLoginModal={this.handleCloseLoginModal}
+                    subtitle="Debes iniciar sesion para invertir en un proyecto"
+                />
 
                 <ReactModal
                     isOpen={this.state.showConfirmation}

@@ -1,0 +1,16 @@
+#spg-logo {
+    float: left;
+}
+
+#invest-login-flex {
+    padding: 8vh 0;
+}
+
+#invest-login-flex > * {
+    padding: 2vh;
+}
+
+#invest-login-modal {
+    margin-left: 50vmin;
+    margin-right: 50vmin;
+}

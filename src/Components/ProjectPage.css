@@ -35,6 +35,7 @@
 #side-flex > #sidebar {
     margin: 1em;
     background-color: rgb(1, 95, 1);
+    background-color: var(--main-spg-color);
     color: white;
     padding: 1em;
     display: flex;
@@ -44,6 +45,7 @@
     height: 200vh;
     align-content: center;
     flex-grow: 1;
+    font-size: 1em;
 }
 
 #side-flex > #sidebar > * {
@@ -52,12 +54,13 @@
 
 #side-flex > #sidebar > * > h3 {
     font-weight: 700;
+    font-size: 1.5em;
 }
 
 #side-flex > #sidebar > * > h6 {
     font-weight: 400;
-    letter-spacing: 1px;
-
+    letter-spacing: 0.025em;
+    font-size: 1em;
 }
 
 
@@ -127,11 +130,12 @@
 }
 
 .progress {
-    background-color: transparent;
-    border: 1px solid var(--main-spg-color);
 }
 
-
+.progress-bar {
+    background-color: white;
+    color: black;
+}
 /*ADD CART*/
 #btn-add-cart {
     padding: 0 0;
@@ -195,14 +199,3 @@
 }
 
 
-#spg-logo {
-    float: left;
-}
-
-#invest-login-modal {
-    padding: 8vh 0;
-}
-
-#invest-login-modal > * {
-    padding: 2vh;
-}

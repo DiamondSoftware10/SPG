@@ -606,7 +606,7 @@ class NewProject extends Component {
     return (
       <div>
         <div className="graphic-lg" />
-        <h1>Nuevo Proyecto</h1>
+        <h1 className="main-title">Nuevo Proyecto</h1>
         {/**Tipos de entrada*/}
         {/**Text*/}
         {/**TextArea*/}

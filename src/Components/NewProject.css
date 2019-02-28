@@ -135,6 +135,7 @@ ul > li {
     justify-content: center;
     padding: 5vmin 5vmin 0 5vmin;
     width: 100vw;
+    margin-bottom: 5vmin;
 }
 
 .form-group > input {
@@ -162,11 +163,11 @@ ul > li {
     padding-bottom: 4vmin;
 }
 
-.btn-primary  {
-    margin: auto;
+
+#create-admin-graphic {
+    width: 40vw;
+    height: 130vh;
 }
-
-
 
 .graphic-lg {
     width: 7.5vw;
