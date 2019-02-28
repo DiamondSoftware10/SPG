@@ -23,28 +23,38 @@ class ManageUsers extends Component {
             {
                 Header: "ID",
                 accessor: "id",
-                width: 300,
+                width: window.screen.width/8,
             },
             {
                 Header: "Estado de cuenta",
                 accessor: "active",
-                width: 100,
+                width: window.screen.width/8,
             },
             {
-                Header: "Type",
+                Header: "Tipo",
                 accessor: "accType",
-                width: 100,
+                width: window.screen.width/8,
             }
             ,
             {
-                Header: "First Name",
+                Header: "Primer Nombre",
                 accessor: "nombre",
-                width: 100,
+                width: window.screen.width/8,
             },
             {
-                Header: "Last Name",
+                Header: "Apellido",
                 accessor: "apellido",
-                width: 100,
+                width: window.screen.width/8,
+            },
+            {
+                Header: "Correo",
+                accessor: "correo",
+                width: window.screen.width/8,
+            },
+            {
+                Header: "Teléfono",
+                accessor: "telefono",
+                width: window.screen.width/8,
             },
             
 
@@ -72,7 +82,9 @@ class ManageUsers extends Component {
                         nombre: doc.data().nombre,
                         apellido: doc.data().apellido,
                         accType: type,
-                        active: doc.data().active ? "activo" : "inactivo"
+                        active: doc.data().active ? "activo" : "inactivo",
+                        correo: doc.data().correo,
+                        telefono: doc.data().telefono
                     }
                     data.push(admin);
                 }
@@ -117,7 +129,9 @@ class ManageUsers extends Component {
                             nombre: doc.data().nombre,
                             apellido: doc.data().apellido,
                             accType: type,
-                            active: doc.data().active ? "activo" : "inactivo"
+                            active: doc.data().active ? "activo" : "inactivo",
+                            correo: doc.data().correo,
+                            telefono: doc.data().telefono
                         }
                         data.push(admin);
                     }
@@ -154,7 +168,9 @@ class ManageUsers extends Component {
                             nombre: doc.data().nombre,
                             apellido: doc.data().apellido,
                             accType: type,
-                            active: doc.data().active ? "activo" : "inactivo"
+                            active: doc.data().active ? "activo" : "inactivo",
+                            correo: doc.data().correo,
+                            telefono: doc.data().telefono
                         }
                         data.push(admin);
                     }
