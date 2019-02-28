@@ -303,7 +303,10 @@ class SearchPage extends Component {
                                     <h6>Inversion Minima</h6>
                                     <h6>Nombre de Proyecto</h6>
                                     <h6>Ubicacion</h6>
+                                    {/*
                                     <h2>Inversión minima</h2>
+                                    <input type="range" class="form-control-range" id="formControlRange"/>
+                                    */}
                                 </div>
                             </div>
                         </div>
