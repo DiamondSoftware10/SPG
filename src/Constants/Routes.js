@@ -12,7 +12,7 @@ export const CART = '/Cart';
 export const MANAGEUSERS = '/ManageUsers';
 export const RESETPASSWORD = '/ResetPassword';
 export const MANAGEPROJECTS = '/ManageProjects';
-export const SEARCHPAGE = '/SearchPage';
+export const SEARCHPAGE = '/search';
 export const PROJECT =  '/Project';
 
 

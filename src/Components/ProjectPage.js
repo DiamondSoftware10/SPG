@@ -290,9 +290,10 @@ export class ProjectInfo extends Component {
 
                                     <div id="proj-location">
                                         <img id="proj-icon" src={loc}></img>
-                                        <div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
+                                        {this.state.location}
+                                        {/*<div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
                                             {this.state.location}
-                                        </div>
+        </div>*/}
                                     </div>
                                     <br></br>
 
@@ -307,14 +308,23 @@ export class ProjectInfo extends Component {
                                     <br></br>
 
                                     <h5>Ubicación</h5>
-                                    {/*
-                                            <div style={style} className="card" id="modal-map">
-                                                <MapContainer center={{
-                                                    lat: this.props.center.lat,
-                                                    lng: this.props.center.lng
-                                                }} />
-                                            </div>
-                                            */}
+
+                                    <div style={style} className="card" id="modal-map">
+                                        {<MapContainer
+                                            zoom={12}
+
+                                            initialCenter={{
+
+                                                lat: this.props.center.lat,
+                                                lng: this.props.center.lng
+                                            }}
+
+                                            center={{
+                                                lat: this.props.center.lat,
+                                                lng: this.props.center.lng
+                                            }} />}
+                                    </div>
+
                                     <br></br>
 
                                 </div>
@@ -346,7 +356,7 @@ export class ProjectInfo extends Component {
                                             <h6>Financiamiento total</h6>
                                             <h3>${this.state.projFinan}</h3>
                                         </div>
-                                       
+
 
                                         <button className="btn btn-primary" id="btn-add-cart" onClick={() => this.handleLoginModal()}>Invertir</button>
 

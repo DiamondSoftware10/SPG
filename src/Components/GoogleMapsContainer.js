@@ -140,7 +140,9 @@ class MapContainer extends React.Component {
                                             //onReady={this.getProjectInfo}
                                             google={this.props.google}
                                             onClick={ this.handleClickMap}
-                                            zoom={14}
+
+                                            zoom={this.props.zoom}
+                                            initialCenter = {this.props.initialCenter}
                                             center = {this.props.center}
 
                                             //onReady = {this.onReadyMap}
@@ -152,7 +154,7 @@ class MapContainer extends React.Component {
                                             {//icono en posicion inicial
                                             }
                                             <Marker
-                                                visible = {this.state.initialMarkerShown}
+                                                //visible = {this.state.initialMarkerShown}
                                                 onClick={this.onMarkerClick}
                                                 title={'titulo'}
                                                 position={{lat: this.props.center.lat, lng:this.props.center.lng}}
@@ -160,12 +162,12 @@ class MapContainer extends React.Component {
                                             />
                                             {//icono secundario para seleccionar nueva posicion en el mapa
                                             }
-                                            <Marker
+                                            {/*<Marker
                                                 onClick={this.onMarkerClick}
                                                 title={'titulo'}
                                                 position={ {lat: this.state.latitude, lng:this.state.longitude}}
                                                 name={'nombre'}
-                                            />
+                                            />*/}
 
                                             <InfoWindow
                                                 marker={this.state.activeMarker}

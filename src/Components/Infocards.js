@@ -5,7 +5,7 @@ import './Proyectos.css'
 import { GoogleApiWrapper, InfoWindow, Map, Marker } from 'google-maps-react';
 import ReactModal from 'react-modal';
 import Formularios from "./Formularios";
-import {ProjectInfo} from './ProjectPage';
+import { ProjectInfo } from './ProjectPage';
 
 import { Link } from 'react-router-dom';
 
@@ -42,7 +42,7 @@ class Infocard extends Component {
         this.recenter = this.recenter.bind(this);
         this.handleOpenModal = this.handleOpenModal.bind(this);
         this.handleCloseModal = this.handleCloseModal.bind(this);
- 
+
     }
     /*async componentWillMount() {
         await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
@@ -110,7 +110,7 @@ class Infocard extends Component {
         });
         console.log("Modal");
         console.log(this.props.id);
-        }
+    }
 
     handleCloseModal() {
         this.setState({ showModal: false });
@@ -130,7 +130,7 @@ class Infocard extends Component {
                     <div className="Modal">
                         <div id="heading-modal">
                             <button className="hollow button" id="close-button" onClick={this.handleCloseModal}><img id="proj-icon" src={close}></img></button>
-                            <ProjectInfo id={this.props.id} foto={this.state.foto}/>
+                            <ProjectInfo id={this.props.id} foto={this.state.foto} center = {this.props.center}/>
                         </div>
                     </div>
                 </ReactModal>
@@ -139,16 +139,17 @@ class Infocard extends Component {
                     <div className="icard-hor animated fadeIn fast">
                         <div id="bt-event">
                             <div id="bt-more"></div>
-                            <img id="img-pro" className="animated fadeIn fast"src={this.state.foto}></img>
+                            <img id="img-pro" className="animated fadeIn fast" src={this.state.foto}></img>
                         </div>
                         <div id="box-event">
                             <div id="proj-type">Terreno</div>
                             <div id="proj-name">{this.props.title}</div>
                             <div id="proj-location">
                                 <img id="proj-icon" src={loc}></img>
-                                <div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
+                                {this.props.location}
+                                {/*<div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
                                     {this.props.location}
-                                </div>
+        </div>*/}
                             </div>
 
                             <div id="proj-gen">
