@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fire from "../Firebase/Fire";
+import fire2 from "../Firebase/Fire2";
 import { numeroVal, cantidadPalabrasVal, nombresVal, rangoCaracteresVal, urlImagenVal, puntoDecimalVal } from '../Constants/validations'
 
 import './NewProject.css';
@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 
 //import './Register.css';
 import icon from '../Icons/iconbeta.png';
-
 
 class CreateAdmin extends Component {
 
@@ -33,8 +32,6 @@ class CreateAdmin extends Component {
 
 
         this.handleChange = this.handleChange.bind(this);
-        this.clickRegistrar = this.clickRegistrar.bind(this);
-        this.login = this.login.bind(this);
         this.signup = this.signup.bind(this);
         this.checkInputs = this.checkInputs.bind(this);
 
@@ -49,18 +46,6 @@ class CreateAdmin extends Component {
         console.log(event.target.value);
     };
 
-    clickRegistrar() {
-        //agregar nueva persona a la base de datos
-        //
-        console.log("registrar");
-    }
-
-    login(e) {
-        e.preventDefault();
-        fire.auth().signInWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => { }).catch((error) => {
-            console.log(error);
-        });
-    }
 
     signup(e) {
         e.preventDefault();
@@ -77,7 +62,7 @@ class CreateAdmin extends Component {
 
         } else {
 
-            fire.auth().createUserWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => {
+            fire2.auth().createUserWithEmailAndPassword(this.state.correo, this.state.contrasena).then((u) => {
 
 
                 this.addUser(e);
@@ -95,22 +80,13 @@ class CreateAdmin extends Component {
     }
 
 
-    addCollection() {
-        const db = fire.firestore();
-        db.settings({
-            timestampsInSnapshots: true
-        });
-
-        const dbRef = db.collection("data").add({
-            nombre: "John Doe"
-        })
-    }
+    
 
     addUser = e => {
 
-        fire.auth().onAuthStateChanged(user => {
+        fire2.auth().onAuthStateChanged(user => {
             if (user) {
-                const db = fire.firestore();
+                const db = fire2.firestore();
 
 
                 db.collection("users").doc(user.uid).set({
