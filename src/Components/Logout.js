@@ -9,7 +9,7 @@ export default class Logout extends Component {
     constructor(props){
         super(props);
     }
-    componentWillUpdate() {
+    componentWillMount() {
         fire.auth().signOut();
         window.location.reload();
     }
