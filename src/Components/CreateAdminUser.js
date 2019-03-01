@@ -95,6 +95,7 @@ class CreateAdmin extends Component {
                     correo: this.state.correo,
                     telefono: this.state.telefono,
                     region: this.state.region,
+                    active: true,
                     accType: 0
                 });
 
