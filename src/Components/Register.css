@@ -44,6 +44,15 @@
     object-fit: cover;
 }
 
+#jumbo-recover {
+    background-image: url("https://goo.gl/jJhw2p");
+    width: 40vw;
+    height: 60vw;
+    border-radius: 0;
+    float: left;
+    object-fit: cover;
+}
+
 #logo-reg {
     float: left;
     width: 25vmin;

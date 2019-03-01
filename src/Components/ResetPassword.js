@@ -44,20 +44,23 @@ class ResetPassword extends Component {
     render() {
         return (
             <div>
-                <div className="flex-content">
-
-                    <h2>Recuperacion de Contraseña</h2>
-
-                    <div className="form" id="reset-form">
-                        <div class="form-group">
-                            <label htmlFor="usr">Ingrese su correo</label>
-                            <input id="reset-email" type="text" className="form-control" onChange={evt => this.setState(byPropKey('email', evt.target.value))} />
+                <div id="register-div">
+                    <div id="jumbo-recover"></div>
+                    <div className="flexbox">
+                       
+                        <div className="form" id="reset-form">
+                        <h2>Recuperacion de Contraseña</h2>
+                            <div class="form-group">
+                                <label htmlFor="usr">Ingrese su correo</label>
+                                <input id="reset-email" type="text" className="form-control" onChange={evt => this.setState(byPropKey('email', evt.target.value))} />
+                            </div>
                         </div>
-                    </div>
-                    <button onClick={() => this.SendResetEmail()} className="btn btn-primary">Enviar correo</button>
+                        <button onClick={() => this.SendResetEmail()} className="btn btn-primary">Enviar correo</button>
 
-                    <label>{this.errorMessage}</label>
+                        <label>{this.errorMessage}</label>
+                    </div>
                 </div>
+
             </div>
         );
     }
