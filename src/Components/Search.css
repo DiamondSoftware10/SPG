@@ -119,6 +119,10 @@
     display: none;
 }
 
+#formControlRange {
+    background: white;
+    border: none;
+}
 
 #button-flex {
     flex-direction: row;
