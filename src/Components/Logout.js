@@ -12,6 +12,7 @@ export default class Logout extends Component {
     componentWillMount() {
         fire.auth().signOut();
         window.location.reload();
+        
     }
     render(){
         return <Redirect push to={routes.LOGINPAGE} />

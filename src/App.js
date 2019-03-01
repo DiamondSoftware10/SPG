@@ -110,7 +110,7 @@ class App extends Component {
         <UserContext.Provider value={this.state}>
           <Router>
             <div>
-              <Navbar /*authUser={this.state.user} type={this.state.type}*/ />
+              <Navbar /*refresh={this.state.uid} type={this.state.type}*/ />
               <Switch>
 
                 <Route
