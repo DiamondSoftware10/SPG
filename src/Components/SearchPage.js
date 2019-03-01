@@ -142,16 +142,15 @@ class SearchPage extends Component {
             } else {
                 query = projects.where(this.state.option, ">=", this.titleCase(parseInt(searchTerm)));
             }
-        } else if (this.state.option === "locate") {
+        } else if (this.state.option === "locate" || this.state.option === "title") {
             query = projects.where(this.state.option, "==", this.titleCase(searchTerm));
-
-        } else if (this.state.option === "title") {
-            query = projects.where(this.state.option, "==", this.titleCase(searchTerm))
 
         } else if (this.state.option === "cultures") {
             query = projects.where(this.state.option, "array-contains", this.titleCase(searchTerm))
-
-
+        } else if (this.state.option === "manzanasTotales") {
+            query = projects.where(this.state.option, ">=", searchTerm);
+        } else if (this.state.option === "manzanasRestantes") {
+            query = projects.where(this.state.option, "!=", 0)
         }
 
         console.log("query length: " + query);
@@ -171,7 +170,8 @@ class SearchPage extends Component {
                 titleOption: sel,
                 locateOption: false,
                 invOption: false,
-                cropOption: false
+                cropOption: false,
+                areaOption: false,
             })
         } else if (value == "locate") {
             category = "por ubicacion"
@@ -181,7 +181,8 @@ class SearchPage extends Component {
                 titleOption: false,
                 locateOption: sel,
                 invOption: false,
-                cropOption: false
+                cropOption: false,
+                areaOption: false,
             })
         }
         else if (value == "investment") {
@@ -192,7 +193,8 @@ class SearchPage extends Component {
                 titleOption: false,
                 locateOption: false,
                 invOption: sel,
-                cropOption: false
+                cropOption: false,
+                areaOption: false,
             })
         }
         else if (value == "crops") {
@@ -203,7 +205,19 @@ class SearchPage extends Component {
                 titleOption: false,
                 locateOption: false,
                 invOption: false,
-                cropOption: sel
+                cropOption: sel,
+                areaOption: false,
+            })
+        } else if (value == "manzanasTotales"){
+            category = "por manzanas"
+            if(this.state.areaOption){ sel = false }
+            else { sel = true }
+            this.setState({
+                titleOption: false,
+                locateOption: false,
+                invOption: false,
+                cropOption: false,
+                areaOption: sel,
             })
         }
         var ph = "Buscar proyectos " + category;
@@ -286,8 +300,8 @@ class SearchPage extends Component {
                             : <button className=" btn-tertiary" onClick={() => this.handleOption("investment")}> Inversión</button>}
                         {(this.state.cropOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("crops")}> Cultivos</button>
                             : <button className=" btn-tertiary" onClick={() => this.handleOption("crops")}> Cultivos</button>}
-                        {(this.state.areaOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("raisedMoney")}> Manzanas</button>
-                            : <button className=" btn-tertiary" onClick={() => this.handleOption("raisedMoney")}> Manzanas</button>}
+                        {(this.state.areaOption) ? <button style={selectedButton} className=" btn-tertiary" onClick={() => this.handleOption("manzanasTotales")}> Manzanas</button>
+                            : <button className=" btn-tertiary" onClick={() => this.handleOption("manzanasTotales")}> Manzanas</button>}
                         {/*
                         <button className="btn-tertiary" onClick={() => this.handleOption("title", "por nombre")}> Titulo</button>
                         <button className="btn-tertiary" type="radio" name="options" id="option2" autoComplete="off" onClick={() => this.handleOption("locate", "por ubicacion")} > Ubicación </button>
