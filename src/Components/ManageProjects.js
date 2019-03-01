@@ -6,15 +6,12 @@ import 'firebase/database';
 
 import ReactTable from "react-table";
 import "react-table/react-table.css";
-import Modal from 'react-modal';
-import { FaEdit , FaSave, FaRegFrownOpen , FaRegGrin} from 'react-icons/fa';
+import ReactModal from 'react-modal';
+import { FaEdit ,FaSave,  FaRegFrownOpen , FaRegGrin} from 'react-icons/fa';
 //import Input from "./Objects/Input";
 const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
 });
-
-
-
 
 const customStyles = {
   content: {
@@ -26,12 +23,11 @@ const customStyles = {
     transform: 'translate(-50%, -50%)',
     borderRadius : 30 ,
   },
-  borderRadius: 30 ,
+  borderRadius: 3 ,
 
 };
 
-Modal.setAppElement('#root');
-
+ReactModal.setAppElement('#root');
 
 class ManageProjects extends Component {
     constructor(props) {
@@ -51,7 +47,7 @@ class ManageProjects extends Component {
             //Datos modificados a enviar 
             modName: '',
             modDescripcion: '',
-            modRaisedMoney: 0
+            modRaisedMoney: ''
         }
         
         this.modState = {
@@ -237,7 +233,6 @@ class ManageProjects extends Component {
   }
 
   ModifyProject(){
-
         let  titulo = this.state.modName
         let  descripcion = this.state.modDescripcion
         let  raisedMoney = this.state.modRaisedMoney
@@ -250,27 +245,23 @@ class ManageProjects extends Component {
           descripcion = this.state.selectedDescripcion
         }
 
-        if (this.state.modRaisedMonedy <= 0) {
+        if (this.state.modRaisedMonedy === '' || this.state.modRaisedMoney <= 0) {
           raisedMoney = this.state.selectedRaisedMoney
         }
 
         if (window.confirm(" Se haran cambios a los datos del proyecto, ¿ desea continuar ?")) {
            this.closeModal();
-
            const db = fire.firestore();
            db.collection("projects").doc(this.state.selectedID).update({
              title: titulo,
              description: descripcion,
              raisedMoney : raisedMoney
             });
-
            this.setState({
              data: []
            })
-
            const database = fire.firestore();
            const collection = database.collection('projects');
-
            collection.get().then(snapshot => {
              const data = [];
              snapshot.forEach(doc => {
@@ -292,12 +283,9 @@ class ManageProjects extends Component {
                };
              });
            });
-        }
-    
+        }  
   }
   
-
- 
     render() {
 
       return(
@@ -336,7 +324,7 @@ class ManageProjects extends Component {
                     }
                 />
           
-          <Modal
+          <ReactModal
             isOpen={this.state.modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
@@ -359,27 +347,27 @@ class ManageProjects extends Component {
                 <label>**En caso de que deje un campo vacio, se tomara el valor anterior del dato**</label>                 
                 <h4>Nuevo Titulo</h4> 
                 <input id="reset-email" type="text" className="form-control" onChange={evt => this.setState(byPropKey('modName', evt.target.value))} />
+
                 <h4>Nueva Descripcion</h4>
+                <textarea
+                  rows="3"
+                  class="form-control"
+                  placeholder={"Escriba la nueva descripcion aqui."}
+                  onChange = {evt => this.setState(byPropKey('modDescripcion', evt.target.value))}>
+                </textarea>
 
-              <textarea
-                rows="3"
-                class="form-control"
-                placeholder={"Escriba la nueva descripcion aqui"}
-                onChange = {evt => this.setState(byPropKey('modDescripcion', evt.target.value))}>
-              </textarea>
-
-              <h4>Nuevo Valor de Dinero Recaudado</h4> 
-              <input 
-                type="number" 
-                min = "1"
-                className="form-control" 
-                onChange={evt => this.setState(byPropKey('modRaisedMoney', evt.target.value))} 
+                <h4>Nuevo Valor de Dinero Recaudado</h4> 
+                <input 
+                  type="number" 
+                  //min = "1"
+                  className="form-control" 
+                  onChange={evt => this.setState(byPropKey('modRaisedMoney', evt.target.value))} 
                      />
-              <br/>
+                <br/>
              
               <button className= "btn-primary" onClick={() => this.ModifyProject() }><FaSave/> Guardar Cambios</button>
                 </div>
-          </Modal>
+          </ReactModal>
         
             </div>       
          </div>
