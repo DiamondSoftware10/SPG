@@ -3,17 +3,19 @@ import fire from '../Firebase/Fire';
 import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 import UserContext from './UserContext';
+import InvestmentItem from './InvestmentItem';
+
 import userP from '../Icons/user.svg'
 import settings from '../Icons/settings.svg'
 import linec from '../Icons/line-chart.svg'
 import planning from '../Icons/planning.svg'
 import cart from '../Icons/briefcase.svg'
-import notificaciones from '../Icons/settings.svg'
-import news from '../Icons/settings.svg'
+import notificaciones from '../Icons/alarm.svg'
+import news from '../Icons/worldwide.svg'
 import email from '../Icons/mail.svg'
-import terrenos from '../Icons/settings.svg'
-
-
+import terrenos from '../Icons/magnifier.svg'
+import location from '../Icons/placeholder.svg'
+import edit from '../Icons/tools.svg'
 import './Profile.css'
 
 class Profile extends Component {
@@ -27,14 +29,18 @@ class Profile extends Component {
             email: "",
             region: "",
             phone: "",
+            investments: [],
 
             showGeneral: true,
-            showInversiones: false
+            showInversiones: false,
+            showConfiguracion: false
         }
         this.handleGeneral = this.handleGeneral.bind(this);
         this.handleInversiones = this.handleInversiones.bind(this);
+        this.handleConfiguracion = this.handleConfiguracion.bind(this);
+        this.getInvestments = this.getInvestments.bind(this);
+        this.handleSetModal = this.handleSetModal.bind(this);
     }
-
 
 
     componentWillMount() {
@@ -66,24 +72,103 @@ class Profile extends Component {
 
     }
 
+    getInvestments() {
+        //var projs = [];
+        var projects = [];
+        var result;
+
+        fire.auth().onAuthStateChanged(async (user) => {
+            if (user) {
+                const database = fire.firestore();
+                const collection = database.collection('users').doc(user.uid).collection('investments');
+
+                await collection.get().then(snapshot => {
+                    //Encuentra la carreta del usuario en sesión y la asigna a variable projects
+
+                    //if (snapshot.exists) {
+                    snapshot.forEach(element => {
+                        projects.push(element.data());
+                    });
+
+                    if (projects.length == 0) {
+                        result = false;
+                    }
+                    //}
+                    console.log(projects.length)
+
+                    /*
+                                        projects.forEach(element => {
+                                            if (j < i) {
+                                                projs.push(element);
+                                                console.log(element);
+                                            }
+                                            j++;
+                                        });
+                    */
+                });
+
+            } else {
+            }
+            //console.log(this.state.investments);
+            console.log(projects.length)
+            this.setState({
+                investments: projects,
+            });
+        });
+
+    }
+
     handleGeneral() {
         this.setState({
             showGeneral: true,
-            showInversiones: false
+            showInversiones: false,
+            showConfiguracion: false
         });
 
     }
 
     handleInversiones() {
+        this.getInvestments();
         this.setState({
             showInversiones: true,
-            showGeneral: false
+            showGeneral: false,
+            showConfiguracion: false
         });
 
     }
 
+    handleConfiguracion() {
+        this.setState({
+            showConfiguracion: true,
+            showGeneral: false,
+            showInversiones: false
+        });
+
+    }
+
+    handleSetModal(){
+
+        
+
+
+
+    }
+
+
     render() {
         console.log(this.props.name)
+
+        let investitems = this.state.investments.map((doc) => {
+            return (
+                <InvestmentItem
+                    title={doc.title}
+                    ubicacion={doc.locate}
+                    pago={doc.pago}
+                    id={doc.id}
+
+                />
+            )
+        });
         return (
             <UserContext.Consumer>
                 {context => context.user ?
@@ -95,7 +180,7 @@ class Profile extends Component {
                             </div>
 
                             <div className="flexbox" id="flex-nombre">
-                                <div id="profile-name" class="textD1">Vladimir Mamatov</div>
+                                <div id="profile-name" class="textD1">{context.nombre} {context.apellido}</div>
                             </div>
 
                             <ul class="nav flex-column" id="profile-nav">
@@ -107,7 +192,7 @@ class Profile extends Component {
                                     <img className="nav-icon" src={linec}></img> <a class="nav-link" href="#" onClick={this.handleInversiones}>INVERSIONES</a>
                                 </li>
                                 <li class="nav-item flexbox">
-                                    <img className="nav-icon" src={settings}></img>  <a class="nav-link" href="#">CONFIGURACION</a>
+                                    <img className="nav-icon" src={settings}></img>  <a class="nav-link" href="#" onClick={this.handleConfiguracion}>CONFIGURACION</a>
                                 </li>
                                 <li class="nav-item flexbox">
                                     <img className="nav-icon" src={planning}></img> <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">CALENDARIO</a>
@@ -132,25 +217,25 @@ class Profile extends Component {
                                 </div>
 
                                 <div className="flexbox" id="flexbox-infoG" >
-            
-                                    <div class="textD1">{context.correo}</div>
 
-                                    <div class="textD1">{context.region}</div>
+                                    <div class="textD1"> <img className="nav-icon" src={email}></img> {context.correo}</div>
+
+                                    <div class="textD1"><img className="nav-icon" src={location}></img> {context.region}</div>
 
                                 </div>
                                 <div className="flexbox" id="flex-four">
 
-                                    <div className="flexbox item-sm" id="notificaciones">
-                                        <Link to={routes.CART}>
-
-                                            <img className="nav-icon" src={notificaciones}></img>  <a className="textD2" >NOTIFICACIONES</a>
-                                        </Link>
-
-                                    </div>
-                                    <div className="flexbox item-lg" id="cartera">
+                                    <div className="flexbox item-sm" id="cartera">
                                         <Link to={routes.CART}>
 
                                             <img className="nav-icon" src={cart}></img>  <a className="textD2" >CARTERA</a>
+                                        </Link>
+
+                                    </div>
+                                    <div className="flexbox item-lg" id="notificaciones">
+                                        <Link to={routes.CART}>
+
+                                            <img className="nav-icon" src={notificaciones}></img>  <a className="textD2" id="textNoti">NOTIFICACIONES</a>
                                         </Link>
 
                                     </div>
@@ -158,7 +243,7 @@ class Profile extends Component {
                                     <div className="flexbox item-lg" id="terrenos">
                                         <Link to={routes.PROYECTOS}>
 
-                                            <img className="nav-icon" src={terrenos}></img>  <a className="textD2" >TERRENOS</a>
+                                            <img className="nav-icon" src={terrenos}></img>  <a className="textD2" id="textTerre">TERRENOS</a>
                                         </Link>
 
                                     </div>
@@ -185,18 +270,69 @@ class Profile extends Component {
 
 
                             <div id="invest-div" >
-                                <div id="main-title" > Inversiones </div>
-                                
+
                                 <div className="flexbox" id="invest-flex">
-                                    <h4>Nombre proyecto</h4>
-                                    <div>(Ubicacion)</div>
-                                    <div>(Inversion)</div>
-                                    <div>(Fecha)</div>
-                                    <div>(Ganancia)</div>
+                                    <div>Nombre proyecto</div>
+                                    <div>Ubicacion</div>
+                                    <div>Inversion</div>
+                                    <div>Fecha</div>
+                                    <div>Ganancia</div>
                                 </div>
+
+                                {investitems}
+
+
                             </div>
 
                             : ''}
+
+                        {this.state.showConfiguracion ?
+
+                            <div>
+
+
+                                <div className="flexbox" id="config-flex">
+
+                                    <h2 id="config-title">Configuración general de la cuenta </h2>
+
+                                    <div id="config-item">
+                                        <div className="textD1">Nombre </div>
+                                        <div id="info-item">{context.nombre}</div>
+                                        <button id="edit-icon" onClick={this.handleSetModal}> <img id="e-icon" src={edit}></img> </button>
+                                    </div>
+
+                                    <div id="config-item">
+                                        <div className="textD1">Apellido </div>
+                                        <div id="info-item">{context.apellido}</div>
+                                        <button id="edit-icon"> <img id="e-icon" src={edit}></img> </button>
+
+                                    </div>
+                                    <div id="config-item">
+                                        <div className="textD1">Correo </div>
+                                        <div id="info-item">{context.correo}</div>
+                                        <button id="edit-icon"> <img id="e-icon" src={edit}></img> </button>
+
+                                    </div>
+                                    <div id="config-item">
+                                        <div className="textD1">Telefono </div>
+                                        <div id="info-item">{context.telefono}</div>
+                                        <button id="edit-icon"> <img id="e-icon" src={edit}></img> </button>
+
+                                    </div>
+                                    <div id="config-item">
+
+                                        <div className="textD1"> Region </div>
+                                        <div id="info-item">{context.region}</div>
+                                        <button id="edit-icon"> <img id="e-icon" src={edit}></img> </button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            : ''}
+
                     </div> : <p>no hay usuario</p>}
 
             </UserContext.Consumer>

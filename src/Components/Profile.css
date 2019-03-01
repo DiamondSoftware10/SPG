@@ -144,9 +144,35 @@ flex-direction: row;
 justify-content: space-around;
 padding: 2em 0;
 margin: 0 2em;
-border-bottom: 1px solid rgb(156, 156, 156);
+display: grid;
+grid-template-columns: 180px 170px 70px 60px 70px;
+font-weight: 900;
+font-size: 1.2em;
+color: rgb(0, 0, 0);
+margin-top: 1.5vh;
+margin-left: 0.5vw;
+
+
+/*border-bottom: 1px solid rgb(156, 156, 156);*/
+
 }
 
+#invest-flex2 {
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 2em 0;
+  margin: 0 2em;
+  display: grid;
+  grid-template-columns: 180px 170px 70px 70px 70px;
+  font-weight: 500;
+  font-size: 1.1em;
+  color: rgba(0, 0, 0, 0.618);
+  margin-top: 1.5vh;
+  margin-left: 0.5vw;  
+
+
+  }
+  
 
 /* INVERSIONES*/
 
@@ -240,3 +266,79 @@ border-bottom: 1px solid rgb(156, 156, 156);
   border-radius: 30px;
 }
 
+
+/*
+#notificaciones{
+  background-color: rgb(24,162,78);
+}
+
+#terrenos{
+  background-color: rgb(24,162,78);
+}
+
+
+#textNoti{
+
+  color: white;
+
+}
+
+#textTerre{
+
+  color: white;
+
+}
+
+*/
+
+#perdida{
+  color: rgb(204, 0, 0);
+}
+
+#ganancia{
+  color: rgb(0, 170, 34);
+}
+
+/*Configuracion*/
+
+#config-title{
+
+  padding-bottom: 2em;
+  padding-left: 0em;
+
+}
+
+#config-flex{
+  
+  flex-direction: column;
+  padding: 3em;
+  align-items: flex-start;
+}
+
+#config-item{
+  display: grid;
+  grid-template-columns:20% 75% 10%;
+  padding-bottom: 2em;
+  width: 60%;
+  justify-items: start;
+  padding-left: 3em; 
+
+}
+
+#info-item{
+
+  font-weight: 500;
+  font-size: 1.1em;
+  color: rgba(0, 0, 0, 0.618);
+
+}
+
+#edit-icon{
+  border: none;
+  background:transparent;
+}
+
+#e-icon{
+  width: 1.4em;
+  height: 1.4em;
+}
