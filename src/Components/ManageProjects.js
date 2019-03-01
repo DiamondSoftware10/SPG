@@ -7,7 +7,7 @@ import 'firebase/database';
 import ReactTable from "react-table";
 import "react-table/react-table.css";
 import Modal from 'react-modal';
-import { FaEdit ,  FaRegFrownOpen , FaRegGrin} from 'react-icons/fa';
+import { FaEdit , FaSave, FaRegFrownOpen , FaRegGrin} from 'react-icons/fa';
 //import Input from "./Objects/Input";
 const byPropKey = (propertyName, value) => () => ({
   [propertyName]: value,
@@ -377,7 +377,7 @@ class ManageProjects extends Component {
                      />
               <br/>
              
-              <button className= "btn-primary" onClick={() => this.ModifyProject() }><FaEdit/> Guardar Cambios</button>
+              <button className= "btn-primary" onClick={() => this.ModifyProject() }><FaSave/> Guardar Cambios</button>
                 </div>
           </Modal>
         
