@@ -103,6 +103,7 @@ class SearchPage extends Component {
 
     searchDB(query) {
         if (query != null) {
+            console.log("valid query")
             query.get().then((snap) => {
                 let data = [];
                 if (snap.empty) {
@@ -139,12 +140,12 @@ class SearchPage extends Component {
 
         var projects = db.collection("projects");
         var query
-        if (this.state.option === "investInitxBlock") {
+        if (this.state.option === "investment") {
             if (this.state.searchTerm.match(/[a-z]/i)) {
                 alert("La busqueda por inversión no debe de contener letras");
                 query = null;
             } else {
-                query = projects.where(this.state.option, ">=", this.titleCase(parseInt(searchTerm)));
+                query = projects.where("investInitxBlock", ">=", this.titleCase(parseInt(searchTerm)));
             }
         } else if (this.state.option === "locate") {
             query = projects.where(this.state.option, "==", this.titleCase(searchTerm));
@@ -259,7 +260,7 @@ class SearchPage extends Component {
                 onKeyPress={(ev) => {
                     if (ev.key === 'Enter') {
 
-                        console.log("Enter");
+                        //console.log("Enter");
                         this.props.history.push('/search/' + this.state.option + "/" + this.state.nextSearch);
                         ev.preventDefault();
                     } else {

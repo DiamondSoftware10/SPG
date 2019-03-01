@@ -68,8 +68,8 @@ class Infocard extends Component {
     }
 
 
-    async componentDidUpdate(prevProps) {
-        if (this.props.id !== this.state.id) {
+    async componentDidUpdate(prevProps, prevState) {
+        if (this.props.id !== prevProps.id) {
             await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url => {
                 this.setState({
                     id: this.props.id,
