@@ -48,6 +48,54 @@ class App extends Component {
             }));
         }
     };
+
+    this.toggleLastname = (lastname) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (lastname != "") {
+            ref.update({ "apellido": lastname });
+            this.setState(state => ({
+              apellido: lastname
+            }));
+        }
+    };
+
+    this.toggleEmail = (email) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (email != "") {
+            ref.update({ "correo": email });
+            this.setState(state => ({
+              correo: email
+            }));
+        }
+    };
+
+    this.togglePhone = (phone) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (phone != "") {
+            ref.update({ "telefono": phone });
+            this.setState(state => ({
+              telefono: phone
+            }));
+        }
+    };
+
+  this.toggleRegion = (region) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (region != "") {
+            ref.update({ "region": region });
+            this.setState(state => ({
+              region: region
+            }));
+        }
+    };
     
     this.classes = props.classes;
 
@@ -61,7 +109,11 @@ class App extends Component {
       region: null,
       correo: null,
       active: false,
-      toggleName: this.toggleName
+      toggleName: this.toggleName,
+      toggleLastname: this.toggleLastname,
+      toggleEmail: this.toggleEmail,
+      togglePhone: this.togglePhone,
+      toggleRegion: this.toggleRegion
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);

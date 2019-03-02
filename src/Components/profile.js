@@ -126,10 +126,7 @@ class Profile extends Component {
     }
 
     handleGeneral(e) {
-        this.setState({showGeneral: true, 
-            showConfiguracion: false,
-            showInversiones: false
-        })
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     handleInversiones() {
@@ -349,6 +346,7 @@ class Profile extends Component {
 
                         {this.state.showConfiguracion ?
 
+
                             <div>
 
 
@@ -415,7 +413,7 @@ class Profile extends Component {
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={this.handleSetlastName(context.user.uid, "apellido")} >Guardar</button>
+                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.toggleLastname(this.state.lastName)} >Guardar</button>
                                                     </div>
 
                                                 </div>
@@ -449,7 +447,7 @@ class Profile extends Component {
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={this.handleSetCorreo(context.user.uid, "correo")} >Guardar</button>
+                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.toggleEmail(this.state.email)} >Guardar</button>
                                                     </div>
 
                                                 </div>
@@ -482,7 +480,7 @@ class Profile extends Component {
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={this.handleSetTelefono(context.user.uid, "telefono")} >Guardar</button>
+                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.togglePhone(this.state.phone)} >Guardar</button>
                                                     </div>
 
                                                 </div>
@@ -518,7 +516,7 @@ class Profile extends Component {
                                                     </div>
 
                                                     <div class="modal-footer">
-                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={this.handleSetRegion(context.user.uid, "region")} >Guardar</button>
+                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.toggleRegion(this.state.region)} >Guardar</button>
                                                     </div>
 
                                                 </div>
@@ -540,9 +538,6 @@ class Profile extends Component {
                     </div> : <p>no hay usuario</p>}
 
             </UserContext.Consumer>
-
-
-
 
         )
     }
