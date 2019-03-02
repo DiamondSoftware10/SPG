@@ -126,7 +126,11 @@ class Profile extends Component {
     }
 
     handleGeneral(e) {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ 
+            showInversiones: false,
+            showGeneral: true,
+            showConfiguracion: false
+         })
     }
 
     handleInversiones() {
