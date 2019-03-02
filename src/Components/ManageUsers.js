@@ -191,8 +191,8 @@ class ManageUsers extends Component {
     render() {
         return (
             <div >
-                <button onClick={() => this.DeleteUser(this.state.selectedID)}>Desactivar cuenta</button>
-                <button onClick={() => this.UndoDelete(this.state.selectedID)}>Reactivar Cuenta</button>
+                <button  className="mng-btn" onClick={() => this.DeleteUser(this.state.selectedID)}>Desactivar cuenta</button>
+                <button className="mng-btn"  onClick={() => this.UndoDelete(this.state.selectedID)}>Reactivar Cuenta</button>
                 <div id="div-table">
 
                     <ReactTable data={this.state.data} columns={this.columns} filterable
