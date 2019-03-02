@@ -37,6 +37,66 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    this.toggleName = (name) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (name != "") {
+            ref.update({ "nombre": name });
+            this.setState(state => ({
+              nombre: name
+            }));
+        }
+    };
+
+    this.toggleLastname = (lastname) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (lastname != "") {
+            ref.update({ "apellido": lastname });
+            this.setState(state => ({
+              apellido: lastname
+            }));
+        }
+    };
+
+    this.toggleEmail = (email) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (email != "") {
+            ref.update({ "correo": email });
+            this.setState(state => ({
+              correo: email
+            }));
+        }
+    };
+
+    this.togglePhone = (phone) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (phone != "") {
+            ref.update({ "telefono": phone });
+            this.setState(state => ({
+              telefono: phone
+            }));
+        }
+    };
+
+  this.toggleRegion = (region) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (region != "") {
+            ref.update({ "region": region });
+            this.setState(state => ({
+              region: region
+            }));
+        }
+    };
+    
     this.classes = props.classes;
 
     this.state = {
@@ -48,7 +108,12 @@ class App extends Component {
       telefono: null,
       region: null,
       correo: null,
-      active: false
+      active: false,
+      toggleName: this.toggleName,
+      toggleLastname: this.toggleLastname,
+      toggleEmail: this.toggleEmail,
+      togglePhone: this.togglePhone,
+      toggleRegion: this.toggleRegion
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);

@@ -342,3 +342,9 @@ margin-left: 0.5vw;
   width: 1.4em;
   height: 1.4em;
 }
+
+#close-mod {
+  margin:0;
+  border: none;
+  background-color: transparent;
+}
