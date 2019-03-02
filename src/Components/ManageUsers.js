@@ -147,7 +147,7 @@ class ManageUsers extends Component {
         }
     }
     DeleteUser() {
-        if (window.confirm("¿ Está seguro que desea elminar el usuario ?")) {
+        if (window.confirm("¿ Está seguro que desea desactivar el usuario ?")) {
             const db = fire.firestore();
             db.collection("users").doc(this.state.selectedID).update({ active: false });
             this.setState({ data: [] })
@@ -191,7 +191,7 @@ class ManageUsers extends Component {
     render() {
         return (
             <div >
-                <button onClick={() => this.DeleteUser(this.state.selectedID)}>Eliminar</button>
+                <button onClick={() => this.DeleteUser(this.state.selectedID)}>Desactivar cuenta</button>
                 <button onClick={() => this.UndoDelete(this.state.selectedID)}>Reactivar Cuenta</button>
                 <div id="div-table">
 
