@@ -126,11 +126,11 @@ class Profile extends Component {
     }
 
     handleGeneral(e) {
-        this.setState({ 
+        this.setState({
             showInversiones: false,
             showGeneral: true,
             showConfiguracion: false
-         })
+        })
     }
 
     handleInversiones() {
@@ -238,10 +238,10 @@ class Profile extends Component {
         return (
             <UserContext.Consumer>
                 {context => context.user ?
-                    <div>
-                        <div className="flexbox" id="navProfile-flex">
+                    <div id="profile-div">
+                        <div className="flexbox" id="nav-profile-flex">
 
-                            <div >
+                            <div>
                                 <img id="profile-imagen" src={require('./Archivo.jpg')} alt="Test" />
                             </div>
 
@@ -271,273 +271,269 @@ class Profile extends Component {
                                 <div id="profile-verified" class="textD1" >Perfil Verificado</div>
                             </div>
                         </div>
+                        <div className="main-area">
+                            {this.state.showGeneral ?
 
-                        {this.state.showGeneral ?
+                                <div className="flexbox" id="profile-flex">
+                                    <div className="flexbox" id="flex-header">
+                                        <div className="flexbox" id="name-flex">
+                                            <div className="textD1" id="name-text" >{context.nombre} </div>
+                                            <div className="textD1"> {context.apellido}</div>
 
-                            <div className="flexbox" id="profile-flex">
-
-                                <div className="flexbox" id="name-flex">
-                                    <div className="textD1" id="name-text" >{context.nombre}</div>
-                                    <div className="textD1">{context.apellido}</div>
-
-                                </div>
-
-                                <div className="flexbox" id="flexbox-infoG" >
-
-                                    <div class="textD1"> <img className="nav-icon" src={email}></img> {context.correo}</div>
-
-                                    <div class="textD1"><img className="nav-icon" src={location}></img> {context.region}</div>
-
-                                </div>
-                                <div className="flexbox" id="flex-four">
-
-                                    <div className="flexbox item-sm" id="cartera" >
-                                        <Link to={routes.CART}>
-
-                                            {/*<img className="nav-icon" id="iconN" src={cart}></img>*/}  <a className="textD2" id="textNav">CARTERA</a>
-                                        </Link>
-
+                                        </div>
+                                        <div className="flexbox" id="flexbox-infoG" >
+                                            <div class="textD1"> <img className="nav-icon" src={email}></img> {context.correo}</div>
+                                            <div class="textD1"><img className="nav-icon" src={location}></img> {context.region}</div>
+                                        </div>
                                     </div>
-                                    <div className="flexbox item-lg" id="notificaciones">
-                                        <Link to={routes.CART}>
+                                    <div className="flexbox" id="flex-four">
 
-                                            {/*<img className="nav-icon" id="iconN" src={notificaciones}></img>*/}  <a className="textD2" id="textNav">NOTIFICACIONES</a>
-                                        </Link>
+                                        <div className="flex-item item-sm"  >
+                                            <Link to={routes.CART}>
+                                                <img src={"https://bit.ly/2SDMguf"}></img>
+                                            </Link>
 
-                                    </div>
+                                            <h3>Cartera</h3>
 
-                                    <div className="flexbox item-lg" id="terrenos" >
-                                        <Link to={routes.PROYECTOS}>
-
-                                            {/*<img className="nav-icon" id="iconN" src={terrenos}></img>*/}  <a className="textD2" id="textNav">TERRENOS</a>
-                                        </Link>
-
-                                    </div>
-
-                                    <div className="flexbox item-sm" id="noticias">
-                                        <Link to={routes.PROYECTOS}>
-
-                                            {/*<img className="nav-icon" id="iconN" src={news}></img>*/}  <a className="textD2" id="textNav">NOTICIAS</a>
-                                        </Link>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            : ''}
-
-                        {this.state.showInversiones ?
-
-
-                            <div id="invest-div" >
-
-                                <div className="flexbox" id="invest-flex">
-                                    <div>Nombre proyecto</div>
-                                    <div>Ubicacion</div>
-                                    <div>Inversion</div>
-                                    <div>Fecha</div>
-                                    <div>Ganancia</div>
-                                </div>
-
-                                {investitems}
-
-
-                            </div>
-
-                            : ''}
-
-                        {this.state.showConfiguracion ?
-
-
-                            <div>
-
-
-                                <div className="flexbox" id="config-flex">
-
-                                    <h2 id="config-title">Configuración general de la cuenta </h2>
-
-                                    <div id="config-item">
-                                        <div className="textD1">Nombre </div>
-                                        <div id="info-item">{context.nombre}</div>
-                                        <button id="edit-icon" data-target="#ModalNombre" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                        {/*MODAL*/}
-
-                                        <div class="modal" id="ModalNombre" role="dialog">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" id="modal-head">
-
-                                                        <h4> Modificar nombre</h4>
-                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-
-                                                    </div>
-
-
-                                                    <div class="modal-body">
-                                                        <input type="text" name="input" class="form-control" placeholder={context.nombre} required=""
-                                                            onChange={(evt) => { this.setState({ name: evt.target.value }) }} ></input>
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.toggleName(this.state.name)} >Guardar</button>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
                                         </div>
 
-                                        {/*finModal*/}
-
-
-                                    </div>
-
-                                    <div id="config-item">
-                                        <div className="textD1">Apellido </div>
-                                        <div id="info-item">{context.apellido}</div>
-
-                                        <button id="edit-icon" data-target="#ModalApellido" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                        {/*MODAL*/}
-
-                                        <div class="modal" id="ModalApellido" role="dialog">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" id="modal-head">
-                                                        <h4> Modificar apellido</h4>
-                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-                                                        <input type="text" name="input" class="form-control" placeholder={context.apellido} required=""
-                                                            onChange={(evt) => { this.setState({ lastName: evt.target.value }) }} ></input>
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.toggleLastname(this.state.lastName)} >Guardar</button>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
+                                        <div className="flex-item item-lg" >
+                                            <img src={"https://bit.ly/2tKpV45"}></img>
+                                            <Link to={routes.PROYECTOS}>
+                                                <h3>Notificaciones</h3>
+                                            </Link>
                                         </div>
+                                        <div className="flex-item item-lg" >
+                                            <img src={"https://bit.ly/2Hb1Dbp"}></img>
+                                            <Link to={routes.PROYECTOS}>
+                                                <h3>Terrenos</h3>
+                                            </Link>
 
-                                        {/*finModal*/}
-
-
-                                    </div>
-                                    <div id="config-item">
-                                        <div className="textD1">Correo </div>
-                                        <div id="info-item">{context.correo}</div>
-
-                                        <button id="edit-icon" data-target="#ModalCorreo" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                        {/*MODAL*/}
-
-                                        <div class="modal" id="ModalCorreo" role="dialog">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" id="modal-head">
-                                                        <h4> Modificar correo</h4>
-                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-                                                        <input type="text" name="input" class="form-control" placeholder={context.correo} required=""
-                                                            onChange={(evt) => { this.setState({ email: evt.target.value }) }} ></input>
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.toggleEmail(this.state.email)} >Guardar</button>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
                                         </div>
-
-                                        {/*finModal*/}
-
-
-                                    </div>
-                                    <div id="config-item">
-                                        <div className="textD1">Telefono </div>
-                                        <div id="info-item">{context.telefono}</div>
-                                        <button id="edit-icon" data-target="#ModalTelefono" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                        {/*MODAL*/}
-
-                                        <div class="modal" id="ModalTelefono" role="dialog">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" id="modal-head">
-                                                        <h4> Modificar telefono</h4>
-                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-                                                        <input type="text" name="input" class="form-control" placeholder={context.telefono} required=""
-                                                            onChange={(evt) => { this.setState({ phone: evt.target.value }) }} ></input>
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.togglePhone(this.state.phone)} >Guardar</button>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
+                                        <div className="flex-item item-sm"  >
+                                            <img src={"https://bit.ly/2EHbhRs"}></img>
+                                            <Link to={routes.LANDING}>
+                                                <h3>Noticias</h3>
+                                            </Link>
                                         </div>
-
-                                        {/*finModal*/}
-
-
-
-                                    </div>
-                                    <div id="config-item">
-
-                                        <div className="textD1"> Region </div>
-                                        <div id="info-item">{context.region}</div>
-
-                                        <button id="edit-icon" data-target="#ModalRegion" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                        {/*MODAL*/}
-
-                                        <div class="modal" id="ModalRegion" role="dialog">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header" id="modal-head">
-                                                        <h4> Modificar region</h4>
-                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-                                                    </div>
-
-                                                    <div class="modal-body">
-                                                        <input type="text" name="input" class="form-control" placeholder={context.region} required=""
-                                                            onChange={(evt) => { this.setState({ region: evt.target.value }) }} ></input>
-                                                    </div>
-
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.toggleRegion(this.state.region)} >Guardar</button>
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-                                        </div>
-
-                                        {/*finModal*/}
 
 
                                     </div>
 
                                 </div>
 
-                            </div>
+                                : ''}
 
-                            : ''}
+                            {this.state.showInversiones ?
+
+
+                                <div id="invest-div" >
+
+                                    <div className="flexbox" id="invest-flex">
+                                        <div>Nombre proyecto</div>
+                                        <div>Ubicacion</div>
+                                        <div>Inversion</div>
+                                        <div>Fecha</div>
+                                        <div>Ganancia</div>
+                                    </div>
+
+                                    {investitems}
+
+
+                                </div>
+
+                                : ''}
+
+                            {this.state.showConfiguracion ?
+
+
+                                <div>
+
+
+                                    <div className="flexbox" id="config-flex">
+
+                                        <h2 id="config-title">Configuración general de la cuenta </h2>
+
+                                        <div id="config-item">
+                                            <div className="textD1">Nombre </div>
+                                            <div id="info-item">{context.nombre}</div>
+                                            <button id="edit-icon" data-target="#ModalNombre" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                            {/*MODAL*/}
+
+                                            <div class="modal" id="ModalNombre" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" id="modal-head">
+
+                                                            <h4> Modificar nombre</h4>
+                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+
+                                                        </div>
+
+
+                                                        <div class="modal-body">
+                                                            <input type="text" name="input" class="form-control" placeholder={context.nombre} required=""
+                                                                onChange={(evt) => { this.setState({ name: evt.target.value }) }} ></input>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.toggleName(this.state.name)} >Guardar</button>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            {/*finModal*/}
+
+
+                                        </div>
+
+                                        <div id="config-item">
+                                            <div className="textD1">Apellido </div>
+                                            <div id="info-item">{context.apellido}</div>
+
+                                            <button id="edit-icon" data-target="#ModalApellido" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                            {/*MODAL*/}
+
+                                            <div class="modal" id="ModalApellido" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" id="modal-head">
+                                                            <h4> Modificar apellido</h4>
+                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <input type="text" name="input" class="form-control" placeholder={context.apellido} required=""
+                                                                onChange={(evt) => { this.setState({ lastName: evt.target.value }) }} ></input>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.toggleLastname(this.state.lastName)} >Guardar</button>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            {/*finModal*/}
+
+
+                                        </div>
+                                        <div id="config-item">
+                                            <div className="textD1">Correo </div>
+                                            <div id="info-item">{context.correo}</div>
+
+                                            <button id="edit-icon" data-target="#ModalCorreo" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                            {/*MODAL*/}
+
+                                            <div class="modal" id="ModalCorreo" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" id="modal-head">
+                                                            <h4> Modificar correo</h4>
+                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <input type="text" name="input" class="form-control" placeholder={context.correo} required=""
+                                                                onChange={(evt) => { this.setState({ email: evt.target.value }) }} ></input>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.toggleEmail(this.state.email)} >Guardar</button>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            {/*finModal*/}
+
+
+                                        </div>
+                                        <div id="config-item">
+                                            <div className="textD1">Telefono </div>
+                                            <div id="info-item">{context.telefono}</div>
+                                            <button id="edit-icon" data-target="#ModalTelefono" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                            {/*MODAL*/}
+
+                                            <div class="modal" id="ModalTelefono" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" id="modal-head">
+                                                            <h4> Modificar telefono</h4>
+                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <input type="text" name="input" class="form-control" placeholder={context.telefono} required=""
+                                                                onChange={(evt) => { this.setState({ phone: evt.target.value }) }} ></input>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.togglePhone(this.state.phone)} >Guardar</button>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            {/*finModal*/}
+
+
+
+                                        </div>
+                                        <div id="config-item">
+
+                                            <div className="textD1"> Region </div>
+                                            <div id="info-item">{context.region}</div>
+
+                                            <button id="edit-icon" data-target="#ModalRegion" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                            {/*MODAL*/}
+
+                                            <div class="modal" id="ModalRegion" role="dialog">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header" id="modal-head">
+                                                            <h4> Modificar region</h4>
+                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+                                                        </div>
+
+                                                        <div class="modal-body">
+                                                            <input type="text" name="input" class="form-control" placeholder={context.region} required=""
+                                                                onChange={(evt) => { this.setState({ region: evt.target.value }) }} ></input>
+                                                        </div>
+
+                                                        <div class="modal-footer">
+                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.toggleRegion(this.state.region)} >Guardar</button>
+                                                        </div>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            {/*finModal*/}
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                : ''}
+                        </div>
 
                     </div> : <p>no hay usuario</p>}
 
