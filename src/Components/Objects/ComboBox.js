@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./ComboBox.css";
 import close from "../../Icons/close.svg";
 
-
 export default class ComboBox extends Component {
   constructor(props) {
     super(props);
@@ -12,31 +11,41 @@ export default class ComboBox extends Component {
       list: []
     };
     this.handleAddList = this.handleAddList.bind(this);
-    this.handleDelete= this.handleDelete.bind(this);  
+    this.handleDelete = this.handleDelete.bind(this);
   }
-  handleAddList=index=>{
-    this.setState({
-      list:this.state.list.concat(this.props.array[index]),
-      showAlert: false
-    })
-    this.props.add(this.props.array[index]);
-  }
-  handleDelete =index=>{
+  handleAddList = index => {
+    if (!this.state.list.includes(this.props.array[index])) {
+      this.setState({
+        list: this.state.list.concat(this.props.array[index]),
+        showAlert: false
+      });
+      this.props.add(this.props.array[index]);
+    } else {
+      this.setState({
+        showAlert: true
+      });
+    }
+  };
+  handleDelete = index => {
     this.setState(state => {
       const list = this.state.list;
       list.splice(index, 1);
       return list;
     });
     this.props.delete(index);
-  }
- 
+  };
 
   render() {
     return (
       <div>
-        <div class="form-group" >
+        <div class="form-group">
           <label>{this.props.label}</label>
-          <div class="dropdown" >
+          {this.state.showAlert ? (
+            <div className="alert alert-danger" role="alert">
+              Este elemento ya existe
+            </div>
+          ) : null}
+          <div class="dropdown">
             <button
               type="button"
               class="btn btn-tertiary dropdown-toggle"
@@ -45,10 +54,10 @@ export default class ComboBox extends Component {
             >
               Seleccione un elemento
             </button>
-            <ul class="dropdown-menu scrollable-menu" role="menu" >
+            <ul class="dropdown-menu scrollable-menu" role="menu">
               {this.props.array.map((name, index) => (
-                <li key={index} onClick ={()=>this.handleAddList(index)}>
-                  <a class="dropdown-item" >{name}</a>
+                <li key={index} onClick={() => this.handleAddList(index)}>
+                  <a class="dropdown-item">{name}</a>
                 </li>
               ))}
             </ul>

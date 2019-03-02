@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./NewProject.css";
 import { createProject } from "../Constants/project";
-import fire from "../Firebase/Fire"
+import fire from "../Firebase/Fire";
 
 import {
   numeroVal,
@@ -116,13 +116,12 @@ class NewProject extends Component {
       latitud: 0,
       longitud: 0,
       ubicacion: "",
-      numeroManzanas: 0,
+      manzanasTotales: 0,
       inversionMinima: 0,
       inversionInicial: 0,
-      jobs: 0
+      trabajos: 0
     };
     /* CJ Changes */
-    this.handleSubmit = this.handleSubmit.bind(this);
 
     //Fotos de los cultivos
     this.fotoC = React.createRef();
@@ -135,23 +134,12 @@ class NewProject extends Component {
 
     this.handleDeleteImageCrop = this.handleDeleteImageCrop.bind(this);
     this.handleDeleteImageFamily = this.handleDeleteImageFamily.bind(this);
-    this.handleDeleteNameCrop = this.handleDeleteNameCrop.bind(this);
 
     this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
 
     this.handleSaveProject = this.handleSaveProject.bind(this);
-
-    this.handleChangeTitle = this.handleChangeTitle.bind(this);
-    this.handleChangeInversion = this.handleChangeInversion.bind(this);
-    this.handleChangeInfoZona = this.handleChangeInfoZona.bind(this);
-    this.handleChangeFamily = this.handleChangeFamily.bind(this);
-    this.handleChangeDescription = this.handleChangeDescription.bind(this);
-    this.handleChangeCrops = this.handleChangeCrops.bind(this);
-    this.handleKeyEnterAddCrop = this.handleKeyEnterAddCrop.bind(this);
     this.changeLocationFromChild = this.changeLocationFromChild.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.getLocation = this.getLocation.bind(this);
-    this.handleChangeUbicacion = this.handleChangeUbicacion.bind(this);
 
     //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
     //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
@@ -160,11 +148,11 @@ class NewProject extends Component {
     this.deleteListCrops = this.deleteListCrops.bind(this);
     this.getDescription = this.getDescription.bind(this);
     this.getInformation = this.getInformation.bind(this);
-    this.getNumeroManzanas = this.getNumeroManzanas.bind(this);
+    this.getmanzanasTotales = this.getmanzanasTotales.bind(this);
     this.getInversion = this.getInversion.bind(this);
 
     this.getFamilyB = this.getFamilyB.bind(this);
-    this.getJobs = this.getJobs.bind(this);
+    this.gettrabajos = this.gettrabajos.bind(this);
     this.getUbicación = this.getUbicación.bind(this);
   }
   //Nuevos metodos para recuperar los valores de los inputs
@@ -201,16 +189,16 @@ class NewProject extends Component {
       infoZona: value
     });
   }
-  getNumeroManzanas(value) {
+  getmanzanasTotales(value) {
     this.setState({
-      numeroManzanas: value,
+      manzanasTotales: value,
       inversionMinima: this.state.inversionInicial * value
     });
   }
 
-  getJobs(value) {
+  gettrabajos(value) {
     this.setState({
-      jobs: value
+      trabajos: value
     });
   }
   getFamilyB(value) {
@@ -221,28 +209,10 @@ class NewProject extends Component {
   getInversion(value) {
     this.setState({
       inversionInicial: value,
-      inversionMinima: this.state.numeroManzanas * value
+      inversionMinima: this.state.manzanasTotales * value
     });
   }
-  handleSubmit(e) {
-    console.log(e.target.input.value);
-  }
 
-  async componentWillMount() {
-    firebase
-      .storage()
-      .ref()
-      .child("Campo2.jpg")
-      .getDownloadURL()
-      .then(url => {
-        this.setState({
-          pic: url
-        });
-      })
-      .catch(function (error) {
-        // Handle any errors
-      });
-  }
   /**
     @description Subir imagene del proyecto    
      */
@@ -318,20 +288,7 @@ class NewProject extends Component {
     //Resetea el valor del archivo
     document.getElementById("newProject-input7").value = "";
   }
-  /**
-            async componentWillMount(){
-            await firebase.storage().ref().child("Campo2.jpg").getDownloadURL().then(url =>{
-                this.setState({
-                    pic:url
-                })
-            })
-        }
-    
-     */
-  /**
-   * @description Sube todas las imagenes al Storage
-   * @author Diego Mendoza
-   */
+
   uploadImageToStorage = () => {
     this.state.listImgCrops.forEach(fileImg => {
       firebase
@@ -394,82 +351,93 @@ class NewProject extends Component {
    */
   async handleSaveProject(project) {
     const db = fire.firestore();
-    const projectRef = db.collection('projects');
+    const projectRef = db.collection("projects");
     project.preventDefault();
-    const {
-      titulo,
-      descripcion,
-      ubicacion,
-      familiasB,
-      tiposCultivo,
-      infoZona,
-      inversion
-    } = this.state;
+    if (
+      this.state.titulo !== "" &&
+      this.state.titulo !== undefined &&
+      this.fotoP.current.files[0].name !== undefined &&
+      this.fotoP.current.files[0].name !== "" &&
+      this.state.inversionInicial !== "" &&
+      this.state.inversionInicial !== undefined &&
+      this.state.infoZona !== "" &&
+      this.state.infoZona !== undefined &&
+      this.state.descripcion !== "" &&
+      this.state.descripcion !== undefined &&
+      this.state.listNameCrops.length !== 0 &&
+      this.state.ubicacion !== "" &&
+      this.state.ubicacion !== undefined &&
+      this.state.manzanasTotales !== "" &&
+      this.state.manzanasTotales !== undefined &&
+      this.state.trabajos !== "" &&
+      this.state.trabajos !== undefined &&
+      this.state.listImgCrops.length !== 0 &&
+      this.state.listImgFamilies.length !== 0
+    ) {
+      //Agrega en la base de datos los nombres de las imagenes para cada uno//
+      let nameImgRefCrops = [];
+      await this.state.listImgCrops.forEach(img => {
+        nameImgRefCrops.push(`${img.name}`);
+      });
+      let nameImgRefFamilies = [];
+      await this.state.listImgFamilies.forEach(img => {
+        nameImgRefFamilies.push(`${img.name}`);
+      });
 
-    //Agrega en la base de datos los nombres de las imagenes para cada uno//
-    let nameImgRefCrops = [];
-    await this.state.listImgCrops.forEach(img => {
-      nameImgRefCrops.push(`${img.name}`);
-    });
-    let nameImgRefFamilies = [];
-    await this.state.listImgFamilies.forEach(img => {
-      nameImgRefFamilies.push(`${img.name}`);
-    });
-    /**
-     * @param {title,timeProdxDay,raisedMoney,projectFinan,picProject,picFam,picCultures,coordinates,investor,investInitxBlock,infoZone,detailsProdxBlocks,desciption,creationDate,available,cultures, locate}
-     */
-    let temp = new Date();
-    let fecha = temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
-    let ref = projectRef.doc();
-    ref.set({
-      id: ref.id,
-      title: this.state.titulo,
-      timeProdxDay: 0,
-      raisedMoney: 0,
-      projectFinan: 0,
-      picProject: this.fotoP.current.files[0].name,
-      picFam: nameImgRefFamilies,
-      picCultures: nameImgRefCrops,
-      coordinates: new firebase.firestore.GeoPoint(
-        parseFloat(this.state.center.lat, 10),
-        parseFloat(this.state.center.lng, 10)
-      ),
-      investor: "",
-      investInitxBlock: this.state.inversionInicial,
-      infoZone: this.state.infoZona,
-      detailsProdxBlocks: "",
-      description: this.state.descripcion,
-      creationDate: fecha,
-      available: true,
-      cultures: this.state.listNameCrops,
-      locate: this.state.ubicacion
-    }).then(
-      this.setState({
-        titulo: "",
-        descripcion: "",
-        ubicacion: "",
-        familiasB: "",
-        tiposCultivo: "",
-        infoZona: "",
-        inversion: "",
-        listNameCrops: [],
-        inversionInicial: "",
-        numeroManzanas: "",
-        // center: { lat: 0, lng: 0 }
-      })
-    );
-    await this.uploadImageToStorage();
+      let temp = new Date();
+      let fecha =
+        temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
+      let ref = projectRef.doc();
+      ref
+        .set({
+          id: ref.id,
+          title: this.state.titulo,
+          timeProdxDay: 0,
+          raisedMoney: 0,
+          projectFinan: 0,
+          picProject: this.fotoP.current.files[0].name,
+          picFam: nameImgRefFamilies,
+          picCultures: nameImgRefCrops,
+          coordinates: new firebase.firestore.GeoPoint(
+            parseFloat(this.state.center.lat, 10),
+            parseFloat(this.state.center.lng, 10)
+          ),
+          investor: "",
+          investInitxBlock: this.state.inversionInicial,
+          infoZone: this.state.infoZona,
+          detailsProdxBlocks: "",
+          description: this.state.descripcion,
+          creationDate: fecha,
+          available: true,
+          cultures: this.state.listNameCrops,
+          locate: this.state.ubicacion,
+          manzanasTotales: this.state.manzanasTotales,
+          manzanasRestantes: this.state.manzanasTotales,
+          trabajosGen: this.state.trabajos
+        })
+        .then(
+          this.setState({
+            titulo: "",
+            descripcion: "",
+            ubicacion: "",
+            familiasB: "",
+            tiposCultivo: "",
+            infoZona: "",
+            inversion: "",
+            listNameCrops: [],
+            inversionInicial: 0,
+            manzanasTotales: 0,
+            trabajos: ""
+            // center: { lat: 0, lng: 0 }
+          })
+        );
+      await this.uploadImageToStorage();
 
-
-    window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
-
-
+      window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
+    } else {
+      window.alert(`Todos los campos deben estar llenados correctamente`);
+    }
   }
-
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
-    console.log(event.target.value);
-  };
 
   changeLocationFromChild(latitude, longitude) {
     console.log("child center :" + latitude + ", " + longitude);
@@ -483,109 +451,6 @@ class NewProject extends Component {
       center: { lat: this.state.latitud, lng: this.state.longitud }
     });
   }
-
-  handleKeyEnterAddCrop = (event, cultivo) => {
-    console.log(event.keyCode);
-
-    if (event.keyCode === 13) {
-      this.setState({
-        listNameCrops: this.state.listNameCrops.concat(cultivo),
-        tiposCultivo: ""
-      });
-    }
-  };
-
-  handleChangeTitle = name => event => {
-    this.setState({ [name]: event.target.value });
-    console.log(nombresVal(this.state.titulo, 0, 50));
-    if (nombresVal(this.state.titulo, 0, 50) == false) {
-      document.getElementById("newProject-input1").style.borderColor = "red";
-    } else if (this.state.titulo === undefined) {
-      document.getElementById("newProject-input1").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input1").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeDescription = descripcion => event => {
-    this.setState({ [descripcion]: event.target.value });
-    console.log(event.target.value);
-    if (cantidadPalabrasVal(this.state.descripcion, 0, 100) == false) {
-      document.getElementById("newProject-input2").style.borderColor = "red";
-    } else if (this.state.descripcion === undefined) {
-      document.getElementById("newProject-input2").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input2").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeFamily = familiasB => event => {
-    this.setState({ [familiasB]: event.target.value });
-    console.log(this.state.familiasB);
-    if (cantidadPalabrasVal(this.state.descripcion, 0, 100) == false) {
-      document.getElementById("newProject-input4").style.borderColor = "red";
-    } else if (this.state.familiasB === undefined) {
-      document.getElementById("newProject-input4").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input4").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeCrops = tiposCultivo => event => {
-    event.preventDefault();
-    this.setState({ [tiposCultivo]: event.target.value });
-    console.log(rangoCaracteresVal(this.state.tiposCultivo, 2, 50));
-    if (rangoCaracteresVal(this.state.tiposCultivo, 2, 50) == false) {
-      document.getElementById("newProject-input5").style.borderColor = "red";
-    } else if (this.state.tiposCultivo === undefined) {
-      document.getElementById("newProject-input5").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input5").style.borderColor = "blue";
-    }
-  };
-  handleDeleteNameCrop(index, e) {
-    e.preventDefault();
-
-    this.setState(state => {
-      const listNameCrops = this.state.listNameCrops;
-      listNameCrops.splice(index, 1);
-      return listNameCrops;
-    });
-  }
-
-  handleChangeInfoZona = infoZona => event => {
-    this.setState({ [infoZona]: event.target.value });
-    if (cantidadPalabrasVal(this.state.infoZona, 1, 100) == false) {
-      document.getElementById("newProject-input6").style.borderColor = "red";
-    } else if (this.state.infoZona === undefined) {
-      document.getElementById("newProject-input6").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input6").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeUbicacion = ubicacion => event => {
-    this.setState({ [ubicacion]: event.target.value });
-    console.log(this.state.ubicacion);
-    if (numeroVal(this.state.ubicacion, 1, 7) == false) {
-      document.getElementById("newProject-input7").style.borderColor = "red";
-    } else if (this.state.ubicacion === undefined) {
-      document.getElementById("newProject-input7").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input7").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeInversion = inversion => event => {
-    this.setState({ [inversion]: event.target.value });
-    if (puntoDecimalVal(this.state.inversion, 0, 12) == false) {
-      document.getElementById("newProject-input10").style.borderColor = "red";
-    } else if (this.state.inversion === undefined) {
-      document.getElementById("newProject-input10").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input10").style.borderColor = "blue";
-    }
-  };
 
   render() {
     const style = {
@@ -614,13 +479,6 @@ class NewProject extends Component {
       <div>
         <div className="graphic-lg" />
         <h1 className="main-title">Nuevo Proyecto</h1>
-        {/**Tipos de entrada*/}
-        {/**Text*/}
-        {/**TextArea*/}
-        {/**Number*/}
-        {/**ListaTexto*/}
-        {/**Lista foto*/}
-        {/**ComboBox*/}
         <form onSubmit={this.handleSubmit}>
           <div className="flex-content" id="add-flex">
             <ItemHeading
@@ -650,7 +508,6 @@ class NewProject extends Component {
               subtitle="Datos edofaclimaticos y de cultivos del terreno"
             />
             <div className="flexbox" id="input-flex">
-              {/**Cultivos cambiar*/}
               <ComboBox
                 label="Cultivos"
                 add={this.addListCrops}
@@ -665,7 +522,7 @@ class NewProject extends Component {
               <InputNumber
                 label="Número de manzanas"
                 placeholder=""
-                getValue={this.getNumeroManzanas}
+                getValue={this.getmanzanasTotales}
               />
             </div>
             <ItemHeading
@@ -682,8 +539,8 @@ class NewProject extends Component {
               <div class="form-group">
                 <label>Inversión minima</label>
                 <h3>{`${this.state.inversionInicial} X ${
-                  this.state.numeroManzanas
-                  }\n=$${this.state.numeroManzanas *
+                  this.state.manzanasTotales
+                }\n=$${this.state.manzanasTotales *
                   this.state.inversionInicial}`}</h3>
               </div>
             </div>
@@ -693,16 +550,18 @@ class NewProject extends Component {
               subtitle="¿Como el proyecto impacta en la comunidad?"
             />
             {/** Numero de familias beneficiadas*/}
-            <InputNumber
-              label="Familias Beneficiadas"
-              placeholder=""
-              getValue={this.getFamilyB}
-            />
-            <InputNumber
-              label="Trabajos generados"
-              placeholder=""
-              getValue={this.getJobs}
-            />
+            <div className="flexbox" id="input-flex">
+              <InputNumber
+                label="Familias Beneficiadas"
+                placeholder=""
+                getValue={this.getFamilyB}
+              />
+              <InputNumber
+                label="Trabajos generados"
+                placeholder=""
+                getValue={this.gettrabajos}
+              />
+            </div>
             {/** Trabajo generado*/}
             <ItemHeading number="5" title="Fotos" subtitle="" />
             <li id="all-inputs-item">
@@ -718,8 +577,8 @@ class NewProject extends Component {
               {this.state.previewPic ? (
                 <img id="img-pro" src={this.state.previewPic} />
               ) : (
-                  <img id="img-pro" src={defaultProjectPic} />
-                )}
+                <img id="img-pro" src={defaultProjectPic} />
+              )}
             </li>
             <li id="all-inputs-item">
               <label>Foto de familias</label>
@@ -747,23 +606,27 @@ class NewProject extends Component {
                                             <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
                                         </li>)}
                                 </ul>*/}
-                <Carousel
-                  showThumbs={false}
-                  statusFormatter={(current, total) => `${current} de ${total}`}
-                  infiniteLoop={true}
-                >
-                  {this.state.listImgFamilies.map((img, index) => (
-                    <div>
-                      <button
-                        id="delete-icon"
-                        onClick={e => this.handleDeleteImageFamily(index, e)}
-                      >
-                        X
-                      </button>
-                      <img src={URL.createObjectURL(img)} />
-                    </div>
-                  ))}
-                </Carousel>
+                <div style={{width:"25vw"}} >
+                  <Carousel
+                    showThumbs={false}
+                    statusFormatter={(current, total) =>
+                      `${current} de ${total}`
+                    }
+                    infiniteLoop={true}
+                  >
+                    {this.state.listImgFamilies.map((img, index) => (
+                      <div>
+                        <button
+                          id="delete-icon"
+                          onClick={e => this.handleDeleteImageFamily(index, e)}
+                        >
+                          X
+                        </button>
+                        <img src={URL.createObjectURL(img)} />
+                      </div>
+                    ))}
+                  </Carousel>
+                </div>
               </div>
             </li>
             {/**Subir imagenes relacionadas con los cultivos */}
@@ -783,15 +646,7 @@ class NewProject extends Component {
               >
                 Agregar foto
               </button>
-              <div>
-                {/**Muestra las imagenes que se han agregado en una lista
-                            //Permite que se borren por medio del boton*/}
-                {/*<ul>
-                                    {this.state.listImgCrops.map((img, index) =>
-                                        <li key={index} >{img.name}
-                                            <button onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
-                                        </li>)}
-                                </ul>*/}
+              <div style={{width:"25vw"}} >
                 <Carousel
                   showThumbs={false}
                   statusFormatter={(current, total) => `${current} de ${total}`}
@@ -849,8 +704,6 @@ class NewProject extends Component {
             </button>
           </div>
         </form>
-
-
       </div>
     );
   }

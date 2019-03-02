@@ -27,14 +27,17 @@ export default class TextArea extends Component {
       <div>
         <div class="form-group">
           <label>{this.props.label}</label>
+          {this.state.showAlert ? (
+            <div className="alert alert-danger" role="alert">
+              El campo no puede estar vacio
+            </div>
+          ) : null}
           <textarea
             rows="3"
             class="form-control"
             placeholder={this.props.placeholder}
             onBlur={e => this.validation(e.target.value)}
           />
-          {this.state.showAlert ? <label>El campo no puede estar vacio</label> : null}
-
         </div>
       </div>
     );

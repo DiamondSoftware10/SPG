@@ -35,9 +35,18 @@ export default class Input extends Component {
     let expreg = new RegExp(this.props.regex);
 
     if (this.state.inputValue === "") {
-      return <label>El campo no puede estar vacio</label>;
+      return (
+        <div className="alert alert-danger" role="alert">
+          El campo no puede estar vacio
+        </div>
+      );
     } else if (!expreg.test(this.state.inputValue)) {
-      return <label>{this.props.alert}</label>;
+      document.getElementsByName("input").values("");
+      return (
+        <div className="alert alert-danger" role="alert">
+          {this.props.alert}
+        </div>
+      );
     }
   }
 
@@ -46,6 +55,7 @@ export default class Input extends Component {
       <div>
         <div class="form-group">
           <label>{this.props.label}</label>
+          {this.state.showAlert ? this.renderAlert() : null}
 
           <input
             name="input"
@@ -55,7 +65,6 @@ export default class Input extends Component {
             onBlur={e => this.validation(e.target.value)}
             required
           />
-          {this.state.showAlert ? this.renderAlert() : null}
 
         </div>
       </div>
