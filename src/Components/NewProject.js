@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./NewProject.css";
 import { createProject } from "../Constants/project";
-import fire from "../Firebase/Fire"
+import fire from "../Firebase/Fire";
 
 import {
   numeroVal,
@@ -122,7 +122,6 @@ class NewProject extends Component {
       trabajos: 0
     };
     /* CJ Changes */
-    this.handleSubmit = this.handleSubmit.bind(this);
 
     //Fotos de los cultivos
     this.fotoC = React.createRef();
@@ -140,14 +139,6 @@ class NewProject extends Component {
     this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
 
     this.handleSaveProject = this.handleSaveProject.bind(this);
-
-    this.handleChangeTitle = this.handleChangeTitle.bind(this);
-    this.handleChangeInversion = this.handleChangeInversion.bind(this);
-    this.handleChangeInfoZona = this.handleChangeInfoZona.bind(this);
-    this.handleChangeFamily = this.handleChangeFamily.bind(this);
-    this.handleChangeDescription = this.handleChangeDescription.bind(this);
-    this.handleChangeCrops = this.handleChangeCrops.bind(this);
-    this.handleKeyEnterAddCrop = this.handleKeyEnterAddCrop.bind(this);
     this.changeLocationFromChild = this.changeLocationFromChild.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getLocation = this.getLocation.bind(this);
@@ -224,25 +215,7 @@ class NewProject extends Component {
       inversionMinima: this.state.manzanasTotales * value
     });
   }
-  handleSubmit(e) {
-    console.log(e.target.input.value);
-  }
 
-  async componentWillMount() {
-    firebase
-      .storage()
-      .ref()
-      .child("Campo2.jpg")
-      .getDownloadURL()
-      .then(url => {
-        this.setState({
-          pic: url
-        });
-      })
-      .catch(function (error) {
-        // Handle any errors
-      });
-  }
   /**
     @description Subir imagene del proyecto    
      */
@@ -318,20 +291,7 @@ class NewProject extends Component {
     //Resetea el valor del archivo
     document.getElementById("newProject-input7").value = "";
   }
-  /**
-            async componentWillMount(){
-            await firebase.storage().ref().child("Campo2.jpg").getDownloadURL().then(url =>{
-                this.setState({
-                    pic:url
-                })
-            })
-        }
-    
-     */
-  /**
-   * @description Sube todas las imagenes al Storage
-   * @author Diego Mendoza
-   */
+
   uploadImageToStorage = () => {
     this.state.listImgCrops.forEach(fileImg => {
       firebase
@@ -394,71 +354,92 @@ class NewProject extends Component {
    */
   async handleSaveProject(project) {
     const db = fire.firestore();
-    const projectRef = db.collection('projects');
+    const projectRef = db.collection("projects");
     project.preventDefault();
-    
-    //Agrega en la base de datos los nombres de las imagenes para cada uno//
-    let nameImgRefCrops = [];
-    await this.state.listImgCrops.forEach(img => {
-      nameImgRefCrops.push(`${img.name}`);
-    });
-    let nameImgRefFamilies = [];
-    await this.state.listImgFamilies.forEach(img => {
-      nameImgRefFamilies.push(`${img.name}`);
-    });
-    /**
-     * @param {title,timeProdxDay,raisedMoney,projectFinan,picProject,picFam,picCultures,coordinates,investor,investInitxBlock,infoZone,detailsProdxBlocks,desciption,creationDate,available,cultures, locate}
-     */
-    let temp = new Date();
-    let fecha = temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
-    let ref = projectRef.doc();
-    ref.set({
-      id: ref.id,
-      title: this.state.titulo,
-      timeProdxDay: 0,
-      raisedMoney: 0,
-      projectFinan: 0,
-      picProject: this.fotoP.current.files[0].name,
-      picFam: nameImgRefFamilies,
-      picCultures: nameImgRefCrops,
-      coordinates: new firebase.firestore.GeoPoint(
-        parseFloat(this.state.center.lat, 10),
-        parseFloat(this.state.center.lng, 10)
-      ),
-      investor: "",
-      investInitxBlock: this.state.inversionInicial,
-      infoZone: this.state.infoZona,
-      detailsProdxBlocks: "",
-      description: this.state.descripcion,
-      creationDate: fecha,
-      available: true,
-      cultures: this.state.listNameCrops,
-      locate: this.state.ubicacion,
-      manzanasTotales: this.state.manzanasTotales,
-      manzanasRestantes: this.state.manzanasTotales,
-      trabajosGen: this.state.trabajos
-    }).then(
-      this.setState({
-        titulo: "",
-        descripcion: "",
-        ubicacion: "",
-        familiasB: "",
-        tiposCultivo: "",
-        infoZona: "",
-        inversion: "",
-        listNameCrops: [],
-        inversionInicial: "",
-        manzanasTotales: "",
-        trabajos:""
-        // center: { lat: 0, lng: 0 }
-      })
-    );
-    await this.uploadImageToStorage();
+    if (
+      this.state.titulo !== "" &&
+      this.state.titulo !== undefined &&
+      this.fotoP.current.files[0].name !== undefined &&
+      this.fotoP.current.files[0].name !== "" &&
+      this.state.inversionInicial !== "" &&
+      this.state.inversionInicial !== undefined &&
+      this.state.infoZona !== "" &&
+      this.state.infoZona !== undefined &&
+      this.state.descripcion !== "" &&
+      this.state.descripcion !== undefined &&
+      this.state.listNameCrops.length !== 0 &&
+      this.state.ubicacion !== "" &&
+      this.state.ubicacion !== undefined &&
+      this.state.manzanasTotales !== "" &&
+      this.state.manzanasTotales !== undefined &&
+      this.state.trabajos !== "" &&
+      this.state.trabajos !== undefined &&
+      this.state.listImgCrops.length !== 0 &&
+      this.state.listImgFamilies.length !== 0
+    ) {
+      //Agrega en la base de datos los nombres de las imagenes para cada uno//
+      let nameImgRefCrops = [];
+      await this.state.listImgCrops.forEach(img => {
+        nameImgRefCrops.push(`${img.name}`);
+      });
+      let nameImgRefFamilies = [];
+      await this.state.listImgFamilies.forEach(img => {
+        nameImgRefFamilies.push(`${img.name}`);
+      });
+     
+      let temp = new Date();
+      let fecha =
+        temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
+      let ref = projectRef.doc();
+      ref
+        .set({
+          id: ref.id,
+          title: this.state.titulo,
+          timeProdxDay: 0,
+          raisedMoney: 0,
+          projectFinan: 0,
+          picProject: this.fotoP.current.files[0].name,
+          picFam: nameImgRefFamilies,
+          picCultures: nameImgRefCrops,
+          coordinates: new firebase.firestore.GeoPoint(
+            parseFloat(this.state.center.lat, 10),
+            parseFloat(this.state.center.lng, 10)
+          ),
+          investor: "",
+          investInitxBlock: this.state.inversionInicial,
+          infoZone: this.state.infoZona,
+          detailsProdxBlocks: "",
+          description: this.state.descripcion,
+          creationDate: fecha,
+          available: true,
+          cultures: this.state.listNameCrops,
+          locate: this.state.ubicacion,
+          manzanasTotales: this.state.manzanasTotales,
+          manzanasRestantes: this.state.manzanasTotales,
+          trabajosGen: this.state.trabajos
+        })
+        .then(
+          this.setState({
+            titulo: "",
+            descripcion: "",
+            ubicacion: "",
+            familiasB: "",
+            tiposCultivo: "",
+            infoZona: "",
+            inversion: "",
+            listNameCrops: [],
+            inversionInicial: "",
+            manzanasTotales: "",
+            trabajos: ""
+            // center: { lat: 0, lng: 0 }
+          })
+        );
+      await this.uploadImageToStorage();
 
-
-    window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
-
-
+      window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
+    }else {
+      window.alert(`Todos los campos deben estar llenados correctamente`);
+    }
   }
 
   handleChange = name => event => {
@@ -678,7 +659,7 @@ class NewProject extends Component {
                 <label>Inversión minima</label>
                 <h3>{`${this.state.inversionInicial} X ${
                   this.state.manzanasTotales
-                  }\n=$${this.state.manzanasTotales *
+                }\n=$${this.state.manzanasTotales *
                   this.state.inversionInicial}`}</h3>
               </div>
             </div>
@@ -713,8 +694,8 @@ class NewProject extends Component {
               {this.state.previewPic ? (
                 <img id="img-pro" src={this.state.previewPic} />
               ) : (
-                  <img id="img-pro" src={defaultProjectPic} />
-                )}
+                <img id="img-pro" src={defaultProjectPic} />
+              )}
             </li>
             <li id="all-inputs-item">
               <label>Foto de familias</label>
@@ -844,8 +825,6 @@ class NewProject extends Component {
             </button>
           </div>
         </form>
-
-
       </div>
     );
   }
