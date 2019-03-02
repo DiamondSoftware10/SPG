@@ -116,10 +116,10 @@ class NewProject extends Component {
       latitud: 0,
       longitud: 0,
       ubicacion: "",
-      numeroManzanas: 0,
+      manzanasTotales: 0,
       inversionMinima: 0,
       inversionInicial: 0,
-      jobs: 0
+      trabajos: 0
     };
     /* CJ Changes */
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -160,11 +160,11 @@ class NewProject extends Component {
     this.deleteListCrops = this.deleteListCrops.bind(this);
     this.getDescription = this.getDescription.bind(this);
     this.getInformation = this.getInformation.bind(this);
-    this.getNumeroManzanas = this.getNumeroManzanas.bind(this);
+    this.getmanzanasTotales = this.getmanzanasTotales.bind(this);
     this.getInversion = this.getInversion.bind(this);
 
     this.getFamilyB = this.getFamilyB.bind(this);
-    this.getJobs = this.getJobs.bind(this);
+    this.gettrabajos = this.gettrabajos.bind(this);
     this.getUbicación = this.getUbicación.bind(this);
   }
   //Nuevos metodos para recuperar los valores de los inputs
@@ -201,16 +201,16 @@ class NewProject extends Component {
       infoZona: value
     });
   }
-  getNumeroManzanas(value) {
+  getmanzanasTotales(value) {
     this.setState({
-      numeroManzanas: value,
+      manzanasTotales: value,
       inversionMinima: this.state.inversionInicial * value
     });
   }
 
-  getJobs(value) {
+  gettrabajos(value) {
     this.setState({
-      jobs: value
+      trabajos: value
     });
   }
   getFamilyB(value) {
@@ -221,7 +221,7 @@ class NewProject extends Component {
   getInversion(value) {
     this.setState({
       inversionInicial: value,
-      inversionMinima: this.state.numeroManzanas * value
+      inversionMinima: this.state.manzanasTotales * value
     });
   }
   handleSubmit(e) {
@@ -396,16 +396,7 @@ class NewProject extends Component {
     const db = fire.firestore();
     const projectRef = db.collection('projects');
     project.preventDefault();
-    const {
-      titulo,
-      descripcion,
-      ubicacion,
-      familiasB,
-      tiposCultivo,
-      infoZona,
-      inversion
-    } = this.state;
-
+    
     //Agrega en la base de datos los nombres de las imagenes para cada uno//
     let nameImgRefCrops = [];
     await this.state.listImgCrops.forEach(img => {
@@ -442,7 +433,10 @@ class NewProject extends Component {
       creationDate: fecha,
       available: true,
       cultures: this.state.listNameCrops,
-      locate: this.state.ubicacion
+      locate: this.state.ubicacion,
+      manzanasTotales: this.state.manzanasTotales,
+      manzanasRestantes: this.state.manzanasTotales,
+      trabajosGen: this.state.trabajos
     }).then(
       this.setState({
         titulo: "",
@@ -454,7 +448,8 @@ class NewProject extends Component {
         inversion: "",
         listNameCrops: [],
         inversionInicial: "",
-        numeroManzanas: "",
+        manzanasTotales: "",
+        trabajos:""
         // center: { lat: 0, lng: 0 }
       })
     );
@@ -665,7 +660,7 @@ class NewProject extends Component {
               <InputNumber
                 label="Número de manzanas"
                 placeholder=""
-                getValue={this.getNumeroManzanas}
+                getValue={this.getmanzanasTotales}
               />
             </div>
             <ItemHeading
@@ -682,8 +677,8 @@ class NewProject extends Component {
               <div class="form-group">
                 <label>Inversión minima</label>
                 <h3>{`${this.state.inversionInicial} X ${
-                  this.state.numeroManzanas
-                  }\n=$${this.state.numeroManzanas *
+                  this.state.manzanasTotales
+                  }\n=$${this.state.manzanasTotales *
                   this.state.inversionInicial}`}</h3>
               </div>
             </div>
@@ -701,7 +696,7 @@ class NewProject extends Component {
             <InputNumber
               label="Trabajos generados"
               placeholder=""
-              getValue={this.getJobs}
+              getValue={this.gettrabajos}
             />
             {/** Trabajo generado*/}
             <ItemHeading number="5" title="Fotos" subtitle="" />
