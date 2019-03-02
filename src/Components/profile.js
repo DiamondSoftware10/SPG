@@ -291,25 +291,25 @@ class Profile extends Component {
                                 </div>
                                 <div className="flexbox" id="flex-four">
 
-                                    <div className="flexbox item-sm" id="cartera">
+                                    <div className="flexbox item-sm" id="cartera" >
                                         <Link to={routes.CART}>
 
-                                            <img className="nav-icon" src={cart}></img>  <a className="textD2" >CARTERA</a>
+                                            {/*<img className="nav-icon" id="iconN" src={cart}></img>*/}  <a className="textD2" id="textNav">CARTERA</a>
                                         </Link>
 
                                     </div>
                                     <div className="flexbox item-lg" id="notificaciones">
                                         <Link to={routes.CART}>
 
-                                            <img className="nav-icon" src={notificaciones}></img>  <a className="textD2" id="textNoti">NOTIFICACIONES</a>
+                                            {/*<img className="nav-icon" id="iconN" src={notificaciones}></img>*/}  <a className="textD2" id="textNav">NOTIFICACIONES</a>
                                         </Link>
 
                                     </div>
 
-                                    <div className="flexbox item-lg" id="terrenos">
+                                    <div className="flexbox item-lg" id="terrenos" >
                                         <Link to={routes.PROYECTOS}>
 
-                                            <img className="nav-icon" src={terrenos}></img>  <a className="textD2" id="textTerre">TERRENOS</a>
+                                            {/*<img className="nav-icon" id="iconN" src={terrenos}></img>*/}  <a className="textD2" id="textNav">TERRENOS</a>
                                         </Link>
 
                                     </div>
@@ -317,7 +317,7 @@ class Profile extends Component {
                                     <div className="flexbox item-sm" id="noticias">
                                         <Link to={routes.PROYECTOS}>
 
-                                            <img className="nav-icon" src={news}></img>  <a className="textD2" >NOTICIAS</a>
+                                            {/*<img className="nav-icon" id="iconN" src={news}></img>*/}  <a className="textD2" id="textNav">NOTICIAS</a>
                                         </Link>
 
                                     </div>
