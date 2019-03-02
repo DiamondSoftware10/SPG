@@ -76,7 +76,7 @@ class SearchPage extends Component {
         //console.log(this.props.params.name);
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps.match.params.type !== this.props.match.params.type || prevProps.match.params.searchTerm !== this.props.match.params.searchTerm) {
             this.setState({
                 option: this.props.match.params.type,
@@ -103,17 +103,22 @@ class SearchPage extends Component {
 
     searchDB(query) {
         if (query != null) {
+            console.log("valid query")
             query.get().then((snap) => {
+                let data = [];
                 if (snap.empty) {
                     console.log('No documents found');
                 } else {
-                    let data = [];
+
                     snap.forEach(function (doc) {
                         console.log("Doc ID: " + doc.id + " Data: " + doc.data().title);
                         data.push(doc.data())
                     })
-                    this.setState({ searchResults: data })
+
                 }
+
+                this.setState({ searchResults: data })
+
             })
         } else {
             console.log("error");
@@ -135,12 +140,12 @@ class SearchPage extends Component {
 
         var projects = db.collection("projects");
         var query
-        if (this.state.option === "investInitxBlock") {
+        if (this.state.option === "investment") {
             if (this.state.searchTerm.match(/[a-z]/i)) {
                 alert("La busqueda por inversión no debe de contener letras");
                 query = null;
             } else {
-                query = projects.where(this.state.option, ">=", this.titleCase(parseInt(searchTerm)));
+                query = projects.where("investInitxBlock", ">=", this.titleCase(parseInt(searchTerm)));
             }
         } else if (this.state.option === "locate" || this.state.option === "title") {
             query = projects.where(this.state.option, "==", this.titleCase(searchTerm));
@@ -265,7 +270,19 @@ class SearchPage extends Component {
 
 
         return (
-            <div className="info-cont">
+            <div className="info-cont"
+                onKeyPress={(ev) => {
+                    if (ev.key === 'Enter') {
+
+                        //console.log("Enter");
+                        this.props.history.push('/search/' + this.state.option + "/" + this.state.nextSearch);
+                        ev.preventDefault();
+                    } else {
+                        //console.log("not enter");
+                    }
+                }}
+            >
+
                 <div className="flex-content" id="search-flex">
                     <div>
                         <form className="form-inline my-2 my-lg-0 input-search">
@@ -276,11 +293,7 @@ class SearchPage extends Component {
                                 aria-label="Busqueda"
                                 autocomplete="off"
                                 onChange={evt => this.setState(byPropKey('nextSearch', evt.target.value))}
-                                onKeyPress={event => {
-                                    if (event.key === 'Enter') {
-                                        //this.componentDidMount()
-                                    }
-                                }}
+
                             />
 
                             <Link /*onClick = {() => window.location.reload()}*/ to={routes.SEARCHPAGE + "/" + this.state.option + "/" + this.state.nextSearch} >
@@ -328,8 +341,16 @@ class SearchPage extends Component {
                             <div>
                                 <h2>Resultados para "{this.state.searchTerm}"</h2>
                             </div>
-                            <div className="cards-flex">
-                                {cards}
+                            <div>
+                                {(cards && cards.length) ?
+                                    <div className="cards-flex">
+                                        {cards}
+                                    </div>
+                                    :
+                                    <div>
+                                        No se encontraron proyectos.
+                                    </div>}
+                                {/*cards*/}
                             </div>
                         </div>
                         {/*<Searchbar option={this.state.option}/>*/}

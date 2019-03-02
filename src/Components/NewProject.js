@@ -831,11 +831,11 @@ class NewProject extends Component {
 
                 <MapContainer
                   type="newproject"
+                  zoom={5}
                   changeLocationFromChild={this.changeLocationFromChild}
-                  initialCenter={{
-                    lat: this.state.center.lat,
-                    lng: this.state.lng
-                  }}
+                  initialCenter={
+                    this.state.center
+                  }
                   center={this.state.center}
                 />
               </div>
