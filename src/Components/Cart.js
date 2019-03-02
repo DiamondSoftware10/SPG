@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 import CartItem from './CartItem.js';
 import UserContext from './UserContext';
+import ReactModal from 'react-modal';
+
 
 
 import fire from "../Firebase/Fire"
 import './Cart.css'
 
 import hand from '../Icons/hand.svg'
+import close from '../Icons/close.svg'
 
 const db = fire.firestore();
 const usersRef = db.collection("users");
@@ -22,14 +25,17 @@ export default class Cart extends Component {
             investments: [],
             showResult: true,
             center: { lat: 0, lng: 0 },
-            suma: 0
+            suma: 0,
+            showConfirmation: false
         }
 
         this.getInvestments = this.getInvestments.bind(this);
         this.handleDeleteFromCart = this.handleDeleteFromCart.bind(this);
         this.handleUpdateSuma = this.handleUpdateSuma.bind(this);
         this.handleConfirmInvestment = this.handleConfirmInvestment.bind(this);
-    }
+        this.handleOpenConfirmation = this.handleOpenConfirmation.bind(this);
+        this.handleCloseConfirmation = this.handleCloseConfirmation.bind(this);
+        }
 
     getInvestments() {
         //var projs = [];
@@ -91,13 +97,14 @@ export default class Cart extends Component {
         fire.auth().onAuthStateChanged(async (user) => {
             if (user) {
                 const database = fire.firestore();
-                const collection = database.collection('users').doc(user.uid).collection('investments');
+                const investRef = database.collection('users').doc(user.uid).collection('investments');
+                const cartRef = database.collection('users').doc(user.uid).collection('cartera');
 
                 this.state.investments.forEach(element => {
                     console.log(element.id);
-                    collection.doc(element.id).set(element);
+                    investRef.doc(element.id).set(element);
 
-                    database.collection('users').doc(user.uid).collection('cartera').doc(element.id).delete().then(function() {
+                    cartRef.doc(element.id).delete().then(function() {
                         console.log("Document successfully deleted!");
                     }).catch(function(error) {
                         console.error("Error removing document: ", error);
@@ -113,6 +120,7 @@ export default class Cart extends Component {
                 investments: []
             });
         });   
+        this.handleOpenConfirmation();
     }
 
     handleDeleteFromCart(idProj, index, pago) {
@@ -154,6 +162,19 @@ export default class Cart extends Component {
                 suma: this.state.suma - parseInt(invMin)
             })
         }
+    }
+
+
+    handleOpenConfirmation() {
+        this.setState({
+            showConfirmation: true
+        })
+    }
+
+    handleCloseConfirmation() {
+        this.setState({
+            showConfirmation: false
+        })
     }
 
     componentDidMount() {
@@ -232,7 +253,20 @@ export default class Cart extends Component {
                         </Link>
                     </div>
                 }
+               <ReactModal
+                    isOpen={this.state.showConfirmation}
+                    contentLabel="onRequestClose Example"
+                    onRequestClose={this.handleCloseConfirmation}
+                    className="ModalBack"
+                    overlayClassName="Overlay"
 
+                >
+                    <div className="Modal invest-modal">
+                        <button className="hollow button" id="close-button" onClick={this.handleCloseConfirmation}><img id="proj-icon" src={close}></img></button>
+                        <h6>El pago se ha realizado exitosamente</h6>
+
+                    </div>
+                </ReactModal>
 
             </div>
         )
