@@ -17,11 +17,11 @@
 
 #delete-icon {
   position: absolute;
-  margin-left: 83vh;
+  margin-right: 20vh;
   font-weight: 900;
   background: transparent;
   border: none;
-  color:black;
+  color:whitesmoke;
   cursor: pointer;
 }
 .carousel .control-arrow:hover {

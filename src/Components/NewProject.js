@@ -606,7 +606,7 @@ class NewProject extends Component {
                                             <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
                                         </li>)}
                                 </ul>*/}
-                <div maxWidth="10em" maxheight="10em">
+                <div style={{width:"25vw"}} >
                   <Carousel
                     showThumbs={false}
                     statusFormatter={(current, total) =>
@@ -646,15 +646,7 @@ class NewProject extends Component {
               >
                 Agregar foto
               </button>
-              <div>
-                {/**Muestra las imagenes que se han agregado en una lista
-                            //Permite que se borren por medio del boton*/}
-                {/*<ul>
-                                    {this.state.listImgCrops.map((img, index) =>
-                                        <li key={index} >{img.name}
-                                            <button onClick={(e) => this.handleDeleteImageCrop(index, e)}>X</button>
-                                        </li>)}
-                                </ul>*/}
+              <div style={{width:"25vw"}} >
                 <Carousel
                   showThumbs={false}
                   statusFormatter={(current, total) => `${current} de ${total}`}
