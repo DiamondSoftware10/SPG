@@ -425,8 +425,8 @@ class NewProject extends Component {
             infoZona: "",
             inversion: "",
             listNameCrops: [],
-            inversionInicial: "",
-            manzanasTotales: "",
+            inversionInicial: 0,
+            manzanasTotales: 0,
             trabajos: ""
             // center: { lat: 0, lng: 0 }
           })
