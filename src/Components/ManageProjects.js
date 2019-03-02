@@ -144,7 +144,7 @@ class ManageProjects extends Component {
                   titulo: doc.data().title,
                   dinero: doc.data().raisedMoney,
                   infoZona: doc.data().infoZone,
-                  active: doc.data().active ? "activo" : "inactivo",
+                  active: doc.data().available ? "activo" : "inactivo",
                 descripcion: doc.data().description
 
               }
@@ -165,7 +165,7 @@ class ManageProjects extends Component {
       if (window.confirm("¿ Está seguro de que desea desactivar este proyecto ?")) {
         const db = fire.firestore();
         // database.settings({timestampsInSnapshots: true});
-        db.collection("projects").doc(this.state.selectedID).update({ active: false });
+        db.collection("projects").doc(this.state.selectedID).update({ available: false });
         this.setState({ data: [] })
 
         const database = fire.firestore();
@@ -182,7 +182,7 @@ class ManageProjects extends Component {
               titulo: doc.data().title,
               dinero: doc.data().raisedMoney,
               infoZona: doc.data().infoZone,
-              active: doc.data().active ? "activo" : "inactivo",
+              active: doc.data().available ? "activo" : "inactivo",
               descripcion: doc.data().description + ' ',
 
             }
@@ -202,7 +202,7 @@ class ManageProjects extends Component {
   UndoDelete() {
     if (window.confirm("¿ Está seguro de que quiere reactivar este proyecto ?")) {
         const db = fire.firestore();
-        db.collection("projects").doc(this.state.selectedID).update({active: true});
+        db.collection("projects").doc(this.state.selectedID).update({available: true});
         this.setState({data: [] })
        
         const database = fire.firestore();
@@ -216,7 +216,7 @@ class ManageProjects extends Component {
             titulo: doc.data().title,
             dinero: doc.data().raisedMoney,
             infoZona: doc.data().infoZone,
-            active: doc.data().active ? "activo" : "inactivo",
+            active: doc.data().available ? "activo" : "inactivo",
             descripcion : doc.data().description + ' ',
           }
           
@@ -270,7 +270,7 @@ class ManageProjects extends Component {
                  titulo: doc.data().title,
                  dinero: doc.data().raisedMoney,
                  infoZona: doc.data().infoZone,
-                 active: doc.data().active ? "activo" : "inactivo",
+                 active: doc.data().available ? "activo" : "inactivo",
                  descripcion: doc.data().description + ' ',
                }
 

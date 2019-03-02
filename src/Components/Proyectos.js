@@ -55,7 +55,10 @@ export default class Proyectos extends Component {
           querySnapshot.forEach((doc) => {
 
             console.log(doc.data().title);
-            data.push(doc.data())
+            if(doc.data().available !== false){
+              data.push(doc.data());
+            }
+            
 
 
           });
