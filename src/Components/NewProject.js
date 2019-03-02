@@ -134,15 +134,12 @@ class NewProject extends Component {
 
     this.handleDeleteImageCrop = this.handleDeleteImageCrop.bind(this);
     this.handleDeleteImageFamily = this.handleDeleteImageFamily.bind(this);
-    this.handleDeleteNameCrop = this.handleDeleteNameCrop.bind(this);
 
     this.uploadImageToStorage = this.uploadImageToStorage.bind(this);
 
     this.handleSaveProject = this.handleSaveProject.bind(this);
     this.changeLocationFromChild = this.changeLocationFromChild.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.getLocation = this.getLocation.bind(this);
-    this.handleChangeUbicacion = this.handleChangeUbicacion.bind(this);
 
     //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
     //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
@@ -386,7 +383,7 @@ class NewProject extends Component {
       await this.state.listImgFamilies.forEach(img => {
         nameImgRefFamilies.push(`${img.name}`);
       });
-     
+
       let temp = new Date();
       let fecha =
         temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
@@ -437,15 +434,10 @@ class NewProject extends Component {
       await this.uploadImageToStorage();
 
       window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
-    }else {
+    } else {
       window.alert(`Todos los campos deben estar llenados correctamente`);
     }
   }
-
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
-    console.log(event.target.value);
-  };
 
   changeLocationFromChild(latitude, longitude) {
     console.log("child center :" + latitude + ", " + longitude);
@@ -459,109 +451,6 @@ class NewProject extends Component {
       center: { lat: this.state.latitud, lng: this.state.longitud }
     });
   }
-
-  handleKeyEnterAddCrop = (event, cultivo) => {
-    console.log(event.keyCode);
-
-    if (event.keyCode === 13) {
-      this.setState({
-        listNameCrops: this.state.listNameCrops.concat(cultivo),
-        tiposCultivo: ""
-      });
-    }
-  };
-
-  handleChangeTitle = name => event => {
-    this.setState({ [name]: event.target.value });
-    console.log(nombresVal(this.state.titulo, 0, 50));
-    if (nombresVal(this.state.titulo, 0, 50) == false) {
-      document.getElementById("newProject-input1").style.borderColor = "red";
-    } else if (this.state.titulo === undefined) {
-      document.getElementById("newProject-input1").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input1").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeDescription = descripcion => event => {
-    this.setState({ [descripcion]: event.target.value });
-    console.log(event.target.value);
-    if (cantidadPalabrasVal(this.state.descripcion, 0, 100) == false) {
-      document.getElementById("newProject-input2").style.borderColor = "red";
-    } else if (this.state.descripcion === undefined) {
-      document.getElementById("newProject-input2").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input2").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeFamily = familiasB => event => {
-    this.setState({ [familiasB]: event.target.value });
-    console.log(this.state.familiasB);
-    if (cantidadPalabrasVal(this.state.descripcion, 0, 100) == false) {
-      document.getElementById("newProject-input4").style.borderColor = "red";
-    } else if (this.state.familiasB === undefined) {
-      document.getElementById("newProject-input4").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input4").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeCrops = tiposCultivo => event => {
-    event.preventDefault();
-    this.setState({ [tiposCultivo]: event.target.value });
-    console.log(rangoCaracteresVal(this.state.tiposCultivo, 2, 50));
-    if (rangoCaracteresVal(this.state.tiposCultivo, 2, 50) == false) {
-      document.getElementById("newProject-input5").style.borderColor = "red";
-    } else if (this.state.tiposCultivo === undefined) {
-      document.getElementById("newProject-input5").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input5").style.borderColor = "blue";
-    }
-  };
-  handleDeleteNameCrop(index, e) {
-    e.preventDefault();
-
-    this.setState(state => {
-      const listNameCrops = this.state.listNameCrops;
-      listNameCrops.splice(index, 1);
-      return listNameCrops;
-    });
-  }
-
-  handleChangeInfoZona = infoZona => event => {
-    this.setState({ [infoZona]: event.target.value });
-    if (cantidadPalabrasVal(this.state.infoZona, 1, 100) == false) {
-      document.getElementById("newProject-input6").style.borderColor = "red";
-    } else if (this.state.infoZona === undefined) {
-      document.getElementById("newProject-input6").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input6").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeUbicacion = ubicacion => event => {
-    this.setState({ [ubicacion]: event.target.value });
-    console.log(this.state.ubicacion);
-    if (numeroVal(this.state.ubicacion, 1, 7) == false) {
-      document.getElementById("newProject-input7").style.borderColor = "red";
-    } else if (this.state.ubicacion === undefined) {
-      document.getElementById("newProject-input7").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input7").style.borderColor = "blue";
-    }
-  };
-
-  handleChangeInversion = inversion => event => {
-    this.setState({ [inversion]: event.target.value });
-    if (puntoDecimalVal(this.state.inversion, 0, 12) == false) {
-      document.getElementById("newProject-input10").style.borderColor = "red";
-    } else if (this.state.inversion === undefined) {
-      document.getElementById("newProject-input10").style.borderColor = "white";
-    } else {
-      document.getElementById("newProject-input10").style.borderColor = "blue";
-    }
-  };
 
   render() {
     const style = {
@@ -590,13 +479,6 @@ class NewProject extends Component {
       <div>
         <div className="graphic-lg" />
         <h1 className="main-title">Nuevo Proyecto</h1>
-        {/**Tipos de entrada*/}
-        {/**Text*/}
-        {/**TextArea*/}
-        {/**Number*/}
-        {/**ListaTexto*/}
-        {/**Lista foto*/}
-        {/**ComboBox*/}
         <form onSubmit={this.handleSubmit}>
           <div className="flex-content" id="add-flex">
             <ItemHeading
@@ -626,7 +508,6 @@ class NewProject extends Component {
               subtitle="Datos edofaclimaticos y de cultivos del terreno"
             />
             <div className="flexbox" id="input-flex">
-              {/**Cultivos cambiar*/}
               <ComboBox
                 label="Cultivos"
                 add={this.addListCrops}
@@ -669,16 +550,18 @@ class NewProject extends Component {
               subtitle="¿Como el proyecto impacta en la comunidad?"
             />
             {/** Numero de familias beneficiadas*/}
-            <InputNumber
-              label="Familias Beneficiadas"
-              placeholder=""
-              getValue={this.getFamilyB}
-            />
-            <InputNumber
-              label="Trabajos generados"
-              placeholder=""
-              getValue={this.gettrabajos}
-            />
+            <div className="flexbox" id="input-flex">
+              <InputNumber
+                label="Familias Beneficiadas"
+                placeholder=""
+                getValue={this.getFamilyB}
+              />
+              <InputNumber
+                label="Trabajos generados"
+                placeholder=""
+                getValue={this.gettrabajos}
+              />
+            </div>
             {/** Trabajo generado*/}
             <ItemHeading number="5" title="Fotos" subtitle="" />
             <li id="all-inputs-item">
@@ -723,23 +606,27 @@ class NewProject extends Component {
                                             <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
                                         </li>)}
                                 </ul>*/}
-                <Carousel
-                  showThumbs={false}
-                  statusFormatter={(current, total) => `${current} de ${total}`}
-                  infiniteLoop={true}
-                >
-                  {this.state.listImgFamilies.map((img, index) => (
-                    <div>
-                      <button
-                        id="delete-icon"
-                        onClick={e => this.handleDeleteImageFamily(index, e)}
-                      >
-                        X
-                      </button>
-                      <img src={URL.createObjectURL(img)} />
-                    </div>
-                  ))}
-                </Carousel>
+                <div maxWidth="10em" maxheight="10em">
+                  <Carousel
+                    showThumbs={false}
+                    statusFormatter={(current, total) =>
+                      `${current} de ${total}`
+                    }
+                    infiniteLoop={true}
+                  >
+                    {this.state.listImgFamilies.map((img, index) => (
+                      <div>
+                        <button
+                          id="delete-icon"
+                          onClick={e => this.handleDeleteImageFamily(index, e)}
+                        >
+                          X
+                        </button>
+                        <img src={URL.createObjectURL(img)} />
+                      </div>
+                    ))}
+                  </Carousel>
+                </div>
               </div>
             </li>
             {/**Subir imagenes relacionadas con los cultivos */}

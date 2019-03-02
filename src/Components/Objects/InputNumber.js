@@ -5,11 +5,22 @@ export default class InputNumber extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showAlert: false,
+      showAlert: false
     };
+    this.validation =this.validation.bind(this);
   }
-  handleBlur(value){
-    this.props.getValue(value);
+  
+  validation(value) {
+    if (value === "") {
+      this.setState({
+        showAlert: true
+      });
+    } else {
+      this.setState({
+        showAlert: false
+      });
+      this.props.getValue(value);
+    }
   }
 
   render() {
@@ -17,14 +28,18 @@ export default class InputNumber extends Component {
       <div>
         <div class="form-group">
           <label>{this.props.label}</label>
-
+          {this.state.showAlert ? (
+            <div className="alert alert-danger" role="alert">
+              El campo no puede estar vacio
+            </div>
+          ) : null}
           <input
             name="input"
             type="number"
             class="form-control"
             placeholder={this.props.placeholder}
-            min="0"
-            onBlur={e => this.handleBlur(e.target.value)}
+            min="1"
+            onBlur={e => this.validation(e.target.value)}
             required
           />
         </div>
