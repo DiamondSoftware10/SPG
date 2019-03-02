@@ -10,6 +10,7 @@ import settings from '../Icons/settings.svg'
 import linec from '../Icons/line-chart.svg'
 import planning from '../Icons/planning.svg'
 import cart from '../Icons/briefcase.svg'
+import close from '../Icons/close.svg'
 import notificaciones from '../Icons/alarm.svg'
 import news from '../Icons/worldwide.svg'
 import email from '../Icons/mail.svg'
@@ -39,7 +40,13 @@ class Profile extends Component {
         this.handleInversiones = this.handleInversiones.bind(this);
         this.handleConfiguracion = this.handleConfiguracion.bind(this);
         this.getInvestments = this.getInvestments.bind(this);
-        this.handleSetModal = this.handleSetModal.bind(this);
+
+        this.handleSetName = this.handleSetName.bind(this);
+        this.handleSetlastName = this.handleSetlastName.bind(this);
+        this.handleSetCorreo = this.handleSetCorreo.bind(this);
+        this.handleSetTelefono = this.handleSetTelefono.bind(this);
+        this.handleSetRegion = this.handleSetRegion.bind(this);
+
     }
 
 
@@ -118,13 +125,11 @@ class Profile extends Component {
 
     }
 
-    handleGeneral() {
-        this.setState({
-            showGeneral: true,
-            showInversiones: false,
-            showConfiguracion: false
-        });
-
+    handleGeneral(e) {
+        this.setState({showGeneral: true, 
+            showConfiguracion: false,
+            showInversiones: false
+        })
     }
 
     handleInversiones() {
@@ -146,14 +151,71 @@ class Profile extends Component {
 
     }
 
-    handleSetModal(){
+    async handleSetName(id, field) {
+        let newValue;
+        const ref = fire.firestore().collection('users').doc(id);
 
-        
+        if (field == "nombre" && this.state.name != "") {
+            newValue = this.state.name;
+            await ref.update({ "nombre": newValue });
 
+        }
 
 
     }
 
+    async handleSetlastName(id, field) {
+        let newValue;
+        const ref = fire.firestore().collection('users').doc(id);
+
+        if (field == "apellido" && this.state.lastName != "") {
+            newValue = this.state.lastName;
+            await ref.update({ "apellido": newValue });
+
+        }
+
+
+    }
+
+    async handleSetCorreo(id, field) {
+        let newValue;
+        const ref = fire.firestore().collection('users').doc(id);
+
+        if (field == "correo" && this.state.email != "") {
+            newValue = this.state.email;
+            await ref.update({ "correo": newValue });
+
+        }
+
+    }
+
+    async handleSetTelefono(id, field) {
+
+        let newValue;
+        const ref = fire.firestore().collection('users').doc(id);
+
+        if (field == "telefono" && this.state.phone != "") {
+            newValue = this.state.phone;
+            await ref.update({ "telefono": newValue });
+
+        }
+
+
+    }
+
+    async handleSetRegion(id, field) {
+
+        let newValue;
+        const ref = fire.firestore().collection('users').doc(id);
+
+        if (field == "region" && this.state.region != "") {
+            newValue = this.state.region;
+            await ref.update({ "region": newValue });
+
+        }
+
+
+    }
 
     render() {
         console.log(this.props.name)
@@ -169,6 +231,9 @@ class Profile extends Component {
                 />
             )
         });
+
+
+
         return (
             <UserContext.Consumer>
                 {context => context.user ?
@@ -258,11 +323,7 @@ class Profile extends Component {
 
                                 </div>
 
-
-
-
                             </div>
-
 
                             : ''}
 
@@ -298,32 +359,175 @@ class Profile extends Component {
                                     <div id="config-item">
                                         <div className="textD1">Nombre </div>
                                         <div id="info-item">{context.nombre}</div>
-                                        <button id="edit-icon" onClick={this.handleSetModal}> <img id="e-icon" src={edit}></img> </button>
+                                        <button id="edit-icon" data-target="#ModalNombre" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                        {/*MODAL*/}
+
+                                        <div class="modal" id="ModalNombre" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" id="modal-head">
+
+                                                        <h4> Modificar nombre</h4>
+                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+
+                                                    </div>
+
+
+                                                    <div class="modal-body">
+                                                        <input type="text" name="input" class="form-control" placeholder={context.nombre} required=""
+                                                            onChange={(evt) => { this.setState({ name: evt.target.value }) }} ></input>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={()=>context.toggleName(this.state.name)} >Guardar</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        {/*finModal*/}
+
+
                                     </div>
 
                                     <div id="config-item">
                                         <div className="textD1">Apellido </div>
                                         <div id="info-item">{context.apellido}</div>
-                                        <button id="edit-icon"> <img id="e-icon" src={edit}></img> </button>
+
+                                        <button id="edit-icon" data-target="#ModalApellido" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                        {/*MODAL*/}
+
+                                        <div class="modal" id="ModalApellido" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" id="modal-head">
+                                                        <h4> Modificar apellido</h4>
+                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <input type="text" name="input" class="form-control" placeholder={context.apellido} required=""
+                                                            onChange={(evt) => { this.setState({ lastName: evt.target.value }) }} ></input>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={this.handleSetlastName(context.user.uid, "apellido")} >Guardar</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        {/*finModal*/}
+
 
                                     </div>
                                     <div id="config-item">
                                         <div className="textD1">Correo </div>
                                         <div id="info-item">{context.correo}</div>
-                                        <button id="edit-icon"> <img id="e-icon" src={edit}></img> </button>
+
+                                        <button id="edit-icon" data-target="#ModalCorreo" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                        {/*MODAL*/}
+
+                                        <div class="modal" id="ModalCorreo" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" id="modal-head">
+                                                        <h4> Modificar correo</h4>
+                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <input type="text" name="input" class="form-control" placeholder={context.correo} required=""
+                                                            onChange={(evt) => { this.setState({ email: evt.target.value }) }} ></input>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={this.handleSetCorreo(context.user.uid, "correo")} >Guardar</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        {/*finModal*/}
+
 
                                     </div>
                                     <div id="config-item">
                                         <div className="textD1">Telefono </div>
                                         <div id="info-item">{context.telefono}</div>
-                                        <button id="edit-icon"> <img id="e-icon" src={edit}></img> </button>
+                                        <button id="edit-icon" data-target="#ModalTelefono" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                        {/*MODAL*/}
+
+                                        <div class="modal" id="ModalTelefono" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" id="modal-head">
+                                                        <h4> Modificar telefono</h4>
+                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <input type="text" name="input" class="form-control" placeholder={context.telefono} required=""
+                                                            onChange={(evt) => { this.setState({ phone: evt.target.value }) }} ></input>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={this.handleSetTelefono(context.user.uid, "telefono")} >Guardar</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        {/*finModal*/}
+
+
 
                                     </div>
                                     <div id="config-item">
 
                                         <div className="textD1"> Region </div>
                                         <div id="info-item">{context.region}</div>
-                                        <button id="edit-icon"> <img id="e-icon" src={edit}></img> </button>
+
+                                        <button id="edit-icon" data-target="#ModalRegion" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
+
+                                        {/*MODAL*/}
+
+                                        <div class="modal" id="ModalRegion" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header" id="modal-head">
+                                                        <h4> Modificar region</h4>
+                                                        <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
+                                                    </div>
+
+                                                    <div class="modal-body">
+                                                        <input type="text" name="input" class="form-control" placeholder={context.region} required=""
+                                                            onChange={(evt) => { this.setState({ region: evt.target.value }) }} ></input>
+                                                    </div>
+
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-primary" data-dismiss="modal" onClick={this.handleSetRegion(context.user.uid, "region")} >Guardar</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        {/*finModal*/}
+
 
                                     </div>
 

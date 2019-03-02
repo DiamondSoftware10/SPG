@@ -37,6 +37,18 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    this.toggleName = (name) => {
+      
+      const ref = fire.firestore().collection('users').doc(this.state.uid);
+
+        if (name != "") {
+            ref.update({ "nombre": name });
+            this.setState(state => ({
+              nombre: name
+            }));
+        }
+    };
+    
     this.classes = props.classes;
 
     this.state = {
@@ -48,7 +60,8 @@ class App extends Component {
       telefono: null,
       region: null,
       correo: null,
-      active: false
+      active: false,
+      toggleName: this.toggleName
     };
 
     this.handleClickOpen = this.handleClickOpen.bind(this);
