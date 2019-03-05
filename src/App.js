@@ -3,6 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { LocaleProvider } from 'antd';
+import es_ES from 'antd/lib/locale-provider/es_ES';
+
 import * as routes from './Constants/Routes';
 import AdminHomepage from './Components/AdminHomepage';
 import UserHomepage from './Components/UserHomepage';
@@ -170,7 +173,7 @@ class App extends Component {
 
   render() {
     return (
-
+      <LocaleProvider locale={es_ES}>
       <div className="App">
         <UserContext.Provider value={this.state}>
           <Router>
@@ -264,7 +267,7 @@ class App extends Component {
           </Router>
         </UserContext.Provider>
       </div>
-
+      </LocaleProvider>
     );
   }
 }
