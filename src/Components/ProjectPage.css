@@ -3,7 +3,6 @@
     text-align: left;
 }
 
-
 #modal-flex {
     display: flex;
     flex-direction: row;
@@ -16,7 +15,6 @@
     background-color: rgb(255, 255, 255);
     padding: 2.5em;
     padding-left: 3em;
-
     /*padding-top: 4.2em;*/
     flex-grow: 2;
     position: relative;
@@ -32,7 +30,7 @@
     min-height: 100%;
 }
 
-#side-flex > #sidebar {
+#side-flex>#sidebar {
     margin: 1em;
     background-color: rgb(1, 95, 1);
     background-color: var(--main-spg-color);
@@ -48,24 +46,32 @@
     font-size: 1em;
 }
 
-#side-flex > #sidebar > * {
+#side-flex>#sidebar>* {
     margin: .6em;
 }
 
-#side-flex > #sidebar > * > h3 {
+#side-flex>#sidebar>*>h3 {
     font-weight: 700;
     font-size: 1.5em;
+    color: white;
 }
 
-#side-flex > #sidebar > * > h6 {
+#side-flex>#sidebar>*>h6 {
     font-weight: 400;
     letter-spacing: 0.025em;
     font-size: 1em;
+    color: white;
 }
 
+#sidebar .ant-progress-text {
+    color: white;
+}
 
+#sidebar .ant-progress-bg {
+    background-color: black;
+}
 
-#main-flex > h5 {
+#main-flex>h5 {
     font-weight: 700;
 }
 
@@ -81,18 +87,18 @@
     font-size: 4em;
 }
 
-#main-flex > #proj-location {
+#main-flex>#proj-location {
     font-size: 1.5em;
     margin: 0;
     font-weight: 400;
 }
 
-#main-flex > #proj-title {
+#main-flex>#proj-title {
     padding-top: 6%;
 }
 
 #modal-img {
-    height:100%;
+    height: 100%;
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
@@ -129,14 +135,8 @@
     width: 100%;
 }
 
-.progress {
-}
-
-.progress-bar {
-    background-color: white;
-    color: black;
-}
 /*ADD CART*/
+
 #btn-add-cart {
     padding: 0 0;
     margin-top: 5vmin;
@@ -163,7 +163,7 @@
     border-bottom: 1px solid rgb(126, 126, 126);
 }
 
-#number-flex > div {
+#number-flex>div {
     padding: 0 2vmin;
     width: 20%;
 }
@@ -197,5 +197,3 @@
     flex-direction: column;
     justify-content: flex-end;
 }
-
-

@@ -3,7 +3,9 @@ import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 import MapContainer from './GoogleMapsContainer';
-import fire from '../Firebase/Fire'
+import fire from '../Firebase/Fire';
+import { Progress } from 'antd';
+
 
 import LoginRegisterModal from './LoginRegisterModal';
 
@@ -117,7 +119,7 @@ export class ProjectInfo extends Component {
             invMin: invMin,
             pago: invMin,
             location: location,
-            progress: Math.round(raisedMoney / projFinan * 100) + "%"
+            progress: Math.round(raisedMoney / projFinan * 100)
         });
         console.log(this.state.progress);
 
@@ -267,13 +269,6 @@ export class ProjectInfo extends Component {
 
         }
 
-        const styles = {
-            progress: {
-                width: this.state.progress,
-
-            }
-        }
-        const { progress } = styles;
         return (
 
             <div>
@@ -345,11 +340,13 @@ export class ProjectInfo extends Component {
                                                         <h3>{this.state.investor}</h3>
                                                     </div>
                                                 */}
-                                        <div className="flex-item">
+                                        <div className="full-width">
                                             <h6>Progreso</h6>
-                                            <div class="progress">
-                                                <div class="progress-bar" role="progressbar" style={styles.progress} aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">{this.state.progress}</div>
+                                            <div className="center">
+                                                <Progress className="full-width" width={80} percent={this.state.progress} />
+                                                
                                             </div>
+                                            {this.state.progress >= 100 ? <p>{this.state.progress}% de la meta</p>:''}
                                         </div>
                                         <div>
                                             <h6>Inversión minima por manzana</h6>
