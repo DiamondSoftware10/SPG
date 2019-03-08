@@ -4,6 +4,7 @@ import fire from '../Firebase/Fire';
 //import Searchbar from './Searchbar';
 import magnifier from '../Icons/magnifier2.svg';
 import { Link } from 'react-router-dom';
+import { Slider, Switch } from 'antd';
 
 import './Search.css'
 
@@ -330,6 +331,7 @@ class SearchPage extends Component {
                                     <h6>Inversion Minima</h6>
                                     <h6>Nombre de Proyecto</h6>
                                     <h6>Ubicacion</h6>
+                                    <Slider range defaultValue={[20, 50]}  />
                                     {/*
                                     <h2>Inversión minima</h2>
                                     <input type="range" class="form-control-range" id="formControlRange"/>

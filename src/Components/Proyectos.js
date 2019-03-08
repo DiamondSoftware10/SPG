@@ -15,6 +15,7 @@ const db = fire.firestore();
 
 const projectRef = db.collection('projects');
 
+var lastVisible;
 //var proyectos = [];
 
 export default class Proyectos extends Component {
@@ -32,6 +33,7 @@ export default class Proyectos extends Component {
     this.getProyectos = this.getProyectos.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.changeLocation = this.changeLocation.bind(this);
+    this.nextPage = this.nextPage.bind(this);
   }
 
   handleChange = name => event => {
@@ -96,7 +98,7 @@ export default class Proyectos extends Component {
             data.push(doc.data());
           }
 
-          var lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+          lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
 
         });
         // var exp = document.getElementById("cards-div");
@@ -111,7 +113,34 @@ export default class Proyectos extends Component {
       });
 
     })
+    
+  }
+  
+  nextPage(){
+    var next = db.collection("projects").orderBy("raisedMoney").startAfter(lastVisible).limit(3);
+    next.get().then((querySnapshot) => {
+      let data = [];
 
+      querySnapshot.forEach((doc) => {
+
+        console.log(doc.data().title);
+        if (doc.data().available !== false) {
+          data.push(doc.data());
+        }
+
+        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+
+      });
+      // var exp = document.getElementById("cards-div");
+
+      //console.log(proyectos.length);
+      for (var i = 0; i < data.length / 2; i++) {
+        console.log(data[i]);
+
+      }
+      //guardando los proyectos
+      this.setState({ projects: data })
+    });
   }
 
   componentDidMount() {
@@ -127,6 +156,7 @@ export default class Proyectos extends Component {
   authorizedToOpen() {
 
   }
+
 
 
   render() {
@@ -227,7 +257,7 @@ export default class Proyectos extends Component {
           </div>
 
         </div>
-        <Pagination size="small" total={50} />
+        <Pagination size="small" total={12} onChange={this.nextPage}/>
       </div>
 
     )
