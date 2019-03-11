@@ -307,7 +307,7 @@
     border-radius: 20px;
     padding: 5vmin;
     z-index: 1000;
-    font-family: CircularStd, Montserrat;
+    /*font-family: CircularStd, Montserrat;*/
     box-shadow: 2vmin 2vmin  10vmin rgba(75, 75, 75, 0.308);
 }
 
@@ -363,6 +363,6 @@
 
 @media(max-width: 990px) {
     .Modal{
-        margin: 5vw;
+        margin: 0vw;
     }
 }

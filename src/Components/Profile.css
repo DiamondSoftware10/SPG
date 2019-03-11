@@ -221,8 +221,15 @@ margin-left: 0.5vw;
   padding-right: 5em;
   font-weight: 400;
   color: rgb(129, 129, 129);
+
+  display: flex;
+  align-content: center;
+  align-items: center;
 }
 
+#flexbox-infoG > .textD1 > * {
+  padding-right: .5em;
+}
 #flex-header {
   padding-left: 2em;
   padding-bottom: 1em;

@@ -16,7 +16,7 @@ export default class Landing extends Component {
                 <div class="jumbotron">
                     <div>
                         <img id="logo-land" src={icon} width="30" height="30"></img>
-                        <h1 id="SPG" class="display-4">Sprouting Productive Gear</h1>
+                        <div id="SPG" class="display-4">Sprouting Productive Gear</div>
                     </div>
 
 

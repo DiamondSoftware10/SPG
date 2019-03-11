@@ -7,7 +7,7 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    min-height: 1000px;
+    min-height: 900px;
     min-width: 100%;
 }
 
@@ -36,11 +36,12 @@
     background-color: var(--main-spg-color);
     color: white;
     padding: 1em;
+    padding-top: 30%;
     display: flex;
     border-radius: 5px;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 200vh;
+    height: 180vh;
     align-content: center;
     flex-grow: 1;
     font-size: 1em;

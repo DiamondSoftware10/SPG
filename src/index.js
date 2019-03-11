@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
+import 'antd/es/pagination/style/index.css'
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 import UserContext from './UserContext';
 import InvestmentItem from './InvestmentItem';
-import { Calendar } from 'antd';
+import { Icon, Calendar } from 'antd';
 
 import userP from '../Icons/user.svg'
 import settings from '../Icons/settings.svg'
@@ -306,8 +306,8 @@ class Profile extends Component {
 
                                         </div>
                                         <div className="flexbox" id="flexbox-infoG" >
-                                            <div class="textD1"> <img className="nav-icon" src={email}></img> {context.correo}</div>
-                                            <div class="textD1"><img className="nav-icon" src={location}></img> {context.region}</div>
+                                            <div class="textD1"> <Icon type="mail" size={30}></Icon> {context.correo}</div>
+                                            <div class="textD1"> <Icon type="environment" size={30}></Icon>  {context.region}</div>
                                         </div>
                                     </div>
                                     <div className="flexbox" id="flex-four">
