@@ -5,6 +5,10 @@ import fire from '../Firebase/Fire';
 import magnifier from '../Icons/magnifier2.svg';
 import { Link } from 'react-router-dom';
 import { Slider, Switch } from 'antd';
+import { Input } from 'antd';
+import { Checkbox } from 'antd';
+
+
 
 import './Search.css'
 
@@ -15,6 +19,8 @@ const db = fire.firestore();
 const byPropKey = (propertyName, value) => () => ({
     [propertyName]: value,
 });
+
+const CheckboxGroup = Checkbox.Group;
 
 class SearchPage extends Component {
     constructor(props) {
@@ -28,6 +34,10 @@ class SearchPage extends Component {
             foto: "",
             nextSearch: "",
             placeholder: "Buscar proyectos",
+            title: "",
+            location: "",
+            min: "",
+            max: "",
 
             titleOption: false,
             locateOption: false,
@@ -41,6 +51,8 @@ class SearchPage extends Component {
         this.searchDB = this.searchDB.bind(this);
         this.titleCase = this.titleCase.bind(this);
         this.handleOption = this.handleOption.bind(this);
+        this.checkedVal = this.checkedVal.bind(this);
+        this.minMaxValues = this.minMaxValues.bind(this);
     }
 
     /* async componentWillMount(){
@@ -164,6 +176,13 @@ class SearchPage extends Component {
 
     }
 
+    minMaxValues(values){
+        this.setState({
+            min: values[0],
+            max: values[1],
+        })
+    }
+
 
     handleOption(value) {
         var sel;
@@ -214,9 +233,9 @@ class SearchPage extends Component {
                 cropOption: sel,
                 areaOption: false,
             })
-        } else if (value == "manzanasTotales"){
+        } else if (value == "manzanasTotales") {
             category = "por manzanas"
-            if(this.state.areaOption){ sel = false }
+            if (this.state.areaOption) { sel = false }
             else { sel = true }
             this.setState({
                 titleOption: false,
@@ -233,6 +252,10 @@ class SearchPage extends Component {
         })
 
         console.log(this.state.placeholder)
+    }
+
+    checkedVal(checkedValues) {
+        console.log('checked = ', checkedValues);
     }
 
     render() {
@@ -269,6 +292,15 @@ class SearchPage extends Component {
             )
         });
 
+
+        const options = [
+            { label: 'Tomate', value: 'Tomate' },
+            { label: 'Plátano', value: 'Platano' },
+            { label: 'Manzanas', value: 'Manzanas' },
+            { label: 'Banano', value: 'Banano' },
+            { label: 'Aguacate', value: 'Aguacate' },
+            { label: 'Otros', value: 'Otros' },
+        ];
 
         return (
             <div className="info-cont"
@@ -331,11 +363,14 @@ class SearchPage extends Component {
                                     <h6>Inversion Minima</h6>
                                     <h6>Nombre de Proyecto</h6>
                                     <h6>Ubicacion</h6>
-                                    <Slider range defaultValue={[20, 50]}  />
-                                    {/*
-                                    <h2>Inversión minima</h2>
-                                    <input type="range" class="form-control-range" id="formControlRange"/>
-                                    */}
+                                    <h2>Inversión inicial</h2>
+                                    <Slider  max="2000"range="true" defaultValue={[100, 2000]} tooltipVisible="true" />
+                                    <h2>Cultivos</h2>
+                                    <CheckboxGroup options={options} onChange={this.checkedVal} />
+                                    <h2>Ubicación</h2>
+                                    <Input placeholder="Ubicación" onChange={evt => this.setState(byPropKey("location", evt.target.value))} />
+                                    <h2>Título exacto</h2>
+                                    <Input placeholder="Título" onChange={evt => this.setState(byPropKey("title", evt.target.value))} />
                                 </div>
                             </div>
                         </div>
