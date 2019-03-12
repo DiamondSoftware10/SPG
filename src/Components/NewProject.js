@@ -394,7 +394,7 @@ class NewProject extends Component {
           title: this.state.titulo,
           timeProdxDay: 0,
           raisedMoney: 0,
-          projectFinan: 0,
+          projectFinan: this.state.manzanasTotales * this.state.inversionInicial,
           picProject: this.fotoP.current.files[0].name,
           picFam: nameImgRefFamilies,
           picCultures: nameImgRefCrops,
@@ -606,7 +606,7 @@ class NewProject extends Component {
                                             <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
                                         </li>)}
                                 </ul>*/}
-                <div style={{width:"25vw"}} >
+                <div style={{ width: "25vw" }}>
                   <Carousel
                     showThumbs={false}
                     statusFormatter={(current, total) =>
@@ -646,7 +646,7 @@ class NewProject extends Component {
               >
                 Agregar foto
               </button>
-              <div style={{width:"25vw"}} >
+              <div style={{ width: "25vw" }}>
                 <Carousel
                   showThumbs={false}
                   statusFormatter={(current, total) => `${current} de ${total}`}
@@ -681,16 +681,14 @@ class NewProject extends Component {
               placeholder="e.g Salida al norte de San Pedro Sula"
             />
             <div id="add-map-div" className="container">
-              <div className="card" style={style}>
+              <div className="card" id="gmap" style={style}>
                 {/*<label>Coordenadas Geográficas</label> */}
 
                 <MapContainer
                   type="newproject"
                   zoom={5}
                   changeLocationFromChild={this.changeLocationFromChild}
-                  initialCenter={
-                    this.state.center
-                  }
+                  initialCenter={this.state.center}
                   center={this.state.center}
                 />
               </div>

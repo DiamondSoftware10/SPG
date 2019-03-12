@@ -310,7 +310,7 @@ export class ProjectInfo extends Component {
 
                   <h5>Ubicación</h5>
 
-                  <div style={style} className="card" id="modal-map">
+                  <div style={style} className="card" id="gmap">
                     {
                       <MapContainer
                         zoom={12}
