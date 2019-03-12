@@ -7,18 +7,17 @@
     display: flex;
     flex-direction: row;
     align-items: stretch;
-    min-height: 900px;
     min-width: 100%;
 }
 
 #main-flex {
     background-color: rgb(255, 255, 255);
-    padding: 2.5em;
-    padding-left: 3em;
+    padding: 1em;
+    /*padding-left: 3em;
     /*padding-top: 4.2em;*/
     flex-grow: 2;
     position: relative;
-    width: 66%;
+    width: 50%;
     display: flex;
     flex-grow: 1;
     flex-direction: column;
@@ -26,7 +25,7 @@
 
 #side-flex {
     background-color: rgb(255, 255, 255);
-    width: 33%;
+    width: 50%;
     min-height: 100%;
 }
 
@@ -36,66 +35,86 @@
     background-color: var(--main-spg-color);
     color: white;
     padding: 1em;
-    padding-top: 30%;
     display: flex;
     border-radius: 5px;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 180vh;
     align-content: center;
     flex-grow: 1;
     font-size: 1em;
+    background-color: rgb(245, 245, 245);
+    background-color: white;
+    color: black;
+    position: relative;
+    align-content: flex-start;
+    padding: 0;
+    flex-direction: column;
 }
 
 #side-flex>#sidebar>* {
-    margin: .6em;
+    margin-bottom: 1.5em;
 }
 
-#side-flex>#sidebar>*>h3 {
-    font-weight: 700;
-    font-size: 1.5em;
-    color: white;
-}
+#sidebar h3 {}
 
-#side-flex>#sidebar>*>h6 {
+#sidebar h6 {
     font-weight: 400;
-    letter-spacing: 0.025em;
-    font-size: 1em;
-    color: white;
+    letter-spacing: 0.03em;
+    font-size: 0.8em;
+    /*text-transform: uppercase;*/
 }
 
-#sidebar .ant-progress-text {
-    color: white;
+.info-flex {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+}
+
+.info-flex>div {
+    text-align: center;
+    padding: 2%;
+}
+
+.h2-project {
+    font-weight: 900;
+    z-index: 1000;
+    font-size: 2em;
+    padding-left: 0.5em;
+    padding-top: .3em;
 }
 
 #sidebar .ant-progress-bg {
-    background-color: black;
+    background-color: var(--main-spg-color)
 }
 
-#main-flex>h5 {
+#side-flex h5 {
     font-weight: 700;
 }
 
 #terr-head {
     position: absolute;
-    top: 31%;
-    left: .55em;
+    top: 0;
+    left: -10;
     font-size: 100;
     text-transform: uppercase;
     color: rgba(0, 128, 0, 0.192);
     letter-spacing: .25em;
     font-weight: 700;
-    font-size: 4em;
+    font-size: 1em;
 }
 
-#main-flex>#proj-location {
-    font-size: 1.5em;
+#proj-location {
+    font-size: 1em;
     margin: 0;
     font-weight: 400;
+    color: gray;
 }
 
-#main-flex>#proj-title {
-    padding-top: 6%;
+#proj-location * {
+    margin-right: .2em;
+}
+
+#proj-title {
+    margin: 0;
 }
 
 #modal-img {
@@ -106,8 +125,8 @@
 }
 
 #img-div {
-    height: 30%;
-    width: 120%;
+    height: 80%;
+    width: 100%;
 }
 
 .spg-btn {
@@ -142,7 +161,18 @@
     padding: 0 0;
     margin-top: 5vmin;
     width: 90%;
-    justify-self: center;
+    align-self: center;
+}
+
+#btn-invest {
+    padding: 0 0;
+    margin-top: 5vmin;
+    width: 90%;
+    align-self: center;
+    background-color: var(--main-spg-color);
+    margin-top: inherit;
+    width: 20%;
+    margin: auto;
 }
 
 #add-icon {
@@ -197,4 +227,47 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+}
+
+.icon-lg {
+    font-size: 6em;
+}
+
+/* NAVIGATION */
+
+.invest-nav {
+    height: 10vh;
+    width: 100vw;
+    color: black;
+    background-color: rgb(248, 248, 248);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2500;
+}
+
+.ant-menu-item {
+    width: 200px;
+    align-items: center;
+}
+
+.ant-submenu-title {
+    width: 200px;
+}
+
+@media(max-width: 900px) {
+    #modal-flex {
+        display: flex;
+        flex-direction: column;
+    }
+    #main-flex {
+        width: 100%;
+    }
+    #side-flex {
+        width: 100%;
+    }
+}
+
+.gmap {
+    display: none;
 }

@@ -1,10 +1,10 @@
-@import '~antd/dist/antd.css';
 
 
 :root {
   --main-spg-color: rgb(24,162,78);
   --sec-spg-color: rgb(52, 102, 69);
   --alt-spg-color: rgb(88,183,123);
+  
 }
 
 .App {
@@ -154,13 +154,6 @@ h2 {
   word-spacing: -0.4em;
 }
 
-.h2-project {
-  font-weight: 900;
-        z-index: 1000;
-        font-size: 2em;
-        padding-left: 0.5em;
-        padding-top: .3em;
-}
 
 h1 {
   font-size: 8vmin;

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import * as routes from "../Constants/Routes";
 import MapContainer from "./GoogleMapsContainer";
 import fire from "../Firebase/Fire";
-import { Progress } from "antd";
+import { Progress, Icon, Menu } from "antd";
 
 import LoginRegisterModal from "./LoginRegisterModal";
 
@@ -15,12 +15,14 @@ import sub from "../Icons/subtract.svg";
 import icon from "../Icons/iconbeta.png";
 
 import "./ProjectPage.css";
+import { FaSlack } from "react-icons/fa";
 
 var db = fire.firestore();
-
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 const ProjectPage = () => (
   <div className="page-container">
-    <ProjectInfo id="KqefNVCiFFpwCvRq71By" />
+    <ProjectInfo id="uIUyXBNxz8BZ7atc6gh6" />
   </div>
 );
 
@@ -42,6 +44,7 @@ export class ProjectInfo extends Component {
       raisedMoney: "",
       location: "Ubicacion",
       progress: "",
+      empleosGen: "",
 
       pago: 0,
       showInvest: false,
@@ -83,6 +86,7 @@ export class ProjectInfo extends Component {
     var raisedMoney;
     var invMin;
     var location;
+    var empleos;
 
     //Capturar el proyecto correspondiente de la base de datos
     var project = db
@@ -102,6 +106,8 @@ export class ProjectInfo extends Component {
         raisedMoney = snap.data().raisedMoney;
         invMin = snap.data().investInitxBlock;
         location = snap.data().locate;
+
+        empleos = snap.data().trabajosGen;
         console.log("Doc exists");
         console.log("Title " + title);
       } else {
@@ -119,7 +125,8 @@ export class ProjectInfo extends Component {
       invMin: invMin,
       pago: invMin,
       location: location,
-      progress: Math.round((raisedMoney / projFinan) * 100)
+      progress: Math.round((raisedMoney / projFinan) * 100),
+      empleosGen: empleos
     });
     console.log(this.state.progress);
   }
@@ -269,49 +276,24 @@ export class ProjectInfo extends Component {
 
     return (
       <div>
-        <div id="modal-detail">
-          <div className="card">
-            <div className="row">
-              <div id="modal-flex">
-                <div id="main-flex">
-                  <div id="img-div">
-                    <img
-                      id="modal-img"
-                      onClick={this.handleOpenModal}
-                      src={this.props.foto}
-                    />
-                  </div>
-                  <div>
-                    <div id="terr-head">Terreno</div>
-                  </div>
-                  <div id="proj-title">
-                    <h2 className="h2-project">{this.state.title}</h2>
-                  </div>
-                  <br />
+        <div id="modal-flex">
+          <div id="main-flex">
+            <div id="img-div">
+              <img
+                id="modal-img"
+                onClick={this.handleOpenModal}
+                src={this.props.foto}
+              />
+            </div>
+            {/*}
+            <h5>Información de la Zona </h5>
+            <p>{this.state.infoZone}</p>
+            <br />
 
-                  <div id="proj-location">
-                    <img id="proj-icon" src={loc} />
-                    {this.state.location}
-                    {/*<div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
-                                            {this.state.location}
-        </div>*/}
-                  </div>
-                  <br />
+            <h5>Ubicación</h5>
 
-                  <br />
-
-                  <h5>Descripción </h5>
-                  <p>{this.state.description}</p>
-                  <br />
-
-                  <h5>Información de la Zona </h5>
-                  <p>{this.state.infoZone}</p>
-                  <br />
-
-                  <h5>Ubicación</h5>
-
-                  <div style={style} className="card" id="gmap">
-                    {
+            <div style={style} className="card" id="gmap">
+              {/*
                       <MapContainer
                         zoom={12}
                         initialCenter={{
@@ -323,59 +305,109 @@ export class ProjectInfo extends Component {
                           lng: this.props.center.lng
                         }}
                       />
-                    }
-                  </div>
+                   
+            </div>
 
-                  <br />
-                </div>
+            <br />
+             */}
+          </div>
 
-                <div id="side-flex">
-                  <div id="sidebar">
-                    {/*
+          <div id="side-flex">
+            <div id="sidebar">
+              {/*
                                                     <div>
                                                         <h6>Inversionista </h6>
                                                         <h3>{this.state.investor}</h3>
                                                     </div>
                                                 */}
-                    <div className="full-width">
-                      <h6>Progreso</h6>
-                      <div className="center">
-                        <Progress
-                          className="full-width"
-                          width={80}
-                          percent={this.state.progress}
-                        />
-                      </div>
-                      {this.state.progress >= 100 ? (
-                        <p>{this.state.progress}% de la meta</p>
-                      ) : (
-                        ""
-                      )}
-                    </div>
-                    <div>
-                      <h6>Inversión minima por manzana</h6>
-                      <h3>${this.state.invMin}</h3>
-                    </div>
-                    <div>
-                      <h6>Dinero recaudado</h6>
-                      <h3>${this.state.raisedMoney}</h3>
-                    </div>
-                    <div>
-                      <h6>Financiamiento total</h6>
-                      <h3>${this.state.projFinan}</h3>
-                    </div>
+              <div>
+                <div id="terr-head">Terreno</div>
+              </div>
+              <div id="proj-title">
+                <h2>{this.state.title}</h2>
+                <div id="proj-location">
+                  <Icon type="environment" />
+                  {this.state.location}
+                </div>
+              </div>
 
-                    <button
-                      className="btn btn-primary"
-                      id="btn-add-cart"
-                      onClick={() => this.handleInvestButton()}
-                    >
-                      Invertir
-                    </button>
-                  </div>
+              <div>
+                <h5>Descripción </h5>
+                <p>{this.state.description}</p>
+              </div>
+              <div className="full-width">
+                <h5>Progreso</h5>
+                <div className="center">
+                  <Progress
+                    className="full-width"
+                    width={80}
+                    percent={this.state.progress}
+                    showInfo={false}
+                  />
+                </div>
+
+                <p>
+                  {this.state.progress}% de ${this.state.projFinan}
+                </p>
+              </div>
+              <div className="info-flex">
+                <div>
+                  <h3>${this.state.invMin}</h3>
+                  <h6>Inversión minima por manzana</h6>
+                </div>
+                <div>
+                  <h3>${this.state.raisedMoney}</h3>
+                  <h6>Dinero recaudado</h6>
+                </div>
+                <div>
+                  <h3>{this.state.empleosGen}</h3>
+                  <h6>Empleos generados</h6>
                 </div>
               </div>
             </div>
+          </div>
+          <div className="invest-nav">
+            <Menu
+              onClick={this.handleClick}
+              selectedKeys={[this.state.current]}
+              mode="horizontal"
+            >
+              <Menu.Item key="mail">
+                <Icon type="mail" />
+                General
+              </Menu.Item>
+              <Menu.Item key="app" disabled>
+                <Icon type="appstore" />
+                Fotos
+              </Menu.Item>
+
+              <Menu.Item key="alipay">
+                <a
+                  href="https://ant.design"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Datos Geograficos
+                </a>
+              </Menu.Item>
+              <button
+                className="btn btn-primary"
+                id="btn-invest"
+                onClick={() => this.handleInvestButton()}
+              >
+                Invertir
+              </button>
+            </Menu>
+
+            {/*
+            <button
+              className="btn btn-primary"
+              id="btn-add-cart"
+              onClick={() => this.handleInvestButton()}
+            >
+              Invertir
+            </button>
+            */}
           </div>
         </div>
 
@@ -452,6 +484,9 @@ export class ProjectInfo extends Component {
             >
               <img id="proj-icon" src={close} />
             </button>
+            <div className="icon-lg">
+              <Icon type="check-circle" />
+            </div>
             Agregado a cartera exitosamente!
           </div>
         </ReactModal>
