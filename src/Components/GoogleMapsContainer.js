@@ -43,6 +43,15 @@ class MapContainer extends React.Component {
 
     }
 
+    /*componentDidUpdate(prevState, prevProps){
+        if(prevProps.center !== this.props.center){
+            this.setState({
+                center: this.props.center,
+                initialCenter: this.props.center
+            })
+        }
+    }*/
+
     onMapClick = (e) => {
         if (this.state.showingInfoWindow) {
             this.setState({

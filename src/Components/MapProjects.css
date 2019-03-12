@@ -1,0 +1,9 @@
+.map-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    
+    
+}

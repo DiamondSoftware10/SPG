@@ -130,7 +130,7 @@ class Infocard extends Component {
                     <div className="Modal">
                         <div id="heading-modal">
                             <button className="hollow button" id="close-button" onClick={this.handleCloseModal}><img id="proj-icon" src={close}></img></button>
-                            <ProjectInfo id={this.props.id} foto={this.state.foto} center = {this.props.center}/>
+                            {<ProjectInfo id={this.props.id} foto={this.state.foto} center = {this.props.center}/>}
                         </div>
                     </div>
                 </ReactModal>

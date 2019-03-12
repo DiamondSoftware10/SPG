@@ -18,13 +18,9 @@ import "./ProjectPage.css";
 
 var db = fire.firestore();
 
-const ProjectPage = () => (
-  <div className="page-container">
-    <ProjectInfo />
-  </div>
-);
 
-export class ProjectInfo extends Component {
+
+export class ViewProject extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,6 +38,9 @@ export class ProjectInfo extends Component {
       raisedMoney: "",
       location: "Ubicacion",
       progress: "",
+      latitude: 0,
+      longitude: 0,
+      loaded: false,
 
       pago: 0,
       showInvest: false,
@@ -63,16 +62,21 @@ export class ProjectInfo extends Component {
     this.handleCloseConfirmation = this.handleCloseConfirmation.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+      console.log("id: " + this.props.match.params.idProject)
+
+      
+
     this.readDB();
   }
 
+
   async readDB() {
     await this.setState({
-      id: this.props.id
+      id: this.props.match.params.idProject
     });
     console.log("ID " + this.state.id);
-    var id = this.state.id;
+    var id = this.props.match.params.idProject;
 
     var title = "";
     var culture;
@@ -83,16 +87,21 @@ export class ProjectInfo extends Component {
     var raisedMoney;
     var invMin;
     var location;
+    var lat;
+    var long;
+    var pic;
 
     //Capturar el proyecto correspondiente de la base de datos
     var project = db
       .collection("projects")
-      .doc(
-        /*MODIFICAR-----------------*/ id /*---------------------MPODIFICAR*/
-      );
+      .doc(id);
 
     await project.get().then(async function(snap) {
       if (snap.exists) {
+        //console.log("tipo latitude: " + typeof(snap.data().coordinates._lat));
+        //console.log("longitude: " + snap.data().coordinates._long);
+        lat = snap.data().coordinates._lat;
+        long = snap.data().coordinates._long;
         title = snap.data().title;
         culture = snap.data().cultures;
         description = snap.data().description;
@@ -102,12 +111,24 @@ export class ProjectInfo extends Component {
         raisedMoney = snap.data().raisedMoney;
         invMin = snap.data().investInitxBlock;
         location = snap.data().locate;
+        pic = snap.data().picProject;
+
+
+        //console.log("lat: " + lat);
+        //console.log("long: " + long)
         console.log("Doc exists");
         console.log("Title " + title);
       } else {
         console.log("No such doc");
       }
     });
+
+    await fire.storage().ref().child(pic).getDownloadURL().then(url => {
+        this.setState({
+            foto: url
+        })
+    })
+
     this.setState({
       title: title,
       culture: culture,
@@ -119,14 +140,20 @@ export class ProjectInfo extends Component {
       invMin: invMin,
       pago: invMin,
       location: location,
-      progress: Math.round((raisedMoney / projFinan) * 100)
+      progress: Math.round((raisedMoney / projFinan) * 100),
+      latitude: lat,
+      longitude: long
     });
     console.log(this.state.progress);
+
+    this.setState({
+        loaded : true
+    })
   }
 
   handleOpenInvestModal() {
     var manzanas = 1;
-    var id = this.props.id;
+    var id = this.props.match.params.idProject;
     fire.auth().onAuthStateChanged(async user => {
       if (user) {
         const item = db
@@ -278,7 +305,7 @@ export class ProjectInfo extends Component {
                     <img
                       id="modal-img"
                       onClick={this.handleOpenModal}
-                      src={this.props.foto}
+                      src={this.state.foto}
                     />
                   </div>
                   <div>
@@ -309,20 +336,24 @@ export class ProjectInfo extends Component {
                   <br />
 
                   <h5>Ubicación</h5>
-
+                  <p> {this.state.location}</p>
+                    <br />
                   <div style={style} className="card" id="modal-map">
                     {
+                        this.state.loaded ? 
                       <MapContainer
                         zoom={12}
                         initialCenter={{
-                          lat: this.props.center.lat,
-                          lng: this.props.center.lng
+                          lat: this.state.latitude,
+                          lng: this.state.longitude
                         }}
                         center={{
-                          lat: this.props.center.lat,
-                          lng: this.props.center.lng
+                          lat: this.state.latitude,
+                          lng: this.state.longitude
                         }}
                       />
+
+                      : <div> Loading </div>
                     }
                   </div>
 
@@ -460,4 +491,4 @@ export class ProjectInfo extends Component {
   }
 }
 
-export default ProjectPage;
+export default ViewProject;
