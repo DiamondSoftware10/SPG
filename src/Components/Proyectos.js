@@ -15,7 +15,6 @@ const db = fire.firestore();
 
 const projectRef = db.collection('projects');
 
-var lastVisible;
 //var proyectos = [];
 
 export default class Proyectos extends Component {
@@ -25,7 +24,10 @@ export default class Proyectos extends Component {
     this.state = {
       projects: [],
       center: { lat: 0, lng: 0 },
-      user: null
+      user: null,
+      totalPro: 0,
+      firstVisible: 0,
+      lastVisible: 6
     }
 
 
@@ -83,10 +85,9 @@ export default class Proyectos extends Component {
 
   async getProyectos() {
 
-
     await fire.auth().onAuthStateChanged(user => {
 
-      var first = db.collection("projects").orderBy("raisedMoney").limit(3);
+      var first = db.collection("projects");
 
       first.get().then((querySnapshot) => {
         let data = [];
@@ -98,26 +99,19 @@ export default class Proyectos extends Component {
             data.push(doc.data());
           }
 
-          lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-
         });
-        // var exp = document.getElementById("cards-div");
-
-        //console.log(proyectos.length);
-        for (var i = 0; i < data.length / 2; i++) {
-          console.log(data[i]);
-
-        }
-        //guardando los proyectos
+        this.setState({ totalPro: data.length })
         this.setState({ projects: data })
+        console.log("******************" + this.state.totalPro)
       });
 
     })
-    
+
+
   }
-  
-  nextPage(){
-    var next = db.collection("projects").orderBy("raisedMoney").startAfter(lastVisible).limit(3);
+
+  nextPage(page) {
+    /*var next = db.collection("projects").startAfter(this.state.lastVisible).limit(3);
     next.get().then((querySnapshot) => {
       let data = [];
 
@@ -128,8 +122,8 @@ export default class Proyectos extends Component {
           data.push(doc.data());
         }
 
-        lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-
+        this.state.lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
+        //this.setState({lastVisible: 2})
       });
       // var exp = document.getElementById("cards-div");
 
@@ -140,7 +134,9 @@ export default class Proyectos extends Component {
       }
       //guardando los proyectos
       this.setState({ projects: data })
-    });
+    });*/
+    this.setState({ firstVisible: (page-1)*6})
+    this.setState({ lastVisible: page*6})
   }
 
   componentDidMount() {
@@ -170,29 +166,32 @@ export default class Proyectos extends Component {
     }
 
     //rendering infoCards
-
+    let i = this.state.lastVisible;
     let cards = this.state.projects.map((doc, i) => {
-      console.log("card " + i);
-      console.log(doc.picProject)
+      if (i >= this.state.firstVisible && i < this.state.lastVisible) {
+        console.log("card " + i);
+        console.log(doc.picProject)
 
 
-      return (
-        <InfoCard
-          changeLocation={this.changeLocation}
-          key={i}
-          id={doc.id}
-          pic={doc.picProject}
-          title={doc.title}
-          location={doc.locate}
-          lat={doc.coordinates._lat}
-          long={doc.coordinates._long}
-          jobs={doc.projectFinan}
-          money={doc.investInitxBlock}
-          center={{ lat: doc.coordinates._lat, lng: doc.coordinates._long }}
+        return (
+          <InfoCard
+            changeLocation={this.changeLocation}
+            key={i}
+            id={doc.id}
+            pic={doc.picProject}
+            title={doc.title}
+            location={doc.locate}
+            lat={doc.coordinates._lat}
+            long={doc.coordinates._long}
+            jobs={doc.projectFinan}
+            money={doc.investInitxBlock}
+            center={{ lat: doc.coordinates._lat, lng: doc.coordinates._long }}
 
-        />
+          />
 
-      )
+        )
+      }
+
     });
 
     return (
@@ -257,7 +256,7 @@ export default class Proyectos extends Component {
           </div>
 
         </div>
-        <Pagination size="small" total={12} onChange={this.nextPage}/>
+        <Pagination size="small" pageSize={6} total={this.state.totalPro} onChange={(page,pageSize)=>(this.nextPage(page))} />
       </div>
 
     )

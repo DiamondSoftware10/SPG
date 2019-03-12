@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import * as routes from '../Constants/Routes';
 import UserContext from './UserContext';
 import InvestmentItem from './InvestmentItem';
-import { Calendar } from 'antd';
 
 import userP from '../Icons/user.svg'
 import settings from '../Icons/settings.svg'
@@ -35,14 +34,11 @@ class Profile extends Component {
 
             showGeneral: true,
             showInversiones: false,
-            showConfiguracion: false,
-            showCalendario: false
+            showConfiguracion: false
         }
         this.handleGeneral = this.handleGeneral.bind(this);
         this.handleInversiones = this.handleInversiones.bind(this);
         this.handleConfiguracion = this.handleConfiguracion.bind(this);
-        this.handleCalendario = this.handleCalendario.bind(this);
-
         this.getInvestments = this.getInvestments.bind(this);
 
         this.handleSetName = this.handleSetName.bind(this);
@@ -51,13 +47,7 @@ class Profile extends Component {
         this.handleSetTelefono = this.handleSetTelefono.bind(this);
         this.handleSetRegion = this.handleSetRegion.bind(this);
 
-        this.onPanelChange = this.onPanelChange.bind(this);
-
     }
-
-    onPanelChange(value, mode) {
-        console.log(value, mode);
-      }
 
 
     componentWillMount() {
@@ -139,8 +129,7 @@ class Profile extends Component {
         this.setState({
             showInversiones: false,
             showGeneral: true,
-            showConfiguracion: false,
-            showCalendario: false,
+            showConfiguracion: false
         })
     }
 
@@ -149,8 +138,7 @@ class Profile extends Component {
         this.setState({
             showInversiones: true,
             showGeneral: false,
-            showConfiguracion: false,
-            showCalendario: false,
+            showConfiguracion: false
         });
 
     }
@@ -159,22 +147,10 @@ class Profile extends Component {
         this.setState({
             showConfiguracion: true,
             showGeneral: false,
-            showInversiones: false,
-            showCalendario: false,
+            showInversiones: false
         });
 
     }
-
-    handleCalendario() {
-        this.setState({
-            showCalendario: true,
-            showGeneral: false,
-            showInversiones: false,
-            showConfiguracion: false,
-        });
-
-    }
-
 
     async handleSetName(id, field) {
         let newValue;
@@ -285,7 +261,7 @@ class Profile extends Component {
                                     <img className="nav-icon" src={settings}></img>  <a class="nav-link" href="#" onClick={this.handleConfiguracion}>CONFIGURACION</a>
                                 </li>
                                 <li class="nav-item flexbox">
-                                    <img className="nav-icon" src={planning}></img> <a class="nav-link " href="#" onClick={this.handleCalendario} tabindex="-1" aria-disabled="true">CALENDARIO</a>
+                                    <img className="nav-icon" src={planning}></img> <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">CALENDARIO</a>
                                 </li>
                             </ul>
 
@@ -369,6 +345,7 @@ class Profile extends Component {
                                 : ''}
 
                             {this.state.showConfiguracion ?
+
 
                                 <div>
 
@@ -556,8 +533,6 @@ class Profile extends Component {
                                 </div>
 
                                 : ''}
-
-                            {this.state.showCalendario ? <Calendar onPanelChange={this.onPanelChange} />: ''}
                         </div>
 
                     </div> : <p>no hay usuario</p>}
