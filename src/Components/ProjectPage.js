@@ -46,6 +46,9 @@ export class ProjectInfo extends Component {
       empleosGen: "",
       fotosFamilias: [],
       fotosFamiliasUrl: [],
+      fotosCultivos: [],
+      fotosCultivosUrl: [],
+      manzanasRest: 0,
 
       pago: 0,
       showInvest: false,
@@ -98,6 +101,8 @@ export class ProjectInfo extends Component {
     var location;
     var empleos;
     var fotosFamilias;
+    var fotosCultivos;
+    var manzanasRest;
 
     //Capturar el proyecto correspondiente de la base de datos
     var project = db
@@ -120,6 +125,13 @@ export class ProjectInfo extends Component {
 
         empleos = snap.data().trabajosGen;
         fotosFamilias = snap.data().picFam;
+        manzanasRest = snap.data().manzanasRestantes;
+
+        if (snap.data().picCrops) {
+          fotosCultivos = snap.data().picCrops;
+        } else {
+          fotosCultivos = snap.data().picCultures;
+        }
 
         console.log("FOTOS: " + fotosFamilias);
       } else {
@@ -139,10 +151,13 @@ export class ProjectInfo extends Component {
       location: location,
       progress: Math.round((raisedMoney / projFinan) * 100),
       empleosGen: empleos,
-      fotosFamilias: fotosFamilias
+      fotosFamilias: fotosFamilias,
+      fotosCultivos: fotosCultivos,
+      manzanasRest: manzanasRest
     });
     console.log(this.state.progress);
     var fotosFamiliasUrl = [];
+    var fotosCultivosUrl = [];
     console.log("FOTOS STATE: " + this.state.fotosFamilias);
 
     await this.state.fotosFamilias.map((doc, i) => {
@@ -158,6 +173,25 @@ export class ProjectInfo extends Component {
           });
           this.setState({
             fotosFamiliasUrl: fotosFamiliasUrl
+          });
+        });
+
+      console.log("Foto " + i + ": " + doc);
+    });
+
+    await this.state.fotosCultivos.map((doc, i) => {
+      fire
+        .storage()
+        .ref()
+        .child(doc)
+        .getDownloadURL()
+        .then(url => {
+          fotosCultivosUrl.push(url);
+          this.setState({
+            id: this.props.id
+          });
+          this.setState({
+            fotosCultivosUrl: fotosCultivosUrl
           });
         });
 
@@ -312,11 +346,20 @@ export class ProjectInfo extends Component {
       return <img className="carousel-image" src={doc} />;
     });
 
+    const fotosCultivos = this.state.fotosCultivosUrl.map(doc => {
+      return <img className="carousel-image" src={doc} />;
+    });
+
     return (
       <div>
         <div>
           <Tabs tabPosition="bottom" size="large">
-            <TabPane tab="General" key="1">
+            <TabPane tab={
+                <span className="tab-icon">
+                  <Icon  type="layout" />
+                  <span className="tab-text">General</span>
+                </span>
+              } key="1">
               <div id="modal-flex">
                 <div id="main-flex">
                   <div id="img-div">
@@ -349,10 +392,13 @@ export class ProjectInfo extends Component {
 
                     <div>
                       <h5>Descripción </h5>
-                      <p>{this.state.description}</p>
+                      <p className="p-no-btm">{this.state.description}</p>
                     </div>
                     <div className="full-width">
-                      <h5>Progreso</h5>
+                      <p className="subheading">
+                        <b className="bold-lg">{this.state.progress}%</b> de $
+                        {this.state.projFinan} recaudado
+                      </p>
                       <div className="center">
                         <Progress
                           className="full-width"
@@ -361,10 +407,9 @@ export class ProjectInfo extends Component {
                           showInfo={false}
                         />
                       </div>
-
-                      <h4 id="percent-goal">
-                        {this.state.progress}% de ${this.state.projFinan}
-                      </h4>
+                      <h6 className="p-no-btm">
+                        {this.state.manzanasRest} manzanas restantes
+                      </h6>
                     </div>
                     <div className="info-flex">
                       <div>
@@ -384,26 +429,40 @@ export class ProjectInfo extends Component {
                 </div>
               </div>
             </TabPane>
-            <TabPane tab="Fotos" key="2">
-            <div id="carousel-div">
-              <Carousel>
-                {fotosFamilias}
-                <div>
-                  <h3>1</h3>
+            <TabPane
+              tab={
+                <span className="tab-icon">
+                  <Icon type="picture" />
+                  <span className="tab-text">Fotos</span>
+                </span>
+              }
+              key="2"
+            >
+              <h2 className="modal-header-title">Fotos</h2>
+
+              <div id="carousel-tab">
+                <div id="carousel-div">
+                  <Carousel>{fotosFamilias}</Carousel>
                 </div>
-                <div>
-                  <h3>2</h3>
+                <div id="carousel-div">
+                  <Carousel>{fotosCultivos}</Carousel>
                 </div>
-                <div>
-                  <h3>3</h3>
-                </div>
-                <div>
-                  <h3>4</h3>
-                </div>
-              </Carousel>
+              </div>
+              <div id="carousel-tab">
+                <h5>Fotos de Familia</h5>
+                <h5>Fotos de Cultivos</h5>
               </div>
             </TabPane>
-            <TabPane tab="Datos Geograficos" key="3">
+            <TabPane
+              tab={
+                <span className="tab-icon">
+                  <Icon type="environment" />
+                  <span className="tab-text">Datos Geograficos</span>
+                </span>
+              }
+              key="3"
+            >
+              <h2 className="modal-header-title">Datos Geograficos</h2>
               <h5>Información de la Zona </h5>
               <p>{this.state.infoZone}</p>
               <br />
