@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import * as routes from "../Constants/Routes";
 import MapContainer from "./GoogleMapsContainer";
 import fire from "../Firebase/Fire";
-import { Progress, Icon, Menu } from "antd";
+import { Progress, Icon, Carousel, Tabs } from "antd";
 
 import LoginRegisterModal from "./LoginRegisterModal";
 
@@ -15,11 +15,10 @@ import sub from "../Icons/subtract.svg";
 import icon from "../Icons/iconbeta.png";
 
 import "./ProjectPage.css";
-import { FaSlack } from "react-icons/fa";
+const TabPane = Tabs.TabPane;
 
 var db = fire.firestore();
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+
 const ProjectPage = () => (
   <div className="page-container">
     <ProjectInfo id="uIUyXBNxz8BZ7atc6gh6" />
@@ -45,12 +44,15 @@ export class ProjectInfo extends Component {
       location: "Ubicacion",
       progress: "",
       empleosGen: "",
+      fotosFamilias: [],
+      fotosFamiliasUrl: [],
 
       pago: 0,
       showInvest: false,
       showLoginModal: false,
       showConfirmation: false,
-      manzanas: 1
+      manzanas: 1,
+      current: "general"
     };
 
     this.handleInvestButton = this.handleInvestButton.bind(this);
@@ -64,11 +66,19 @@ export class ProjectInfo extends Component {
     this.handleSubManzana = this.handleSubManzana.bind(this);
     this.handleOpenConfirmation = this.handleOpenConfirmation.bind(this);
     this.handleCloseConfirmation = this.handleCloseConfirmation.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.readDB();
   }
+
+  handleClick = e => {
+    console.log("click ", e);
+    this.setState({
+      current: e.key
+    });
+  };
 
   async readDB() {
     await this.setState({
@@ -87,6 +97,7 @@ export class ProjectInfo extends Component {
     var invMin;
     var location;
     var empleos;
+    var fotosFamilias;
 
     //Capturar el proyecto correspondiente de la base de datos
     var project = db
@@ -108,8 +119,9 @@ export class ProjectInfo extends Component {
         location = snap.data().locate;
 
         empleos = snap.data().trabajosGen;
-        console.log("Doc exists");
-        console.log("Title " + title);
+        fotosFamilias = snap.data().picFam;
+
+        console.log("FOTOS: " + fotosFamilias);
       } else {
         console.log("No such doc");
       }
@@ -126,9 +138,31 @@ export class ProjectInfo extends Component {
       pago: invMin,
       location: location,
       progress: Math.round((raisedMoney / projFinan) * 100),
-      empleosGen: empleos
+      empleosGen: empleos,
+      fotosFamilias: fotosFamilias
     });
     console.log(this.state.progress);
+    var fotosFamiliasUrl = [];
+    console.log("FOTOS STATE: " + this.state.fotosFamilias);
+
+    await this.state.fotosFamilias.map((doc, i) => {
+      fire
+        .storage()
+        .ref()
+        .child(doc)
+        .getDownloadURL()
+        .then(url => {
+          fotosFamiliasUrl.push(url);
+          this.setState({
+            id: this.props.id
+          });
+          this.setState({
+            fotosFamiliasUrl: fotosFamiliasUrl
+          });
+        });
+
+      console.log("Foto " + i + ": " + doc);
+    });
   }
 
   handleOpenInvestModal() {
@@ -274,26 +308,110 @@ export class ProjectInfo extends Component {
       marginRight: "0"
     };
 
+    const fotosFamilias = this.state.fotosFamiliasUrl.map(doc => {
+      return <img className="carousel-image" src={doc} />;
+    });
+
     return (
       <div>
-        <div id="modal-flex">
-          <div id="main-flex">
-            <div id="img-div">
-              <img
-                id="modal-img"
-                onClick={this.handleOpenModal}
-                src={this.props.foto}
-              />
-            </div>
-            {/*}
-            <h5>Información de la Zona </h5>
-            <p>{this.state.infoZone}</p>
-            <br />
+        <div>
+          <Tabs tabPosition="bottom" size="large">
+            <TabPane tab="General" key="1">
+              <div id="modal-flex">
+                <div id="main-flex">
+                  <div id="img-div">
+                    <img
+                      id="modal-img"
+                      onClick={this.handleOpenModal}
+                      src={this.props.foto}
+                    />
+                  </div>
+                </div>
 
-            <h5>Ubicación</h5>
+                <div id="side-flex">
+                  <div id="sidebar">
+                    {/*
+                                                    <div>
+                                                        <h6>Inversionista </h6>
+                                                        <h3>{this.state.investor}</h3>
+                                                    </div>
+                                                */}
+                    <div>
+                      <div id="terr-head">Terreno</div>
+                    </div>
+                    <div id="proj-title">
+                      <h2>{this.state.title}</h2>
+                      <div id="proj-location">
+                        <Icon type="environment" />
+                        {this.state.location}
+                      </div>
+                    </div>
 
-            <div style={style} className="card" id="gmap">
+                    <div>
+                      <h5>Descripción </h5>
+                      <p>{this.state.description}</p>
+                    </div>
+                    <div className="full-width">
+                      <h5>Progreso</h5>
+                      <div className="center">
+                        <Progress
+                          className="full-width"
+                          width={80}
+                          percent={this.state.progress}
+                          showInfo={false}
+                        />
+                      </div>
+
+                      <h4 id="percent-goal">
+                        {this.state.progress}% de ${this.state.projFinan}
+                      </h4>
+                    </div>
+                    <div className="info-flex">
+                      <div>
+                        <h3>${this.state.invMin}</h3>
+                        <h6>Inversión minima por manzana</h6>
+                      </div>
+                      <div>
+                        <h3>${this.state.raisedMoney}</h3>
+                        <h6>Dinero recaudado</h6>
+                      </div>
+                      <div>
+                        <h3>{this.state.empleosGen}</h3>
+                        <h6>Empleos generados</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TabPane>
+            <TabPane tab="Fotos" key="2">
+            <div id="carousel-div">
+              <Carousel>
+                {fotosFamilias}
+                <div>
+                  <h3>1</h3>
+                </div>
+                <div>
+                  <h3>2</h3>
+                </div>
+                <div>
+                  <h3>3</h3>
+                </div>
+                <div>
+                  <h3>4</h3>
+                </div>
+              </Carousel>
+              </div>
+            </TabPane>
+            <TabPane tab="Datos Geograficos" key="3">
+              <h5>Información de la Zona </h5>
+              <p>{this.state.infoZone}</p>
+              <br />
+
+              <h5>Ubicación</h5>
               {/*
+            <div style={style} className="card" id="gmap">
+              
                       <MapContainer
                         zoom={12}
                         initialCenter={{
@@ -310,96 +428,56 @@ export class ProjectInfo extends Component {
 
             <br />
              */}
-          </div>
-
-          <div id="side-flex">
-            <div id="sidebar">
-              {/*
-                                                    <div>
-                                                        <h6>Inversionista </h6>
-                                                        <h3>{this.state.investor}</h3>
-                                                    </div>
-                                                */}
-              <div>
-                <div id="terr-head">Terreno</div>
-              </div>
-              <div id="proj-title">
-                <h2>{this.state.title}</h2>
-                <div id="proj-location">
-                  <Icon type="environment" />
-                  {this.state.location}
-                </div>
-              </div>
-
-              <div>
-                <h5>Descripción </h5>
-                <p>{this.state.description}</p>
-              </div>
-              <div className="full-width">
-                <h5>Progreso</h5>
-                <div className="center">
-                  <Progress
-                    className="full-width"
-                    width={80}
-                    percent={this.state.progress}
-                    showInfo={false}
-                  />
-                </div>
-
-                <p>
-                  {this.state.progress}% de ${this.state.projFinan}
-                </p>
-              </div>
-              <div className="info-flex">
-                <div>
-                  <h3>${this.state.invMin}</h3>
-                  <h6>Inversión minima por manzana</h6>
-                </div>
-                <div>
-                  <h3>${this.state.raisedMoney}</h3>
-                  <h6>Dinero recaudado</h6>
-                </div>
-                <div>
-                  <h3>{this.state.empleosGen}</h3>
-                  <h6>Empleos generados</h6>
-                </div>
-              </div>
-            </div>
-          </div>
+            </TabPane>
+          </Tabs>
           <div className="invest-nav">
-            <Menu
-              onClick={this.handleClick}
-              selectedKeys={[this.state.current]}
-              mode="horizontal"
+            <button
+              className="btn btn-primary"
+              id="btn-invest"
+              onClick={() => this.handleInvestButton()}
             >
-              <Menu.Item key="mail">
-                <Icon type="mail" />
+              Invertir
+            </button>
+          </div>
+          {/*
+          <Menu
+            onClick={this.handleClick}
+            selectedKeys={[this.state.current]}
+            mode="horizontal"
+            className="invest-nav"
+          >
+            <Menu.Item key="general">
+              <div className="invest-nav-item">
+                <Icon type="layout" />
                 General
-              </Menu.Item>
-              <Menu.Item key="app" disabled>
-                <Icon type="appstore" />
+              </div>
+            </Menu.Item>
+            <Menu.Item key="app">
+              <div className="invest-nav-item">
+                <Icon type="picture" />
                 Fotos
-              </Menu.Item>
+              </div>
+            </Menu.Item>
 
-              <Menu.Item key="alipay">
-                <a
-                  href="https://ant.design"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Datos Geograficos
-                </a>
-              </Menu.Item>
-              <button
-                className="btn btn-primary"
-                id="btn-invest"
-                onClick={() => this.handleInvestButton()}
+            <Menu.Item key="alipay">
+              <a
+                href="https://ant.design"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-                Invertir
-              </button>
-            </Menu>
+                Datos Geograficos
+              </a>
+            </Menu.Item>
+            <button
+              className="btn btn-primary"
+              id="btn-invest"
+              onClick={() => this.handleInvestButton()}
+            >
+              Invertir
+            </button>
+          </Menu>
 
-            {/*
+          
             <button
               className="btn btn-primary"
               id="btn-add-cart"
@@ -407,8 +485,7 @@ export class ProjectInfo extends Component {
             >
               Invertir
             </button>
-            */}
-          </div>
+             */}
         </div>
 
         <ReactModal

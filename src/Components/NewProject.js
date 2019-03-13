@@ -397,7 +397,7 @@ class NewProject extends Component {
           projectFinan: this.state.manzanasTotales * this.state.inversionInicial,
           picProject: this.fotoP.current.files[0].name,
           picFam: nameImgRefFamilies,
-          picCultures: nameImgRefCrops,
+          picCrops: nameImgRefCrops,
           coordinates: new firebase.firestore.GeoPoint(
             parseFloat(this.state.center.lat, 10),
             parseFloat(this.state.center.lng, 10)
