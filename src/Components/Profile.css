@@ -3,10 +3,10 @@
   width: 100%;
 }
 
-#barra-info{
+#barra-info {
   display: flex;
   flex-wrap: nowrap;
-  align-items:center;
+  align-items: center;
   width: 100%;
   height: 18vh;
   padding: 11vh 0vh;
@@ -17,258 +17,145 @@
   flex-wrap: nowrap;
 }
 
-#profile-imagen{
-  object-fit: cover; 
+#profile-imagen {
+  object-fit: cover;
   border-radius: 50px;
-  position: initial;
-  width:9em;
-  height: 9em;
-  border-radius:300px;
+  width: 7em;
+  height: 7em;
+  border-radius: 300px;
   display: flex;
   align-items: flex-start;
   margin: 1em;
 }
 
-#nav-profile-flex{
-  
-  height: 90vh;
-  width: 25vw;
-  /*background: rgb(154, 174, 131);*/
-  background: rgb(245, 245, 245);
-  float: left;
-  margin-right: 1em;
-  flex-wrap: nowrap;
-  font-size: 0.9rem;
-  /*border-right: 0.4vh solid rgb(219, 219, 219);
-  border-top: 0.4vh solid rgb(219, 219, 219);
-  border-bottom: 0.4vh solid rgb(219, 219, 219);
-  */
-
-}
-
-#profile-done{
+#profile-done {
   border-radius: 100px;
   width: 1.5em;
   height: 1.5em;
   margin-top: 1.2vh;
-  
 }
 
-.nav-icon{
+.nav-icon {
   width: 1.5em;
   height: 1.5em;
-  
 }
 
-#iconNav{
+#iconNav {
   color: white;
 }
 
-#flex-verified{
-
+#flex-verified {
   display: none;
   flex-direction: row;
-
-
 }
 
-#profile-nav{
-  width: 100%;
-  padding: 5%;
-  padding-top: 15%;
-}
-
-
-#profile-nav > .nav-item:hover{
-  transform: scale(1.2); 
- 
-}
-
-#profile-nav > .nav-item{
-  transition: transform .2s;
-  flex-direction: row;
-  justify-content: flex-start;
-  padding: 1em 0;
-}
-
-
-#profile-nav > .nav-item > .nav-link {
-  color: rgb(106, 106, 106);
-  font-size: 0.9em;
-  align-items: flex-start;
- font-weight: 200;
- text-transform: uppercase;
- letter-spacing: 0.1em;
-
-
-}
-
-
-
-#profile-verified{
-      padding: 0vh 0.5vw;
-
+#profile-verified {
+  padding: 0vh 0.5vw;
 }
 
 .textD {
   font-weight: 900;
   font-size: 1.4em;
-  color:black;
-
+  color: black;
 }
 
 .textD1 {
   font-weight: 900;
   font-size: 1.1em;
-  color:black;
-
+  color: black;
+  text-align: left;
 }
 
-
-
-#flex-nombre{
+#flex-nombre {
   display: flex;
   flex-direction: row;
-
-
 }
 
-#profile-flex{
+#profile-flex {
   height: 100%;
   width: 75vw;
   flex-direction: column;
   align-items: flex-start;
 }
 
-
 .textD2 {
   font-weight: 900;
   font-size: 1.0em;
   color: white;
-  
-  color: rgba(0,0,0,.5);
-
+  color: rgba(0, 0, 0, .5);
 }
 
-#invest-flex {
-flex-direction: row;
-justify-content: space-around;
-padding: 2em 0;
-margin: 0 2em;
-display: grid;
-grid-template-columns: 180px 170px 70px 60px 70px;
-font-weight: 900;
-font-size: 1.2em;
-color: rgb(0, 0, 0);
-margin-top: 1.5vh;
-margin-left: 0.5vw;
-
-
-/*border-bottom: 1px solid rgb(156, 156, 156);*/
-
-}
-
-#invest-flex2 {
-  flex-direction: row;
-  justify-content: space-around;
-  padding: 2em 0;
-  margin: 0 2em;
-  display: grid;
-  grid-template-columns: 180px 170px 70px 70px 70px;
-  font-weight: 500;
-  font-size: 1.1em;
-  color: rgba(0, 0, 0, 0.618);
-  margin-top: 1.5vh;
-  margin-left: 0.5vw;  
-
-
-  }
-  
 
 /* INVERSIONES*/
 
-
-#name-flex{
+#name-flex {
   display: flex;
   flex-direction: row;
   align-content: flex-start;
-  
 }
 
-
-#name-flex  > .textD1{
+#name-flex>.textD1 {
   font-weight: 500;
   font-size: 3.8em;
-  color: rgb(24,162,78);
-
-  
+  color: rgb(24, 162, 78);
 }
 
-#name-flex > #name-text{
-  
+#name-flex>#name-text {
   font-weight: 300;
   padding-right: 0.1em;
 }
 
-#flexbox-infoG{
+#flexbox-infoG {
   display: flex;
   flex-direction: column;
   align-items: start;
   padding-left: 2em;
 }
 
-#flexbox-infoG > .textD1 {
+#flexbox-infoG>.textD1 {
   padding-right: 5em;
   font-weight: 400;
   color: rgb(129, 129, 129);
-
   display: flex;
   align-content: center;
   align-items: center;
 }
 
-#flexbox-infoG > .textD1 > * {
+#flexbox-infoG>.textD1>* {
   padding-right: .5em;
 }
+
 #flex-header {
   padding-left: 2em;
   padding-bottom: 1em;
-  align-items:  flex-start;
+  align-items: flex-start;
 }
 
-#flex-nombre{
+#flex-nombre {
   letter-spacing: 0.06em;
 }
 
-#flex-four{
+#flex-four {
+  width: 78vw;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
 
-    width: 78vw;
-    flex-direction: row;
-    flex-wrap: wrap;
+#flex-four>.flexbox {
+  justify-content: center;
+  padding: 1em 4em;
+}
 
-  }
+#flex-four>* {
+  margin: 1em 2em;
+  height: 10em;
+  transition: transform .25s;
+}
 
+#flex-four>*:hover {
+  transform: scale(1.05)
+}
 
-  #flex-four > .flexbox{
-
-    justify-content: center;
-    padding: 1em 4em;
-    
-  } 
-
-
-
-  #flex-four > * {
-    margin: 1em 2em;
-    height: 10em;
-    transition: transform .25s;
-  }
-
-  #flex-four > *:hover {
-    transform: scale(1.05)
-  }
-
-  
 .flex-item {
   overflow: hidden;
   position: relative;
@@ -284,7 +171,7 @@ margin-left: 0.5vw;
   width: 50%;
 }
 
-.item-sm  {
+.item-sm {
   width: 25%;
 }
 
@@ -302,11 +189,12 @@ margin-left: 0.5vw;
   position: absolute;
   bottom: 10%;
   left: 1.5em;
-  color: white;  
+  color: white;
   text-transform: uppercase;
   letter-spacing: .1em;
   text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.562);
 }
+
 /*
 #notificaciones{
   background-color: rgb(24,162,78);
@@ -318,62 +206,209 @@ margin-left: 0.5vw;
 
 */
 
-
-
-#perdida{
+#perdida {
   color: rgb(204, 0, 0);
 }
 
-#ganancia{
+#ganancia {
   color: rgb(0, 170, 34);
 }
 
 /*Configuracion*/
 
-#config-title{
-
+#config-title {
   padding-bottom: 2em;
   padding-left: 0em;
-
 }
 
-#config-flex{
-  
+#config-flex {
   flex-direction: column;
   padding: 3em;
   align-items: flex-start;
 }
 
-#config-item{
+#config-item {
   display: grid;
-  grid-template-columns:20% 75% 10%;
-  padding-bottom: 2em;
-  width: 60%;
+  grid-template-columns: 90% 10%;
+  width: 50%;
   justify-items: start;
-  padding-left: 3em; 
-
+  /*
+  padding-left: 3em;
+  padding-bottom: 2em;*/
+  padding-bottom: 1.5em;
 }
 
-#info-item{
-
-  font-weight: 500;
-  font-size: 1.1em;
+#config-name {
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+#info-item {
+  font-weight: 300;
+  font-size: 1.5em;
   color: rgba(0, 0, 0, 0.618);
-
 }
 
-#edit-icon{
+#edit-icon {
   border: none;
-  background:transparent;
+  background: transparent;
+  font-size: 1.4em;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
 
-#e-icon{
+#e-icon {
   width: 1.4em;
   height: 1.4em;
 }
 
 #close-mod {
-  margin:0;
+  margin: 0;
   border: none;
   background-color: transparent;
+}
+
+/* TABS */
+
+#profile-tabs {}
+
+#profile-cont .ant-tabs-bar {
+  height: 130vh;
+  background: rgb(245, 245, 245);
+  display: flex;
+  text-align: left;
+  border: none;
+  padding-top: 40vh;
+}
+
+#profile-cont .ant-tabs-nav-scroll {
+  width: 20vw;
+}
+
+#profile-cont .ant-tabs-tab {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 1em;
+  font-size: .8em;
+  font-weight: 200;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: transform .2s;
+}
+
+#profile-cont .ant-tabs-tab:hover {
+  transform: scale(1.1);
+}
+
+.tab-icon .icon {
+  font-size: 1.6em;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  margin-right: .5em;
+}
+
+.tab-extra {
+  position: absolute;
+  top: 15%;
+  left: 0%;
+  z-index: 1001;
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* INVERSIONES */
+
+#investment-cards {
+  flex-direction: row;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+#inv-card {
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgb(248, 248, 248);
+  text-align: left;
+  margin: 1em;
+  width: 30%;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.stat-grid>* {
+  margin-bottom: 1em;
+}
+.anticon-edit {
+  padding-bottom: 20%;
+}
+.ant-stastic-content {
+  align-content: center;
+}
+
+/* CONFIGURACION */
+
+.ant-modal-mask {
+  z-index: 2000;
+}
+
+.ant-modal-wrap {
+  z-index: 2001;
+}
+
+@media(max-width: 990px) {
+  #profile-cont .ant-tabs-tab {
+    justify-content: center;
+    margin-left: 0;
+  }
+  #profile-cont .ant-tabs-bar {
+    padding-top: 10vh;
+  }
+  #profile-cont .ant-tabs-content {
+    padding: 0;
+  }
+  #config-flex {
+    padding: 1em;
+  }
+  .tab-icon .icon {
+    margin: 0;
+  }
+  #profile-imagen {
+    width: 4em;
+    height: 4em;
+  }
+  #flex-four .item-sm {
+    width: 80%;
+  }
+  #flex-four .item-lg {
+    width: 80%;
+  }
+  #flex-header {
+    padding-left: .3em;
+  }
+  .tab-extra {
+    display: none;
+  }
+  #config-item {
+    width: 90%;
+  }
+  #name-flex>.textD1 {
+    font-weight: 500;
+    font-size: 2em;
+    color: rgb(24, 162, 78);
+  }
+  #inv-card {
+    width: 90%;
+    font-size: 9px;
+  }
+
+  #info-item {
+    font-size: 1rem;
+  }
 }

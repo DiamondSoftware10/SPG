@@ -51,7 +51,7 @@
   width: 30vw;
   border: none;
   border-radius: 30px;
-  height: 3.5vw;
+  height: 4em;
   text-transform: uppercase;
   letter-spacing: .15em;
   font-size: .8em;
@@ -156,7 +156,7 @@ h2 {
 
 
 h1 {
-  font-size: 8vmin;
+  font-size: 3.5em;
   margin-top: 10px;
   font-weight: 700;
   text-transform: initial;
@@ -194,6 +194,12 @@ h5 {
 .spg-link:hover {
   text-decoration: none;
   color: var(--sec-spg-color);
+}
+
+@media(max-width: 1030px) {
+  body {
+    font-size: 13px;
+  }
 }
 
 

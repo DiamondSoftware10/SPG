@@ -147,8 +147,7 @@
 
 .invest-modal {
     width: 40vw;
-    top: 20vh;
-    left: 20vw;
+    margin: auto;
     overflow: auto;
     border-radius: 10px;
     top: 0;
@@ -179,7 +178,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: row;  
+    flex-direction: row;
     flex-wrap: nowrap;
 }
 
@@ -198,7 +197,6 @@
     align-self: center;
     background-color: var(--main-spg-color);
     margin-top: inherit;
-    width: 20%;
     margin: auto;
     margin-right: 1em;
     justify-self: right;
@@ -279,37 +277,28 @@
     border-top: .5px solid rgb(228, 228, 228);
 }
 
-.ant-tabs-nav-scroll {
+#project-div .ant-tabs-extra-content {
+    width: 30%;
+    margin: 2em;
+}
+
+#project-div .ant-tabs-nav-container {
+    align-items: center;
+}
+
+#project-div .ant-tabs-nav>div {}
+
+#project-div .ant-tabs-bar {
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: 1502;
     background-color: rgb(255, 255, 255);
-    padding: 2vh 10vw;
-}
-
-.ant-tabs-bottom-bar {
-    border-top: none !important;
-}
-.ant-tabs-tab {
-    display: flex;
-    align-content: center;
-}
-
-.invest-nav-item {
-    display: flex;
-    align-content: center;
-    align-items: center;
     width: 100%;
-}
-
-.ant-menu-item {
-    width: 200px;
+    display: flex;
     align-items: center;
-}
-
-.ant-submenu-title {
-    width: 200px;
+    flex-direction: row-reverse;
+    justify-content: space-around;
 }
 
 /* FOTOS */
@@ -356,36 +345,39 @@
     #invest-nav-item {
         display: none;
     }
-    .ant-tabs-nav-scroll {
-        bottom: 4em;
-        width: 100%;
+    #project-div .ant-tabs-bar {
+        display: flex;
+        flex-direction: column-reverse;
     }
-
+    #project-div .ant-tabs-extra-content {
+        width: 60%;
+        margin: 1.5em;
+    }
     #btn-invest {
-        padding: 0 0;
         width: 90%;
         align-self: center;
         background-color: var(--main-spg-color);
         margin-top: inherit;
-        width: 90%;
+        width: 100%;
+        height: 3em;
         margin: auto;
-        font-size: 1.3em;
+        font-size: 1.1em;
     }
-
     .tab-text {
         display: none;
     }
-
     .tab-icon {
         font-size: 1.5em;
         padding: auto;
     }
-
     #side-flex>#sidebar>* {
         margin-bottom: 2em;
     }
     .page-container {
         margin: .5em 1em;
+    }
+    .invest-modal {
+        width: 80vw;
     }
 }
 

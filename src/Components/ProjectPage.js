@@ -350,16 +350,29 @@ export class ProjectInfo extends Component {
       return <img className="carousel-image" src={doc} />;
     });
 
+    const investBtn = (
+      <button
+        className="btn btn-primary"
+        id="btn-invest"
+        onClick={() => this.handleInvestButton()}
+      >
+        Invertir
+      </button>
+    );
+
     return (
       <div>
-        <div>
-          <Tabs tabPosition="bottom" size="large">
-            <TabPane tab={
+        <div id="project-div">
+          <Tabs tabPosition="bottom" size="large" tabBarExtraContent={investBtn}>
+            <TabPane
+              tab={
                 <span className="tab-icon">
-                  <Icon  type="layout" />
+                  <Icon type="layout" />
                   <span className="tab-text">General</span>
                 </span>
-              } key="1">
+              }
+              key="1"
+            >
               <div id="modal-flex">
                 <div id="main-flex">
                   <div id="img-div">
@@ -416,6 +429,7 @@ export class ProjectInfo extends Component {
                         <h3>${this.state.invMin}</h3>
                         <h6>Inversión minima por manzana</h6>
                       </div>
+
                       <div>
                         <h3>${this.state.raisedMoney}</h3>
                         <h6>Dinero recaudado</h6>
@@ -489,15 +503,7 @@ export class ProjectInfo extends Component {
              */}
             </TabPane>
           </Tabs>
-          <div className="invest-nav">
-            <button
-              className="btn btn-primary"
-              id="btn-invest"
-              onClick={() => this.handleInvestButton()}
-            >
-              Invertir
-            </button>
-          </div>
+         
           {/*
           <Menu
             onClick={this.handleClick}

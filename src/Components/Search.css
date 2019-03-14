@@ -34,8 +34,7 @@
     background: #fafafa;
     border-radius: 15px;
     width: 20vw;
-    height: 7vh;
-    padding-left: 17%;
+    padding: 1.75em 17%;
     -webkit-transition: width .5s;
     transition: width .5s;
     font-size: .9em;

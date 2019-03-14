@@ -1,119 +1,93 @@
-import React, { Component } from 'react';
-import fire from '../Firebase/Fire';
-import { Link } from 'react-router-dom';
-import * as routes from '../Constants/Routes';
-import UserContext from './UserContext';
-import InvestmentItem from './InvestmentItem';
-import { Icon, Calendar } from 'antd';
+import React, { Component } from "react";
+import fire from "../Firebase/Fire";
+import { Link } from "react-router-dom";
+import * as routes from "../Constants/Routes";
+import UserContext from "./UserContext";
+import InvestmentItem from "./InvestmentItem";
+import { Icon, Calendar, Tabs, Modal, Button, Input } from "antd";
 
-import userP from '../Icons/user.svg'
-import settings from '../Icons/settings.svg'
-import linec from '../Icons/line-chart.svg'
-import planning from '../Icons/planning.svg'
-import cart from '../Icons/briefcase.svg'
-import close from '../Icons/close.svg'
-import notificaciones from '../Icons/alarm.svg'
-import news from '../Icons/worldwide.svg'
-import email from '../Icons/mail.svg'
-import terrenos from '../Icons/magnifier.svg'
-import location from '../Icons/placeholder.svg'
-import edit from '../Icons/tools.svg'
-import './Profile.css'
+import userP from "../Icons/user.svg";
+import settings from "../Icons/settings.svg";
+import linec from "../Icons/line-chart.svg";
+import planning from "../Icons/planning.svg";
+import cart from "../Icons/briefcase.svg";
+import close from "../Icons/close.svg";
+import notificaciones from "../Icons/alarm.svg";
+import news from "../Icons/worldwide.svg";
+import email from "../Icons/mail.svg";
+import terrenos from "../Icons/magnifier.svg";
+import location from "../Icons/placeholder.svg";
+import edit from "../Icons/tools.svg";
+import "./Profile.css";
+
+const TabPane = Tabs.TabPane;
 
 class Profile extends Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            picProfile: "",
-            name: "",
-            lastName: "",
-            email: "",
-            region: "",
-            phone: "",
-            investments: [],
+    this.state = {
+      picProfile: "",
+      name: "",
+      lastName: "",
+      email: "",
+      region: "",
+      phone: "",
+      investments: [],
 
-            showGeneral: true,
-            showInversiones: false,
-            showConfiguracion: false,
-            showCalendario: false
-        }
-        this.handleGeneral = this.handleGeneral.bind(this);
-        this.handleInversiones = this.handleInversiones.bind(this);
-        this.handleConfiguracion = this.handleConfiguracion.bind(this);
-        this.handleCalendario = this.handleCalendario.bind(this);
+      showModName: "",
+      showModLast: "",
+      showModEmail: "",
+      showModPhone: "",
+      showModRegion: ""
+    };
+    this.getInvestments = this.getInvestments.bind(this);
 
-        this.getInvestments = this.getInvestments.bind(this);
+    this.handleSetName = this.handleSetName.bind(this);
+    this.handleSetlastName = this.handleSetlastName.bind(this);
+    this.handleSetCorreo = this.handleSetCorreo.bind(this);
+    this.handleSetTelefono = this.handleSetTelefono.bind(this);
+    this.handleSetRegion = this.handleSetRegion.bind(this);
 
-        this.handleSetName = this.handleSetName.bind(this);
-        this.handleSetlastName = this.handleSetlastName.bind(this);
-        this.handleSetCorreo = this.handleSetCorreo.bind(this);
-        this.handleSetTelefono = this.handleSetTelefono.bind(this);
-        this.handleSetRegion = this.handleSetRegion.bind(this);
+    this.onPanelChange = this.onPanelChange.bind(this);
+  }
 
-        this.onPanelChange = this.onPanelChange.bind(this);
+  onPanelChange(value, mode) {
+    console.log(value, mode);
+  }
 
-    }
+  componentWillMount() {
+    this.getInvestments();
+  }
 
-    onPanelChange(value, mode) {
-        console.log(value, mode);
-      }
+  getInvestments() {
+    //var projs = [];
+    var projects = [];
+    var result;
 
+    fire.auth().onAuthStateChanged(async user => {
+      if (user) {
+        const database = fire.firestore();
+        const collection = database
+          .collection("users")
+          .doc(user.uid)
+          .collection("investments");
 
-    componentWillMount() {
-        /* let id;
-         let usersRef = fire.firestore().collection("users").doc(this.props.uid);
-                 console.log(usersRef)
-                 let user;
-                 usersRef.get().then(function (doc) {
-                     if (doc.exists) {
-                         console.log("Document data:", doc.data());
-                         user = doc.data();
- 
-                         this.setState(
-                             {
-                                 //picProfile:user.picProfile,
-                                 name: user.nombre,
-                                 lastName: user.apellido,
-                                 email: user.correo,
-                                 region: user.region,
-                                 phone: user.telefono
-                             }
-                         }).catch(function (error) {
-                             console.log("Error getting document:", error);
-                         });
-         
-                     }
-                 });
-         */
+        await collection.get().then(snapshot => {
+          //Encuentra la carreta del usuario en sesión y la asigna a variable projects
 
-    }
+          //if (snapshot.exists) {
+          snapshot.forEach(element => {
+            projects.push(element.data());
+          });
 
-    getInvestments() {
-        //var projs = [];
-        var projects = [];
-        var result;
+          if (projects.length == 0) {
+            result = false;
+          }
+          //}
+          console.log(projects.length);
 
-        fire.auth().onAuthStateChanged(async (user) => {
-            if (user) {
-                const database = fire.firestore();
-                const collection = database.collection('users').doc(user.uid).collection('investments');
-
-                await collection.get().then(snapshot => {
-                    //Encuentra la carreta del usuario en sesión y la asigna a variable projects
-
-                    //if (snapshot.exists) {
-                    snapshot.forEach(element => {
-                        projects.push(element.data());
-                    });
-
-                    if (projects.length == 0) {
-                        result = false;
-                    }
-                    //}
-                    console.log(projects.length)
-
-                    /*
+          /*
                                         projects.forEach(element => {
                                             if (j < i) {
                                                 projs.push(element);
@@ -122,450 +96,436 @@ class Profile extends Component {
                                             j++;
                                         });
                     */
-                });
-
-            } else {
-            }
-            //console.log(this.state.investments);
-            console.log(projects.length)
-            this.setState({
-                investments: projects,
-            });
         });
+      } else {
+      }
+      //console.log(this.state.investments);
+      console.log(projects.length);
+      this.setState({
+        investments: projects
+      });
+    });
+  }
 
+  async handleSetName(id, field) {
+    let newValue;
+    const ref = fire
+      .firestore()
+      .collection("users")
+      .doc(id);
+
+    if (field == "nombre" && this.state.name != "") {
+      newValue = this.state.name;
+      await ref.update({ nombre: newValue });
     }
+  }
 
-    handleGeneral(e) {
-        this.setState({
-            showInversiones: false,
-            showGeneral: true,
-            showConfiguracion: false,
-            showCalendario: false,
-        })
+  async handleSetlastName(id, field) {
+    let newValue;
+    const ref = fire
+      .firestore()
+      .collection("users")
+      .doc(id);
+
+    if (field == "apellido" && this.state.lastName != "") {
+      newValue = this.state.lastName;
+      await ref.update({ apellido: newValue });
     }
+  }
 
-    handleInversiones() {
-        this.getInvestments();
-        this.setState({
-            showInversiones: true,
-            showGeneral: false,
-            showConfiguracion: false,
-            showCalendario: false,
-        });
+  async handleSetCorreo(id, field) {
+    let newValue;
+    const ref = fire
+      .firestore()
+      .collection("users")
+      .doc(id);
 
+    if (field == "correo" && this.state.email != "") {
+      newValue = this.state.email;
+      await ref.update({ correo: newValue });
     }
+  }
 
-    handleConfiguracion() {
-        this.setState({
-            showConfiguracion: true,
-            showGeneral: false,
-            showInversiones: false,
-            showCalendario: false,
-        });
+  async handleSetTelefono(id, field) {
+    let newValue;
+    const ref = fire
+      .firestore()
+      .collection("users")
+      .doc(id);
 
+    if (field == "telefono" && this.state.phone != "") {
+      newValue = this.state.phone;
+      await ref.update({ telefono: newValue });
     }
+  }
 
-    handleCalendario() {
-        this.setState({
-            showCalendario: true,
-            showGeneral: false,
-            showInversiones: false,
-            showConfiguracion: false,
-        });
+  async handleSetRegion(id, field) {
+    let newValue;
+    const ref = fire
+      .firestore()
+      .collection("users")
+      .doc(id);
 
+    if (field == "region" && this.state.region != "") {
+      newValue = this.state.region;
+      await ref.update({ region: newValue });
     }
+  }
 
+  render() {
+    console.log(this.props.name);
 
-    async handleSetName(id, field) {
-        let newValue;
-        const ref = fire.firestore().collection('users').doc(id);
+    let investitems = this.state.investments.map(doc => {
+      return (
+        <InvestmentItem
+          title={doc.title}
+          ubicacion={doc.locate}
+          pago={doc.pago}
+          id={doc.id}
+        />
+      );
+    });
 
-        if (field == "nombre" && this.state.name != "") {
-            newValue = this.state.name;
-            await ref.update({ "nombre": newValue });
-
-        }
-
-
-    }
-
-    async handleSetlastName(id, field) {
-        let newValue;
-        const ref = fire.firestore().collection('users').doc(id);
-
-        if (field == "apellido" && this.state.lastName != "") {
-            newValue = this.state.lastName;
-            await ref.update({ "apellido": newValue });
-
-        }
-
-
-    }
-
-    async handleSetCorreo(id, field) {
-        let newValue;
-        const ref = fire.firestore().collection('users').doc(id);
-
-        if (field == "correo" && this.state.email != "") {
-            newValue = this.state.email;
-            await ref.update({ "correo": newValue });
-
-        }
-
-    }
-
-    async handleSetTelefono(id, field) {
-
-        let newValue;
-        const ref = fire.firestore().collection('users').doc(id);
-
-        if (field == "telefono" && this.state.phone != "") {
-            newValue = this.state.phone;
-            await ref.update({ "telefono": newValue });
-
-        }
-
-
-    }
-
-    async handleSetRegion(id, field) {
-
-        let newValue;
-        const ref = fire.firestore().collection('users').doc(id);
-
-        if (field == "region" && this.state.region != "") {
-            newValue = this.state.region;
-            await ref.update({ "region": newValue });
-
-        }
-
-
-    }
-
-    render() {
-        console.log(this.props.name)
-
-        let investitems = this.state.investments.map((doc) => {
-            return (
-                <InvestmentItem
-                    title={doc.title}
-                    ubicacion={doc.locate}
-                    pago={doc.pago}
-                    id={doc.id}
-
+    return (
+      <UserContext.Consumer>
+        {context =>
+          context.user ? (
+            <div id="profile-cont">
+              <div className="tab-extra">
+                <img
+                  id="profile-imagen"
+                  src={require("./Archivo.jpg")}
+                  alt="Test"
                 />
-            )
-        });
-
-
-
-        return (
-            <UserContext.Consumer>
-                {context => context.user ?
-                    <div id="profile-div">
-                        <div className="flexbox" id="nav-profile-flex">
-
-                            <div>
-                                <img id="profile-imagen" src={require('./Archivo.jpg')} alt="Test" />
-                            </div>
-
-                            <div className="flexbox" id="flex-nombre">
-                                <div id="profile-name" class="textD1">{context.nombre} {context.apellido}</div>
-                            </div>
-
-                            <ul class="nav flex-column" id="profile-nav">
-                                <li class="nav-item flexbox" >
-                                    <img className="nav-icon" src={userP}></img>
-                                    <a class="nav-link" href="#" onClick={this.handleGeneral}> PERFIL</a>
-                                </li>
-                                <li class="nav-item flexbox">
-                                    <img className="nav-icon" src={linec}></img> <a class="nav-link" href="#" onClick={this.handleInversiones}>INVERSIONES</a>
-                                </li>
-                                <li class="nav-item flexbox">
-                                    <img className="nav-icon" src={settings}></img>  <a class="nav-link" href="#" onClick={this.handleConfiguracion}>CONFIGURACION</a>
-                                </li>
-                                <li class="nav-item flexbox">
-                                    <img className="nav-icon" src={planning}></img> <a class="nav-link " href="#" onClick={this.handleCalendario} tabindex="-1" aria-disabled="true">CALENDARIO</a>
-                                </li>
-                            </ul>
-
-
-                            <div className="flexbox" id="flex-verified">
-                                <img id="profile-done" src={require('../Icons/verified.png')} />
-                                <div id="profile-verified" class="textD1" >Perfil Verificado</div>
-                            </div>
+                <div className="flexbox" id="flex-nombre">
+                  <div id="profile-name" class="textD1">
+                    {context.nombre} {context.apellido}
+                  </div>
+                </div>
+              </div>
+              <Tabs defaultActiveKey="1" tabPosition="left" id="profile-tabs">
+                <TabPane
+                  tab={
+                    <span className="tab-icon">
+                      <span className="icon">
+                        <Icon type="user" />
+                      </span>
+                      <span className="tab-text">Perfil</span>
+                    </span>
+                  }
+                  key="1"
+                >
+                  <div className="flexbox" id="profile-flex">
+                    <div className="flexbox" id="flex-header">
+                      <div className="flexbox" id="name-flex">
+                        <div className="textD1" id="name-text">
+                          {context.nombre}{" "}
                         </div>
-                        <div className="main-area">
-                            {this.state.showGeneral ?
-
-                                <div className="flexbox" id="profile-flex">
-                                    <div className="flexbox" id="flex-header">
-                                        <div className="flexbox" id="name-flex">
-                                            <div className="textD1" id="name-text" >{context.nombre} </div>
-                                            <div className="textD1"> {context.apellido}</div>
-
-                                        </div>
-                                        <div className="flexbox" id="flexbox-infoG" >
-                                            <div class="textD1"> <Icon type="mail" size={30}></Icon> {context.correo}</div>
-                                            <div class="textD1"> <Icon type="environment" size={30}></Icon>  {context.region}</div>
-                                        </div>
-                                    </div>
-                                    <div className="flexbox" id="flex-four">
-
-                                        <div className="flex-item item-sm"  >
-                                            <Link to={routes.CART}>
-                                                <img src={"https://bit.ly/2SDMguf"}></img>
-                                            </Link>
-
-                                            <h3>Cartera</h3>
-
-                                        </div>
-
-                                        <div className="flex-item item-lg" >
-                                            <img src={"https://bit.ly/2tKpV45"}></img>
-                                            <Link to={routes.PROYECTOS}>
-                                                <h3>Notificaciones</h3>
-                                            </Link>
-                                        </div>
-                                        <div className="flex-item item-lg" >
-                                            <img src={"https://bit.ly/2Hb1Dbp"}></img>
-                                            <Link to={routes.PROYECTOS}>
-                                                <h3>Terrenos</h3>
-                                            </Link>
-
-                                        </div>
-                                        <div className="flex-item item-sm"  >
-                                            <img src={"https://bit.ly/2EHbhRs"}></img>
-                                            <Link to={routes.LANDING}>
-                                                <h3>Noticias</h3>
-                                            </Link>
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-
-                                : ''}
-
-                            {this.state.showInversiones ?
-
-
-                                <div id="invest-div" >
-
-                                    <div className="flexbox" id="invest-flex">
-                                        <div>Nombre proyecto</div>
-                                        <div>Ubicacion</div>
-                                        <div>Inversion</div>
-                                        <div>Fecha</div>
-                                        <div>Ganancia</div>
-                                    </div>
-
-                                    {investitems}
-
-
-                                </div>
-
-                                : ''}
-
-                            {this.state.showConfiguracion ?
-
-                                <div>
-
-
-                                    <div className="flexbox" id="config-flex">
-
-                                        <h2 id="config-title">Configuración general de la cuenta </h2>
-
-                                        <div id="config-item">
-                                            <div className="textD1">Nombre </div>
-                                            <div id="info-item">{context.nombre}</div>
-                                            <button id="edit-icon" data-target="#ModalNombre" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                            {/*MODAL*/}
-
-                                            <div class="modal" id="ModalNombre" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" id="modal-head">
-
-                                                            <h4> Modificar nombre</h4>
-                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-
-                                                        </div>
-
-
-                                                        <div class="modal-body">
-                                                            <input type="text" name="input" class="form-control" placeholder={context.nombre} required=""
-                                                                onChange={(evt) => { this.setState({ name: evt.target.value }) }} ></input>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.toggleName(this.state.name)} >Guardar</button>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            {/*finModal*/}
-
-
-                                        </div>
-
-                                        <div id="config-item">
-                                            <div className="textD1">Apellido </div>
-                                            <div id="info-item">{context.apellido}</div>
-
-                                            <button id="edit-icon" data-target="#ModalApellido" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                            {/*MODAL*/}
-
-                                            <div class="modal" id="ModalApellido" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" id="modal-head">
-                                                            <h4> Modificar apellido</h4>
-                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-                                                            <input type="text" name="input" class="form-control" placeholder={context.apellido} required=""
-                                                                onChange={(evt) => { this.setState({ lastName: evt.target.value }) }} ></input>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.toggleLastname(this.state.lastName)} >Guardar</button>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            {/*finModal*/}
-
-
-                                        </div>
-                                        <div id="config-item">
-                                            <div className="textD1">Correo </div>
-                                            <div id="info-item">{context.correo}</div>
-
-                                            <button id="edit-icon" data-target="#ModalCorreo" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                            {/*MODAL*/}
-
-                                            <div class="modal" id="ModalCorreo" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" id="modal-head">
-                                                            <h4> Modificar correo</h4>
-                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-                                                            <input type="text" name="input" class="form-control" placeholder={context.correo} required=""
-                                                                onChange={(evt) => { this.setState({ email: evt.target.value }) }} ></input>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.toggleEmail(this.state.email)} >Guardar</button>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            {/*finModal*/}
-
-
-                                        </div>
-                                        <div id="config-item">
-                                            <div className="textD1">Telefono </div>
-                                            <div id="info-item">{context.telefono}</div>
-                                            <button id="edit-icon" data-target="#ModalTelefono" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                            {/*MODAL*/}
-
-                                            <div class="modal" id="ModalTelefono" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" id="modal-head">
-                                                            <h4> Modificar telefono</h4>
-                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-                                                            <input type="text" name="input" class="form-control" placeholder={context.telefono} required=""
-                                                                onChange={(evt) => { this.setState({ phone: evt.target.value }) }} ></input>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.togglePhone(this.state.phone)} >Guardar</button>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            {/*finModal*/}
-
-
-
-                                        </div>
-                                        <div id="config-item">
-
-                                            <div className="textD1"> Region </div>
-                                            <div id="info-item">{context.region}</div>
-
-                                            <button id="edit-icon" data-target="#ModalRegion" data-toggle="modal"> <img id="e-icon" src={edit}></img></button>
-
-                                            {/*MODAL*/}
-
-                                            <div class="modal" id="ModalRegion" role="dialog">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header" id="modal-head">
-                                                            <h4> Modificar region</h4>
-                                                            <button id="close-mod" data-dismiss="modal"><img id="proj-icon" src={close}></img></button>
-                                                        </div>
-
-                                                        <div class="modal-body">
-                                                            <input type="text" name="input" class="form-control" placeholder={context.region} required=""
-                                                                onChange={(evt) => { this.setState({ region: evt.target.value }) }} ></input>
-                                                        </div>
-
-                                                        <div class="modal-footer">
-                                                            <button class="btn btn-primary" data-dismiss="modal" onClick={() => context.toggleRegion(this.state.region)} >Guardar</button>
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-
-                                            {/*finModal*/}
-
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                : ''}
-
-                            {this.state.showCalendario ? <Calendar onPanelChange={this.onPanelChange} />: ''}
+                        <div className="textD1"> {context.apellido}</div>
+                      </div>
+                      <div className="flexbox" id="flexbox-infoG">
+                        <div class="textD1">
+                          {" "}
+                          <Icon type="mail" size={30} /> {context.correo}
                         </div>
+                        <div class="textD1">
+                          {" "}
+                          <Icon type="environment" size={30} /> {context.region}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flexbox" id="flex-four">
+                      <div className="flex-item item-sm">
+                        <Link to={routes.CART}>
+                          <img src={"https://bit.ly/2SDMguf"} />
+                        </Link>
 
-                    </div> : <p>no hay usuario</p>}
+                        <h3>Cartera</h3>
+                      </div>
 
-            </UserContext.Consumer>
+                      <div className="flex-item item-lg">
+                        <img src={"https://bit.ly/2tKpV45"} />
+                        <Link to={routes.PROYECTOS}>
+                          <h3>Notificaciones</h3>
+                        </Link>
+                      </div>
+                      <div className="flex-item item-lg">
+                        <img src={"https://bit.ly/2Hb1Dbp"} />
+                        <Link to={routes.PROYECTOS}>
+                          <h3>Terrenos</h3>
+                        </Link>
+                      </div>
+                      <div className="flex-item item-sm">
+                        <img src={"https://bit.ly/2EHbhRs"} />
+                        <Link to={routes.LANDING}>
+                          <h3>Noticias</h3>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </TabPane>
+                <TabPane
+                  tab={
+                    <span className="tab-icon">
+                      <span className="icon">
+                        <Icon type="area-chart" />
+                      </span>
+                      <span className="tab-text">Inversiones</span>
+                    </span>
+                  }
+                  key="2"
+                >
+                  <h2>Inversiones</h2>
+                  <div id="investment-cards" className="flexbox">
+                    {investitems}
+                  </div>
+                </TabPane>
+                <TabPane
+                  tab={
+                    <span className="tab-icon">
+                      <span className="icon">
+                        <Icon type="setting" />
+                      </span>
+                      <span className="tab-text">Configuración</span>
+                    </span>
+                  }
+                  key="3"
+                >
+                  <div>
+                    <div className="flexbox" id="config-flex">
+                      <h2 id="config-title">
+                        Configuración general de la cuenta{" "}
+                      </h2>
 
-        )
-    }
+                      <div id="config-item">
+                        <div id="config-name">
+                          <div className="textD1">Nombre </div>
+                          <div id="info-item">{context.nombre}</div>
+                        </div>
+                        <Button
+                          type="primary"
+                          shape="circle"
+                          icon="edit"
+                          onClick={() => this.setState({ showModName: true })}
+                        />
 
+                        {/*MODAL*/}
+                        <Modal
+                          title="Modificar Nombre"
+                          visible={this.state.showModName}
+                          onOk={() => context.toggleName(this.state.name)}
+                          onCancel={() => this.setState({ showModName: false })}
+                        >
+                          <Input
+                            size="large"
+                            placeholder={context.nombre}
+                            onChange={evt => {
+                              this.setState({
+                                name: evt.target.value
+                              });
+                            }}
+                          />
+                        </Modal>
+                        {/*finModal*/}
+                      </div>
+
+                      <div id="config-item">
+                        <div id="config-name">
+                          <div className="textD1">Apellido </div>
+                          <div id="info-item">{context.apellido}</div>
+                        </div>
+                        <Button
+                          type="primary"
+                          shape="circle"
+                          icon="edit"
+                          onClick={() => this.setState({ showModLast: true })}
+                        />
+
+                        {/*MODAL*/}
+                        <Modal
+                          title="Modificar Apellido"
+                          visible={this.state.showModLast}
+                          onOk={() =>
+                            context.toggleLastname(this.state.lastName)
+                          }
+                          onCancel={() => this.setState({ showModLast: false })}
+                        >
+                          <Input
+                            size="large"
+                            placeholder={context.apellido}
+                            onChange={evt => {
+                              this.setState({
+                                lastName: evt.target.value
+                              });
+                            }}
+                          />
+                        </Modal>
+                        {/*finModal*/}
+                      </div>
+
+                      <div id="config-item">
+                        <div id="config-name">
+                          <div className="textD1">Correo </div>
+                          <div id="info-item">{context.correo}</div>
+                        </div>
+                        <Button
+                          type="primary"
+                          shape="circle"
+                          icon="edit"
+                          onClick={() => this.setState({ showModEmail: true })}
+                        />
+
+                        {/*MODAL*/}
+                        <Modal
+                          title="Modificar Correo"
+                          visible={this.state.showModEmail}
+                          onOk={() =>
+                            context.toggleEmail(this.state.email)
+                          }
+                          onCancel={() => this.setState({ showModEmail: false })}
+                        >
+                          <Input
+                            size="large"
+                            placeholder={context.correo}
+                            onChange={evt => {
+                              this.setState({
+                                email: evt.target.value
+                              });
+                            }}
+                          />
+                        </Modal>
+                        {/*finModal*/}
+                      </div>
+
+                      <div id="config-item">
+                        <div id="config-name">
+                          <div className="textD1">Telefono </div>
+                          <div id="info-item">{context.telefono}</div>
+                        </div>
+                        <Button
+                          type="primary"
+                          shape="circle"
+                          icon="edit"
+                          onClick={() => this.setState({ showModPhone: true })}
+                        />
+
+                        {/*MODAL*/}
+                        <Modal
+                          title="Modificar Telefono"
+                          visible={this.state.showModPhone}
+                          onOk={() =>
+                            context.togglePhone(this.state.phone)
+                          }
+                          onCancel={() => this.setState({ showModPhone: false })}
+                        >
+                          <Input
+                            size="large"
+                            placeholder={context.telefono}
+                            onChange={evt => {
+                              this.setState({
+                                phone: evt.target.value
+                              });
+                            }}
+                          />
+                        </Modal>
+                        {/*finModal*/}
+                      </div>
+
+                      <div id="config-item">
+                        <div id="config-name">
+                          <div className="textD1">Region </div>
+                          <div id="info-item">{context.region}</div>
+                        </div>
+                        <Button
+                          type="primary"
+                          shape="circle"
+                          icon="edit"
+                          onClick={() => this.setState({ showModRegion: true })}
+                        />
+
+                        {/*MODAL*/}
+                        <Modal
+                          title="Modificar Region"
+                          visible={this.state.showModRegion}
+                          onOk={() =>
+                            context.toggleRegion(this.state.region)
+                          }
+                          onCancel={() => this.setState({ showModRegion: false })}
+                        >
+                          <Input
+                            size="large"
+                            placeholder={context.region}
+                            onChange={evt => {
+                              this.setState({
+                                region: evt.target.value
+                              });
+                            }}
+                          />
+                        </Modal>
+                        {/*finModal*/}
+                      </div>
+                    </div>
+                  </div>
+                </TabPane>
+                <TabPane
+                  tab={
+                    <span className="tab-icon">
+                      <span className="icon">
+                        <Icon type="calendar" />
+                      </span>
+                      <span className="tab-text">Calendario</span>
+                    </span>
+                  }
+                  key="4"
+                >
+                  <Calendar onPanelChange={this.onPanelChange} />
+                </TabPane>
+              </Tabs>
+
+              {/*
+              <div class="modal" id="ModalNombre" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header" id="modal-head">
+                      <h4> Modificar nombre</h4>
+                      <button id="close-mod" data-dismiss="modal">
+                        <img id="proj-icon" src={close} />
+                      </button>
+                    </div>
+
+                    <div class="modal-body">
+                      <input
+                        type="text"
+                        name="input"
+                        class="form-control"
+                        placeholder={context.nombre}
+                        required=""
+                        onChange={evt => {
+                          this.setState({ name: evt.target.value });
+                        }}
+                      />
+                    </div>
+
+                    <div class="modal-footer">
+                      <button
+                        class="btn btn-primary"
+                        data-dismiss="modal"
+                        onClick={() => context.toggleName(this.state.name)}
+                      >
+                        Guardar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              */}
+            </div>
+          ) : (
+            <p>no hay usuario</p>
+          )
+        }
+      </UserContext.Consumer>
+    );
+  }
 }
 export default Profile;
