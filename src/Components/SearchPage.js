@@ -53,14 +53,15 @@ class SearchPage extends Component {
         this.handleOption = this.handleOption.bind(this);
         this.checkedVal = this.checkedVal.bind(this);
         this.minMaxValues = this.minMaxValues.bind(this);
+        this.complexSearch = this.complexSearch.bind(this);
     }
 
     /* async componentWillMount(){
-         await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
-             this.setState({
-                 foto:url
-             })
-         })
+        await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
+            this.setState({
+                foto:url
+            })
+        })
      }*/
 
 
@@ -176,7 +177,19 @@ class SearchPage extends Component {
 
     }
 
-    minMaxValues(values){
+    complexSearch() {
+        var projects = db.collection("projects");
+        var query
+        if (this.state.title != "" && this.state.location != "") {
+            query = projects.where("title", "==", this.state.title).where("location", "==", this.state.location);
+        }
+        console.log("query length: " + query);
+
+        this.searchDB(query)
+    }
+
+    minMaxValues(values) {
+
         this.setState({
             min: values[0],
             max: values[1],
@@ -364,13 +377,14 @@ class SearchPage extends Component {
                                     <h6>Nombre de Proyecto</h6>
                                     <h6>Ubicacion</h6>
                                     <h2>Inversión inicial</h2>
-                                    <Slider  max="2000"range="true" defaultValue={[100, 2000]} tooltipVisible="true" />
+                                    <Slider max="2000" range="true" defaultValue={[100, 2000]} tooltipVisible="true" />
                                     <h2>Cultivos</h2>
                                     <CheckboxGroup options={options} onChange={this.checkedVal} />
                                     <h2>Ubicación</h2>
                                     <Input placeholder="Ubicación" onChange={evt => this.setState(byPropKey("location", evt.target.value))} />
                                     <h2>Título exacto</h2>
                                     <Input placeholder="Título" onChange={evt => this.setState(byPropKey("title", evt.target.value))} />
+                                    <button className="btn-secondary" onClick={() => this.complexSearch()}>Search</button>
                                 </div>
                             </div>
                         </div>
