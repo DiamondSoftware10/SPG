@@ -2,18 +2,10 @@ import React, { Component } from "react";
 import "./NewProject.css";
 import { createProject } from "../Constants/project";
 import fire from "../Firebase/Fire";
+import PicturesWall from "./Objects/PicturesWall"
 
-import {
-  numeroVal,
-  cantidadPalabrasVal,
-  nombresVal,
-  rangoCaracteresVal,
-  urlImagenVal,
-  puntoDecimalVal
-} from "../Constants/validations";
 import firebase from "firebase";
 import MapContainer from "./GoogleMapsContainer";
-import close from "../Icons/close.svg";
 import defaultProjectPic from "../Images/nature.svg";
 import { Carousel } from "react-responsive-carousel";
 import "./Carousel.css";
@@ -140,9 +132,6 @@ class NewProject extends Component {
     this.handleSaveProject = this.handleSaveProject.bind(this);
     this.changeLocationFromChild = this.changeLocationFromChild.bind(this);
     this.getLocation = this.getLocation.bind(this);
-
-    //        this.fileUploadCultivoHandler = this.fileUploadCultivoHandler.bind(this);
-    //        this.fileUploadFamiliaHandler = this.fileUploadCultivoHandler.bind(this);
     this.getTitle = this.getTitle.bind(this);
     this.addListCrops = this.addListCrops.bind(this);
     this.deleteListCrops = this.deleteListCrops.bind(this);
@@ -353,7 +342,7 @@ class NewProject extends Component {
     const db = fire.firestore();
     const projectRef = db.collection("projects");
     project.preventDefault();
-    if (
+    if (/*
       this.state.titulo !== "" &&
       this.state.titulo !== undefined &&
       this.fotoP.current.files[0].name !== undefined &&
@@ -373,7 +362,7 @@ class NewProject extends Component {
       this.state.trabajos !== undefined &&
       this.state.listImgCrops.length !== 0 &&
       this.state.listImgFamilies.length !== 0
-    ) {
+    */true) {
       //Agrega en la base de datos los nombres de las imagenes para cada uno//
       let nameImgRefCrops = [];
       await this.state.listImgCrops.forEach(img => {
@@ -389,7 +378,7 @@ class NewProject extends Component {
         temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
       let ref = projectRef.doc();
       ref
-        .set({
+        .set({/*
           id: ref.id,
           title: this.state.titulo,
           timeProdxDay: 0,
@@ -414,6 +403,32 @@ class NewProject extends Component {
           manzanasTotales: this.state.manzanasTotales,
           manzanasRestantes: this.state.manzanasTotales,
           trabajosGen: this.state.trabajos
+          */
+         id: "ref.id",
+          title: "Proyecto",
+          timeProdxDay: 0,
+          raisedMoney: 0,
+          projectFinan: 0,
+          picProject: this.fotoP.current.files[0].name,
+          picFam: nameImgRefFamilies,
+          picCultures: nameImgRefCrops,
+          coordinates: new firebase.firestore.GeoPoint(
+            parseFloat(this.state.center.lat, 10),
+            parseFloat(this.state.center.lng, 10)
+          ),
+          investor: "",
+          investInitxBlock: 0,
+          infoZone: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          detailsProdxBlocks: "",
+          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          creationDate: fecha,
+          available: true,
+          cultures: [],
+          locate: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          manzanasTotales: 100,
+          manzanasRestantes: 100,
+          trabajosGen: 50
+          
         })
         .then(
           this.setState({
@@ -462,17 +477,10 @@ class NewProject extends Component {
       marginRight: "0"
     };
 
-    const {
-      titulo,
-      descripcion,
-      ubicacion,
-      familiasB,
-      tiposCultivo,
-      infoZona,
+    const {   
       fotoF,
       fotoC,
       fotoP,
-      inversion
     } = this.state;
 
     return (
@@ -564,6 +572,7 @@ class NewProject extends Component {
             </div>
             {/** Trabajo generado*/}
             <ItemHeading number="5" title="Fotos" subtitle="" />
+            <PicturesWall/>
             <li id="all-inputs-item">
               <label>Foto del proyecto</label>
               <br />
