@@ -56,9 +56,12 @@ const NavNonAuth = () =>
                             <a className="nav-link" >Explorar</a>
                         </li>
                     </Link>
-                    <li className="nav-item">
-                        <a className="nav-link" >Acerca de</a>
-                    </li>
+                    <Link to={routes.PROJECTSMAP}>
+                        <li className="nav-item">
+                            <a className="nav-link" >Acerca de</a>
+                        </li>
+                    </Link>
+
                 </ul>
 
                 <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
@@ -104,7 +107,7 @@ const NavAdmin = () => (
                             <a className="nav-link">Explorar</a>
                         </li>
                     </Link>
-                    <Link to={routes.LANDING}>
+                    <Link to={routes.PROJECTSMAP}>
                         <li className="nav-item">
                             <a className="nav-link" >Acerca</a>
                         </li>
@@ -149,7 +152,7 @@ const NavAdmin = () => (
                             </Link>
                             <div class="dropdown-divider"></div>
                             <Link to={routes.LANDING} onClick={doSignOut}>
-                            <a class="dropdown-item">Log out</a>
+                                <a class="dropdown-item">Log out</a>
                             </Link>
                         </div>
                     </li>
@@ -194,7 +197,7 @@ const NavUser = () => (
                         </li>
                     </Link>
 
-                    <Link to={routes.LANDING}>
+                    <Link to={routes.PROJECTSMAP}>
                         <li className="nav-item">
                             <a className="nav-link" >Acerca de</a>
                         </li>
@@ -227,7 +230,7 @@ const NavUser = () => (
                             </Link>
                             <div class="dropdown-divider"></div>
                             <Link to={routes.LANDING} onClick={doSignOut}>
-                            <a class="dropdown-item">Log out</a>
+                                <a class="dropdown-item">Log out</a>
                             </Link>
                         </div>
                     </li>
@@ -277,7 +280,7 @@ const NavSuper = () => (
                         </li>
                     </Link>
 
-                    <Link to={routes.LANDING}>
+                    <Link to={routes.PROJECTSMAP}>
                         <li className="nav-item">
                             <a className="nav-link" >Acerca</a>
                         </li>
@@ -343,9 +346,9 @@ const NavSuper = () => (
                             </Link>
                             <div class="dropdown-divider"></div>
                             <Link to={routes.LANDING} onClick={doSignOut}>
-                            <a class="dropdown-item">Log out</a>
+                                <a class="dropdown-item">Log out</a>
                             </Link>
-                            
+
                         </div>
                     </li>
 

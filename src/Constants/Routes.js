@@ -13,9 +13,10 @@ export const MANAGEUSERS = '/ManageUsers';
 export const RESETPASSWORD = '/ResetPassword';
 export const MANAGEPROJECTS = '/ManageProjects';
 export const SEARCHPAGE = '/search';
-export const PROJECT =  '/Project';
+export const PROJECT =  '/project';
 export const PAYMENT = '/Payment';
 export const LOGOUT = '/logout';
+export const PROJECTSMAP = '/map';
 
 
 

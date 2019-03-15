@@ -35,6 +35,8 @@ import SearchPage from "./Components/SearchPage";
 import ProjectPage from './Components/ProjectPage';
 import Payment from './Components/Payment';
 import Logout from './Components/Logout';
+import ViewProject from './Components/ViewProject';
+import MapProjects from "./Components/MapProjects";
 
 class App extends Component {
 
@@ -247,6 +249,16 @@ class App extends Component {
                   exact path={routes.PROJECT + "/:id"}
                   component={ProjectPage}
                 />
+
+                  <Route
+                    exact path={routes.PROJECTSMAP}
+                    component={MapProjects}
+                  />
+
+                {/*<Route 
+                  path = {routes.PROJECT + "/:idProject"}
+                  component = {ViewProject}
+                />*/}
 
                 <Route
                   exact path={routes.PAYMENT}

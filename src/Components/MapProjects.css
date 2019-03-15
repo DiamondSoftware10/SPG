@@ -1,0 +1,15 @@
+.map-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    width: 100vw;
+    height: 90vh;
+    background-color: red;
+}
+
+#all-map {
+    width: 100vw;
+    height: 90vh;
+}
