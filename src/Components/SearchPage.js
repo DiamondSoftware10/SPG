@@ -39,7 +39,7 @@ class SearchPage extends Component {
             min: "",
             max: "",
             filterCrops: [],
-        
+
 
             titleOption: false,
             locateOption: false,
@@ -118,7 +118,7 @@ class SearchPage extends Component {
         return splitStr.join(' ');
     }
 
-    getSliderValues(evt){
+    getSliderValues(evt) {
         var arr = String(evt).split(",");
         console.log("min: " + arr[0]);
         console.log("max: " + arr[1]);
@@ -197,25 +197,34 @@ class SearchPage extends Component {
         //var query;
 
         if (this.state.title != "") {
-            query = query.where("title", "==", this.state.title);
+            query = query.where("title", "==", this.titleCase(this.state.title));
         }
         if (this.state.location != "") {
-            query = query.where("locate", "==", this.state.location);
+            query = query.where("locate", "==", this.titleCase(this.state.location));
 
         }
-        if(this.state.min != "" && this.state.max != ""){
+        if (this.state.min != "" && this.state.max != "") {
             query = query.where("investInitxBlock", ">=", this.state.min).where("investInitxBlock", "<=", this.state.max);
         }
 
-        /*no funciona porque solo se puede hacer una llamada de array-contains por query
+        //no funciona porque solo se puede hacer una llamada de array - contains por query
         if (this.state.filterCrops.length > 0) {
-            this.state.filterCrops.forEach(element => {
-                query = query.where("cultures", "array-contains", element)
-            });
+            let i = 0
+            do {
+                try{
+
+                    query = query.where("cultures", "array-contains", this.state.filterCrops[i])
+                } catch(error){
+                    console.log(error)
+                }
+                i++;
+                /*this.state.filterCrops.forEach(element => {
+                });*/
+            } while (query == null)
         } else {
             console.log("vacio")
-        }*/
-        
+        }
+
 
         this.searchDB(query);
 
@@ -355,12 +364,23 @@ class SearchPage extends Component {
 
         const options = [
             { label: 'Tomate', value: 'Tomate' },
-            { label: 'Plátano', value: 'Platano' },
+            { label: 'Plátano', value: 'Plátano' },
             { label: 'Manzanas', value: 'Manzanas' },
             { label: 'Banano', value: 'Banano' },
             { label: 'Aguacate', value: 'Aguacate' },
             { label: 'Lechuga', value: 'Lechuga' },
             { label: 'Cebolla', value: 'Cebolla' },
+            { label: 'Piña', value: 'Piña' },
+            { label: 'Café', value: 'Café' },
+            { label: 'Peras', value: 'Peras' },
+            { label: 'Mangos', value: 'Mangos' },
+            { label: 'Sandias', value: 'Sandias' },
+            { label: 'Licha', value: 'Licha' },
+            { label: 'Camote', value: 'Camote' },
+            { label: 'Yuca', value: 'Yuca' },
+            { label: 'Naranja', value: 'Naranja' },
+            { label: 'Ciruela', value: 'Ciruela' },
+            { label: 'Mora', value: 'Mora' },
             { label: 'Otros', value: 'Otros' },
         ];
 
@@ -426,7 +446,7 @@ class SearchPage extends Component {
                                     <h6>Nombre de Proyecto</h6>
                                     <h6>Ubicacion</h6>
                                     <h2>Inversión inicial</h2>
-                                    <Slider max="2000" range="true" defaultValue={[100, 2000]} tooltipVisible="true" onChange = {evt => this.getSliderValues(evt)}/>
+                                    <Slider max="2000" range="true" defaultValue={[100, 2000]} tooltipVisible="true" onChange={evt => this.getSliderValues(evt)} />
                                     <h2>Cultivos</h2>
                                     <CheckboxGroup options={options} onChange={this.checkedVal} />
                                     <h2>Ubicación</h2>
