@@ -6,7 +6,7 @@ import * as routes from '../Constants/Routes';
 import './Navbar.css';
 import magnifier from '../Icons/magnifier.svg';
 import { Query } from '@google-cloud/firestore';
-
+import { Input } from 'antd';
 
 
 const byPropKey = (propertyName, value) => () => ({

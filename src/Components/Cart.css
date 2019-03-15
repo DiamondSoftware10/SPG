@@ -1,4 +1,3 @@
-
 #cart-flex {
     padding-right: 10vw;
 }
@@ -6,46 +5,47 @@
 .flex-container {
     display: flex;
     flex-wrap: nowrap;
-    align-items:center;
+    align-items: center;
     width: 100%;
     height: 18vh;
+    padding: .5%;
     border-bottom: 0.2vh solid rgb(219, 219, 219);
     position: relative;
-    padding: 11vh 0vh;
+    display: grid;
+    grid-template-columns: 25% 35% 20% 10% 10%;
 }
 
-.flex-container > div {
-        margin: 2vw;
-  }
+.flex-container>* {
+    margin: 2vw;
+}
 
-  .item-imagen{
-    width: 10vw;
-    height: 15vh;
-    object-fit: cover; 
+.item-imagen {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
     border-radius: 10px;
     background: rgb(255, 255, 255);
     position: initial;
-  }
+}
 
-  .flex-text{
-    display:flex;
+.flex-text {
+    display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     width: 100%;
-  }
+}
 
-#item-cancelar{
+#item-cancelar {
     border: none;
-    background:transparent;
+    background: transparent;
     /*margin-left: 18vw;*/
     display: flex;
-    align-items: center;    
+    align-items: center;
 }
 
 #cart-name {
     font-weight: 900;
     font-size: 1.4em;
-
 }
 
 #cart-location {
@@ -56,19 +56,17 @@
 #cart-inv {
     font-weight: 900;
     font-size: 1.6em;
-    width: 50px;
     text-align: right;
 }
 
-
-.flex-total{
+.flex-total {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-content: center;
     align-items: center;
-    align-self: flex-end;    
+    align-self: flex-end;
 }
 
 /*
@@ -78,14 +76,14 @@
 
 }
 */
-#item-totalText{
+
+#item-totalText {
     font-weight: 350;
     color: rgb(117, 116, 116);
     font-size: 1.3em;
-   
 }
 
-#item-totalNum{
+#item-totalNum {
     font-weight: 900;
     font-size: 2.3em;
     padding: 1em;
@@ -104,22 +102,33 @@
 #cart-number-flex {
     flex-direction: row;
     border: transparent;
-}
-#cart-number-flex > div {
-    padding: 0 2em;
+    justify-content: space-around;
 }
 
 #cart-man-num {
     font-size: 1.5em;
-    width: 2em;
     text-align: center;
 }
 
-@media(max-width: 800px) {
-        
-.cart-content {
-    
-    margin: 10vh 5vw;
-    padding-right: 0;
+@media(max-width: 990px) {
+    .cart-content {
+        margin: 10vh 5vw;
+        padding-right: 0;
+    }
+    #cart-flex {
+        padding-right: 0;
+    }
+    .flex-container {
+        height: 10vh;
+    }
 }
+
+@media(max-width: 550px) {
+    .flex-container {
+        font-size: 9px;
+        grid-template-columns: 45% 25% 15% 15%;
+    }
+    .item-imagen {
+        display: none;
+    }
 }

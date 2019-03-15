@@ -1,7 +1,8 @@
-#div-table{
+#div-table {
     padding-left: 8vw;
     padding-right: 8vw
 }
+
 .mng-btn {
     color: #fff !important;
     text-transform: uppercase;
@@ -11,11 +12,37 @@
     display: inline-block;
     border: none;
 }
+
 .mng-btn:hover {
     background: #ed3330;
     letter-spacing: 1px;
-    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
-    box-shadow: 5px 40px -10px rgba(0,0,0,0.57);
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+    box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
     transition: all 0.4s ease 0s;
+}
+
+.mobile-only {
+    display: none;
+    padding: 20vh 0;
+}
+
+.only-mob-img {
+    height: 50vw;
+}
+
+.only-mob-h1 {
+    color: rgb(71, 77, 84);
+    text-align: center;
+    letter-spacing: .015em;
+    padding: 1em;
+}
+
+@media(max-width: 900px) {
+    .desktop-only {
+        display: none !important;
+    }
+    .mobile-only {
+        display: block;
+    }
 }

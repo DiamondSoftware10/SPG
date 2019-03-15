@@ -30,12 +30,12 @@ export default class InvestmentItem extends Component {
             title="Ubicacion"
             value={this.props.ubicacion}
             precision={2}
-            valueStyle={{ fontSize: "1.5em", fontFamily: "CircularStd" }}
+            valueStyle={{ fontSize: "1.25em", fontFamily: "CircularStd" }}
           />
           <Statistic
             title="Fecha"
             value={"22/11/19"}
-            valueStyle={{ fontSize: "1.5em", fontFamily: "CircularStd" }}
+            valueStyle={{ fontSize: "1.25em", fontFamily: "CircularStd" }}
           />
         </div>
       </Card>

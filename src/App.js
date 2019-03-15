@@ -244,8 +244,8 @@ class App extends Component {
                 />
 
                 <Route
-                  exact path={routes.PROJECT}
-                  component={() => <ProjectPage />}
+                  exact path={routes.PROJECT + "/:id"}
+                  component={ProjectPage}
                 />
 
                 <Route

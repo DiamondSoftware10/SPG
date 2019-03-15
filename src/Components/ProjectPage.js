@@ -19,11 +19,14 @@ const TabPane = Tabs.TabPane;
 
 var db = fire.firestore();
 
-const ProjectPage = () => (
-  <div className="page-container">
-    <ProjectInfo id="uIUyXBNxz8BZ7atc6gh6" />
-  </div>
-);
+export class ProjectPage extends Component {
+  constructor(props) {
+    super(props);
+  }
+  render() {
+    return <ProjectInfo id={this.props.match.params.id} />;
+  }
+}
 
 export class ProjectInfo extends Component {
   constructor(props) {
@@ -31,6 +34,7 @@ export class ProjectInfo extends Component {
     this.state = {
       id: "",
       foto: "",
+      fotoUrl: "",
       cultivos: [],
       invMin: 0,
       empleoGen: "23",
@@ -49,6 +53,8 @@ export class ProjectInfo extends Component {
       fotosCultivos: [],
       fotosCultivosUrl: [],
       manzanasRest: 0,
+      latitude: "",
+      longitude: "",
 
       pago: 0,
       showInvest: false,
@@ -92,6 +98,8 @@ export class ProjectInfo extends Component {
 
     var title = "";
     var culture;
+    var foto;
+    var fotoUrl;
     var description;
     var infoZone;
     var investor;
@@ -103,6 +111,9 @@ export class ProjectInfo extends Component {
     var fotosFamilias;
     var fotosCultivos;
     var manzanasRest;
+
+    var latitude;
+    var longitude;
 
     //Capturar el proyecto correspondiente de la base de datos
     var project = db
@@ -126,8 +137,11 @@ export class ProjectInfo extends Component {
         empleos = snap.data().trabajosGen;
         fotosFamilias = snap.data().picFam;
         manzanasRest = snap.data().manzanasRestantes;
+        foto = snap.data().picProject;
+        latitude = snap.data().coordinates._lat;
+        longitude = snap.data().coordinates._long;
 
-        if (snap.data().picCrops) {
+        if (snap.data().picCrops != null) {
           fotosCultivos = snap.data().picCrops;
         } else {
           fotosCultivos = snap.data().picCultures;
@@ -140,6 +154,7 @@ export class ProjectInfo extends Component {
     });
     this.setState({
       title: title,
+      foto: foto,
       culture: culture,
       description: description,
       infoZone: infoZone,
@@ -153,7 +168,9 @@ export class ProjectInfo extends Component {
       empleosGen: empleos,
       fotosFamilias: fotosFamilias,
       fotosCultivos: fotosCultivos,
-      manzanasRest: manzanasRest
+      manzanasRest: manzanasRest,
+      latitude: latitude,
+      longitude: longitude
     });
     console.log(this.state.progress);
     var fotosFamiliasUrl = [];
@@ -197,6 +214,20 @@ export class ProjectInfo extends Component {
 
       console.log("Foto " + i + ": " + doc);
     });
+
+    fire
+      .storage()
+      .ref()
+      .child(this.state.foto)
+      .getDownloadURL()
+      .then(url => {
+        this.setState({
+          id: this.props.id
+        });
+        this.setState({
+          fotoUrl: url
+        });
+      });
   }
 
   handleOpenInvestModal() {
@@ -363,7 +394,11 @@ export class ProjectInfo extends Component {
     return (
       <div>
         <div id="project-div">
-          <Tabs tabPosition="bottom" size="large" tabBarExtraContent={investBtn}>
+          <Tabs
+            tabPosition="bottom"
+            size="large"
+            tabBarExtraContent={investBtn}
+          >
             <TabPane
               tab={
                 <span className="tab-icon">
@@ -379,7 +414,7 @@ export class ProjectInfo extends Component {
                     <img
                       id="modal-img"
                       onClick={this.handleOpenModal}
-                      src={this.props.foto}
+                      src={this.state.fotoUrl}
                     />
                   </div>
                 </div>
@@ -482,28 +517,24 @@ export class ProjectInfo extends Component {
               <br />
 
               <h5>Ubicación</h5>
-              {/*
-            <div style={style} className="card" id="gmap">
-              
-                      <MapContainer
-                        zoom={12}
-                        initialCenter={{
-                          lat: this.props.center.lat,
-                          lng: this.props.center.lng
-                        }}
-                        center={{
-                          lat: this.props.center.lat,
-                          lng: this.props.center.lng
-                        }}
-                      />
-                   
-            </div>
+              <div style={style} className="card" id="gmap">
+                <MapContainer
+                  zoom={12}
+                  initialCenter={{
+                    lat: this.state.latitude,
+                    lng: this.state.longitude
+                  }}
+                  center={{
+                    lat: this.state.latitude,
+                    lng: this.state.longitude
+                  }}
+                />
+              </div>
 
-            <br />
-             */}
+              <br />
             </TabPane>
           </Tabs>
-         
+
           {/*
           <Menu
             onClick={this.handleClick}
@@ -618,7 +649,7 @@ export class ProjectInfo extends Component {
           className="ModalBack"
           overlayClassName="Overlay"
         >
-          <div className="Modal invest-modal">
+          <div className="Modal invest-modal" id="confirmation-modal">
             <button
               className="hollow button"
               id="close-button"
@@ -629,7 +660,12 @@ export class ProjectInfo extends Component {
             <div className="icon-lg">
               <Icon type="check-circle" />
             </div>
-            Agregado a cartera exitosamente!
+            <h5>Agregado a cartera exitosamente!</h5>
+            <Link to={routes.CART}>
+              <button className="btn btn-primary" id="btn-add-cart">
+                Ir a cartera
+              </button>
+            </Link>
           </div>
         </ReactModal>
       </div>

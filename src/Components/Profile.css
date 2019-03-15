@@ -270,9 +270,6 @@
 }
 
 /* TABS */
-
-#profile-tabs {}
-
 #profile-cont .ant-tabs-bar {
   height: 130vh;
   background: rgb(245, 245, 245);
@@ -334,7 +331,7 @@
   box-shadow: 0 0 30px rgb(248, 248, 248);
   text-align: left;
   margin: 1em;
-  width: 30%;
+  width: 45%;
 }
 
 .stat-grid {
@@ -343,7 +340,7 @@
 }
 
 .stat-grid>* {
-  margin-bottom: 1em;
+  margin: .5em;
 }
 .anticon-edit {
   padding-bottom: 20%;
@@ -371,7 +368,7 @@
     padding-top: 10vh;
   }
   #profile-cont .ant-tabs-content {
-    padding: 0;
+    padding: .5em;
   }
   #config-flex {
     padding: 1em;

@@ -536,7 +536,7 @@ class NewProject extends Component {
                 placeholder=""
                 getValue={this.getInversion}
               />
-              <div class="form-group">
+              <div>
                 <label>Inversión minima</label>
                 <h3>{`${this.state.inversionInicial} X ${
                   this.state.manzanasTotales
@@ -592,7 +592,7 @@ class NewProject extends Component {
               />
               <button
                 id="bt-uploadProject"
-                className="btn btn-secondary"
+                className="btn btn-sec"
                 onClick={this.addListImgFamilies}
               >
                 Agregar foto
@@ -641,7 +641,7 @@ class NewProject extends Component {
               />
               <button
                 id="bt-uploadProject"
-                className="btn btn-secondary"
+                className="btn btn-sec"
                 onClick={this.addListImgCrops}
               >
                 Agregar foto

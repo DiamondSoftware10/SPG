@@ -31,7 +31,6 @@
 }
 
 #side-flex>#sidebar {
-    margin: 1em;
     background-color: rgb(1, 95, 1);
     background-color: var(--main-spg-color);
     color: white;
@@ -57,8 +56,6 @@
 #side-flex>#sidebar>* {
     margin-bottom: 1.5em;
 }
-
-#sidebar h3 {}
 
 #sidebar h6 {
     font-weight: 400;
@@ -121,8 +118,8 @@
 }
 
 #modal-img {
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
     object-fit: cover;
     border-radius: 10px;
 }
@@ -256,10 +253,6 @@
     justify-content: flex-end;
 }
 
-.icon-lg {
-    font-size: 6em;
-}
-
 /* NAVIGATION */
 
 .invest-nav {
@@ -283,10 +276,13 @@
 }
 
 #project-div .ant-tabs-nav-container {
-    align-items: center;
+    align-items: flex-start;
 }
 
-#project-div .ant-tabs-nav>div {}
+#project-div .ant-tabs-tabpane {
+    text-align: left;
+    padding: 3em;
+}
 
 #project-div .ant-tabs-bar {
     position: fixed;
@@ -331,6 +327,22 @@
     height: 50vh
 }
 
+/* CONFIRMATION */
+
+#confirmation-modal {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-lg {
+    font-size: 10em;
+    display: flex;
+    align-items: center;
+    padding: 5%;
+}
+
 @media(max-width: 900px) {
     #modal-flex {
         display: flex;
@@ -341,6 +353,10 @@
     }
     #side-flex {
         width: 100%;
+    }
+    #side-flex>#sidebar {
+        padding: 2em;
+        margin-bottom: 4em;
     }
     #invest-nav-item {
         display: none;
@@ -378,9 +394,21 @@
     }
     .invest-modal {
         width: 80vw;
+        top: 20%;
+    }
+    #terr-head {
+        position: absolute;
+        top: 8%;
+        left: -10;
+        font-size: 100;
+        text-transform: uppercase;
+        color: rgba(0, 128, 0, 0.192);
+        letter-spacing: .25em;
+        font-weight: 700;
+        font-size: 1em;
     }
 }
 
-.gmap {
+.º {
     display: none;
 }

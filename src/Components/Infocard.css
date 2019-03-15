@@ -10,19 +10,19 @@
     align-content: center;
     align-items: center;
     position: relative;
-    width: 20vw;  
-    font-size: 0.9rem;  
+    width: 20vw;
+    font-size: 0.9rem;
 }
+
 /*
 .icard-hor:hover {
     transform: skewY(180deg) skewX(180deg) rotate(180deg) scale(3);
 }*/
 
-.icard-hor > div , button
-{
-  text-align:center;
-
-  margin:5px;  /* and that, will result in a 10px gap */
+.icard-hor>div, button {
+    text-align: center;
+    margin: 5px;
+    /* and that, will result in a 10px gap */
 }
 
 .icard-hor #bt-event {
@@ -53,21 +53,18 @@
     flex-direction: column;
     padding-top: 0;
     height: 100%;
-
 }
-
 
 .icard-hor #proj-location {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: right; 
+    justify-content: right;
     align-items: center;
     justify-self: right;
     font-size: 1em;
     font-weight: 700;
     color: #686868;
-
 }
 
 .icard-hor #proj-location #proj-icon {
@@ -75,25 +72,20 @@
     height: 2em;
 }
 
-
 .icard-hor #proj-name {
     font-weight: 700;
     font-size: 1.4em;
-    
 }
 
 .icard-hor #proj-gen {
     font-size: .9em;
     font-weight: 700;
-   /* font-family: "Text Me One";*/
+    /* font-family: "Text Me One";*/
     color: rgb(66, 66, 66);
-
-
     display: flex;
     flex-direction: row;
     justify-content: right;
     align-items: center;
-   
 }
 
 .icard-hor #proj-type {
@@ -109,22 +101,21 @@
     padding: 3px;
     padding-left: 0;
 }
+
 .icard-hor #num {
-     margin-right: .6em;
- }
+    margin-right: .6em;
+}
 
-
-
- .icard-hor #proj-footer {
+.icard-hor #proj-footer {
     position: absolute;
     right: -1em;
     bottom: 0;
- }
+}
 
- .icard-hor #proj-cont {
-    width:3em;
-    height: 3em;  
-    border-radius: 3em;   
+.icard-hor #proj-cont {
+    width: 3em;
+    height: 3em;
+    border-radius: 3em;
     background: rgb(19, 92, 48);
     background: var(--main-spg-color);
     color: white;
@@ -140,7 +131,6 @@
     height: 1.25em;
 }
 
-
 #proj-icon {
     height: 28px;
     padding: 3px;
@@ -151,7 +141,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: no wrap;
-    justify-content: right; 
+    justify-content: right;
     align-items: center;
     justify-self: right;
     font-size: .8em;
@@ -289,14 +279,11 @@
 }
 */
 
-    
-    
 .Modal {
     position: absolute;
     top: 3vmin;
     left: 1vmin;
     right: 1vmin;
-    
     background-color: white;
     margin: 5vmin 10vmin;
     margin-top: 7.5vmin;
@@ -308,22 +295,29 @@
     padding: 5vmin;
     z-index: 1000;
     /*font-family: CircularStd, Montserrat;*/
-    box-shadow: 2vmin 2vmin  10vmin rgba(75, 75, 75, 0.308);
+    box-shadow: 2vmin 2vmin 10vmin rgba(75, 75, 75, 0.308);
 }
 
 .ModalBack {
-    position: fixed; /* Stay in place */
-    z-index: 2000; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    position: fixed;
+    /* Stay in place */
+    z-index: 2000;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
     left: 0;
     top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
 }
-
 
 .card {
     border: none;
@@ -332,7 +326,7 @@
 #close-button {
     border: none;
     background: none;
-    float:left;
+    float: left;
     position: absolute;
     top: 10px;
     right: 10px;
@@ -342,27 +336,28 @@
 
 
 @media (max-width: 990px) {
-
-.icard-hor {
-    width: 40vw;
-    margin: .5em;
-}
-
-
+    .icard-hor {
+        width: 40vw;
+        margin: .5em;
+    }
+    #close-button {
+        top: 1px;
+        right: 1px;
+        padding: 0;
+    }
 }
 
 @media(max-width: 600px) {
     .icard-hor {
         width: 80vw;
     }
-    .Modal{
+    .Modal {
         margin: 2vw;
     }
-    
 }
 
 @media(max-width: 990px) {
-    .Modal{
+    .Modal {
         margin: 0vw;
     }
 }

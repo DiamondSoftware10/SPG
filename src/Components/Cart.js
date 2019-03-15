@@ -255,7 +255,7 @@ export default class Cart extends Component {
                 </div>
               </div>
               <button
-                id="btn-confirm"
+                
                 className="btn btn-primary"
                 onClick={this.handleConfirmInvestment}
               >

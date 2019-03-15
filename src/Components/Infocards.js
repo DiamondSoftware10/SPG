@@ -7,7 +7,7 @@ import ReactModal from "react-modal";
 import Formularios from "./Formularios";
 import ProjectPage, { ProjectInfo } from "./ProjectPage";
 
-import { Link, Route } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import * as routes from "../Constants/Routes";
 
 import "circular-std";
@@ -137,23 +137,10 @@ class Infocard extends Component {
               >
                 <img id="proj-icon" src={close} />
               </button>
-              
               <ProjectInfo
                 id={this.props.id}
                 foto={this.state.foto}
                 center={this.props.center}
-              />
-              
-              <Route
-                path="/Project"
-                render={props => (
-                  <ProjectPage
-                    {...props}
-                    id={this.props.id}
-                    foto={this.state.foto}
-                    center={this.props.center}
-                  />
-                )}
               />
             </div>
           </div>
@@ -187,14 +174,16 @@ class Infocard extends Component {
                 <div id="num">{this.props.money} </div>
               </div>
               <div id="proj-footer">
-                <button
-                  id="proj-cont"
-                  onClick={this.handleOpenModal}
-                  data-toggle="modal"
-                  data-target="#formModal"
-                >
-                  <img id="proj-cont-icon" src={arrow} />
-                </button>
+                <Link to={routes.PROJECT + "/" + this.props.id}>
+                  <button
+                    id="proj-cont"
+                    onClick={this.handleOpenModal}
+                    data-toggle="modal"
+                    data-target="#formModal"
+                  >
+                    <img id="proj-cont-icon" src={arrow} />
+                  </button>
+                </Link>
               </div>
             </div>
           </div>

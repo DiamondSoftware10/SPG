@@ -102,9 +102,33 @@
     .navbar {
         font-size: 1.5em;
     }
-    .flex-row  {
+
+    .navbar .navbar-nav {
         display: flex;
-        align-self: flex-end !important;
+        align-items: flex-start;
+        
+    }
+
+    #navbarDropdown {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .navbar .flex-row  {
+        display: flex;
+        justify-content: flex-start !important;
         width: 100%;
+        align-items: flex-start;
+    }
+     .navbar .flex-row > * {
+         width: 5%;
+         align-self: center;
+     }
+}
+
+@media(max-width: 550px) {
+    .navbar .flex-row > * {
+        width: 10%;
     }
 }
+
