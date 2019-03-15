@@ -2,19 +2,26 @@
     margin: auto;
     display: flex;
     justify-content: space-between;
-    width: 90vw;
     flex-wrap: wrap;
-    padding: 0 5vw;
+    padding: 0 6vw;
+}
+
+#explore-header {
+    display: flex;
+   justify-content: space-between;
+   align-items: flex-end;
+}
+
+#view-map {
+    padding: 2em 4em;
+}
+
+#view-map * {
+    margin: .5em;
 }
 
 #proj-nav {
     text-align: center;
-}
-
-@media(max-width: 990px) {
-    #cards-div {
-        padding: 0 1vw;
-    }
 }
 
 .ant-pagination {
@@ -28,3 +35,28 @@
     display: flex;
     justify-content: flex-end;
 }
+
+@media(max-width: 990px) {
+    #cards-div {
+        padding: 0 1vw;
+        justify-content: center;
+    }
+
+    #explore-div {
+        display: flex;
+        flex-direction: column;
+        grid-template-columns: 100%;
+    }
+
+    #view-map {
+        display: none;
+    }
+}
+
+
+
+/*
+#explore-div {
+    display: grid;
+    grid-template-columns: 90% 10%;
+}*/

@@ -281,7 +281,10 @@
 
 #project-div .ant-tabs-tabpane {
     text-align: left;
-    padding: 3em;
+}
+
+#project-div .tab-pane {
+    padding: 1em;
 }
 
 #project-div .ant-tabs-bar {
@@ -407,8 +410,25 @@
         font-weight: 700;
         font-size: 1em;
     }
+
+    #carousel-tab {
+        flex-direction: column;
+    }
+
+    #carousel-div {
+        width: 100%;
+        padding-bottom: 10%;
+    }
+
+    #tab-pane {
+        padding-bottom: 30%;
+    }
 }
 
 .º {
     display: none;
+}
+
+.gmap {
+    width: 90vw;
 }

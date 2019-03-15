@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import * as routes from "../Constants/Routes";
 import InfoCard from "./Infocards";
 import ReactDOM from "react-dom";
-import { Switch } from 'antd';
-import MapContainer from "../Components/GoogleMapsContainer";
-import { Pagination } from "antd";
+import { Switch, Pagination } from "antd";
+import ProjectsMap from "./ProjectsGoogleMap";
 
 import "./Proyectos.css";
 
@@ -28,13 +27,16 @@ export default class Proyectos extends Component {
       user: null,
       totalPro: 0,
       firstVisible: 0,
-      lastVisible: 6
+      lastVisible: 6,
+      showMap: false,
+      center: { lat: 14.799550741369735, lng: -86.51914451498249 }
     };
 
     this.getProyectos = this.getProyectos.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.changeLocation = this.changeLocation.bind(this);
     this.nextPage = this.nextPage.bind(this);
+    this.handleMapSwitch = this.handleMapSwitch.bind(this);
   }
 
   handleChange = name => event => {
@@ -48,22 +50,6 @@ export default class Proyectos extends Component {
       center: arg
     });
   }
-
-  /*async getProyectos() {
-    await fire.auth().onAuthStateChanged(user => {
-      projectRef.get().then(querySnapshot => {
-        let data = [];
-
-        querySnapshot.forEach(doc => {
-          console.log(doc.data().title);
-          if (doc.data().available !== false) {
-            data.push(doc.data());
-          }
-        });
-      
-    })
-
-  }*/
 
   async getProyectos() {
     await fire.auth().onAuthStateChanged(user => {
@@ -86,36 +72,24 @@ export default class Proyectos extends Component {
   }
 
   nextPage(page) {
-    /*var next = db.collection("projects").startAfter(this.state.lastVisible).limit(3);
-    next.get().then((querySnapshot) => {
-      let data = [];
-
-      querySnapshot.forEach((doc) => {
-
-        console.log(doc.data().title);
-        if (doc.data().available !== false) {
-          data.push(doc.data());
-        }
-
-        this.state.lastVisible = querySnapshot.docs[querySnapshot.docs.length - 1];
-        //this.setState({lastVisible: 2})
-      });
-      // var exp = document.getElementById("cards-div");
-
-      //console.log(proyectos.length);
-      for (var i = 0; i < data.length / 2; i++) {
-        console.log(data[i]);
-
-      }
-      //guardando los proyectos
-      this.setState({ projects: data })
-    });*/
     this.setState({ firstVisible: (page - 1) * 6 });
     this.setState({ lastVisible: page * 6 });
   }
 
   componentDidMount() {
     this.getProyectos();
+  }
+
+  handleMapSwitch() {
+    var showMap;
+    if (this.state.showMap) {
+      showMap = false;
+    } else {
+      showMap = true;
+    }
+    this.setState({
+      showMap: showMap
+    });
   }
 
   componentWillUnmount() {}
@@ -156,88 +130,55 @@ export default class Proyectos extends Component {
         );
       }
     });
+    const exploreGrid = {
+      display: "grid",
+      gridTemplateColumns: "60% 40%"
+    };
+
+    const exploreDiv = {
+      display: "grid",
+      gridTemplateColumns: "100%",
+      margin: "auto"
+    };
 
     return (
       <div className="info-cont">
-        <h1 className="main-title">Proyectos</h1>
+      <div id="explore-header">
+      <h1 className="main-title">Proyectos</h1>
 
-        <div id="cards-div">
-          {cards}
-          <div id="pagination-div">
-            <Pagination
-              size="small"
-              pageSize={6}
-              total={this.state.totalPro}
-              onChange={(page, pageSize) => this.nextPage(page)}
-            />
-          </div>
-        </div>
-
-        <div className="modal" id="mapModal">
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h4 className="modal-title">Ubicación del Proyecto</h4>
-                <button type="button" className="close" data-dismiss="modal">
-                  &times;
-                </button>
-              </div>
-
-              <div className="modal-body">
-                <div className="container">
-                  <div className="card" style={style}>
-                    <MapContainer
-                      center={{
-                        lat: this.state.center.lat,
-                        lng: this.state.center.lng
-                      }}
-                    />
-                  </div>
-
-                  <div className="card" style={style}>
-                    <div className="form-group col-sm">
-                      <label htmlFor="usr">Nombre del lugar:</label>
-                      <input
-                        onChange={this.handleChange("lugar")}
-                        type="text"
-                        className="form-control"
-                        id="lugar"
-                      />
-                    </div>
-                    <div className="form-group col-sm">
-                      <label htmlFor="usr">Dirección:</label>
-                      <input
-                        onChange={this.handleChange("direccion")}
-                        type="text"
-                        className="form-control"
-                        id="direccion"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="modal-footer">
-                {/*<button onClick={() => this.recenter} type="button" className="btn btn-secondary">
-                                  RECENTER
-                              </button>*/}
-
-                <button
-                  onClick={this.saveLocation}
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  OK
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  data-dismiss="modal"
-                >
-                  Cancelar
-                </button>
-              </div>
+      <span id="view-map">
+        <span>Ver mapa</span>
+        <Switch onChange={this.handleMapSwitch} />
+        </span>
+      </div>
+       
+        <div
+          id="explore-div"
+          style={this.state.showMap ? exploreGrid : exploreDiv}
+        >
+          <div className="animated" id="cards-div">
+            {cards}
+            <div id="pagination-div">
+              <Pagination
+                size="small"
+                pageSize={6}
+                total={this.state.totalPro}
+                onChange={(page, pageSize) => this.nextPage(page)}
+              />
             </div>
+          </div>
+          <div>
+            {this.state.showMap ? (
+              <div id="map-div" className="fadeIn animated ">
+              <ProjectsMap
+                zoom={7}
+                center={this.state.center}
+                initialCenter={this.state.center}
+              />
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>

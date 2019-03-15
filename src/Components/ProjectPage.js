@@ -367,7 +367,7 @@ export class ProjectInfo extends Component {
     const style = {
       /*width: '50vw',
             height: '75vh',*/
-      width: "45vw",
+      width: "100%",
       height: "40vh",
       marginLeft: "0",
       marginRight: "0"
@@ -487,19 +487,19 @@ export class ProjectInfo extends Component {
               }
               key="2"
             >
+            <div className="tab-pane">
               <h2 className="modal-header-title">Fotos</h2>
 
               <div id="carousel-tab">
                 <div id="carousel-div">
                   <Carousel>{fotosFamilias}</Carousel>
+                  <h5>Fotos de Familia</h5>
                 </div>
                 <div id="carousel-div">
                   <Carousel>{fotosCultivos}</Carousel>
+                  <h5>Fotos de Cultivos</h5>
                 </div>
               </div>
-              <div id="carousel-tab">
-                <h5>Fotos de Familia</h5>
-                <h5>Fotos de Cultivos</h5>
               </div>
             </TabPane>
             <TabPane
@@ -511,6 +511,7 @@ export class ProjectInfo extends Component {
               }
               key="3"
             >
+             <div className="tab-pane">
               <h2 className="modal-header-title">Datos Geograficos</h2>
               <h5>Información de la Zona </h5>
               <p>{this.state.infoZone}</p>
@@ -532,6 +533,7 @@ export class ProjectInfo extends Component {
               </div>
 
               <br />
+              </div>
             </TabPane>
           </Tabs>
 
