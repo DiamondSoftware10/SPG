@@ -38,6 +38,8 @@ class SearchPage extends Component {
             location: "",
             min: "",
             max: "",
+            filterCrops: [],
+        
 
             titleOption: false,
             locateOption: false,
@@ -54,6 +56,7 @@ class SearchPage extends Component {
         this.checkedVal = this.checkedVal.bind(this);
         this.minMaxValues = this.minMaxValues.bind(this);
         this.complexSearch = this.complexSearch.bind(this);
+        this.getSliderValues = this.getSliderValues.bind(this);
     }
 
     /* async componentWillMount(){
@@ -113,6 +116,18 @@ class SearchPage extends Component {
         }
         // Directly return the joined string
         return splitStr.join(' ');
+    }
+
+    getSliderValues(evt){
+        var arr = String(evt).split(",");
+        console.log("min: " + arr[0]);
+        console.log("max: " + arr[1]);
+
+        this.setState({
+            min: arr[0],
+            max: arr[1]
+
+        })
     }
 
     searchDB(query) {
@@ -178,14 +193,35 @@ class SearchPage extends Component {
     }
 
     complexSearch() {
-        var projects = db.collection("projects");
-        var query
-        if (this.state.title != "" && this.state.location != "") {
-            query = projects.where("title", "==", this.state.title).where("location", "==", this.state.location);
-        }
-        console.log("query length: " + query);
+        var query = db.collection("projects");
+        //var query;
 
-        this.searchDB(query)
+        if (this.state.title != "") {
+            query = query.where("title", "==", this.state.title);
+        }
+        if (this.state.location != "") {
+            query = query.where("locate", "==", this.state.location);
+
+        }
+        if(this.state.min != "" && this.state.max != ""){
+            query = query.where("investInitxBlock", ">=", this.state.min).where("investInitxBlock", "<=", this.state.max);
+        }
+
+        /*no funciona porque solo se puede hacer una llamada de array-contains por query
+        if (this.state.filterCrops.length > 0) {
+            this.state.filterCrops.forEach(element => {
+                query = query.where("cultures", "array-contains", element)
+            });
+        } else {
+            console.log("vacio")
+        }*/
+        
+
+        this.searchDB(query);
+
+        //console.log("query length: " + query);
+
+
     }
 
     minMaxValues(values) {
@@ -268,7 +304,18 @@ class SearchPage extends Component {
     }
 
     checkedVal(checkedValues) {
-        console.log('checked = ', checkedValues);
+        this.setState({
+            filterCrops: checkedValues
+        }, () => {
+
+            this.state.filterCrops.forEach(element => {
+                console.log("element: " + element)
+            });
+
+        })
+        /* console.log('checked = ', checkedValues);
+         
+         console.log("Array crops: " + this.state.filterCrops)*/
     }
 
     render() {
@@ -312,6 +359,8 @@ class SearchPage extends Component {
             { label: 'Manzanas', value: 'Manzanas' },
             { label: 'Banano', value: 'Banano' },
             { label: 'Aguacate', value: 'Aguacate' },
+            { label: 'Lechuga', value: 'Lechuga' },
+            { label: 'Cebolla', value: 'Cebolla' },
             { label: 'Otros', value: 'Otros' },
         ];
 
@@ -377,7 +426,7 @@ class SearchPage extends Component {
                                     <h6>Nombre de Proyecto</h6>
                                     <h6>Ubicacion</h6>
                                     <h2>Inversión inicial</h2>
-                                    <Slider max="2000" range="true" defaultValue={[100, 2000]} tooltipVisible="true" />
+                                    <Slider max="2000" range="true" defaultValue={[100, 2000]} tooltipVisible="true" onChange = {evt => this.getSliderValues(evt)}/>
                                     <h2>Cultivos</h2>
                                     <CheckboxGroup options={options} onChange={this.checkedVal} />
                                     <h2>Ubicación</h2>
@@ -387,6 +436,7 @@ class SearchPage extends Component {
                                     <button className="btn-secondary" onClick={() => this.complexSearch()}>Search</button>
                                 </div>
                             </div>
+
                         </div>
                         <div className="main-flex">
                             <div>
