@@ -1,21 +1,30 @@
+#cards-div {
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    width: 90vw;
+    flex-wrap: wrap;
+    padding: 0 5vw;
+}
 
-    
+#proj-nav {
+    text-align: center;
+}
+
+@media(max-width: 990px) {
     #cards-div {
-        margin:auto;
-        display: flex;
-        justify-content: space-between;
-        width: 90vw;
-        flex-wrap: wrap;
-        padding: 0 5vw;
+        padding: 0 1vw;
     }
-    
-    #proj-nav {
-        text-align: center;
-    }
+}
 
+.ant-pagination {
+    display: flex;
+    flex-direction: row;
+    width: 20%;
+}
 
-    @media(max-width: 990px) {
-        #cards-div {
-            padding: 0 1vw;
-        }
-    }
+#pagination-div {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}

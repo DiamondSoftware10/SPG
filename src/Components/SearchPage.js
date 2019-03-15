@@ -4,6 +4,11 @@ import fire from '../Firebase/Fire';
 //import Searchbar from './Searchbar';
 import magnifier from '../Icons/magnifier2.svg';
 import { Link } from 'react-router-dom';
+import { Slider, Switch } from 'antd';
+import { Input } from 'antd';
+import { Checkbox } from 'antd';
+
+
 
 import './Search.css'
 
@@ -14,6 +19,8 @@ const db = fire.firestore();
 const byPropKey = (propertyName, value) => () => ({
     [propertyName]: value,
 });
+
+const CheckboxGroup = Checkbox.Group;
 
 class SearchPage extends Component {
     constructor(props) {
@@ -27,6 +34,12 @@ class SearchPage extends Component {
             foto: "",
             nextSearch: "",
             placeholder: "Buscar proyectos",
+            title: "",
+            location: "",
+            min: "",
+            max: "",
+            filterCrops: [],
+
 
             titleOption: false,
             locateOption: false,
@@ -40,14 +53,18 @@ class SearchPage extends Component {
         this.searchDB = this.searchDB.bind(this);
         this.titleCase = this.titleCase.bind(this);
         this.handleOption = this.handleOption.bind(this);
+        this.checkedVal = this.checkedVal.bind(this);
+        this.minMaxValues = this.minMaxValues.bind(this);
+        this.complexSearch = this.complexSearch.bind(this);
+        this.getSliderValues = this.getSliderValues.bind(this);
     }
 
     /* async componentWillMount(){
-         await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
-             this.setState({
-                 foto:url
-             })
-         })
+        await fire.storage().ref().child(this.props.pic).getDownloadURL().then(url =>{
+            this.setState({
+                foto:url
+            })
+        })
      }*/
 
 
@@ -99,6 +116,18 @@ class SearchPage extends Component {
         }
         // Directly return the joined string
         return splitStr.join(' ');
+    }
+
+    getSliderValues(evt) {
+        var arr = String(evt).split(",");
+        console.log("min: " + arr[0]);
+        console.log("max: " + arr[1]);
+
+        this.setState({
+            min: arr[0],
+            max: arr[1]
+
+        })
     }
 
     searchDB(query) {
@@ -163,6 +192,55 @@ class SearchPage extends Component {
 
     }
 
+    complexSearch() {
+        var query = db.collection("projects");
+        //var query;
+
+        if (this.state.title != "") {
+            query = query.where("title", "==", this.titleCase(this.state.title));
+        }
+        if (this.state.location != "") {
+            query = query.where("locate", "==", this.titleCase(this.state.location));
+
+        }
+        if (this.state.min != "" && this.state.max != "") {
+            query = query.where("investInitxBlock", ">=", this.state.min).where("investInitxBlock", "<=", this.state.max);
+        }
+
+        //no funciona porque solo se puede hacer una llamada de array - contains por query
+        if (this.state.filterCrops.length > 0) {
+            let i = 0
+            do {
+                try{
+
+                    query = query.where("cultures", "array-contains", this.state.filterCrops[i])
+                } catch(error){
+                    console.log(error)
+                }
+                i++;
+                /*this.state.filterCrops.forEach(element => {
+                });*/
+            } while (query == null)
+        } else {
+            console.log("vacio")
+        }
+
+
+        this.searchDB(query);
+
+        //console.log("query length: " + query);
+
+
+    }
+
+    minMaxValues(values) {
+
+        this.setState({
+            min: values[0],
+            max: values[1],
+        })
+    }
+
 
     handleOption(value) {
         var sel;
@@ -213,9 +291,9 @@ class SearchPage extends Component {
                 cropOption: sel,
                 areaOption: false,
             })
-        } else if (value == "manzanasTotales"){
+        } else if (value == "manzanasTotales") {
             category = "por manzanas"
-            if(this.state.areaOption){ sel = false }
+            if (this.state.areaOption) { sel = false }
             else { sel = true }
             this.setState({
                 titleOption: false,
@@ -232,6 +310,21 @@ class SearchPage extends Component {
         })
 
         console.log(this.state.placeholder)
+    }
+
+    checkedVal(checkedValues) {
+        this.setState({
+            filterCrops: checkedValues
+        }, () => {
+
+            this.state.filterCrops.forEach(element => {
+                console.log("element: " + element)
+            });
+
+        })
+        /* console.log('checked = ', checkedValues);
+         
+         console.log("Array crops: " + this.state.filterCrops)*/
     }
 
     render() {
@@ -268,6 +361,28 @@ class SearchPage extends Component {
             )
         });
 
+
+        const options = [
+            { label: 'Tomate', value: 'Tomate' },
+            { label: 'Plátano', value: 'Plátano' },
+            { label: 'Manzanas', value: 'Manzanas' },
+            { label: 'Banano', value: 'Banano' },
+            { label: 'Aguacate', value: 'Aguacate' },
+            { label: 'Lechuga', value: 'Lechuga' },
+            { label: 'Cebolla', value: 'Cebolla' },
+            { label: 'Piña', value: 'Piña' },
+            { label: 'Café', value: 'Café' },
+            { label: 'Peras', value: 'Peras' },
+            { label: 'Mangos', value: 'Mangos' },
+            { label: 'Sandias', value: 'Sandias' },
+            { label: 'Licha', value: 'Licha' },
+            { label: 'Camote', value: 'Camote' },
+            { label: 'Yuca', value: 'Yuca' },
+            { label: 'Naranja', value: 'Naranja' },
+            { label: 'Ciruela', value: 'Ciruela' },
+            { label: 'Mora', value: 'Mora' },
+            { label: 'Otros', value: 'Otros' },
+        ];
 
         return (
             <div className="info-cont"
@@ -330,12 +445,18 @@ class SearchPage extends Component {
                                     <h6>Inversion Minima</h6>
                                     <h6>Nombre de Proyecto</h6>
                                     <h6>Ubicacion</h6>
-                                    {/*
-                                    <h2>Inversión minima</h2>
-                                    <input type="range" class="form-control-range" id="formControlRange"/>
-                                    */}
+                                    <h2>Inversión inicial</h2>
+                                    <Slider max="2000" range="true" defaultValue={[100, 2000]} tooltipVisible="true" onChange={evt => this.getSliderValues(evt)} />
+                                    <h2>Cultivos</h2>
+                                    <CheckboxGroup options={options} onChange={this.checkedVal} />
+                                    <h2>Ubicación</h2>
+                                    <Input placeholder="Ubicación" onChange={evt => this.setState(byPropKey("location", evt.target.value))} />
+                                    <h2>Título exacto</h2>
+                                    <Input placeholder="Título" onChange={evt => this.setState(byPropKey("title", evt.target.value))} />
+                                    <button className="btn-secondary" onClick={() => this.complexSearch()}>Search</button>
                                 </div>
                             </div>
+
                         </div>
                         <div className="main-flex">
                             <div>
