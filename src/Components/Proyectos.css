@@ -8,16 +8,29 @@
 
 #explore-header {
     display: flex;
-   justify-content: space-between;
-   align-items: flex-end;
+    justify-content: space-between;
+    align-items: flex-end;
 }
 
 #view-map {
+    display: flex;
     padding: 2em 4em;
+    color: rgb(106, 106, 106);
+    font-size: 0.9em;
+    align-items: center;
+    align-content: center;
+    font-weight: 200;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
 }
 
 #view-map * {
     margin: .5em;
+    align-self: center;
+}
+
+#view-map span {
+    padding-top: 3%;
 }
 
 #proj-nav {
@@ -42,19 +55,15 @@
         padding: 0 1vw;
         justify-content: center;
     }
-
     #explore-div {
         display: flex;
         flex-direction: column;
         grid-template-columns: 100%;
     }
-
     #view-map {
         display: none;
     }
 }
-
-
 
 /*
 #explore-div {

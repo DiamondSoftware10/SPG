@@ -1,19 +1,8 @@
 import React, { Component } from "react";
 import "./NewProject.css";
-import { createProject } from "../Constants/project";
 import fire from "../Firebase/Fire";
-
-import {
-  numeroVal,
-  cantidadPalabrasVal,
-  nombresVal,
-  rangoCaracteresVal,
-  urlImagenVal,
-  puntoDecimalVal
-} from "../Constants/validations";
 import firebase from "firebase";
 import MapContainer from "./GoogleMapsContainer";
-import close from "../Icons/close.svg";
 import defaultProjectPic from "../Images/nature.svg";
 import { Carousel } from "react-responsive-carousel";
 import "./Carousel.css";
@@ -26,6 +15,7 @@ import InputNumber from "./Objects/InputNumber";
 import { message } from "antd";
 import * as routes from "../Constants/Routes";
 
+import PicturesWall from "./Objects/PicturesWall";
 const AddProject = () => (
   <div id="project">
     <NewProject />
@@ -158,7 +148,6 @@ class NewProject extends Component {
     this.getInformation = this.getInformation.bind(this);
     this.getmanzanasTotales = this.getmanzanasTotales.bind(this);
     this.getInversion = this.getInversion.bind(this);
-
     this.getFamilyB = this.getFamilyB.bind(this);
     this.gettrabajos = this.gettrabajos.bind(this);
     this.getUbicación = this.getUbicación.bind(this);
@@ -380,7 +369,7 @@ class NewProject extends Component {
       this.state.trabajos !== "" &&
       this.state.trabajos !== undefined &&
       this.state.listImgCrops.length !== 0 &&
-      this.state.listImgFamilies.length !== 0
+      this.state.listImgFamilies.length !== 0 
     ) {
       //Agrega en la base de datos los nombres de las imagenes para cada uno//
       let nameImgRefCrops = [];
@@ -402,8 +391,7 @@ class NewProject extends Component {
           title: this.state.titulo,
           timeProdxDay: 0,
           raisedMoney: 0,
-          projectFinan:
-            this.state.manzanasTotales * this.state.inversionInicial,
+          projectFinan: this.state.inversionMinima,
           picProject: this.fotoP.current.files[0].name,
           picFam: nameImgRefFamilies,
           picCrops: nameImgRefCrops,
@@ -464,8 +452,6 @@ class NewProject extends Component {
 
   render() {
     const style = {
-      /*width: '50vw',
-            height: '75vh',*/
       width: "45vw",
       height: "40vh",
       marginLeft: "0",
@@ -473,16 +459,9 @@ class NewProject extends Component {
     };
 
     const {
-      titulo,
-      descripcion,
-      ubicacion,
-      familiasB,
-      tiposCultivo,
-      infoZona,
       fotoF,
       fotoC,
       fotoP,
-      inversion
     } = this.state;
 
     return ( 
@@ -574,6 +553,7 @@ class NewProject extends Component {
             </div>
             {/** Trabajo generado*/}
             <ItemHeading number="5" title="Fotos" subtitle="" />
+            <PicturesWall/>
             <li id="all-inputs-item">
               <label>Foto del proyecto</label>
               <br />
