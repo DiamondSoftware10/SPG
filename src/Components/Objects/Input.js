@@ -51,17 +51,16 @@ export default class Input extends Component {
           <Tooltip
             visible={this.state.showAlert}
             title={() => this.renderAlert()}
-            placement="topLeft"
-          >
-            <input
-              name="input"
-              type={this.props.type}
-              class="form-control"
-              placeholder={this.props.placeholder}
-              onBlur={e => this.validation(e.target.value)}
-              required
-            />
-          </Tooltip>
+            placement="left"
+          />
+          <input
+            name="input"
+            type={this.props.type}
+            class="form-control"
+            placeholder={this.props.placeholder}
+            onBlur={e => this.validation(e.target.value)}
+            required
+          />
         </div>
       </div>
     );

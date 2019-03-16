@@ -32,8 +32,8 @@ export default class InputNumber extends Component {
           <Tooltip
             visible={this.state.showAlert}
             title="El campo no puede estar vacio"
-            placement="topLeft"
-          >
+            placement="left"
+          />
             <input
               name="input"
               type="number"
@@ -43,7 +43,6 @@ export default class InputNumber extends Component {
               onBlur={e => this.validation(e.target.value)}
               required
             />
-          </Tooltip>
         </div>
       </div>
     );

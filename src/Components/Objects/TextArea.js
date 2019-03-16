@@ -3,17 +3,17 @@ import "./Input.css";
 import { Tooltip } from "antd";
 
 export default class TextArea extends Component {
- constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-      showAlert: false,
+      showAlert: false
     };
   }
 
   validation(value) {
     if (value === "") {
       this.setState({
-        showAlert: true,
+        showAlert: true
       });
     } else {
       this.setState({
@@ -31,15 +31,14 @@ export default class TextArea extends Component {
           <Tooltip
             visible={this.state.showAlert}
             title="El campo no puede estar vacio"
-            placement="topLeft"
-          >
+            placement="left"
+          />
           <textarea
             rows="3"
             class="form-control"
             placeholder={this.props.placeholder}
             onBlur={e => this.validation(e.target.value)}
           />
-          </Tooltip>
         </div>
       </div>
     );
