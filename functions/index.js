@@ -22,7 +22,6 @@ exports.logCreateProject = functions.firestore
         title: title,
         accion: "CREACION DE PROYECTO",
         idProyecto: snap.id
-        //autor:newValue.autor
       });
   });
 
