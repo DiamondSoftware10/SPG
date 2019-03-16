@@ -105,17 +105,35 @@
     border-radius: 5px;
     flex-direction: column;
     flex-wrap: nowrap;
-    height: 200vh;
+    height: 120vh;
     align-content: center;
 }
 
-#filter-flex > .side-flex > #sidebar > div > h6 {
-    font-weight: 300;
+#filter-flex .side-flex h6, #filter-flex .side-flex h2 {
+    color: white;
+}
+
+#filter-flex  h6 {
+    font-weight: 900;
     letter-spacing: .05em;
     font-size: .8em;
     text-transform: uppercase;
-    padding: 2em 0;
-    display: none;
+    padding-top: 2em;
+    color: white;
+}
+
+#filter-flex .btn-secondary{
+    margin: 3em 1em;
+}
+
+#filter-flex .ant-checkbox-group {
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+#filter-flex .ant-checkbox-group-item {
+    font-weight: 400;
+    color: white;
 }
 
 #formControlRange {

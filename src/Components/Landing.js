@@ -13,20 +13,20 @@ export default class Landing extends Component {
         return (
             <div id="landing">
 
-                <div class="jumbotron">
+                <div className="jumbotron">
                     <div>
                         <img id="logo-land" src={icon} width="30" height="30"></img>
-                        <div id="SPG" class="display-4">Sprouting Productive Gear</div>
+                        <div id="SPG" className="display-4">Sprouting Productive Gear</div>
                     </div>
 
 
-                    <p class="lead">Impulsa la producción agrícola de Honduras e
+                    <p className="lead">Impulsa la producción agrícola de Honduras e
                     invierte en un proyecto</p>
                     {/** 
-                    <hr class="my-4"></hr>
+                    <hr className="my-4"></hr>
                     <p>Intermediario entre inversionistas y prestatarios para impulsar la producción agrícola en Honduras, velando por el beneficio de ambas partes.</p>
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" style={{border:"none"}} href="#" role="button">Ver mas</a>
+                    <p className="lead">
+                        <a className="btn btn-primary btn-lg" style={{border:"none"}} href="#" role="button">Ver mas</a>
                     </p>
                     */}
                 </div>
@@ -37,7 +37,7 @@ export default class Landing extends Component {
                             <h1>Proyectos</h1>
                         </div>
                         <div>
-                            <p class="lead">Sprouting Productive Gear es una empresa dedicada al rubro de la agricultura especializándose en el estudio y análisis de suelos, para clasificar propiedades en un área determinada y geocodificar dicha información. </p>
+                            <p className="lead">Sprouting Productive Gear es una empresa dedicada al rubro de la agricultura especializándose en el estudio y análisis de suelos, para clasificar propiedades en un área determinada y geocodificar dicha información. </p>
                         </div>
                     </div>
                 </div>

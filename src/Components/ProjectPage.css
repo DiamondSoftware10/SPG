@@ -346,6 +346,10 @@
     padding: 5%;
 }
 
+#btn-go {
+    padding: 1em;
+}
+
 @media(max-width: 900px) {
     #modal-flex {
         display: flex;

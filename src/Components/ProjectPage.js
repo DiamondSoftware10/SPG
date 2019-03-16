@@ -664,7 +664,7 @@ export class ProjectInfo extends Component {
             </div>
             <h5>Agregado a cartera exitosamente!</h5>
             <Link to={routes.CART}>
-              <button className="btn btn-primary" id="btn-add-cart">
+              <button className="btn btn-secondary" id="btn-go">
                 Ir a cartera
               </button>
             </Link>

@@ -123,7 +123,7 @@ export default class Proyectos extends Component {
             location={doc.locate}
             lat={doc.coordinates._lat}
             long={doc.coordinates._long}
-            jobs={doc.projectFinan}
+            jobs={doc.trabajosGen}
             money={doc.investInitxBlock}
             center={{ lat: doc.coordinates._lat, lng: doc.coordinates._long }}
           />

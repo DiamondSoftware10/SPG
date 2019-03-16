@@ -83,10 +83,10 @@
 .btn-secondary {
   font-weight: 300;
   background-color: black;
-  width: 10em;
+  width: 90%;
+  margin: 1em ;
   border: none;
   border-radius: 30px;
-  box-shadow: 0px 10px 30px rgba(209, 209, 209, 0.836);
   height: 7vh;
   text-transform: uppercase;
   letter-spacing: .15em;

@@ -17,7 +17,7 @@ class Searchbar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchTerm: "terreno",
+            searchTerm: "",
             option: this.props.option,
         };
         //this.search = this.search.bind(this);

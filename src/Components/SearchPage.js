@@ -224,7 +224,9 @@ class SearchPage extends Component {
         } else {
             console.log("vacio")
         }
-
+        this.setState({
+            searchTerm: "busqueda por filtros"
+        });
 
         this.searchDB(query);
 
@@ -443,24 +445,21 @@ class SearchPage extends Component {
                                 <h2>Filtros</h2>
                                 <div>
                                     <h6>Inversion Minima</h6>
-                                    <h6>Nombre de Proyecto</h6>
-                                    <h6>Ubicacion</h6>
-                                    <h2>Inversión inicial</h2>
                                     <Slider max="2000" range="true" defaultValue={[100, 2000]} tooltipVisible="true" onChange={evt => this.getSliderValues(evt)} />
-                                    <h2>Cultivos</h2>
+                                    <h6>Cultivos</h6>
                                     <CheckboxGroup options={options} onChange={this.checkedVal} />
-                                    <h2>Ubicación</h2>
+                                    <h6>Ubicación</h6>
                                     <Input placeholder="Ubicación" onChange={evt => this.setState(byPropKey("location", evt.target.value))} />
-                                    <h2>Título exacto</h2>
+                                    <h6>Título exacto</h6>
                                     <Input placeholder="Título" onChange={evt => this.setState(byPropKey("title", evt.target.value))} />
-                                    <button className="btn-secondary" onClick={() => this.complexSearch()}>Search</button>
+                                    <button className="btn btn-secondary" onClick={() => this.complexSearch()}>Search</button>
                                 </div>
                             </div>
 
                         </div>
                         <div className="main-flex">
                             <div>
-                                <h2>Resultados para "{this.state.searchTerm}"</h2>
+                                <h2>Resultados para {this.state.searchTerm}</h2>
                             </div>
                             <div>
                                 {(cards && cards.length) ?

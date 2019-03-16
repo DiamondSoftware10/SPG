@@ -68,7 +68,7 @@ export default class MapProjects extends Component {
 
         return (
             <div className="map-container">
-                <ProjectsMap zoom={7} 
+                <ProjectsMap zoom={9} 
                 center={this.state.center} 
                 initialCenter={
                     this.state.center
