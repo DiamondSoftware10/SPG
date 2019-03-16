@@ -104,7 +104,7 @@
   border-radius: 30px;
   text-transform: uppercase;
   letter-spacing: .05em;
-  
+  color: rgb(43, 43, 43);
   padding: .8em 0px;
   width: 9vw;
   font-size: .8em;
@@ -216,6 +216,9 @@ h5 {
     width: 80vw;
     height: 10vw;
     font-size: 1.2em;
+  }
+  .btn-tertiary {
+    width: 30vw;
   }
 }
 

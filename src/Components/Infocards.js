@@ -174,7 +174,7 @@ class Infocard extends Component {
                 <div id="num">{this.props.money} </div>
               </div>
               <div id="proj-footer">
-                {/*<Link to={routes.PROJECT + "/" + this.props.id}>*/}
+                <Link to={routes.PROJECT + "/" + this.props.id}>
                   <button
                     id="proj-cont"
                     onClick={this.handleOpenModal}
@@ -183,7 +183,7 @@ class Infocard extends Component {
                   >
                     <img id="proj-cont-icon" src={arrow} />
                   </button>
-               {/* </Link>*/}
+                </Link>
               </div>
             </div>
           </div>

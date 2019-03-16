@@ -23,11 +23,19 @@ import TextArea from "./Objects/TextArea";
 import ComboBox from "./Objects/ComboBox";
 import InputNumber from "./Objects/InputNumber";
 
+import { message } from "antd";
+import * as routes from "../Constants/Routes";
+
 const AddProject = () => (
   <div id="project">
     <NewProject />
   </div>
 );
+
+message.config({
+  top: 100,
+  maxCount: 3,
+});
 
 var arregloCultivos = [
   "Café",
@@ -225,7 +233,7 @@ class NewProject extends Component {
         previewPic: URL.createObjectURL(this.fotoP.current.files[0])
       });
     } else {
-      window.alert("No se ha seleccionado ninguna imagen");
+      message.warning("No se ha seleccionado ninguna imagen");
       document.getElementById("newProject-input9").value = "";
     }
   }
@@ -250,10 +258,10 @@ class NewProject extends Component {
           };
         });
       } else {
-        window.alert("La imagen ya existe en la coleccion");
+        message.error("La imagen ya existe en la coleccion");
       }
     } else {
-      window.alert("No se ha seleccionado ninguna imagen");
+      message.error("No se ha seleccionado ninguna imagen");
     }
 
     //Resetea el valor del archivo
@@ -280,10 +288,10 @@ class NewProject extends Component {
           };
         });
       } else {
-        window.alert("La imagen ya existe en la coleccion");
+        message.error("La imagen ya existe en la coleccion");
       }
     } else {
-      window.alert("No se ha seleccionado ninguna imagen");
+      message.error("No se ha seleccionado ninguna imagen");
     }
     //Resetea el valor del archivo
     document.getElementById("newProject-input7").value = "";
@@ -394,7 +402,8 @@ class NewProject extends Component {
           title: this.state.titulo,
           timeProdxDay: 0,
           raisedMoney: 0,
-          projectFinan: this.state.manzanasTotales * this.state.inversionInicial,
+          projectFinan:
+            this.state.manzanasTotales * this.state.inversionInicial,
           picProject: this.fotoP.current.files[0].name,
           picFam: nameImgRefFamilies,
           picCrops: nameImgRefCrops,
@@ -433,9 +442,10 @@ class NewProject extends Component {
         );
       await this.uploadImageToStorage();
 
-      window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
+      message.success(`Se ha agregegado el proyecto ${this.state.titulo}`);
+      //this.props.history.push('/proyectos');
     } else {
-      window.alert(`Todos los campos deben estar llenados correctamente`);
+      message.warning(`Todos los campos deben estar llenados correctamente`);
     }
   }
 
@@ -475,7 +485,7 @@ class NewProject extends Component {
       inversion
     } = this.state;
 
-    return (
+    return ( 
       <div>
         <div className="graphic-lg" />
         <h1 className="main-title">Nuevo Proyecto</h1>

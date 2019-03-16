@@ -30,7 +30,7 @@
 #SPG {
     font-family: Montserrat;
     font-weight: 900;
-    font-size: 3.5em;
+    font-size: 9vmin;
     margin-left: 10vw;
     width: 50%;
     letter-spacing: 0.0035em;
@@ -100,21 +100,22 @@
     justify-content: center;
     align-content: space-between;
     text-align: left;
-    color: white;
+    color: white !important;
     width: 60vw;
     height: 100%;
     margin: auto;
 }
 
-.block-flex > div > .lead {
+.block-flex .lead {
     font-weight: 800;
     font-size: 3vmin;
     line-height: 8vmin;
 }
 
-.block-flex > div > h1 {
+.block-flex  h1 {
     font-size: 6vmin;
     font-weight: 900;
+    color: white;
 }
 
 .block-flex > .block-segment > h1 {
@@ -137,6 +138,11 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.block-segment * {
+    color: white !important;
+
 }
 
 .block-icon {
@@ -162,6 +168,12 @@
     font-weight: 700;
 }
 
+@media(max-width: 990px) {
+    .jumbotron .lead {
+        width: 100%;
+    }
+}
+
 @media(max-width: 500px) {
 
     .jumbotron > .lead {
@@ -174,7 +186,7 @@
     }
 
     #SPG {
-        font-size: 1.4em;
+        font-size: 6vmin;
         width: 70%; 
     }
 
@@ -189,6 +201,7 @@
 
     .block-half {
         width: 100vw;
+        height: 50vh;
     }
 
     .block-half > p {

@@ -226,3 +226,9 @@ label {
     align-items: flex-start;
     padding: 5%;
 }
+
+@media(max-width: 990px) {
+    #jumbo-reg {
+        display: none;
+    }
+}

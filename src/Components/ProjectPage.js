@@ -24,7 +24,11 @@ export class ProjectPage extends Component {
     super(props);
   }
   render() {
-    return <ProjectInfo id={this.props.match.params.id} />;
+    return (
+      <div className="page-container">
+        <ProjectInfo id={this.props.match.params.id} />
+      </div>
+    );
   }
 }
 
@@ -487,19 +491,19 @@ export class ProjectInfo extends Component {
               }
               key="2"
             >
-            <div className="tab-pane">
-              <h2 className="modal-header-title">Fotos</h2>
+              <div className="tab-pane">
+                <h2 className="modal-header-title">Fotos</h2>
 
-              <div id="carousel-tab">
-                <div id="carousel-div">
-                  <Carousel>{fotosFamilias}</Carousel>
-                  <h5>Fotos de Familia</h5>
+                <div id="carousel-tab">
+                  <div id="carousel-div">
+                    <Carousel>{fotosFamilias}</Carousel>
+                    <h5>Fotos de Familia</h5>
+                  </div>
+                  <div id="carousel-div">
+                    <Carousel>{fotosCultivos}</Carousel>
+                    <h5>Fotos de Cultivos</h5>
+                  </div>
                 </div>
-                <div id="carousel-div">
-                  <Carousel>{fotosCultivos}</Carousel>
-                  <h5>Fotos de Cultivos</h5>
-                </div>
-              </div>
               </div>
             </TabPane>
             <TabPane
@@ -511,28 +515,28 @@ export class ProjectInfo extends Component {
               }
               key="3"
             >
-             <div className="tab-pane">
-              <h2 className="modal-header-title">Datos Geograficos</h2>
-              <h5>Información de la Zona </h5>
-              <p>{this.state.infoZone}</p>
-              <br />
+              <div className="tab-pane">
+                <h2 className="modal-header-title">Datos Geograficos</h2>
+                <h5>Información de la Zona </h5>
+                <p>{this.state.infoZone}</p>
+                <br />
 
-              <h5>Ubicación</h5>
-              <div style={style} className="card" id="gmap">
-                <MapContainer
-                  zoom={12}
-                  initialCenter={{
-                    lat: this.state.latitude,
-                    lng: this.state.longitude
-                  }}
-                  center={{
-                    lat: this.state.latitude,
-                    lng: this.state.longitude
-                  }}
-                />
-              </div>
+                <h5>Ubicación</h5>
+                <div style={style} className="card" id="gmap">
+                  <MapContainer
+                    zoom={12}
+                    initialCenter={{
+                      lat: this.state.latitude,
+                      lng: this.state.longitude
+                    }}
+                    center={{
+                      lat: this.state.latitude,
+                      lng: this.state.longitude
+                    }}
+                  />
+                </div>
 
-              <br />
+                <br />
               </div>
             </TabPane>
           </Tabs>
