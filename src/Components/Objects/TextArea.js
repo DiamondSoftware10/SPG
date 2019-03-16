@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Input.css";
+import { Tooltip } from "antd";
 
 export default class TextArea extends Component {
  constructor(props) {
@@ -27,17 +28,18 @@ export default class TextArea extends Component {
       <div>
         <div class="form-group">
           <label>{this.props.label}</label>
-          {this.state.showAlert ? (
-            <div className="alert alert-danger" role="alert">
-              El campo no puede estar vacio
-            </div>
-          ) : null}
+          <Tooltip
+            visible={this.state.showAlert}
+            title="El campo no puede estar vacio"
+            placement="topLeft"
+          >
           <textarea
             rows="3"
             class="form-control"
             placeholder={this.props.placeholder}
             onBlur={e => this.validation(e.target.value)}
           />
+          </Tooltip>
         </div>
       </div>
     );

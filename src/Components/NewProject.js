@@ -1,9 +1,6 @@
 import React, { Component } from "react";
 import "./NewProject.css";
-import { createProject } from "../Constants/project";
 import fire from "../Firebase/Fire";
-import PicturesWall from "./Objects/PicturesWall"
-
 import firebase from "firebase";
 import MapContainer from "./GoogleMapsContainer";
 import defaultProjectPic from "../Images/nature.svg";
@@ -14,6 +11,7 @@ import Input from "./Objects/Input";
 import TextArea from "./Objects/TextArea";
 import ComboBox from "./Objects/ComboBox";
 import InputNumber from "./Objects/InputNumber";
+import { message , notification } from "antd";
 
 const AddProject = () => (
   <div id="project">
@@ -87,9 +85,6 @@ const INITIAL_STATE = {
   inversion: ""
 };
 
-const byPropKey = (propertyName, value) => () => ({
-  [propertyName]: value
-});
 
 class NewProject extends Component {
   constructor(props) {
@@ -272,6 +267,7 @@ class NewProject extends Component {
         window.alert("La imagen ya existe en la coleccion");
       }
     } else {
+      
       window.alert("No se ha seleccionado ninguna imagen");
     }
     //Resetea el valor del archivo
@@ -342,7 +338,8 @@ class NewProject extends Component {
     const db = fire.firestore();
     const projectRef = db.collection("projects");
     project.preventDefault();
-    if (/*
+    if (
+      
       this.state.titulo !== "" &&
       this.state.titulo !== undefined &&
       this.fotoP.current.files[0].name !== undefined &&
@@ -362,7 +359,7 @@ class NewProject extends Component {
       this.state.trabajos !== undefined &&
       this.state.listImgCrops.length !== 0 &&
       this.state.listImgFamilies.length !== 0
-    */true) {
+    ) {
       //Agrega en la base de datos los nombres de las imagenes para cada uno//
       let nameImgRefCrops = [];
       await this.state.listImgCrops.forEach(img => {
@@ -378,7 +375,8 @@ class NewProject extends Component {
         temp.getDate() + "/" + (temp.getMonth() + 1) + "/" + temp.getFullYear();
       let ref = projectRef.doc();
       ref
-        .set({/*
+        .set({
+          
           id: ref.id,
           title: this.state.titulo,
           timeProdxDay: 0,
@@ -403,32 +401,7 @@ class NewProject extends Component {
           manzanasTotales: this.state.manzanasTotales,
           manzanasRestantes: this.state.manzanasTotales,
           trabajosGen: this.state.trabajos
-          */
-         id: "ref.id",
-          title: "Proyecto",
-          timeProdxDay: 0,
-          raisedMoney: 0,
-          projectFinan: 0,
-          picProject: this.fotoP.current.files[0].name,
-          picFam: nameImgRefFamilies,
-          picCultures: nameImgRefCrops,
-          coordinates: new firebase.firestore.GeoPoint(
-            parseFloat(this.state.center.lat, 10),
-            parseFloat(this.state.center.lng, 10)
-          ),
-          investor: "",
-          investInitxBlock: 0,
-          infoZone: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          detailsProdxBlocks: "",
-          description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          creationDate: fecha,
-          available: true,
-          cultures: [],
-          locate: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          manzanasTotales: 100,
-          manzanasRestantes: 100,
-          trabajosGen: 50
-          
+         
         })
         .then(
           this.setState({
@@ -447,10 +420,16 @@ class NewProject extends Component {
           })
         );
       await this.uploadImageToStorage();
-
-      window.alert(`Se ha agregegado el proyecto ${this.state.titulo}`);
+      notification.open({
+        message: 'Proyecto creado correctamente',
+        description: `Nuevo proyecto dispobible para invertir `,
+        onClick: () => {
+          console.log('Notification Clicked!');
+        },
+      });
     } else {
-      window.alert(`Todos los campos deben estar llenados correctamente`);
+      message.error(`Todos los campos deben estar llenados correctamente` , 5);
+      
     }
   }
 
@@ -477,11 +456,7 @@ class NewProject extends Component {
       marginRight: "0"
     };
 
-    const {   
-      fotoF,
-      fotoC,
-      fotoP,
-    } = this.state;
+    const { fotoF, fotoC, fotoP } = this.state;
 
     return (
       <div>
@@ -496,14 +471,16 @@ class NewProject extends Component {
             />
 
             <div className="flexbox" id="input-flex">
-              <Input
-                label="Titulo"
-                type="text"
-                getValue={this.getTitle}
-                alert="El titulo debe empezar con una letra mayuscula"
-                regex="^[A-Z][a-zA-ZñÑíÍáÁéÉóÓúÚ\s]"
-                placeholder="e.g. Terreno San Lorenzo"
-              />
+             
+                <Input
+                  label="Titulo"
+                  type="text"
+                  getValue={this.getTitle}
+                  alert="El titulo debe empezar con una letra mayuscula"
+                  regex="^[A-Z][a-zA-ZñÑíÍáÁéÉóÓúÚ\s]"
+                  placeholder="e.g. Terreno San Lorenzo"
+                />
+             
               <TextArea
                 label="Descripción del proyecto"
                 placeholder="Breve descripcion del proyecto"
@@ -572,7 +549,6 @@ class NewProject extends Component {
             </div>
             {/** Trabajo generado*/}
             <ItemHeading number="5" title="Fotos" subtitle="" />
-            <PicturesWall/>
             <li id="all-inputs-item">
               <label>Foto del proyecto</label>
               <br />
@@ -615,7 +591,7 @@ class NewProject extends Component {
                                             <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
                                         </li>)}
                                 </ul>*/}
-                <div style={{width:"25vw"}} >
+                <div style={{ width: "25vw" }}>
                   <Carousel
                     showThumbs={false}
                     statusFormatter={(current, total) =>
@@ -655,7 +631,7 @@ class NewProject extends Component {
               >
                 Agregar foto
               </button>
-              <div style={{width:"25vw"}} >
+              <div style={{ width: "25vw" }}>
                 <Carousel
                   showThumbs={false}
                   statusFormatter={(current, total) => `${current} de ${total}`}
@@ -697,9 +673,7 @@ class NewProject extends Component {
                   type="newproject"
                   zoom={5}
                   changeLocationFromChild={this.changeLocationFromChild}
-                  initialCenter={
-                    this.state.center
-                  }
+                  initialCenter={this.state.center}
                   center={this.state.center}
                 />
               </div>

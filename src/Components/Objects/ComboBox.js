@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./ComboBox.css";
 import close from "../../Icons/close.svg";
+import { message } from "antd";
 
 export default class ComboBox extends Component {
   constructor(props) {
@@ -16,14 +17,12 @@ export default class ComboBox extends Component {
   handleAddList = index => {
     if (!this.state.list.includes(this.props.array[index])) {
       this.setState({
-        list: this.state.list.concat(this.props.array[index]),
-        showAlert: false
+        list: this.state.list.concat(this.props.array[index])
       });
       this.props.add(this.props.array[index]);
     } else {
-      this.setState({
-        showAlert: true
-      });
+      message.error("Este elemento ya existe");
+      message.error("Este elemento ya existe", 5);
     }
   };
   handleDelete = index => {
@@ -40,11 +39,6 @@ export default class ComboBox extends Component {
       <div>
         <div class="form-group">
           <label>{this.props.label}</label>
-          {this.state.showAlert ? (
-            <div className="alert alert-danger" role="alert">
-              Este elemento ya existe
-            </div>
-          ) : null}
           <div class="dropdown">
             <button
               type="button"

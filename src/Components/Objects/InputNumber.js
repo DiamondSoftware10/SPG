@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Input.css";
+import { Tooltip } from "antd";
 
 export default class InputNumber extends Component {
   constructor(props) {
@@ -7,9 +8,9 @@ export default class InputNumber extends Component {
     this.state = {
       showAlert: false
     };
-    this.validation =this.validation.bind(this);
+    this.validation = this.validation.bind(this);
   }
-  
+
   validation(value) {
     if (value === "") {
       this.setState({
@@ -28,20 +29,21 @@ export default class InputNumber extends Component {
       <div>
         <div class="form-group">
           <label>{this.props.label}</label>
-          {this.state.showAlert ? (
-            <div className="alert alert-danger" role="alert">
-              El campo no puede estar vacio
-            </div>
-          ) : null}
-          <input
-            name="input"
-            type="number"
-            class="form-control"
-            placeholder={this.props.placeholder}
-            min="1"
-            onBlur={e => this.validation(e.target.value)}
-            required
-          />
+          <Tooltip
+            visible={this.state.showAlert}
+            title="El campo no puede estar vacio"
+            placement="topLeft"
+          >
+            <input
+              name="input"
+              type="number"
+              class="form-control"
+              placeholder={this.props.placeholder}
+              min="1"
+              onBlur={e => this.validation(e.target.value)}
+              required
+            />
+          </Tooltip>
         </div>
       </div>
     );
