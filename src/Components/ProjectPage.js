@@ -460,7 +460,7 @@ export class ProjectInfo extends Component {
                         />
                       </div>
                       <h6 className="p-no-btm">
-                        {this.state.manzanasRest} manzanas restantes
+                        {this.state.manzanasRest} manzanas disponibles
                       </h6>
                     </div>
                     <div className="info-flex">

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
+
 import "./NewProject.css";
 import fire from "../Firebase/Fire";
 import firebase from "firebase";
@@ -154,6 +156,7 @@ class NewProject extends Component {
     this.getUbicación = this.getUbicación.bind(this);
     this.getImgFamilies = this.getImgFamilies.bind(this);
     this.getImgCrops = this.getImgCrops.bind(this);
+    this.getProjectPic = this.getProjectPic.bind(this);
   }
   //Nuevos metodos para recuperar los valores de los inputs
   getUbicación(value) {
@@ -217,18 +220,22 @@ class NewProject extends Component {
     this.setState({
       listImgFamilies: value
     });
+    console.log(this.state.listImgFamilies);
   }
 
   getImgCrops(value) {
     this.setState({
       listImgCrops: value
     });
+    console.log(this.state.listImgCrops);
   }
 
   getProjectPic(value) {
     this.setState({
       fotoP: value
     });
+    console.log(this.state.fotoP);
+    console.log(this.state.fotoP.name);
   }
 
   /**
@@ -244,7 +251,7 @@ class NewProject extends Component {
       });
     } else {
       message.warning("No se ha seleccionado ninguna imagen");
-      document.getElementById("newProject-input9").value = "";
+      //document.getElementById("newProject-input9").value = "";
     }
   }
   /**
@@ -275,7 +282,7 @@ class NewProject extends Component {
     }
 
     //Resetea el valor del archivo
-    document.getElementById("newProject-input8").value = "";
+    //document.getElementById("newProject-input8").value = "";
   }
   /**
    * @description Agrega la imagen al state listImgFamilies
@@ -304,7 +311,7 @@ class NewProject extends Component {
       message.error("No se ha seleccionado ninguna imagen");
     }
     //Resetea el valor del archivo
-    document.getElementById("newProject-input7").value = "";
+    //document.getElementById("newProject-input7").value = "";
   }
 
   uploadImageToStorage = () => {
@@ -313,27 +320,34 @@ class NewProject extends Component {
         .storage()
         .ref()
         .child(fileImg.name)
-        .put(fileImg);
+        .put(fileImg.originFileObj);
     });
     this.state.listImgFamilies.forEach(fileImg => {
       firebase
         .storage()
         .ref()
         .child(fileImg.name)
-        .put(fileImg);
+        .put(fileImg.originFileObj);
     });
+    /*
     firebase
       .storage()
       .ref()
       .child(this.fotoP.current.files[0].name)
       .put(this.fotoP.current.files[0]);
+*/
+    firebase
+      .storage()
+      .ref()
+      .child(this.state.fotoP.name)
+      .put(this.state.fotoP.originFileObj);
 
     this.setState({
       listImgCrops: [],
       listImgFamilies: [],
       previewPic: ""
     });
-    document.getElementById("newProject-input9").value = "";
+    //document.getElementById("newProject-input9").value = "";
   };
 
   /**
@@ -374,8 +388,10 @@ class NewProject extends Component {
     if (
       this.state.titulo !== "" &&
       this.state.titulo !== undefined &&
-      this.fotoP.current.files[0].name !== undefined &&
-      this.fotoP.current.files[0].name !== "" &&
+      /*this.fotoP.current.files[0].name !== undefined &&
+      this.fotoP.current.files[0].name !== "" &&*/
+      this.state.fotoP.name !== undefined &&
+      this.state.fotoP.name !== "" &&
       this.state.inversionInicial !== "" &&
       this.state.inversionInicial !== undefined &&
       this.state.infoZona !== "" &&
@@ -413,7 +429,7 @@ class NewProject extends Component {
           timeProdxDay: 0,
           raisedMoney: 0,
           projectFinan: this.state.inversionMinima,
-          picProject: this.fotoP.current.files[0].name,
+          picProject: this.state.fotoP.name, //this.fotoP.current.files[0].name,
           picFam: nameImgRefFamilies,
           picCrops: nameImgRefCrops,
           coordinates: new firebase.firestore.GeoPoint(
@@ -434,6 +450,7 @@ class NewProject extends Component {
           trabajosGen: this.state.trabajos
         })
         .then(
+          {/*
           this.setState({
             titulo: "",
             descripcion: "",
@@ -447,14 +464,16 @@ class NewProject extends Component {
             manzanasTotales: 0,
             trabajos: ""
             // center: { lat: 0, lng: 0 }
-          })
+          })*/}
         );
       await this.uploadImageToStorage();
 
       message.success(`Se ha agregegado el proyecto ${this.state.titulo}`);
-      //this.props.history.push('/proyectos');
+      this.props.history.push("/proyectos");
     } else {
       message.warning(`Todos los campos deben ser llenados correctamente`);
+      console.log(this.state);
+      //this.props.history.push("/proyectos");
     }
   }
 
@@ -473,7 +492,7 @@ class NewProject extends Component {
 
   render() {
     const style = {
-      width: "45vw",
+      width: "30vw",
       height: "40vh",
       marginLeft: "0",
       marginRight: "0"
@@ -553,7 +572,7 @@ class NewProject extends Component {
             <ItemHeading
               number="4"
               title="Impacto social"
-              subtitle="¿Como el proyecto impacta en la comunidad?"
+              subtitle="¿Como impacta el proyecto en la comunidad?"
             />
             {/** Numero de familias beneficiadas*/}
             <div className="flexbox" id="input-flex">
@@ -704,27 +723,32 @@ class NewProject extends Component {
                 regex="[.]*"
                 placeholder="e.g Salida al norte de San Pedro Sula"
               />
-              <div id="add-map-div" className="container">
-                <div className="card" id="gmap" style={style}>
-                  {/*<label>Coordenadas Geográficas</label> */}
+              <div className="card" id="add-gmap" /*style={style}*/>
+                {/*<label>Coordenadas Geográficas</label> */}
 
-                  <MapContainer
-                    type="newproject"
-                    zoom={5}
-                    changeLocationFromChild={this.changeLocationFromChild}
-                    initialCenter={this.state.center}
-                    center={this.state.center}
-                  />
-                </div>
+                <MapContainer
+                  type="newproject"
+                  zoom={5}
+                  changeLocationFromChild={this.changeLocationFromChild}
+                  initialCenter={this.state.center}
+                  center={this.state.center}
+                />
               </div>
             </div>
-            <button
-              id="bt-addProject"
-              className="btn btn-primary"
-              onClick={this.handleSaveProject}
-            >
-              Crear Proyecto
-            </button>
+            <ItemHeading
+              number="7"
+              title="Crea el proyecto"
+              subtitle="Al dar click al siguiente botón crearas un proyecto que estará visible en la página principal"
+            />
+            <div className="flexbox center" style={{ width: "100%" }}>
+              <button
+                id="bt-addProject"
+                className="btn btn-primary"
+                onClick={this.handleSaveProject}
+              >
+                Crear Proyecto
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -732,4 +756,4 @@ class NewProject extends Component {
   }
 }
 
-export default AddProject;
+export default withRouter(NewProject);

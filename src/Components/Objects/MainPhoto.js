@@ -5,7 +5,6 @@ function getBase64(img, callback) {
   const reader = new FileReader();
   reader.addEventListener("load", () => callback(reader.result));
   reader.readAsDataURL(img);
-  this.props.setValue(img);
 }
 
 export default class MainPhoto extends React.Component {
@@ -20,12 +19,14 @@ export default class MainPhoto extends React.Component {
     }
     if (info.file.status === "done") {
       // Get this url from response in real world.
-      getBase64(info.file.originFileObj, imageUrl =>
+
+      getBase64(info.file.originFileObj, imageUrl => {
         this.setState({
           imageUrl,
           loading: false
-        })
-      );
+        });
+      });
+      this.props.setValue(info.file);
     }
   };
 
@@ -44,6 +45,7 @@ export default class MainPhoto extends React.Component {
         className="avatar-uploader"
         showUploadList={false}
         action="//jsonplaceholder.typicode.com/posts/"
+        accept=".png,.jpg"
         //beforeUpload={beforeUpload}
         onChange={this.handleChange}
       >
