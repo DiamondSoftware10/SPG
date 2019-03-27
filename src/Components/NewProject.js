@@ -50,7 +50,6 @@ var arregloCultivos = [
   "Naranja",
   "Toronja",
   "Limón",
-  "limón",
   "Hortalizas",
   "Tomates",
   "Cebolla",
