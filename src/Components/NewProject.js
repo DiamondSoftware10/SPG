@@ -11,11 +11,12 @@ import Input from "./Objects/Input";
 import TextArea from "./Objects/TextArea";
 import ComboBox from "./Objects/ComboBox";
 import InputNumber from "./Objects/InputNumber";
+import PicturesWall from "./Objects/PicturesWall";
+import MainPhoto from "./Objects/MainPhoto";
 
-import { message } from "antd";
+import { message, Upload, Icon, Modal } from "antd";
 import * as routes from "../Constants/Routes";
 
-import PicturesWall from "./Objects/PicturesWall";
 const AddProject = () => (
   <div id="project">
     <NewProject />
@@ -24,7 +25,7 @@ const AddProject = () => (
 
 message.config({
   top: 100,
-  maxCount: 3,
+  maxCount: 3
 });
 
 var arregloCultivos = [
@@ -151,6 +152,8 @@ class NewProject extends Component {
     this.getFamilyB = this.getFamilyB.bind(this);
     this.gettrabajos = this.gettrabajos.bind(this);
     this.getUbicación = this.getUbicación.bind(this);
+    this.getImgFamilies = this.getImgFamilies.bind(this);
+    this.getImgCrops = this.getImgCrops.bind(this);
   }
   //Nuevos metodos para recuperar los valores de los inputs
   getUbicación(value) {
@@ -207,6 +210,24 @@ class NewProject extends Component {
     this.setState({
       inversionInicial: value,
       inversionMinima: this.state.manzanasTotales * value
+    });
+  }
+
+  getImgFamilies(value) {
+    this.setState({
+      listImgFamilies: value
+    });
+  }
+
+  getImgCrops(value) {
+    this.setState({
+      listImgCrops: value
+    });
+  }
+
+  getProjectPic(value) {
+    this.setState({
+      fotoP: value
     });
   }
 
@@ -369,7 +390,7 @@ class NewProject extends Component {
       this.state.trabajos !== "" &&
       this.state.trabajos !== undefined &&
       this.state.listImgCrops.length !== 0 &&
-      this.state.listImgFamilies.length !== 0 
+      this.state.listImgFamilies.length !== 0
     ) {
       //Agrega en la base de datos los nombres de las imagenes para cada uno//
       let nameImgRefCrops = [];
@@ -433,7 +454,7 @@ class NewProject extends Component {
       message.success(`Se ha agregegado el proyecto ${this.state.titulo}`);
       //this.props.history.push('/proyectos');
     } else {
-      message.warning(`Todos los campos deben estar llenados correctamente`);
+      message.warning(`Todos los campos deben ser llenados correctamente`);
     }
   }
 
@@ -458,13 +479,9 @@ class NewProject extends Component {
       marginRight: "0"
     };
 
-    const {
-      fotoF,
-      fotoC,
-      fotoP,
-    } = this.state;
+    const { fotoF, fotoC, fotoP } = this.state;
 
-    return ( 
+    return (
       <div>
         <div className="graphic-lg" />
         <h1 className="main-title">Nuevo Proyecto</h1>
@@ -527,9 +544,9 @@ class NewProject extends Component {
               />
               <div>
                 <label>Inversión minima</label>
-                <h3>{`${this.state.inversionInicial} X ${
+                <h3>{`$${this.state.inversionInicial} X ${
                   this.state.manzanasTotales
-                }\n=$${this.state.manzanasTotales *
+                }\n= $${this.state.manzanasTotales *
                   this.state.inversionInicial}`}</h3>
               </div>
             </div>
@@ -553,24 +570,38 @@ class NewProject extends Component {
             </div>
             {/** Trabajo generado*/}
             <ItemHeading number="5" title="Fotos" subtitle="" />
-            <PicturesWall/>
+            <div className="flexbox" id="input-grid">
+              <div>
+                <label>Fotos de Familias</label>
+                <PicturesWall setValue={this.getImgFamilies} />
+              </div>
+              <div>
+                <label>Fotos de Cultivos</label>
+                <PicturesWall setValue={this.getImgCrops} />
+              </div>
+              <div>
+                <label>Foto del proyecto</label>
+                <MainPhoto setValue={this.getProjectPic} />
+              </div>
+            </div>
+            {/*
+                <input
+                  id="newProject-input9"
+                  value={fotoP}
+                  ref={this.fotoP}
+                  type="file"
+                  onChange={this.addImgProject}
+                />
+                {this.state.previewPic ? (
+                  <img id="img-pro" src={this.state.previewPic} />
+                ) : (
+                  <img id="img-pro" src={defaultProjectPic} />
+                )}
+              </div>
+           
+            
             <li id="all-inputs-item">
-              <label>Foto del proyecto</label>
-              <br />
-              <input
-                id="newProject-input9"
-                value={fotoP}
-                ref={this.fotoP}
-                type="file"
-                onChange={this.addImgProject}
-              />
-              {this.state.previewPic ? (
-                <img id="img-pro" src={this.state.previewPic} />
-              ) : (
-                <img id="img-pro" src={defaultProjectPic} />
-              )}
-            </li>
-            <li id="all-inputs-item">
+           
               <label>Foto de familias</label>
               <br />
 
@@ -590,12 +621,12 @@ class NewProject extends Component {
               <div>
                 {/**Muestra las imagenes que se han agregado en una lista
                             //Permite que se borren por medio del boton*/}
-                {/*<ul>
+            {/*<ul>
                                     {this.state.listImgFamilies.map((img, index) =>
                                         <li key={index} >{img.name}
                                             <button onClick={(e) => this.handleDeleteImageFamily(index, e)}>X</button>
                                         </li>)}
-                                </ul>*/}
+                                </ul>}
                 <div style={{ width: "25vw" }}>
                   <Carousel
                     showThumbs={false}
@@ -619,7 +650,9 @@ class NewProject extends Component {
                 </div>
               </div>
             </li>
-            {/**Subir imagenes relacionadas con los cultivos */}
+          
+            </form>
+
             <li id="all-inputs-item">
               <label>Foto de cultivos</label>
               <br />
@@ -660,27 +693,29 @@ class NewProject extends Component {
                 </Carousel>
               </div>
             </li>
-
+            */}
             <ItemHeading number="6" title="Ubicación" subtitle="" />
-            <Input
-              label="Dirección exacta"
-              type="text"
-              getValue={this.getUbicación}
-              alert="Cualquier valor"
-              regex="[.]*"
-              placeholder="e.g Salida al norte de San Pedro Sula"
-            />
-            <div id="add-map-div" className="container">
-              <div className="card" id="gmap" style={style}>
-                {/*<label>Coordenadas Geográficas</label> */}
+            <div className="flexbox" id="input-flex">
+              <Input
+                label="Dirección exacta"
+                type="text"
+                getValue={this.getUbicación}
+                alert="Cualquier valor"
+                regex="[.]*"
+                placeholder="e.g Salida al norte de San Pedro Sula"
+              />
+              <div id="add-map-div" className="container">
+                <div className="card" id="gmap" style={style}>
+                  {/*<label>Coordenadas Geográficas</label> */}
 
-                <MapContainer
-                  type="newproject"
-                  zoom={5}
-                  changeLocationFromChild={this.changeLocationFromChild}
-                  initialCenter={this.state.center}
-                  center={this.state.center}
-                />
+                  <MapContainer
+                    type="newproject"
+                    zoom={5}
+                    changeLocationFromChild={this.changeLocationFromChild}
+                    initialCenter={this.state.center}
+                    center={this.state.center}
+                  />
+                </div>
               </div>
             </div>
             <button

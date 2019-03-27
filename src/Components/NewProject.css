@@ -174,8 +174,19 @@ ul>li>textarea {
   margin: auto;
   align-self: center;
   border: none;
-  width: 10em;
+  width: 20em;
   height: 10em;
+  object-fit: cover;
+  border-radius: 10px;
+  filter: saturate(120%);
+}
+
+#add-img-pro {
+  margin: auto;
+  align-self: center;
+  border: none;
+  width: 30em;
+  height: 20em;
   object-fit: cover;
   border-radius: 10px;
   filter: saturate(120%);
@@ -206,7 +217,18 @@ ul>li>textarea {
   flex-direction: row;
   flex-wrap: wrap;
   margin-left: 4em;
+  align-items: flex-start;
 }
+
+#input-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-left: 4em;
+  width: 90%;
+  text-align: left;
+  align-items: flex-start;
+}
+
 
 @media (max-width: 800px) {
   .graphic-lg {
@@ -231,6 +253,10 @@ ul>li>textarea {
 @media(max-width: 990px) {
   #superuser-div .form-group {
     width: 80vw;
+  }
+
+  #input-grid {
+    grid-template-columns: 100%;
   }
   
 }
