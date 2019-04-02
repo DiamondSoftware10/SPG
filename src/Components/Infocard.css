@@ -63,7 +63,7 @@
     align-items: center;
     justify-self: right;
     font-size: 1em;
-    font-weight: 700;
+    font-weight: 500;
     color: #686868;
 }
 
@@ -73,13 +73,13 @@
 }
 
 .icard-hor #proj-name {
-    font-weight: 700;
+    font-weight: 800;
     font-size: 1.4em;
 }
 
 .icard-hor #proj-gen {
     font-size: .9em;
-    font-weight: 700;
+    font-weight: 600;
     /* font-family: "Text Me One";*/
     color: rgb(66, 66, 66);
     display: flex;

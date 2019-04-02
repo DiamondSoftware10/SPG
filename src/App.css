@@ -151,17 +151,17 @@ h2 {
   text-transform: initial;
   font-weight: 700;
   font-size: 2em;
-  word-spacing: -0.4em;
+  /*word-spacing: -0.4em;*/
 }
 
 
 h1 {
   font-size: 3.5em;
   margin-top: 10px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: initial;
   text-align: left;
-  word-spacing: -0.4em;
+  /*word-spacing: -0.4em;*/
   
 }
 
