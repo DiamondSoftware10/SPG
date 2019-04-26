@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Tooltip, Input as InputAnt } from "antd";
 import "./Input.css";
 
 export default class Input extends Component {
@@ -51,21 +52,34 @@ export default class Input extends Component {
   }
 
   render() {
+    const tooltipStyle = {
+      width: "100%"
+    };
     return (
       <div>
-        <div class="form-group">
-          <label>{this.props.label}</label>
-          {this.state.showAlert ? this.renderAlert() : null}
+        <div className="form-group">
+          <div>
+            <label>{this.props.label}</label>
+            {/* {this.state.showAlert ? this.renderAlert() : null}*/}
 
-          <input
-            name="input"
-            type={this.props.type}
-            class="form-control"
-            placeholder={this.props.placeholder}
-            onBlur={e => this.validation(e.target.value)}
-            required
-          />
-
+            <Tooltip
+              visible={this.state.showAlert}
+              title="El campo no puede estar vacio"
+              //overlayStyle={tooltipStyle}
+              overlayClassName="input-tooltip"
+              placement="topRight"
+            >
+              <InputAnt
+                size="large"
+                name="input"
+                type={this.props.type}
+                className="form-control"
+                placeholder={this.props.placeholder}
+                onBlur={e => this.validation(e.target.value)}
+                required
+              />
+            </Tooltip>
+          </div>
         </div>
       </div>
     );

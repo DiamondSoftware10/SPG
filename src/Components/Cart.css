@@ -44,7 +44,7 @@
 }
 
 #cart-name {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 1.4em;
 }
 
@@ -54,7 +54,7 @@
 }
 
 #cart-inv {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 1.6em;
     text-align: right;
 }
@@ -84,7 +84,7 @@
 }
 
 #item-totalNum {
-    font-weight: 900;
+    font-weight: 700;
     font-size: 2.3em;
     padding: 1em;
 }

@@ -1,9 +1,9 @@
 .form-group {
     text-align: left;
-    padding-right: 4em; 
+    padding-right: 4em;
 }
 
-.form-group > * {
+.form-group>* {
     width: 30vw;
     padding-right: 2em;
 }
@@ -13,8 +13,35 @@ textarea {
     resize: none
 }
 
+.input-tooltip {
+    z-index: 1000;
+}
+
+.input-tooltip .ant-tooltip-inner {
+    width: 100%;
+    background-color: rgb(252, 77, 80);
+}
+
+.input-tooltip .ant-tooltip-arrow {
+    border-top-color: rgb(252, 77, 80);
+}
+
+.input-num-tooltip {
+    z-index: 1000;
+}
+
+.input-num-tooltip .ant-tooltip-inner {
+    width: 100%;
+    background-color: rgb(252, 77, 80);
+}
+
+.input-num-tooltip .ant-tooltip-arrow {
+    border-right-color: rgb(252, 77, 80);
+}
+
+
 @media(max-width: 800px) {
-    .form-group > * {
+    .form-group>* {
         width: 15em;
     }
 }

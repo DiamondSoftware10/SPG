@@ -9,6 +9,7 @@ import ProjectPage, { ProjectInfo } from "./ProjectPage";
 
 import { Link, withRouter } from "react-router-dom";
 import * as routes from "../Constants/Routes";
+import { Icon } from "antd";
 
 import "circular-std";
 import workers from "../Icons/workers.svg";
@@ -160,7 +161,8 @@ class Infocard extends Component {
               <div id="proj-type">Terreno</div>
               <div id="proj-name">{this.props.title}</div>
               <div id="proj-location">
-                <img id="proj-icon" src={loc} />
+                {/*<img id="proj-icon" src={loc} />*/}
+                <Icon type="environment" />
                 {this.props.location}
                 {/*<div onClick={() => this.props.changeLocation(this.props.center)} data-toggle="modal" data-target="#mapModal" data-backdrop="false">
                                     {this.props.location}

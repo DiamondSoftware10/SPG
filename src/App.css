@@ -46,7 +46,7 @@
 
 
 .btn-primary {
-  font-weight: 300;
+  font-weight: 400;
   background-color: black;
   width: 30vw;
   border: none;
@@ -63,7 +63,7 @@
 }
 
 .btn-sec {
-  font-weight: 300;
+  font-weight: 400;
   background-color: white;
   border-color: rgb(43, 43, 43);
   border-radius: 30px;
@@ -81,7 +81,7 @@
   border-color: transparent;
 }
 .btn-secondary {
-  font-weight: 300;
+  font-weight: 400;
   background-color: black;
   width: 90%;
   margin: 1em ;
@@ -98,7 +98,7 @@
 }
 
 .btn-tertiary {
-  font-weight: 300;
+  font-weight: 400;
   background-color: white;
   border-color: rgb(43, 43, 43);
   border-radius: 30px;
@@ -151,17 +151,17 @@ h2 {
   text-transform: initial;
   font-weight: 700;
   font-size: 2em;
-  word-spacing: -0.4em;
+  /*word-spacing: -0.4em;*/
 }
 
 
 h1 {
   font-size: 3.5em;
   margin-top: 10px;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: initial;
   text-align: left;
-  word-spacing: -0.4em;
+  /*word-spacing: -0.4em;*/
   
 }
 
@@ -228,6 +228,10 @@ h5 {
   border-color: red;
   color: red;
   
+}
+
+.anticon {
+  vertical-align: 0;
 }
 
 
