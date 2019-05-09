@@ -148,7 +148,7 @@
 
 #flex-four>* {
   margin: 1em 2em;
-  height: 10em;
+  height: 12em;
   transition: transform .25s;
 }
 
@@ -288,7 +288,7 @@
   justify-content: flex-start;
   margin-left: 1em;
   font-size: .8em;
-  font-weight: 200;
+  /*font-weight: 200;*/
   text-transform: uppercase;
   letter-spacing: 0.1em;
   transition: transform .2s;

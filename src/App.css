@@ -139,7 +139,8 @@
 }
 
 .flex-content > * {
-    margin: 1%;
+    /*margin: 1%;*/
+    padding: 1%;
 }
 
 .info-cont {
