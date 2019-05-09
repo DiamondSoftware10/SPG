@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import * as routes from "../Constants/Routes";
 import "./Navbar.css";
 import magnifier from "../Icons/magnifier.svg";
@@ -50,23 +50,23 @@ const NavNonAuth = () => (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <Searchbar option={"title"} />
         <ul className="navbar-nav mr-auto ">
-          <Link to={routes.LANDING}>
-            <li className="nav-item active">
-              <span className="nav-link">
-                Inicio <span className="sr-only">(current)</span>
-              </span>
-            </li>
-          </Link>
-          <Link to={routes.PROYECTOS}>
-            <li className="nav-item">
+          <li className="nav-item">
+            <NavLink exact activeClassName="active" to={routes.LANDING}>
+              <span className="nav-link">Inicio</span>
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink activeClassName="active" to={routes.PROYECTOS}>
               <span className="nav-link">Explorar</span>
-            </li>
-          </Link>
-          <Link to={routes.PROJECTSMAP}>
-            <li className="nav-item">
-              <span className="nav-link">Acerca de</span>
-            </li>
-          </Link>
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink activeClassName="active" to={routes.PROJECTSMAP}>
+              <span className="nav-link">Acerca</span>
+            </NavLink>
+          </li>
         </ul>
 
         <ul className="navbar-nav flex-row justify-content-md-center justify-content-start flex-nowr ">
@@ -105,24 +105,23 @@ const NavAdmin = () => (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <Searchbar option={"title"} />
         <ul className="navbar-nav mr-auto">
-          <Link to={routes.LANDING}>
-            <li className="nav-item">
-              <span className="nav-link">
-                Inicio <span className="sr-only">(current)</span>
-              </span>
-            </li>
-          </Link>
+          <li className="nav-item">
+            <NavLink exact activeClassName="active" to={routes.LANDING}>
+              <span className="nav-link">Inicio</span>
+            </NavLink>
+          </li>
 
-          <Link to={routes.PROYECTOS}>
-            <li className="nav-item">
+          <li className="nav-item">
+            <NavLink activeClassName="active" to={routes.PROYECTOS}>
               <span className="nav-link">Explorar</span>
-            </li>
-          </Link>
-          <Link to={routes.PROJECTSMAP}>
-            <li className="nav-item">
+            </NavLink>
+          </li>
+
+          <li className="nav-item">
+            <NavLink activeClassName="active" to={routes.PROJECTSMAP}>
               <span className="nav-link">Acerca</span>
-            </li>
-          </Link>
+            </NavLink>
+          </li>
 
           <li className="nav-item dropdown">
             <span
@@ -226,25 +225,24 @@ const NavUser = () => (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <Searchbar option={"title"} />
         <ul className="navbar-nav mr-auto ">
-          <Link to={routes.LANDING}>
-            <li className="nav-item active">
-              <span className="nav-link">
-                Inicio <span className="sr-only">(current)</span>
-              </span>
-            </li>
-          </Link>
+          <li className="nav-item">
+            <NavLink exact activeClassName="active" to={routes.LANDING}>
+              <span className="nav-link">Inicio</span>
+            </NavLink>
+          </li>
 
-          <Link to={routes.PROYECTOS}>
-            <li className="nav-item">
+          <li className="nav-item">
+            <NavLink activeClassName="active" to={routes.PROYECTOS}>
               <span className="nav-link">Explorar</span>
-            </li>
-          </Link>
+            </NavLink>
+          </li>
 
-          <Link to={routes.PROJECTSMAP}>
-            <li className="nav-item">
-              <span className="nav-link">Acerca de</span>
-            </li>
-          </Link>
+          <li className="nav-item">
+            <NavLink activeClassName="active" to={routes.PROJECTSMAP}>
+              <span className="nav-link">Acerca</span>
+            </NavLink>
+          </li>
+
           {/*
                             <li className="nav-item">
                                 <span className="nav-link disabled" >Disabled</span>
@@ -327,25 +325,23 @@ const NavSuper = () => (
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <Searchbar />
         <ul className="navbar-nav mr-auto ">
-          <Link to={routes.LANDING}>
-            <li className="nav-item active">
-              <span className="nav-link">
-                Inicio <span className="sr-only">(current)</span>
-              </span>
-            </li>
-          </Link>
+          <li className="nav-item">
+            <NavLink exact activeClassName="active" to={routes.LANDING}>
+              <span className="nav-link">Inicio</span>
+            </NavLink>
+          </li>
 
-          <Link to={routes.PROYECTOS}>
-            <li className="nav-item">
+          <li className="nav-item">
+            <NavLink activeClassName="active" to={routes.PROYECTOS}>
               <span className="nav-link">Explorar</span>
-            </li>
-          </Link>
+            </NavLink>
+          </li>
 
-          <Link to={routes.PROJECTSMAP}>
-            <li className="nav-item">
+          <li className="nav-item">
+            <NavLink activeClassName="active" to={routes.PROJECTSMAP}>
               <span className="nav-link">Acerca</span>
-            </li>
-          </Link>
+            </NavLink>
+          </li>
 
           <li className="nav-item dropdown">
             <span
@@ -360,11 +356,11 @@ const NavSuper = () => (
               Gestor
             </span>
             <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-              <Link to={routes.NEWPROJECT}>
+              <NavLink activeClassName="active" to={routes.NEWPROJECT}>
                 <span className="dropdown-item" href="#">
                   Nuevo Proyecto
                 </span>
-              </Link>
+              </NavLink>
               <Link to={routes.CREATEUSERADMIN}>
                 <span className="dropdown-item" href="#">
                   Crear Gestor de Proyectos
